@@ -242,6 +242,38 @@ START_TEST (pixbuf_flip_v_identity)
 }
 END_TEST
 
+START_TEST (pixbuf_scale)
+{
+  MBPixbufImage *img, *orig, *exp;
+  orig = mb_pixbuf_img_new_from_file (pb, "oh.png");
+  fail_unless (orig != NULL, NULL);
+  exp = mb_pixbuf_img_new_from_file (pb, "oh-scaled.png");
+  fail_unless (orig != NULL, NULL);
+  img = mb_pixbuf_img_scale (pb, orig, 32, 32);
+  fail_unless (!compare_with_image (img, orig), NULL);
+  fail_unless (compare_with_image (img, exp), NULL);
+  mb_pixbuf_img_free (pb, img);
+  mb_pixbuf_img_free (pb, orig);
+  mb_pixbuf_img_free (pb, exp);
+}
+END_TEST
+
+/**
+ * Test that the scale_(up|down) functions correctly return NULL if you try and
+ * scale an image the wrong way.
+ */
+START_TEST (pixbuf_scale_failures)
+{
+  MBPixbufImage *img, *orig;
+  orig = mb_pixbuf_img_new_from_file (pb, "oh.png");
+  img = mb_pixbuf_img_scale_down (pb, orig, 32, 32);
+  fail_unless (img == NULL, NULL);
+  img = mb_pixbuf_img_scale_up (pb, orig, 8, 8);
+  fail_unless (img == NULL, NULL);
+  mb_pixbuf_img_free (pb, orig);
+}
+END_TEST
+
 Suite *pixbuf_suite(void)
 {
   Suite *s = suite_create("MbPixbuf");
@@ -258,6 +290,8 @@ Suite *pixbuf_suite(void)
   tcase_add_test(tc_core, pixbuf_rotate_270_identity);
   tcase_add_test(tc_core, pixbuf_flip_h_identity);
   tcase_add_test(tc_core, pixbuf_flip_v_identity);
+  tcase_add_test(tc_core, pixbuf_scale);
+  tcase_add_test(tc_core, pixbuf_scale_failures);
   return s;
 }
 

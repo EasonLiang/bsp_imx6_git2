@@ -1,3 +1,9 @@
+2004-12-17  Ross Burton  <ross@openedhand.com>
+
+	* test/pixbuf.c:
+	* test/oh-scaled.png:
+	Test simple scaling.
+
 2004-12-13  mallum,,,  <mallum@openedhand.com>
 
 	* Makefile.am:
