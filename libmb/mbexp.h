@@ -316,7 +316,7 @@ mb_font_new (Display *dpy,
 	     char    *family);
 
 /**
- * Refs a created MBColor object.
+ * Refs a created MBFont object.
  *
  * @param font MBFont object to unref
  */
@@ -449,7 +449,7 @@ mb_font_set_color (MBFont *font, MBColor *col);
  * Gets the fonts point size.
  *
  * @param font The font to query
- * @returns The font point size
+ * @returns The fonts color 
  */
 MBColor *
 mb_font_get_color (MBFont *font);
