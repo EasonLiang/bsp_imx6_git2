@@ -1,3 +1,13 @@
+2004-12-13  mallum,,,  <mallum@openedhand.com>
+
+	* Makefile.am:
+	* configure.ac:
+	* tests/Makefile.am:
+	Only build tests if 'check' present.
+
+	* libmb/mbtray.c: (handle_configure), (_init_docking):
+	Add some more debugging statements + commenting	
+
 2004-12-10  Ross Burton  <ross@openedhand.com>
 
 	* configure.ac:

@@ -1,4 +1,8 @@
-SUBDIRS=libmb doc tests
+SUBDIRS=libmb doc
+
+if HAVE_CHECK
+   SUBDIRS += tests
+endif
 
 EXTRA_DIST = libmb.pc.in
 

@@ -10,15 +10,6 @@ AC_CONFIG_AUX_DIR(.)
 AC_GNU_SOURCE
 AC_PROG_CC
 AC_PROG_LIBTOOL
-AM_PATH_CHECK()
-
-#
-# TODO
-#  - Finish xsettings bits
-#  - Fix doxygen - add to Makefiles
-#  - Figure out ipkg construct ( wrap autoipkg with script )
-#
-
 
 SUPPORTS_PNG=0
 SUPPORTS_JPEG=0
@@ -72,6 +63,7 @@ AC_ARG_ENABLE(gcov,
 AC_ARG_ENABLE(gprof,
   [  --enable-gprof          enable gprof profiler ( testing only ) build],
      enable_gprof=$enableval, enable_gprof=no )
+
 
 
 if test x$enable_pango = xyes; then
@@ -299,6 +291,11 @@ else
    fi
 fi
 
+dnl ------ 'check' for unit tests -------------------------------------------
+
+have_check=no
+AM_PATH_CHECK(,have_check=yes, have_check=no)
+AM_CONDITIONAL(HAVE_CHECK, test x$have_check = xyes)
 
 dnl ------ Substitute in found libs, clags to Makefiles etc -----------------
 
@@ -365,6 +362,7 @@ echo "
         Building with Debug:                ${enable_debug}
         Building with gcov:                 ${enable_gcov}
         Building with gprof:                ${enable_gprof}
+	Building unit tests:                ${have_check}
 
         Building with Xft:                  ${enable_xft}
         Building with Pango:                ${enable_pango}

@@ -654,14 +654,20 @@ handle_configure(MBTrayApp       *mb,
 {
   static int had_configure;
 
+  TRAYDBG("%s() got configure\n", __func__);
+
   if (event->window != mb->win) return;
 
   if (mb->is_hidden) return;
+
+
 
   mb->have_cached_bg = False;
 
   mb->x = event->x;
   mb->y = event->y;
+
+  TRAYDBG("%s() x is now %i\n", __func__, mb->x);
 
   mb->offset = (mb->tray_is_vertical ? mb->y : mb->x);
 
@@ -670,6 +676,8 @@ handle_configure(MBTrayApp       *mb,
 
       mb->w = event->width;
       mb->h = event->height;
+
+      TRAYDBG("%s() recondigured to %ix%i \n", __func__, mb->w, mb->h);
 
       if (mb->drawable != None) XFreePixmap(mb->dpy, mb->drawable);
       
@@ -1067,8 +1075,12 @@ _init_docking (MBTrayApp *mb )
 
   if (XGetWindowAttributes(mb->dpy, mb->win_tray, &win_tray_attr))
     {
+       /* Note 4 is default total mb panel margin, but it doesn't really
+	* make any difference. Sizing is less magic nowadays with
+	* Everything working via configures.
+       */
       if (mb->tray_is_vertical)
-	mb->h = mb->w = win_tray_attr.width - 4  ;
+	mb->h = mb->w = win_tray_attr.width - 4;
       else
 	mb->w = mb->h = win_tray_attr.height - 4;
 
@@ -1094,8 +1106,10 @@ _init_docking (MBTrayApp *mb )
       mb->h = mb->w = 32;
     }
 
+  TRAYDBG("%s() init size %i x %i\n", 
+	  __func__, mb->w, mb->h);
+
   if (mb->resize_cb) mb->resize_cb(mb, mb->w, mb->h); 
-  
 
   mb->win = XCreateSimpleWindow(mb->dpy, mb->win_root, 
 				mb->tray_is_vertical ? 0 : mb->offset, 
