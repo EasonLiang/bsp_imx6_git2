@@ -1,3 +1,8 @@
+2005-03-30  mallum,,,  <mallum@openedhand.com>
+
+	* libmb/mbpixbuf.c: (_load_xpm_file):
+	Fix potential overflow in xmp loader. via Andreas Gunnarsson.
+
 2005-03-29  mallum,,,  <mallum@openedhand.com>
 
 	* libmb/mbdotdesktop.c: (_parse_desktop_entry):

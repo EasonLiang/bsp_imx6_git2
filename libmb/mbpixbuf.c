@@ -331,7 +331,7 @@ _load_xpm_file( MBPixbuf *pb, const char *filename, int *w, int *h, int *has_alp
   int pc, c = ' ', i = 0, j = 0, k = 0, ncolors = 0, cpp = 0, 
     comment = 0, transp = 0, quote = 0, context = 0,  len, done = 0;
 
-  char *line, s[256], tok[128], col[256];
+  char *line, s[257], tok[128], col[256];
 
   XColor xcol;
   int lsz = 256;
