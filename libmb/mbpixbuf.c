@@ -1400,7 +1400,71 @@ void
 mb_pixbuf_img_composite(MBPixbuf *pb, MBPixbufImage *dest,
 			MBPixbufImage *src, int dx, int dy)
 {
-  return mb_pixbuf_img_copy_composite(pb, dest, src, 0, 0, src->width, src->height, dx, dy);
+  /* XXX depreictaed, should really now use copy_composite */
+  int x, y, r, g, b, a;
+  unsigned char *sp, *dp;
+  int dbc = 0; 
+
+  if (src->has_alpha == False)
+    return mb_pixbuf_img_copy(pb, dest, src, 0, 0, 
+			      src->width, src->height, dx, dy);
+  sp = src->rgba;
+  dp = dest->rgba;
+
+  dbc = (pb->internal_bytespp + dest->has_alpha);
+
+  dp += ((dest->width*dbc)*dy) + (dx*dbc);
+
+  if (pb->internal_bytespp == 2)
+    {
+      for(y=0; y<src->height; y++)
+	{
+	  for(x=0; x<src->width; x++)
+	    {
+	      unsigned char dr,dg,db;
+
+	      /* TODO, This needs optimising */
+
+	      internal_16bpp_pixel_to_rgb(sp,r,g,b);
+	      internal_16bpp_pixel_next(sp);
+	      a = *sp++;
+		
+	      internal_16bpp_pixel_to_rgb(dp,dr,dg,db);
+	      alpha_composite(dr, r, a, dr);
+	      alpha_composite(dg, g, a, dg);
+	      alpha_composite(db, b, a, db);
+	      internal_rgb_to_16bpp_pixel(dr,dg,db,dp)
+	      internal_16bpp_pixel_next(dp);
+
+	      dp += dest->has_alpha;
+	    }
+	  dp += (dest->width-src->width)*dbc;
+	}
+
+
+    }
+  else
+    {
+      for(y=0; y<src->height; y++)
+	{
+	  for(x=0; x<src->width; x++)
+	    {
+	      r = *sp++;
+	      g = *sp++;
+	      b = *sp++;
+	      a = *sp++;
+	      
+	      alpha_composite(*dp, r, a, *dp);
+	      dp++;
+	      alpha_composite(*dp, g, a, *dp);
+	      dp++;
+	      alpha_composite(*dp, b, a, *dp);
+	      dp++;
+	      dp += dest->has_alpha;
+	    }
+	  dp += (dest->width-src->width)*dbc;
+	}
+    }
 }
 
 void

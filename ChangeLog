@@ -1,5 +1,10 @@
 2005-01-07  Ross Burton  <ross@burtonini.com>
 
+	* libmb/mbpixbuf.c:
+	Revert the _composite change, there are semantic differences.
+
+2005-01-07  Ross Burton  <ross@burtonini.com>
+
 	* libmb/mbexp.c:
 	Fix a compile error.
 
