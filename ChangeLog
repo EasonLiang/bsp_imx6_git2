@@ -1,5 +1,19 @@
 2005-01-07  Ross Burton  <ross@burtonini.com>
 
+	* tests/Makefile.am:
+	Put all CFLAGS definitions in here.
+
+	* tests/dot-desktop.c:
+	Remove suite_free call, recent check's do that for us.
+
+	* tests/pixbuf.c:
+	Add more tests, and run twice for 16bpp and 32bpp.
+
+	* tests/gcov.sh:
+	Script to run the tests and prepare a gcov coverage report.
+
+2005-01-07  Ross Burton  <ross@burtonini.com>
+
 	* libmb/mbpixbuf.c:
 	Use _img_copy_composite() in _img_composite() instead of doing the
 	same code twice.
