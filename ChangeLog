@@ -1,5 +1,12 @@
 2004-02-04  Matthew Allum, mallum@handhelds.org
 
+	* configure.ac:
+	* libmb/mbmenu.c: (mb_menu_handle_xevent), (new_menu):
+        Made sure XRefreshKeyboardMapping() gets called when it should.
+	Fixed issue of key scrolling vars getting inited right. 
+
+2004-02-04  Matthew Allum, mallum@handhelds.org
+
 	* libmb/mbmenu.h:
 	Removed bogus xpm.h include.
 

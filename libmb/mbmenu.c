@@ -782,6 +782,14 @@ mb_menu_handle_xevent(MBMenu *mb, XEvent *an_event)
   static Bool button_pressed = False;
   static Bool had_cancel_press = False;
 
+
+  /* First handle any keyremaps - ie cursor keys changing on rotation */
+  if (an_event->type == MappingNotify)
+    {
+      XRefreshKeyboardMapping((XMappingEvent *)an_event);
+      return;
+    }
+
 #ifdef USE_XSETTINGS
   if (mb->xsettings_client != NULL)
     xsettings_client_process_event(mb->xsettings_client, an_event);
@@ -798,9 +806,6 @@ mb_menu_handle_xevent(MBMenu *mb, XEvent *an_event)
 
   switch (an_event->type)
     {
-    case MappingNotify:
-      XRefreshKeyboardMapping((XMappingEvent *)an_event);
-      break;
     case KeyPress:
       MENUDBG("%s() Keyevent recieved\n", __func__ );
       switch (key = XKeycodeToKeysym (mb->dpy, an_event->xkey.keycode, 0))
@@ -1072,6 +1077,7 @@ new_menu(MBMenu *mb, char *title, int depth)
    menu->depth = depth;
    menu->too_big = False;
    menu->too_big_start_item = NULL;
+   menu->too_big_end_item = NULL;
 
    menu->title = (char *)malloc(sizeof(char)*(strlen(title)+1));
    strcpy(menu->title, title);

@@ -77,7 +77,8 @@ if test $have_libx11pc = yes; then
       SUPPORTS_XFT=1
       AC_DEFINE(USE_XFT, [1], [Use Xft])	
    fi
-   PKG_CHECK_MODULES(XLIBS, x11 xext $xft_pkg)
+# XXX : xau is missing from x11.pc - workaround is too add here 
+   PKG_CHECK_MODULES(XLIBS, x11 xext  $xft_pkg)
 else
 
 AC_PATH_XTRA
