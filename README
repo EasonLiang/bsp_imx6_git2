@@ -1,0 +1,5 @@
+Settings-daemon
+===============
+
+Setting daemon is a hack of gnome-settings-deamon to provide a small 
+gconf -> xsettings bridge.

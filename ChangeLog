@@ -1,4 +1,9 @@
 2005-02-04  mallum,,,  <mallum@openedhand.com>
 
+	* README:
+	Add some content
+
+2005-02-04  mallum,,,  <mallum@openedhand.com>
+
 	* Makefile.am:
 	Fix. Add required autofoo README etc ..
