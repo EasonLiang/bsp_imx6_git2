@@ -1,3 +1,9 @@
+2004-12-01  mallum  <mallum@handhelds.org>
+
+	* configure.ac:
+	* libmb/Makefile.am:
+	Bump up version to 1.5
+
 2004-11-30  Ross Burton  <ross@burtonini.com>
 
 	* libmb/mbdotdesktop.h:
