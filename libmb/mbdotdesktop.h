@@ -75,10 +75,17 @@ mb_dotdesktop_get(MBDotDesktop *dd, char *key);
   *
   * @param dd #MBDotDesktop instance
   * @returns filename of #MBDotDesktop, NULL on fail
- */
+  */
 char *
 mb_dotdesktop_get_filename(MBDotDesktop *dd);
 
+/**
+ * Get the Exec key from a #MBDotDesktop instance, with the %-escapes expanded.
+ * Unlike mb_dotdesktop_get(), this string needs to be free()d.
+ *
+ * @param dd #MBDotDesktop instance
+ * @returns file name, NULL on fail
+ */
 char *
 mb_dotdesktop_get_exec (MBDotDesktop *dd);
 
@@ -130,12 +137,6 @@ void mb_dot_desktop_folders_free(MBDotDesktopFolders* folders);
  * Gets a count of .directory entrys ( folders ) in an #MBDotDesktopFolder .
  */
 #define mb_dot_desktop_folders_get_cnt(f)        (f)->n_entries
-
-/**
- * @def mb_dot_desktop_folders_get_entry
- * Gets a specified #MBDotDesktopFolder via an index. 
- */
-#define mb_dot_desktop_folders_get_entry(f, n)   (f)->entries[(n)]
 
 /**
  * @def mb_dot_desktop_folders_enumerate

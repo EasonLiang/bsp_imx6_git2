@@ -1,3 +1,9 @@
+2004-12-22  Ross Burton  <ross@openedhand.com>
+
+	* libmb/mbdotdesktop.h:
+	Document _get_exec and remove mb_dot_desktop_folders_get_entry, as
+	it's totally broken.
+
 2004-12-21  Ross Burton  <ross@burtonini.com>
 
 	* tests/pixbuf.c:
