@@ -23,9 +23,9 @@
 
 /* Exec a command like the shell would. - func by p.blundell*/
 int 
-mb_exec (char *cmd)
+mb_exec (const char *cmd)
 {
-  char *p = cmd;
+  const char *p = cmd;
   char *buf = alloca (strlen (cmd) + 1), *bufp = buf;
   char *argv[MAX_ARGS + 1];
   int nargs = 0;
@@ -102,7 +102,7 @@ mb_exec (char *cmd)
 #define RETURN_NONE_IF_NULL(p) if ((p) == '\0') return None; 
 
 Window 
-mb_single_instance_get_window(Display *dpy, char *bin_name)
+mb_single_instance_get_window(Display *dpy, const char *bin_name)
 {
   /* XXX Should really set this on init rather than every time */
   Atom atom_exec_map = XInternAtom(dpy, "_MB_CLIENT_EXEC_MAP", False);
@@ -167,7 +167,7 @@ mb_single_instance_get_window(Display *dpy, char *bin_name)
 }
 
 Bool
-mb_single_instance_is_starting(Display *dpy, char *bin_name)
+mb_single_instance_is_starting(Display *dpy, const char *bin_name)
 {
   Atom atom_exec_map = XInternAtom(dpy, "_MB_CLIENT_STARTUP_LIST", False);
 
@@ -231,7 +231,7 @@ file_exists(char *filename)
 
 
 char *
-mb_util_get_theme_full_path(char *theme_name)
+mb_util_get_theme_full_path(const char *theme_name)
 {
   char *theme_path = NULL;
   if (theme_name != NULL) { 
@@ -359,178 +359,4 @@ mb_util_animate_startup(Display *dpy,
   XFreeGC(dpy, gc);
 }
 
-#ifdef USE_XFT        
-#if 0
 
-enum { 
-  MB_TEXT_RENDER_ALIGN_CENTER = 1<<0,
-  MB_TEXT_RENDER_ALIGN_LEFT   = 1<<1,
-  MB_TEXT_RENDER_WHOLE_WORDS  = 1<<2,
-  MB_TEXT_RENDER_SHADOW       = 1<<3,
-
-};
-
-/* XXX Return point in text we've rendered to ? */
-void 
-mb_util_paint_text_xft (Display             *dpy,
-			const unsigned char *text_data,
-			XftDraw             *dest,
-			XftFont             *font,
-			XftCol              *col,
-			int                  x,
-			int                  y,
-			int                  w,
-			int                  h,
-			int                  flags,
-			int                  align)
-{
-
-  
-  int align_offset   = 0;
-  int text_width = 0;
-  int avail_width    = w-x;
-  unsigned char *text = NULL;
-
-  text = strdup(text_data); 	/* XXX check for NULL */
-
-  XGlyphInfo extents;
-  XftTextExtentsUtf8(dpy, font, text, strlen(text), &extents);
-
-  text_width = extents.width;
-
-  if (name_txt_width > avail_width) /* Text is too wide */
-    {
-      char *p = name;
-      char *q = p;
-      char *backtrack = NULL;
-      int   v_offset  = 0;
-      int   cur_width = 0;
-      int   i = 0; 		/* Current line, max 2 lines */
-
-      while (*p != '\0' && i < 2)
-	{                       /* Parse text till we hit a space */
-	  if (isspace(*p) || *(p+1) == '\0')
-	    {
-	      Bool is_end = False;
-
-	      if (*(p+1) == '\0') /* Are we at the end of the text ? */
-		{
-		  is_end = True;
-		}
-	      else *p = '\0';
-
-	      XftTextExtentsUtf8(dpy, font, (unsigned char *)q, 
-				 strlen(q), &extents);
-	      
-	      cur_width += extents.width;
-	      
-	      if (cur_width > avail_width || is_end)
-		{
-		  if (backtrack != NULL)
-		    {
-		      *backtrack = '\0';
-		      p = backtrack + 1;
-		      XftTextExtentsUtf8(dpy, font, (unsigned char *)q,
-					 strlen(q), &extents);
-		      cur_width = 0;
-		    }
-		  else if ( cur_width > avail_width )
-		    {
-		      /* We cant backtrack to previous word, so we just clip
-			 the text.
-		      */
-		      int num_chars = strlen(q);
-
-		      XftTextExtentsUtf8(dpy, font, (unsigned char *)q,
-					 num_chars, &extents);
-		      
-		      while (extents.width > avail_width)
-			{
-			  num_chars--;
-			  XftTextExtentsUtf8(dpy, font, (unsigned char *)q,
-					     num_chars, &extents);
-			}
-		      if (num_chars > 2)
-			{
-			  *(q + num_chars - 2) = '.';
-			  *(q + num_chars - 1) = '.';
-			}
-
-		      *(q + num_chars)     = '\0';
-		    }
-		}
-	      else
-		{
-		  /* Cant render anything yet. Just store the backtrack 
-		     position and carry on
-		  */
-		  *p = ' ';
-		  backtrack = p;
-		  p++;
-		  continue;
-		}
-	      
-	      /* Now do the actual rendering */
-	      
-	      if (align == ALIGN_CENTER) 	/* Center */
-		align_offset = (( avail_width - extents.width)/2);
-	      else
-		align_offset = 0;
-	      
-	      if (mb->use_text_outline)
-		XftDrawStringUtf8(dest, 
-				  &col, 
-				  font,
-				  x + align_offset + 1, 
-				  y + v_offset + 1 + font->ascent,
-				  (unsigned char *)q, 
-				  strlen(q)
-				  );
-	      
-	      XftDrawStringUtf8(dest, 
-				&col, 
-				font,
-				x + align_offset, 
-				y + v_offset + font->ascent,
-				(unsigned char *)q, 
-				strlen(q)
-				);
-	      v_offset += font->ascent + font->descent;
-	      q = p;
-	      backtrack = NULL;
-	      i++;
-	    }
-	  p++;
-	}
-    }
-  else 
-    {
-      if (align == ALIGN_CENTER) 	/* Center */
-	align_offset = (( avail_width - extents.width)/2);
-      else
-	align_offset = 0;
-
-      if (mb->use_text_outline)
-	XftDrawStringUtf8(dest, 
-			  &col, 
-			  font,
-			  x + align_offset + 1, 
-			  y + font->ascent + 1,
-			  (unsigned char *)text, 
-			  strlen(text)
-			  );
-      
-      XftDrawStringUtf8(dest, 
-			&col, 
-			mb->font,
-			x + align_offset, 
-			y + font->ascent,
-			(unsigned char *)text, 
-			strlen(text)
-			);
-    }
-
-  free(name);
-}
-#endif
-#endif

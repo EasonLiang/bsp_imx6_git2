@@ -73,7 +73,7 @@ typedef enum {
   MBMENU_SET_BG_COL,
   MBMENU_SET_FG_COL,
   MBMENU_SET_HL_COL,
-  MBMENU_SET_BD_COL,
+  MBMENU_SET_BD_COL
 } MBMenuColorElement;
 
 /**
@@ -83,13 +83,13 @@ typedef enum {
  */ 
 typedef enum {
   MBMENU_NO_SORT    =     (1<<1),
-  MBMENU_PREPEND    =     (1<<2),
+  MBMENU_PREPEND    =     (1<<2)
 } MBMenuItemAddFlags;
 
 enum {
   MBMENU_ITEM_APP,
   MBMENU_ITEM_FOLDER,
-  MBMENU_ITEM_SEPERATOR,
+  MBMENU_ITEM_SEPERATOR
 };
 
 /* for mb_menu_new */

@@ -126,7 +126,7 @@ typedef struct MBFont
 typedef enum {
 
   MB_ENCODING_LATIN,
-  MB_ENCODING_UTF8,
+  MB_ENCODING_UTF8
 
 } MBEncoding;
 
@@ -174,7 +174,7 @@ typedef enum {
   MB_FONT_RENDER_ALIGN_CENTER    = (1<<2),
   MB_FONT_RENDER_ALIGN_RIGHT     = (1<<3),
   MB_FONT_RENDER_EFFECT_SHADOW   = (1<<4),
-  MB_FONT_RENDER_VALIGN_MIDDLE    = (1<<5),
+  MB_FONT_RENDER_VALIGN_MIDDLE    = (1<<5)
 
 } MBFontRenderOpts;
 

@@ -50,7 +50,7 @@
  * @param cmd command string. 
  * @returns exec() result
  */
-int mb_exec (char *cmd);
+int mb_exec (const char *cmd);
 
 /** 
  * Get window ID of app with specified binary name 
@@ -59,7 +59,7 @@ int mb_exec (char *cmd);
  * @param bin_name name of executable ( argv[0] )
  * @returns X11 window ID or None if not found. 
 */
-Window mb_single_instance_get_window(Display *dpy, char *bin_name);
+Window mb_single_instance_get_window(Display *dpy, const char *bin_name);
 
 /** 
  * Test to see if an app is in 'startup' phase 
@@ -68,7 +68,7 @@ Window mb_single_instance_get_window(Display *dpy, char *bin_name);
  * @param bin_name name of executable ( argv[0] ) 
  * @returns True / False
 */
-Bool mb_single_instance_is_starting(Display *dpy, char *bin_name);
+Bool mb_single_instance_is_starting(Display *dpy, const char *bin_name);
 
 /** 
  * Raise/Activate an existing window 
@@ -93,7 +93,7 @@ Pixmap mb_util_get_root_pixmap(Display *dpy);
  * @param theme_name Theme name. 
  * @returns full pull to theme directory or NULL
  */
-char *mb_util_get_theme_full_path(char *theme_name);
+char *mb_util_get_theme_full_path(const char *theme_name);
 
 /** XXX To document XXX */
 void

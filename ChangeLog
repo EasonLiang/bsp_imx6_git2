@@ -1,3 +1,14 @@
+2004-02-10  Matthew Allum,,,  <mallum@handhelds.org>
+
+	* libmb/mbexp.h:
+	* libmb/mbmenu.h:
+	* libmb/mbpixbuf.h:
+	* libmb/mbutil.c: (mb_exec), (mb_single_instance_get_window),
+	(mb_single_instance_is_starting), (mb_util_get_theme_full_path):
+	* libmb/mbutil.h:
+	removed trailing ','s from enums. Added const * to mbutil funcs
+	fixes bugs #66, #67
+
 2004-02-06  Matthew Allum,,,  <mallum@openedhand.com>
 
 	* libmb/mbexp.h:
