@@ -1,6 +1,6 @@
 AC_PREREQ(2.53)
-AC_INIT([libmatchbox], 1.1, [mallum@handhelds.org])
-AC_CONFIG_SRCDIR([libmb/mbtray.c])
+AC_INIT([libmatchbox], 1.2, [mallum@handhelds.org])
+AC_CONFIG_SRCDIR([libmb/mb tray.c])
 
 AM_INIT_AUTOMAKE()
 AM_CONFIG_HEADER([config.h])
