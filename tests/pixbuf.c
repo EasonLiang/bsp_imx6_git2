@@ -3,7 +3,9 @@
 #endif
 
 #include <check.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <libmb/mbconfig.h>
 #include <libmb/mb.h>
 
 /**
@@ -38,8 +40,6 @@ static void dump_image(MBPixbufImage *img)
 static void 
 setup(void) 
 { 
-
-
   dpy = XOpenDisplay(getenv("DISPLAY"));
   fail_unless (dpy != NULL, "setup(): could not connect to X server");
   pb = mb_pixbuf_new(dpy, DefaultScreen(dpy));
@@ -57,7 +57,6 @@ setup(void)
 static void 
 teardown(void)
 {
-  /* TODO: Destroy MBPixbuf when it is available */
   mb_pixbuf_destroy(pb);
   XCloseDisplay(dpy);
 }
@@ -110,7 +109,6 @@ compare_with_image (MBPixbufImage *a,
     { 
       if (a->rgba[i] != b->rgba[i]) 
 	{
-	  printf("checking %i vs %i\n", a->rgba[i], b->rgba[i]);
 	  return 0;
 	}
     }
@@ -126,9 +124,9 @@ START_TEST (pixbuf_rgb_new_fill)
   fail_unless (img != NULL, NULL);
   /* Image should be solid black, with non-transparent pixels */
   fail_unless (compare_with_pixel (img, 0, 0, 0, 255), NULL);
-  mb_pixbuf_img_fill (pb, img, 10, 20, 30, 40);
+  mb_pixbuf_img_fill (pb, img, 8, 24, 56, 40);
   /* We asked for an RGB image, so the alpha should have been ignored */
-  fail_unless (compare_with_pixel (img, 10, 20, 30, 255), NULL);
+  fail_unless (compare_with_pixel (img, 8, 24, 56, 255), NULL);
   mb_pixbuf_img_free (pb, img);
 }
 END_TEST
@@ -140,9 +138,9 @@ START_TEST (pixbuf_rgba_new_fill)
   fail_unless (img != NULL, NULL);
   /* Image should be 100% transparent and black */
   fail_unless (compare_with_pixel (img, 0, 0, 0, 0), NULL);
-  mb_pixbuf_img_fill (pb, img, 10, 20, 30, 40);
+  mb_pixbuf_img_fill (pb, img, 8, 24, 56, 120);
   /* We asked for an RGBA image, so the alpha should have been respected this time */
-  fail_unless (compare_with_pixel (img, 10, 20, 30, 40), NULL);
+  fail_unless (compare_with_pixel (img, 8, 24, 56, 120), NULL);
   mb_pixbuf_img_free (pb, img);
 }
 END_TEST
@@ -164,6 +162,7 @@ END_TEST
 
 START_TEST (pixbuf_load_jpeg)
 {
+#ifdef MB_HAVE_JPEG
   MBPixbufImage *img;
   img = mb_pixbuf_img_new_from_file (pb, "oh.jpg");
   fail_unless (img != NULL, NULL);
@@ -171,6 +170,9 @@ START_TEST (pixbuf_load_jpeg)
   fail_unless (mb_pixbuf_img_get_height (img) == 16, NULL);
   // fail_unless (compare_with_array (img, OHImg->rgba), NULL);
   mb_pixbuf_img_free (pb, img);
+#else
+  fprintf(stderr, "\nSkipping JPEG tests as JPEG support is not enabled\n");
+#endif
 }
 END_TEST
 

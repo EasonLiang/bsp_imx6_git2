@@ -1,3 +1,9 @@
+2004-12-21  Ross Burton  <ross@burtonini.com>
+
+	* tests/pixbuf.c:
+	Change some numbers to be 16-bpp safe, and don't run the JPEG
+	loader test unless JPEG was enabled.
+
 2004-12-21  mallum  <mallum@openedhand.com>
 
 	* libmb/mbpixbuf.c: (mb_pixbuf_new):
