@@ -1,0 +1,4 @@
+2004-02-03  Matthew Allum, mallum@handhelds.org
+
+	* libmb.pc.in:
+	Fixed botched xsettings cflags entry

@@ -7,4 +7,4 @@ Name: libmb
 Description: Utility Library used by Matchbox utilities.
 Version: @VERSION@
 Libs: -L${libdir} -lmb @XLIBS_LIBS@ @PANGO_LIBS@ @JPEG_LIBS@ @PNG_LIBS@ @XSET_LIBS@
-Cflags: -I${includedir} @XLIBS_CFLAGS@ @PANGO_CFLAGS@ @PNG_CFLAGS@ @XSET_FLAGS@
+Cflags: -I${includedir} @XLIBS_CFLAGS@ @PANGO_CFLAGS@ @PNG_CFLAGS@ @XSET_CFLAGS@
