@@ -1,3 +1,8 @@
+2004-02-25  Matthew Allum,,,  <mallum@openedhand.com>
+
+	* libmb/mbexp.c: (_clip_some_text), (mb_font_render_simple):
+	Harden font clipping
+
 2004-02-13  Matthew Allum,,,  <mallum@openedhand.com>
 
 	* libmb/mbtray.c: (mb_tray_app_set_session),

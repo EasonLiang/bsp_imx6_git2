@@ -834,6 +834,9 @@ _clip_some_text (MBFont         *font,
 {
   int len = strlen(txt);
 
+  /* we cant clip single char string */
+  if (len < 2) return 0;
+
   /* XXX RTL case for pango */
 
   if (opts & MB_FONT_RENDER_OPTS_CLIP_TRAIL)
@@ -856,9 +859,17 @@ _clip_some_text (MBFont         *font,
 
 	  str[len]   = '.'; str[len+1] = '.'; 
 	  str[len+2] = '.'; str[len+3] = '\0'; 
+
+	  /*
+	  printf("%s() len %i str is now %s : %i vs %i\n", __func__, len, str, 
+		 mb_font_get_txt_width(font, str, len+3, encoding),
+		 max_width);
+	  */
       }
       while (mb_font_get_txt_width(font, str, len+3, encoding) > max_width 
-	     && len >= 0);
+	     && len >= 3);
+
+      if (len < 3) len = 0;
 
       free(str);
       return len;
@@ -1020,6 +1031,8 @@ mb_font_render_simple (MBFont          *font,
        */
 
       len = _clip_some_text (font, width, str, encoding, opts);
+
+      if (!len) { free(str); return 0; }
       
       if ((opts & MB_FONT_RENDER_OPTS_CLIP_TRAIL) && len > 3)
 	  want_dots = True;
