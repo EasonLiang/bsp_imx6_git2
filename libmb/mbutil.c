@@ -18,6 +18,7 @@
  */
 
 #include "mbutil.h"
+#include <alloca.h>
 
 #define MAX_ARGS 255
 
