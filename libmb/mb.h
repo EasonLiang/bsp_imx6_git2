@@ -20,9 +20,6 @@
 #ifndef _MB_H_
 #define _MB_H_
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
 
 /* mbconfig.h is auto generated */
 #include "mbconfig.h"

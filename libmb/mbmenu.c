@@ -64,7 +64,6 @@ static void remove_xmenus(MBMenu *mb,MBMenuMenu *active[]);
 static void menu_set_theme_from_root_prop(MBMenu *mb);
 
 #ifdef USE_XSETTINGS
-
 /*
  Gtk/FontName
 */
