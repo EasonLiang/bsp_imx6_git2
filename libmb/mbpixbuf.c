@@ -41,28 +41,37 @@
     (composite) = (ush)((temp + (temp >> 8)) >> 8);             } \
 }
 
-
-#define internal_16bpp_pixel_next(p) \
-      (p) += 2
+#ifdef WORDS_BIGENDIAN
+#define  SHORT_FROM_2BYTES(p) ( *(p+1) | (*(p) << 8) )
+#define  2BYTES_FROM_SHORT(p,s)                       \
+     *((p)+1)   = (unsigned char) s;                  \
+     *(p)       = (unsigned char) ((s >> 8) & 0xff);    
+#else
+#define  SHORT_FROM_2BYTES(p) ( *(p) | (*((p)+1) << 8) )
+#define  BYTES_FROM_SHORT(p,s)                       \
+     *(p)   = (unsigned char) s;                      \
+     *((p)+1) = (unsigned char) ((s >> 8) & 0xff);    
+#endif
 
 #define internal_16bpp_pixel_to_rgb(p,r,g,b)           \
       {                                                \
-         unsigned short s = ( *(p) | (*((p)+1) << 8)); \
+         unsigned short s = SHORT_FROM_2BYTES(p);      \
          (r) = (( s & 0xf800) >> 8);                   \
          (g) = (( s & 0x07e0) >> 3);                   \
          (b) = (( s & 0x001f) << 3);                   \
       }
 
 
-#define internal_rgb_to_16bpp_pixel(r,g,b,p)         \
+#define internal_rgb_to_16bpp_pixel(r,g,b,p)          \
      {                                                \
       unsigned short s = (  (((b) >> 3) & 0x001f) |   \
                             (((g) << 3) & 0x07e0) |   \
                             (((r) << 8) & 0xf800) );  \
-     *(p)   = (unsigned char) s;                      \
-     *((p)+1) = (unsigned char) ((s >> 8) & 0xff);    \
+      BYTES_FROM_SHORT(p,s)                           \
      }
 
+#define internal_16bpp_pixel_next(p) \
+      (p) += 2
 
 #define IN_REGION(x,y,w,h) ( (x) > -1 && (x) < (w) && (y) > -1 && (y) <(h) ) 
 

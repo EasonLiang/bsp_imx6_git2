@@ -1,3 +1,9 @@
+2005-01-07  mallum,,,  <mallum@openedhand.com>
+
+	* configure.ac:
+	* libmb/mbpixbuf.c:
+	Endianess handling for 16bpp internal.
+
 2005-01-07  Ross Burton  <ross@burtonini.com>
 
 	* tests/Makefile.am:

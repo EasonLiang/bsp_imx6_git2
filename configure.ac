@@ -349,6 +349,8 @@ AC_FUNC_STAT
 AC_FUNC_STRCOLL
 AC_CHECK_FUNCS([memset select setlocale strcasecmp strchr strdup strncasecmp strstr])
 
+AC_C_BIGENDIAN
+
 AC_OUTPUT([
 Makefile
 libmb.pc
