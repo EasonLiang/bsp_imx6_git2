@@ -1,5 +1,13 @@
 2004-12-22  Ross Burton  <ross@openedhand.com>
 
+	* tests/menu/*:
+	Add test .directory files
+
+	* tests/dot-desktop.c:
+	Add a test to exercise the .directory parser.
+
+2004-12-22  Ross Burton  <ross@openedhand.com>
+
 	* libmb/mbdotdesktop.h:
 	Document _get_exec and remove mb_dot_desktop_folders_get_entry, as
 	it's totally broken.

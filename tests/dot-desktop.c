@@ -91,16 +91,43 @@ START_TEST(dotdesktop_invalid)
 }
 END_TEST
 
+START_TEST(dotdesktop_menu_parse)
+{
+  MBDotDesktopFolders *folders = NULL;
+  MBDotDesktopFolderEntry *entry;
+  folders = mb_dot_desktop_folders_new("menu");
+  fail_unless(folders != NULL, NULL);
+  fail_unless(mb_dot_desktop_folders_get_cnt(folders) == 4, NULL);
+  entry = folders->entries;
+  fail_unless(strcmp(entry->name, "Utilities") == 0, NULL);
+  entry = entry->next_entry;
+  fail_unless(strcmp(entry->name, "Games") == 0, NULL);
+  entry = entry->next_entry;
+  fail_unless(strcmp(entry->name, "Settings") == 0, NULL);
+  entry = entry->next_entry;
+  fail_unless(strcmp(entry->name, "Other") == 0, NULL);
+  entry = entry->next_entry;
+  fail_unless(entry == NULL, NULL);
+  mb_dot_desktop_folders_free(folders);
+}
+END_TEST
+
+
 Suite *dotdesktop_suite(void)
 {
   Suite *s = suite_create("DotDesktop");
-  TCase *tc_core = tcase_create("Core");
-  suite_add_tcase (s, tc_core);
-  tcase_add_test(tc_core, dotdesktop_valid);
-  tcase_add_test(tc_core, dotdesktop_l10n_present);
-  tcase_add_test(tc_core, dotdesktop_l10n_absent);
-  tcase_add_test(tc_core, dotdesktop_utf8_valid);
-  tcase_add_test(tc_core, dotdesktop_invalid);
+  TCase *tc_desktop = tcase_create("DesktopParser");
+  suite_add_tcase (s, tc_desktop);
+  tcase_add_test(tc_desktop, dotdesktop_valid);
+  tcase_add_test(tc_desktop, dotdesktop_l10n_present);
+  tcase_add_test(tc_desktop, dotdesktop_l10n_absent);
+  tcase_add_test(tc_desktop, dotdesktop_utf8_valid);
+  tcase_add_test(tc_desktop, dotdesktop_invalid);
+
+  TCase *tc_menu = tcase_create("MenuParser");
+  suite_add_tcase (s, tc_menu);
+  tcase_add_test(tc_menu, dotdesktop_menu_parse);
+
   return s;
 }
 
