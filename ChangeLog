@@ -1,3 +1,9 @@
+2004-02-05  Matthew Allum, <mallum@openedhand.com>
+
+	* configure.ac:
+	* doc/Makefile.am:
+	Type fixes
+
 2004-02-04  Matthew Allum, mallum@handhelds.org
 
 	* configure.ac:

@@ -1,10 +1,10 @@
-EXTRA_DIST = Doxygen.in
+EXTRA_DIST = Doxyfile.in
 
 all: stamp-doxygen
 
 stamp-doxygen:
 if HAVE_DOXYGEN
-	doxygen 
+	doxygen Doxyfile
 	touch stamp-doxygen
 endif
 
