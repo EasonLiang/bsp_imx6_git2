@@ -464,6 +464,7 @@ mb_dot_desktop_folders_free(MBDotDesktopFolders* folders)
       if (cur->match) free(cur->match);
       if (cur->icon) free(cur->icon);
       free(cur);
+      cur = next;
     }
   free(folders);
 }

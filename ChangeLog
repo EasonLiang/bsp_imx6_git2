@@ -1,3 +1,8 @@
+2005-01-10  Ross Burton  <ross@burtonini.com>
+
+	* libmb/mbdotdesktop.c:
+	Fix an infinite loop in mb_dotdesktop_folders_free.
+
 2005-01-07  Ross Burton  <ross@burtonini.com>
 
 	* libmb/mbpixbuf.c:
