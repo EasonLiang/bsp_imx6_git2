@@ -1754,7 +1754,7 @@ mb_pixbuf_img_transform (MBPixbuf          *pb,
 {
   MBPixbufImage *img_trans;
   int            new_width = 0, new_height = 0, new_x = 0, new_y = 0, idx;
-  int            bytes_per_line, x, y, cos_value = 0, sin_value = 0;
+  int            bytes_per_line, x, y;
   int            byte_offset = 0, new_byte_offset = 0;
 
   switch (transform)
@@ -1773,25 +1773,6 @@ mb_pixbuf_img_transform (MBPixbuf          *pb,
       break;
     }
 
-  switch (transform)
-    {
-    case MBPIXBUF_TRANS_ROTATE_90:
-      cos_value = 0;
-      sin_value = 1;
-      break;
-    case MBPIXBUF_TRANS_ROTATE_270:
-      cos_value = 0;
-      sin_value = -1;
-      break;
-    case MBPIXBUF_TRANS_ROTATE_180:
-      cos_value = -1;
-      sin_value = 0;
-      break;
-    case MBPIXBUF_TRANS_FLIP_VERT:
-    case MBPIXBUF_TRANS_FLIP_HORIZ:
-      break;
-    }
-
   if (img->has_alpha)
     {
       img_trans = mb_pixbuf_img_rgba_new(pb, new_width, new_height);
@@ -1804,22 +1785,27 @@ mb_pixbuf_img_transform (MBPixbuf          *pb,
       bytes_per_line = (img->width * 3);
       idx = 3;
     }
-
+  
   for( y = 0; y < img->height; y++ ) 
     {
       for( x = 0; x < img->width; x++ ) 
 	{
+
+
 	  /* XXX This could all be heavily optimised */
 	  switch (transform)
 	    {
+	    case MBPIXBUF_TRANS_ROTATE_180:
+	      new_x = new_width  - 1 - x;
+	      new_y = new_height - 1 - y;
+	      break;
+	    case MBPIXBUF_TRANS_ROTATE_270:
+	      new_x = y;
+	      new_y = img->width - x - 1;
+	      break;
 	    case MBPIXBUF_TRANS_ROTATE_90:
 	      new_x = img->height - y - 1;
 	      new_y = x;
-	      break;
-	    case MBPIXBUF_TRANS_ROTATE_270:
-	    case MBPIXBUF_TRANS_ROTATE_180:
-	      new_x = (x * cos_value - y * sin_value) - 1;  
-	      new_y = (x * sin_value + y * cos_value) + 1;  
 	      break;
 	    case MBPIXBUF_TRANS_FLIP_VERT:
 	      new_x = x; new_y = img->height - y - 1;
