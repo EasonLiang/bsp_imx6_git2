@@ -1,3 +1,10 @@
+2004-05-05  Matthew Allum,,,  <mallum@handhelds.org>
+
+	* libmb/mbexp.c: (mb_font_set_from_string):
+	Make mb_font_set_from_string() try and load the requested font
+	so it can feed a NULL back to the caller on failiure.
+	Avoids 'mystery' exit when no fonts installed.
+
 2004-04-13  Matthew Allum,,,  <mallum@handhelds.org>
 
 	* configure.ac:

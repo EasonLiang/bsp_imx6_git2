@@ -337,7 +337,7 @@ _mb_font_load(MBFont *font)
 			    XFT_SLANT, XftTypeInteger , slant,
 			    0);
 
-  if (font->font !=NULL ) result = 2;
+  if (font->font != NULL ) result = 2;
 
 #else
 
@@ -555,6 +555,13 @@ mb_font_set_from_string(MBFont *font, char *spec)
 
  end:
   free(orig);
+
+  /* Check we can actually load the font ok */
+  if (_mb_font_load(font) == 0)
+    {
+      mb_font_unref(font);
+      return NULL;
+    }
 
   return font;
 }
