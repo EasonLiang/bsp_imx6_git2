@@ -1,3 +1,8 @@
+2004-11-26  mallum  <mallum@handhelds.org>
+
+	* COPYING:
+	Add LGPL Version so auto* does not generate incorrect GPL one. 
+
 2004-11-17  Ross Burton  <ross@burtonini.com>
 
 	* libmb/mbexp.c:
