@@ -1,3 +1,14 @@
+2004-05-28  Matthew Allum,,,  <mallum@handhelds.org>
+
+	* configure.ac:
+	bump up version
+	* libmb/mbexp.c: (mb_drawable_new):
+	* libmb/mbpixbuf.c: (mb_pixbuf_get_pixel), (mb_pixbuf_new),
+	(mb_pixbuf_new_extended), (mb_pixbuf_img_render_to_drawable),
+	(mb_pixbuf_img_render_to_drawable_with_gc):
+	* libmb/mbpixbuf.h:
+	Add new call for handling ARGB32 Visuals better
+
 2004-05-05  Matthew Allum,,,  <mallum@handhelds.org>
 
 	* libmb/mbexp.c: (mb_font_set_from_string):

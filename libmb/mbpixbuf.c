@@ -20,12 +20,13 @@
 
 #include "mbpixbuf.h"
 
-#define BYTE_ORD_24_RGB 0
-#define BYTE_ORD_24_RBG 1
-#define BYTE_ORD_24_BRG 2
-#define BYTE_ORD_24_BGR 3
-#define BYTE_ORD_24_GRB 4
-#define BYTE_ORD_24_GBR 5
+#define BYTE_ORD_24_RGB  0
+#define BYTE_ORD_24_RBG  1
+#define BYTE_ORD_24_BRG  2
+#define BYTE_ORD_24_BGR  3
+#define BYTE_ORD_24_GRB  4
+#define BYTE_ORD_24_GBR  5
+#define BYTE_ORD_32_ARGB 6
 
 #define alpha_composite(composite, fg, alpha, bg) {               \
     ush temp;                                                     \
@@ -670,7 +671,7 @@ _paletteAlloc(MBPixbuf *pb)
 }
 
 static unsigned long
-mb_pixbuf_get_pixel(MBPixbuf *pb, int r, int g, int b)
+mb_pixbuf_get_pixel(MBPixbuf *pb, int r, int g, int b, int a)
 {
   if (pb->depth > 8)
     {
@@ -696,6 +697,8 @@ mb_pixbuf_get_pixel(MBPixbuf *pb, int r, int g, int b)
 	      return ((g & 0xff) << 16) | ((r & 0xff) << 8) | (b & 0xff);
 	    case BYTE_ORD_24_GBR:
 	      return ((g & 0xff) << 16) | ((b & 0xff) << 8) | (r & 0xff);
+	    case BYTE_ORD_32_ARGB:
+	      return  (a << 24) | (r << 16) | (g << 8) | b;
 	    default:
 	      return 0;
 	    }
@@ -753,6 +756,18 @@ mb_pixbuf_get_pixel(MBPixbuf *pb, int r, int g, int b)
 MBPixbuf *
 mb_pixbuf_new(Display *dpy, int scr)
 {
+  return mb_pixbuf_new_extended(dpy, 
+				scr, 
+				DefaultVisual(dpy, scr),
+				DefaultDepth(dpy, scr));
+}
+
+MBPixbuf *
+mb_pixbuf_new_extended(Display *dpy, 
+		       int      scr, 
+		       Visual  *vis,
+		       int      depth)
+{
   XGCValues gcv;
   unsigned long rmsk, gmsk, bmsk;
   MBPixbuf *pb = malloc(sizeof(MBPixbuf));  
@@ -760,9 +775,9 @@ mb_pixbuf_new(Display *dpy, int scr)
   pb->dpy = dpy;
   pb->scr = scr;
 
-  pb->depth = DefaultDepth(dpy, scr);
-  pb->vis   = DefaultVisual(dpy, scr); 
   pb->root  = RootWindow(dpy, scr);
+  pb->depth = depth;
+  pb->vis   = vis;
 
   pb->palette = NULL;
 
@@ -770,7 +785,9 @@ mb_pixbuf_new(Display *dpy, int scr)
   gmsk = pb->vis->green_mask;
   bmsk = pb->vis->blue_mask;
 
-  if ((rmsk > gmsk) && (gmsk > bmsk))
+  if (depth == 32 && pb->vis->class == TrueColor)
+    pb->byte_order = BYTE_ORD_32_ARGB;
+  else if ((rmsk > gmsk) && (gmsk > bmsk))
     pb->byte_order = BYTE_ORD_24_RGB;
   else if ((rmsk > bmsk) && (bmsk > gmsk))
     pb->byte_order = BYTE_ORD_24_RBG;
@@ -1478,11 +1495,23 @@ mb_pixbuf_img_render_to_drawable(MBPixbuf    *pb,
 				 int drw_x,
 				 int drw_y)
 {
+  mb_pixbuf_img_render_to_drawable_with_gc(pb, img, drw, drw_x, drw_y, pb->gc);
+}
+
+
+void
+mb_pixbuf_img_render_to_drawable_with_gc(MBPixbuf    *pb,
+					 MBPixbufImage *img,
+					 Drawable     drw,
+					 int drw_x,
+					 int drw_y,
+					 GC gc)
+{
       int bitmap_pad;
       unsigned char *p;
       unsigned long pixel;
       int x,y;
-      int r, g, b;
+      int a, r, g, b;
 
       XShmSegmentInfo shminfo;
       Bool shm_success = False;
@@ -1532,22 +1561,22 @@ mb_pixbuf_img_render_to_drawable(MBPixbuf    *pb,
 	      r = ( *p++ );
 	      g = ( *p++ );
 	      b = ( *p++ );
-	      p += img->has_alpha;  /* Alpha */
+	      a = ((img->has_alpha) ?  *p++ : 0xff);
 
-	      pixel = mb_pixbuf_get_pixel(pb, r, g, b);
+	      pixel = mb_pixbuf_get_pixel(pb, r, g, b, a);
 	      XPutPixel(img->ximg, x, y, pixel);
 	    }
 	}
 
       if (!shm_success)
 	{
-	  XPutImage( pb->dpy, drw, pb->gc, img->ximg, 0, 0, 
+	  XPutImage( pb->dpy, drw, gc, img->ximg, 0, 0, 
 		     drw_x, drw_y, img->width, img->height);
 	  XDestroyImage (img->ximg);
 	}
       else
 	{
-	  XShmPutImage(pb->dpy, drw, pb->gc, img->ximg, 0, 0, 
+	  XShmPutImage(pb->dpy, drw, gc, img->ximg, 0, 0, 
 		       drw_x, drw_y, img->width, img->height, 1);
 
 	  XSync(pb->dpy, False);

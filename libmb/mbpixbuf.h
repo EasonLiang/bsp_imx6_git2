@@ -223,6 +223,23 @@ MBPixbuf*
 mb_pixbuf_new (Display *display,
 	       int      screen);
 
+
+/**
+ * Constructs a new MBPixbuf instance with non default depth and visual
+ *
+ * @param display 
+ * @param screen 
+ * @param vis
+ * @param screen 
+ * @returns a #MBPixbuf object
+ */
+MBPixbuf *
+mb_pixbuf_new_extended(Display *dpy, 
+		       int      scr, 
+		       Visual  *vis,
+		       int      depth);
+
+
 /**
  * DEPRECIATED. Use #mb_pixbuf_img_rgb_new, #mb_pixbuf_img_rgba_new instead. 
  *
@@ -349,6 +366,26 @@ void  mb_pixbuf_img_render_to_drawable (MBPixbuf      *pixbuf,
 					Drawable       drw,
 					int            drw_x,
 					int            drw_y);
+
+/**
+ * Renders a mbpixbuf image to an X Drawable with a specified. 
+ * X Graphics Context ( GC ).
+ *
+ * @param pixbuf mbpixbuf object
+ * @param image mbpixbuf image to render
+ * @param drw X11 drawable ( window or pixmap ) to render roo. 
+ * @param drw_x X co-ord on drawable to render too. 
+ * @param drw_y Y co-ord on drawable to render too. 
+ * @param gc X11 GC to use on drawable.
+ */
+void
+mb_pixbuf_img_render_to_drawable_with_gc(MBPixbuf    *pb,
+					 MBPixbufImage *img,
+					 Drawable     drw,
+					 int drw_x,
+					 int drw_y,
+					 GC gc);
+
 
 /**
  * Renders alpha component  mbpixbuf image to an X Bitmap. 

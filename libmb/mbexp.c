@@ -1377,7 +1377,7 @@ mb_drawable_new(MBPixbuf *pb, int width, int height)
    /* todo check for error if pixmap cant be created */
 #if defined (USE_XFT) || defined (USE_PANGO)
   drw->xftdraw = XftDrawCreate(pb->dpy, (Drawable) drw->xpixmap, 
-			       DefaultVisual(pb->dpy, pb->scr),
+			       pb->vis,
 			       DefaultColormap(pb->dpy, pb->scr));
 #endif
    
