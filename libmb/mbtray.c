@@ -418,17 +418,29 @@ _set_icon_hint(MBTrayApp *mb, MBPixbuf *pb, MBPixbufImage *img)
   data = malloc(sizeof(CARD32)*((img->width*img->height)+2));
   if (data)
     {
-      int i = 0, idx = 0;
+      unsigned char r,g,b,a;
+      int i = 2, idx = 0, x, y;
       data[0] = img->width;
       data[1] = img->height;
 
+      /*
       for( i=2; i < (img->width*img->height)+2; i++)
 	{
 	  idx = (i-2)*4;
 	  data[i] = img->rgba[idx] << 16 | img->rgba[idx+1] << 8  
 	    | img->rgba[idx+2] | img->rgba[idx+3] << 24;  
 	}
+      */
+
+      for (y=0; y<img->height; y++)
+	for (x=0; x<img->width; x++)
+	  {
+	    mb_pixbuf_img_get_pixel (pb, img, x, y, &r, &g, &b, &a);
+	    data[i] = ( (a << 24)|(r << 16)|(g << 8)|b );
+	    i++;
+	  }
       
+
       XChangeProperty(mb->dpy, mb->win, mb->atoms[ATOM_NET_WM_ICON] ,
 		      XA_CARDINAL, 32, PropModeReplace,
 		      (unsigned char *)data, 

@@ -41,6 +41,26 @@
     (composite) = (ush)((temp + (temp >> 8)) >> 8);             } \
 }
 
+
+#define internal_16bpp_pixel_next(p) \
+      (p) += 2
+
+#define internal_16bpp_pixel_to_rgb(p,r,g,b) \
+      (r) = ((((unsigned short)*(unsigned short*)(p)) & 0xf800) >> 8);  \
+      (g) = ((((unsigned short)*(unsigned short*)(p)) & 0x07e0) >> 3);  \
+      (b) = ((((unsigned short)*(unsigned short*)(p)) & 0x001f) << 3);  
+
+
+#define internal_rgb_to_16bpp_pixel(r,g,b,p)        \
+     {                                              \
+      unsigned short s = (  (((b) >> 3) & 0x001f) |   \
+                            (((g) << 3) & 0x07e0) |   \
+                            (((r) << 8) & 0xf800) );  \
+     *(p)   = (unsigned char) s;                    \
+     *((p)+1) = (unsigned char) ((s >> 8) & 0xff);    \
+     }
+
+
 #define IN_REGION(x,y,w,h) ( (x) > -1 && (x) < (w) && (y) > -1 && (y) <(h) ) 
 
 typedef unsigned short ush;
@@ -803,6 +823,12 @@ mb_pixbuf_new_extended(Display *dpy,
   else
     pb->byte_order = 0;
 
+  pb->internal_bytespp = 3;
+
+  if ((pb->depth < 24 && !getenv("MBPIXBUF_FORCE_32BPP_INTERNAL"))
+      || getenv("MBPIXBUF_FORCE_16BPP_INTERNAL"))
+    pb->internal_bytespp = 2;
+
   if ((pb->depth <= 8))
     {
       XWindowAttributes   xwa;
@@ -866,11 +892,12 @@ mb_pixbuf_img_new(MBPixbuf *pb, int w, int h)
   img->width = w;
   img->height = h;
 
-  img->rgba = malloc(sizeof(unsigned char)*((w*h*4)));
-  memset(img->rgba, 0, sizeof(unsigned char)*((w*h*4)));
+  img->rgba = malloc(sizeof(unsigned char)*((w*h*(pb->internal_bytespp+1))));
+  memset(img->rgba, 0, sizeof(unsigned char)*((w*h*(pb->internal_bytespp+1))));
 
   img->ximg = NULL;
   img->has_alpha = 1;
+  img->internal_bytespp = pb->internal_bytespp;
 
   return img;
 }
@@ -892,14 +919,67 @@ mb_pixbuf_img_rgb_new(MBPixbuf *pixbuf, int width, int height)
  img->width = width;
  img->height = height;
  
- img->rgba = malloc(sizeof(unsigned char)*((width*height*3)));
- memset(img->rgba, 0, sizeof(unsigned char)*((width*height*3)));
+ img->rgba 
+   = malloc(sizeof(unsigned char)*((width*height*pixbuf->internal_bytespp)));
+ memset(img->rgba, 0, 
+	sizeof(unsigned char)*((width*height*pixbuf->internal_bytespp)));
   
  img->ximg = NULL;
  img->has_alpha = 0;
+ img->internal_bytespp = pixbuf->internal_bytespp;
 
  return img;
 
+}
+
+/* ARGB Data */
+
+MBPixbufImage *
+mb_pixbuf_img_new_from_int_data(MBPixbuf            *pixbuf, 
+				const int           *data,
+				int                  width,
+				int                  height)
+{
+  MBPixbufImage *img;
+  int            i=0,x,y;
+
+  img = mb_pixbuf_img_rgba_new(pixbuf, width, height);
+
+  if (pixbuf->internal_bytespp == 3)
+    {
+      unsigned char *p = img->rgba;
+      
+      for (y=0; y<height; y++)
+	for (x=0; x<width; x++)
+	  {
+	    *p++ = (data[i] >> 16) & 0xff;
+	    *p++ = (data[i] >> 8) & 0xff;
+	    *p++ = data[i] & 0xff;
+	    *p++ = data[i] >> 24;
+	    i++;
+	  }
+    }
+  else
+    {
+      unsigned char *p = img->rgba, r,g,b,a;
+      
+      for (y=0; y<height; y++)
+	for (x=0; x<width; x++)
+	  {
+	    r = ((data[i] >> 16) & 0xff);
+	    g = ((data[i] >> 8) & 0xff);
+	    b = (data[i] & 0xff);
+	    a = (data[i] >> 24);
+
+	    internal_rgb_to_16bpp_pixel(r,g,b,p);
+	    internal_16bpp_pixel_next(p);
+	    *p++ = a;
+	    
+	    i++;
+	  }
+    }
+  
+  return img;
 }
 
 MBPixbufImage *
@@ -916,7 +996,31 @@ mb_pixbuf_img_new_from_data(MBPixbuf            *pixbuf,
   else
     img = mb_pixbuf_img_rgb_new(pixbuf, width, height);
 
-  memcpy(img->rgba, data, width*height*(3+has_alpha));
+  if (pixbuf->internal_bytespp == 3)
+    {
+      memcpy(img->rgba, data, width*height*(3+has_alpha));
+    }
+  else
+    {
+      /* Data is expected as 24/32 RGBA. but internally were 
+       * 16/24 so we need to scale the data down.
+      */
+      int x,y;
+      unsigned char r,g,b, *p16 = img->rgba;
+      const unsigned char *p24 = data;
+
+      for (x=0; x<img->width; x++)
+	for (y=0; y<img->height; y++)
+      {
+	r = *p24++; g = *p24++; b = *p24++;
+	internal_rgb_to_16bpp_pixel(r,g,b,p16);
+	internal_16bpp_pixel_next(p16);
+
+	if (has_alpha)
+	  *p16++ = *p24++;
+      }
+    }
+
   return img;
 }
 
@@ -1045,23 +1149,49 @@ mb_pixbuf_img_new_from_x_drawable (MBPixbuf *pb,
         return NULL;
       }
 
-      for (y = 0; y < sh; y++)
-	for (x = 0; x < sw; x++)
-	  {
-	    xpixel = XGetPixel(ximg, x, y);
-	    *p++ = (((xpixel >> br) << lr) & mr);      /* r */
-	    *p++ = (((xpixel >> bg) << lg) & mg);      /* g */
-	    *p++ = (((xpixel >> bb) << lb) & mb);      /* b */
-	    if (msk)
+      if (pb->internal_bytespp == 2)
+	{
+	  for (y = 0; y < sh; y++)
+	    for (x = 0; x < sw; x++)
 	      {
-		if (xmskimg && XGetPixel(xmskimg, x, y))
+		xpixel = XGetPixel(ximg, x, y);
+		internal_rgb_to_16bpp_pixel((((xpixel >> br) << lr) & mr),
+					    (((xpixel >> bg) << lg) & mg),
+					    (((xpixel >> bb) << lb) & mb), p);
+
+		internal_16bpp_pixel_next(p);
+
+		if (msk)
 		  {
-		    *p++ = 255;
+		    if (xmskimg && XGetPixel(xmskimg, x, y))
+		      {
+			*p++ = 255;
+		      }
+		    else *p++ = 0;
 		  }
-		else *p++ = 0;
+		else if (want_alpha) p++;
 	      }
-	    else if (want_alpha) p++;
-	  }
+	}
+      else
+	{
+	  for (y = 0; y < sh; y++)
+	    for (x = 0; x < sw; x++)
+	      {
+		xpixel = XGetPixel(ximg, x, y);
+		*p++ = (((xpixel >> br) << lr) & mr);      /* r */
+		*p++ = (((xpixel >> bg) << lg) & mg);      /* g */
+		*p++ = (((xpixel >> bb) << lb) & mb);      /* b */
+		if (msk)
+		  {
+		    if (xmskimg && XGetPixel(xmskimg, x, y))
+		      {
+			*p++ = 255;
+		      }
+		    else *p++ = 0;
+		  }
+		else if (want_alpha) p++;
+	      }
+	}
     }
   else
     {
@@ -1123,7 +1253,7 @@ mb_pixbuf_img_clone(MBPixbuf *pb, MBPixbufImage *img)
     img_new = mb_pixbuf_img_rgb_new(pb, img->width, img->height);
 
   memcpy(img_new->rgba, img->rgba, 
-	 sizeof(unsigned char)*((img->width*img->height*(3+img->has_alpha))));
+	 sizeof(unsigned char)*((img->width * img->height * (pb->internal_bytespp + img->has_alpha))));
   return img_new;
 }
 
@@ -1132,6 +1262,39 @@ mb_pixbuf_img_free(MBPixbuf *pb, MBPixbufImage *img)
 {
   if (img->rgba) free(img->rgba);
   free(img);
+}
+
+static void
+_mb_convert_24bpp_to_16bpp(MBPixbuf *pb, MBPixbufImage **img)
+{
+  MBPixbufImage *img16, *img24 = *img;
+  int            x,y;
+  unsigned char  r,g,b, *p16 = NULL, *p24 = NULL;
+
+  if (img24->has_alpha)
+    img16 = mb_pixbuf_img_rgba_new(pb, img24->width, img24->height);
+  else
+    img16 = mb_pixbuf_img_rgb_new(pb, img24->width, img24->height);
+      
+  p16 = img16->rgba; p24 = img24->rgba;
+
+  for (x=0; x<img24->width; x++)
+    for (y=0; y<img24->height; y++)
+      {
+	r = *p24++;
+	g = *p24++;
+	b = *p24++;
+
+	internal_rgb_to_16bpp_pixel(r,g,b,p16);
+	internal_16bpp_pixel_next(p16);
+
+	if (img24->has_alpha)
+	  *p16++ = *p24++;
+      }
+
+  mb_pixbuf_img_free(pb, img24);
+
+  *img = img16;
 }
 
 MBPixbufImage *
@@ -1166,27 +1329,50 @@ if (!strcasecmp(&filename[strlen(filename)-4], ".xpm"))
       return NULL;
     }
 
+  if (pb->internal_bytespp == 2)
+    {
+      /* Need to convert the data down, always comes as 24 rgb :/ */
+      _mb_convert_24bpp_to_16bpp(pb, &img);
+    }
+
   img->ximg = NULL;
 
   return img;
-
 }
 
 void
-mb_pixbuf_img_fill(MBPixbuf *pb, MBPixbufImage *img,
-		   int r, int g, int b, int a)
+mb_pixbuf_img_fill(MBPixbuf *pb, 
+		   MBPixbufImage *img,
+		   int r, 
+		   int g, 
+		   int b, 
+		   int a)
 {
   unsigned char *p = img->rgba;
   int x,y;
 
-  for(y=0; y<img->height; y++)
-    for(x=0; x<img->width; x++)
-	{
-	  *p++ = r;
-	  *p++ = g;
-	  *p++ = b;
-	  if (img->has_alpha) *p++ = a;
-	}
+  if (pb->internal_bytespp == 2)
+    {
+      for(y=0; y<img->height; y++)
+	for(x=0; x<img->width; x++)
+	  {
+	    internal_rgb_to_16bpp_pixel(r,g,b,p);
+	    internal_16bpp_pixel_next(p);
+	    if (img->has_alpha) 
+	      { *p = a; *p++; }
+	  }
+    }
+  else
+    {
+      for(y=0; y<img->height; y++)
+	for(x=0; x<img->width; x++)
+	  {
+	    *p++ = r;
+	    *p++ = g;
+	    *p++ = b;
+	    if (img->has_alpha) *p++ = a;
+	  }
+    }
 }
 
 void
@@ -1204,28 +1390,59 @@ mb_pixbuf_img_composite(MBPixbuf *pb, MBPixbufImage *dest,
   sp = src->rgba;
   dp = dest->rgba;
 
-  dbc = (3 + dest->has_alpha);
+  dbc = (pb->internal_bytespp + dest->has_alpha);
 
   dp += ((dest->width*dbc)*dy) + (dx*dbc);
 
-  for(y=0; y<src->height; y++)
+  if (pb->internal_bytespp == 2)
     {
-      for(x=0; x<src->width; x++)
+      for(y=0; y<src->height; y++)
 	{
-	  r = *sp++;
-	  g = *sp++;
-	  b = *sp++;
-	  a = *sp++;
+	  for(x=0; x<src->width; x++)
+	    {
+	      unsigned char dr,dg,db;
 
-	  alpha_composite(*dp, r, a, *dp);
-	  dp++;
-	  alpha_composite(*dp, g, a, *dp);
-	  dp++;
-	  alpha_composite(*dp, b, a, *dp);
-	  dp++;
-	  dp += dest->has_alpha;
+	      /* TODO, This needs optimising */
+
+	      internal_16bpp_pixel_to_rgb(sp,r,g,b);
+	      internal_16bpp_pixel_next(sp);
+	      a = *sp++;
+		
+	      internal_16bpp_pixel_to_rgb(dp,dr,dg,db);
+	      alpha_composite(dr, r, a, dr);
+	      alpha_composite(dg, g, a, dg);
+	      alpha_composite(db, b, a, db);
+	      internal_rgb_to_16bpp_pixel(dr,dg,db,dp)
+	      internal_16bpp_pixel_next(dp);
+
+	      dp += dest->has_alpha;
+	    }
+	  dp += (dest->width-src->width)*dbc;
 	}
-      dp += (dest->width-src->width)*dbc;
+
+
+    }
+  else
+    {
+      for(y=0; y<src->height; y++)
+	{
+	  for(x=0; x<src->width; x++)
+	    {
+	      r = *sp++;
+	      g = *sp++;
+	      b = *sp++;
+	      a = *sp++;
+	      
+	      alpha_composite(*dp, r, a, *dp);
+	      dp++;
+	      alpha_composite(*dp, g, a, *dp);
+	      dp++;
+	      alpha_composite(*dp, b, a, *dp);
+	      dp++;
+	      dp += dest->has_alpha;
+	    }
+	  dp += (dest->width-src->width)*dbc;
+	}
     }
 }
 
@@ -1248,37 +1465,75 @@ mb_pixbuf_img_copy_composite_with_alpha (MBPixbuf      *pb,
   sp = src->rgba;
   dp = dest->rgba;
 
-  dbc = (3 + dest->has_alpha);
+  dbc = (pb->internal_bytespp + dest->has_alpha);
 
   dp += ((dest->width*dbc)*dy) + (dx*dbc);
-  sp += ((src->width*4)*sy)  + (sx*4);
+  sp += ((src->width*(pb->internal_bytespp+1))*sy)  + (sx*(pb->internal_bytespp+1));
 
-  for(y=0; y<sh; y++)
+  if (pb->internal_bytespp == 2)
     {
-      for(x=0; x < sw; x++)
+      for(y=0; y<sh; y++)
 	{
-	  r = *sp++;
-	  g = *sp++;
-	  b = *sp++;
-	  a = *sp++;
-	  
-	  if (alpha_level)
+	  for(x=0; x < sw; x++)
 	    {
-	      a += alpha_level;
-	      if (a < 0) a = 0;
-	      if (a > 255) a = 255;
-	    }
+	      unsigned char dr,dg,db;
 
-	  alpha_composite(*dp, r, a, *dp);
-	  dp++;
-	  alpha_composite(*dp, g, a, *dp);
-	  dp++;
-	  alpha_composite(*dp, b, a, *dp);
-	  dp++;
-	  if (dest->has_alpha) *dp++ = a;
+	      /* TODO, This needs optimising */
+
+	      internal_16bpp_pixel_to_rgb(sp,r,g,b);
+	      internal_16bpp_pixel_next(sp);
+	      a = *sp; sp++;
+
+	      if (alpha_level)
+		{
+		  a += alpha_level;
+		  if (a < 0) a = 0;
+		  if (a > 255) a = 255;
+		}
+		
+	      internal_16bpp_pixel_to_rgb(dp,dr,dg,db);
+	      alpha_composite(dr, r, a, dr);
+	      alpha_composite(dg, g, a, dg);
+	      alpha_composite(db, b, a, db);
+	      internal_rgb_to_16bpp_pixel(dr,dg,db,dp);
+	      internal_16bpp_pixel_next(dp);
+	      
+	      if (dest->has_alpha)
+		*dp++ =  a;
+	    }
+	  dp += (dest->width-sw)*dbc;
+	  sp += (src->width-sw)*3;
 	}
-      dp += (dest->width-sw)*dbc;
-      sp += (src->width-sw)*4;
+    }
+  else
+    {
+      for(y=0; y<sh; y++)
+	{
+	  for(x=0; x < sw; x++)
+	    {
+	      r = *sp++;
+	      g = *sp++;
+	      b = *sp++;
+	      a = *sp++;
+	      
+	      if (alpha_level)
+		{
+		  a += alpha_level;
+		  if (a < 0) a = 0;
+		  if (a > 255) a = 255;
+		}
+	      
+	      alpha_composite(*dp, r, a, *dp);
+	      dp++;
+	      alpha_composite(*dp, g, a, *dp);
+	      dp++;
+	      alpha_composite(*dp, b, a, *dp);
+	      dp++;
+	      if (dest->has_alpha) *dp++ = a;
+	    }
+	  dp += (dest->width-sw)*dbc;
+	  sp += (src->width-sw)*4;
+	}
     }
 }
      
@@ -1302,8 +1557,8 @@ mb_pixbuf_img_copy(MBPixbuf *pb, MBPixbufImage *dest,
   
   sp = src->rgba;
   dp = dest->rgba;
-  dbc = (3 + dest->has_alpha);
-  sbc = (3 + src->has_alpha);
+  dbc = (pb->internal_bytespp + dest->has_alpha);
+  sbc = (pb->internal_bytespp + src->has_alpha);
 
   dp += ((dest->width*dbc)*dy) + (dx*dbc);
   sp += ((src->width*sbc)*sy)  + (sx*sbc);
@@ -1314,7 +1569,8 @@ mb_pixbuf_img_copy(MBPixbuf *pb, MBPixbufImage *dest,
 	{
 	  *dp++ = *sp++;
 	  *dp++ = *sp++;
-	  *dp++ = *sp++;
+	  if (pb->internal_bytespp > 2)
+	    *dp++ = *sp++;
 	  /* XXX below to optimise */
 	  if (dest->has_alpha && src->has_alpha)
 	    *dp++ = *sp++;
@@ -1337,7 +1593,7 @@ mb_pixbuf_img_scale_down(MBPixbuf *pb, MBPixbufImage *img,
   MBPixbufImage *img_scaled;
   unsigned char *dest, *src, *srcy;
   int *xsample, *ysample;
-  int bytes_per_line, i, x, y, r, g, b, a, nb_samples, xrange, yrange, rx, ry;
+  int bytes_per_line, i, x, y,  r, g, b, a, nb_samples, xrange, yrange, rx, ry;
 
   if ( new_width > img->width || new_height > img->height) 
     return NULL;
@@ -1345,12 +1601,12 @@ mb_pixbuf_img_scale_down(MBPixbuf *pb, MBPixbufImage *img,
   if (img->has_alpha)
     {
       img_scaled = mb_pixbuf_img_rgba_new(pb, new_width, new_height);
-      bytes_per_line = (img->width << 2);
+      bytes_per_line = (img->width * (pb->internal_bytespp+1));
     }
   else
     {
       img_scaled = mb_pixbuf_img_rgb_new(pb, new_width, new_height);
-      bytes_per_line = (img->width * 3);
+      bytes_per_line = (img->width * pb->internal_bytespp);
     }
 
   xsample = malloc( (new_width+1) * sizeof(int));
@@ -1364,42 +1620,72 @@ mb_pixbuf_img_scale_down(MBPixbuf *pb, MBPixbufImage *img,
   dest = img_scaled->rgba;
 
   /* scan output image */
-  for ( y = 0; y < new_height; y++ ) {
-    yrange = ( ysample[y+1] - ysample[y] )/img->width;
-    for ( x = 0; x < new_width; x++) {
-      xrange = xsample[x+1] - xsample[x];
-      srcy = img->rgba + (( ysample[y] + xsample[x] ) 
-			  * ( (img->has_alpha) ?  4 : 3 ) );
-
+  for ( y = 0; y < new_height; y++ ) 
+    {
+      yrange = ( ysample[y+1] - ysample[y] )/img->width;
+      for ( x = 0; x < new_width; x++) 
+	{
+	  xrange = xsample[x+1] - xsample[x];
+	  srcy = img->rgba + (( ysample[y] + xsample[x] ) 
+			      * ( (img->has_alpha) ?  (pb->internal_bytespp+1) : pb->internal_bytespp ) );
+	  
       /* average R,G,B,A values on sub-rectangle of source image */
-      nb_samples = xrange * yrange;
-      if ( nb_samples > 1 ) {
-	r = 0;
-	g = 0;
-	b = 0;
-	a = 0;
-	for ( ry = 0; ry < yrange; ry++ ) {
-	  src = srcy;
-	  for ( rx = 0; rx < xrange; rx++ ) {
-	    /* average R,G,B,A values */
-	    r += *src++;
-	    g += *src++;
-	    b += *src++;
-	    if (img->has_alpha) a += *src++;
-	  }
-	  srcy += bytes_per_line;
+	  nb_samples = xrange * yrange;
+	  if ( nb_samples > 1 ) 
+	    {
+	      r = 0;
+	      g = 0;
+	      b = 0;
+	      a = 0;
+	      for ( ry = 0; ry < yrange; ry++ ) 
+		{
+		  src = srcy;
+		  for ( rx = 0; rx < xrange; rx++ ) 
+		    {
+		      /* average R,G,B,A values */
+		      if (pb->internal_bytespp == 2)
+			{
+			  unsigned char rr,gg,bb;
+			  internal_16bpp_pixel_to_rgb(src,rr,gg,bb);
+			  r += rr; g += gg; b += bb;
+			  internal_16bpp_pixel_next(src);
+			}
+		      else
+			{
+			  r += *src++;
+			  g += *src++;
+			  b += *src++;
+			}
+		      if (img->has_alpha) a += *src++;
+		    }
+		  srcy += bytes_per_line;
+		}
+
+	      if (pb->internal_bytespp == 2)
+		{
+		  unsigned char rr,gg,bb;
+		  rr = (r/nb_samples);
+		  gg = (g/nb_samples);
+		  bb = (b/nb_samples);
+
+		  internal_rgb_to_16bpp_pixel(rr, gg, bb, dest);
+		  internal_16bpp_pixel_next(dest);
+		}
+	      else
+		{
+		  *dest++ = r/nb_samples;
+		  *dest++ = g/nb_samples;
+		  *dest++ = b/nb_samples;
+		}
+	      if (img_scaled->has_alpha) *dest++ = a/nb_samples; 
+	    }
+	  else 
+	    {
+	      *((int *) dest) = *((int *) srcy);
+	      dest += (pb->internal_bytespp + img_scaled->has_alpha);
+	    }
 	}
-	*dest++ = r/nb_samples;
-	*dest++ = g/nb_samples;
-	*dest++ = b/nb_samples;
-	if (img_scaled->has_alpha) *dest++ = a/nb_samples; 
-      }
-      else {
-	*((int *) dest) = *((int *) srcy);
-	dest += (3 + img_scaled->has_alpha);
-      }
     }
-  }
 
   /* cleanup */
   free( xsample );
@@ -1422,12 +1708,12 @@ mb_pixbuf_img_scale_up(MBPixbuf *pb, MBPixbufImage *img,
   if (img->has_alpha)
     {
       img_scaled = mb_pixbuf_img_rgba_new(pb, new_width, new_height);
-      bytes_per_line = (img->width << 2);
+      bytes_per_line = (img->width * (pb->internal_bytespp+1));
     }
   else
     {
       img_scaled = mb_pixbuf_img_rgb_new(pb, new_width, new_height);
-      bytes_per_line = (img->width * 3);
+      bytes_per_line = (img->width * pb->internal_bytespp);
     }
 
 
@@ -1440,10 +1726,11 @@ mb_pixbuf_img_scale_up(MBPixbuf *pb, MBPixbufImage *img,
       {
 	 xx = (x * img->width) / new_width;
 	 src = img->rgba + ((yy * bytes_per_line)) 
-	   + ( (img->has_alpha) ? (xx << 2) : (xx * 3) );
+	   + ( (img->has_alpha) ? (xx * (pb->internal_bytespp+1)) : (xx * pb->internal_bytespp) );
 	 *dest++ = *src++;
 	 *dest++ = *src++;
-	 *dest++ = *src++;
+	 if (pb->internal_bytespp > 2)
+	   *dest++ = *src++;
 	 
 	 if (img->has_alpha)
 	   *dest++ = *src++;
@@ -1555,17 +1842,34 @@ mb_pixbuf_img_render_to_drawable_with_gc(MBPixbuf    *pb,
 
       p = img->rgba;
 
-      for(y=0; y<img->height; y++)
+      if (pb->internal_bytespp == 2)
 	{
-	  for(x=0; x<img->width; x++)
-	    {
-	      r = ( *p++ );
-	      g = ( *p++ );
-	      b = ( *p++ );
-	      a = ((img->has_alpha) ?  *p++ : 0xff);
+	  for(y=0; y<img->height; y++)
+	    for(x=0; x<img->width; x++)
+	      {
+		internal_16bpp_pixel_to_rgb(p,r,g,b);
+		internal_16bpp_pixel_next(p);
+		a = ((img->has_alpha) ?  *p++ : 0xff);
 
-	      pixel = mb_pixbuf_get_pixel(pb, r, g, b, a);
-	      XPutPixel(img->ximg, x, y, pixel);
+		pixel = mb_pixbuf_get_pixel(pb, r, g, b, a);
+
+		XPutPixel(img->ximg, x, y, pixel);
+	      }
+	}
+      else
+	{
+	  for(y=0; y<img->height; y++)
+	    {
+	      for(x=0; x<img->width; x++)
+		{
+		  r = ( *p++ );
+		  g = ( *p++ );
+		  b = ( *p++ );
+		  a = ((img->has_alpha) ?  *p++ : 0xff);
+		  
+		  pixel = mb_pixbuf_get_pixel(pb, r, g, b, a);
+		  XPutPixel(img->ximg, x, y, pixel);
+		}
 	    }
 	}
 
@@ -1646,8 +1950,9 @@ mb_pixbuf_img_render_to_mask(MBPixbuf    *pb,
       for(y=0; y<img->height; y++)
 	for(x=0; x<img->width; x++)
 	    {
-	      p++; p++; p++; 
-	      XPutPixel(img->ximg, x, y, (*p++ < 127) ? 0 : 1);
+	      p += pb->internal_bytespp; 
+	      XPutPixel(img->ximg, x, y, (*p < 127) ? 0 : 1);
+	      p++;
  	    }
 
       if (!shm_success)
@@ -1691,16 +1996,29 @@ mb_pixbuf_img_get_pixel (MBPixbuf      *pixbuf,
 {
   int idx;
 
-  idx = 3 + img->has_alpha;
+  idx = pixbuf->internal_bytespp + img->has_alpha;
 
-  *r = img->rgba[(((y)*img->width*idx)+((x)*idx))];    
-  *g = img->rgba[(((y)*img->width*idx)+((x)*idx))+1];    
-  *b = img->rgba[(((y)*img->width*idx)+((x)*idx))+2]; 
+  if (pixbuf->internal_bytespp == 2)
+    {
+      int offset = (((y)*img->width*idx)+((x)*idx));
+      internal_16bpp_pixel_to_rgb(img->rgba+offset, *r, *g, *b);
 
-  if (img->has_alpha)
-    *a = img->rgba[(((y)*img->width*idx)+((x)*idx))+3];
+      if (img->has_alpha)
+	*a = *(img->rgba+offset+2);
+      else
+	*a = 255;
+    }
   else
-    *a = 255;
+    {
+      *r = img->rgba[(((y)*img->width*idx)+((x)*idx))];    
+      *g = img->rgba[(((y)*img->width*idx)+((x)*idx))+1];    
+      *b = img->rgba[(((y)*img->width*idx)+((x)*idx))+2]; 
+      
+      if (img->has_alpha)
+	*a = img->rgba[(((y)*img->width*idx)+((x)*idx))+3];
+      else
+	*a = 255;
+    }
 }
 
 
@@ -1716,11 +2034,19 @@ mb_pixbuf_img_plot_pixel (MBPixbuf      *pb,
   int idx;
   if (x >= img->width || y >= img->height) return;
 
-  idx = 3 + img->has_alpha;
+  idx = pb->internal_bytespp + img->has_alpha;
 
-  img->rgba[(((y)*img->width*idx)+((x)*idx))]   = r;    
-  img->rgba[(((y)*img->width*idx)+((x)*idx))+1] = g;    
-  img->rgba[(((y)*img->width*idx)+((x)*idx))+2] = b; 
+  if (pb->internal_bytespp == 2)
+    {
+      int offset = (((y)*img->width*idx)+((x)*idx));
+      internal_rgb_to_16bpp_pixel(r,g,b, (img->rgba+offset));
+    }
+  else
+    {
+      img->rgba[(((y)*img->width*idx)+((x)*idx))]   = r;    
+      img->rgba[(((y)*img->width*idx)+((x)*idx))+1] = g;    
+      img->rgba[(((y)*img->width*idx)+((x)*idx))+2] = b; 
+    }
 }
 
 void
@@ -1733,7 +2059,7 @@ mb_pixbuf_img_plot_pixel_with_alpha (MBPixbuf      *pb,
 				     unsigned char  b,
 				     unsigned char  a)
 { 
-  int idx = (((y)*img->width*4)+((x)*4));   
+  int idx = (((y)*img->width*(pb->internal_bytespp+1))+((x)*(pb->internal_bytespp+1)));   
 
   if (!img->has_alpha)
     {
@@ -1741,11 +2067,25 @@ mb_pixbuf_img_plot_pixel_with_alpha (MBPixbuf      *pb,
       return;
     }
     
-   if (x >= img->width || y >= img->height) return;   
-              
-  alpha_composite(img->rgba[idx],   (r), (a), img->rgba[idx]);    
-  alpha_composite(img->rgba[idx+1], (g), (a), img->rgba[idx+1]);  
-  alpha_composite(img->rgba[idx+2], (b), (a), img->rgba[idx+2]);  
+  if (x >= img->width || y >= img->height) return;   
+
+  if (pb->internal_bytespp == 2)
+    {
+      unsigned char rr,gg, bb;
+      internal_16bpp_pixel_to_rgb((img->rgba+idx), rr,gg,bb);
+
+      alpha_composite(rr, (r), (a), rr);    
+      alpha_composite(gg, (g), (a), gg);    
+      alpha_composite(bb, (b), (a), bb);    
+
+      internal_rgb_to_16bpp_pixel(rr,gg,bb, (img->rgba+idx));
+    }
+  else
+    {
+      alpha_composite(img->rgba[idx],   (r), (a), img->rgba[idx]);    
+      alpha_composite(img->rgba[idx+1], (g), (a), img->rgba[idx+1]);  
+      alpha_composite(img->rgba[idx+2], (b), (a), img->rgba[idx+2]);  
+    }
 }
 
 MBPixbufImage *
@@ -1777,14 +2117,14 @@ mb_pixbuf_img_transform (MBPixbuf          *pb,
   if (img->has_alpha)
     {
       img_trans = mb_pixbuf_img_rgba_new(pb, new_width, new_height);
-      bytes_per_line = (img->width * 4);
-      idx = 4;
+      bytes_per_line = (img->width * (pb->internal_bytespp+1));
+      idx = pb->internal_bytespp +1 ;
     }
   else
     {
       img_trans = mb_pixbuf_img_rgb_new(pb, new_width, new_height);
-      bytes_per_line = (img->width * 3);
-      idx = 3;
+      bytes_per_line = (img->width * pb->internal_bytespp);
+      idx = pb->internal_bytespp;
     }
   
   for( y = 0; y < img->height; y++ ) 
@@ -1821,10 +2161,12 @@ mb_pixbuf_img_transform (MBPixbuf          *pb,
 
 	  img_trans->rgba[new_byte_offset]   = img->rgba[byte_offset];
 	  img_trans->rgba[new_byte_offset+1] = img->rgba[byte_offset+1];
-	  img_trans->rgba[new_byte_offset+2] = img->rgba[byte_offset+2];
+
+	  if (pb->internal_bytespp > 2)
+	    img_trans->rgba[new_byte_offset+2] = img->rgba[byte_offset+2];
 
 	  if (img->has_alpha)
-	    img_trans->rgba[new_byte_offset+3] = img->rgba[byte_offset+3];
+	    img_trans->rgba[new_byte_offset+pb->internal_bytespp] = img->rgba[byte_offset+pb->internal_bytespp];
 	}
     }
 

@@ -1,3 +1,31 @@
+2004-12-20  mallum,,,  <mallum@openedhand.com>
+
+	* libmb/mbpixbuf.c: (mb_pixbuf_new_extended), (mb_pixbuf_img_new),
+	(mb_pixbuf_img_rgba_new), (mb_pixbuf_img_rgb_new),
+	(mb_pixbuf_img_new_from_int_data), (mb_pixbuf_img_new_from_data),
+	(mb_pixbuf_img_new_from_x_drawable), (mb_pixbuf_img_clone),
+	(mb_pixbuf_img_free), (_mb_convert_24bpp_to_16bpp),
+	(mb_pixbuf_img_new_from_file), (mb_pixbuf_img_fill),
+	(mb_pixbuf_img_composite),
+	(mb_pixbuf_img_copy_composite_with_alpha),
+	(mb_pixbuf_img_copy_composite), (mb_pixbuf_img_copy),
+	(mb_pixbuf_img_scale_down), (mb_pixbuf_img_scale_up),
+	(mb_pixbuf_img_scale), (mb_pixbuf_img_render_to_drawable),
+	(mb_pixbuf_img_render_to_drawable_with_gc),
+	(mb_pixbuf_img_render_to_mask), (mb_pixbuf_img_data),
+	(mb_pixbuf_img_get_pixel), (mb_pixbuf_img_plot_pixel),
+	(mb_pixbuf_img_plot_pixel_with_alpha), (mb_pixbuf_img_transform):
+	* libmb/mbpixbuf.h:
+	Initial implementation of pixbuf 16bpp internal code. 
+
+	* libmb/mbtray.c: (_set_icon_hint):
+	* libmb/mbmenu.c: (mb_menu_xmenu_paint_active_item),
+	(mb_menu_xmenu_paint):
+	Improvements to not access image rgba member directly.  
+
+	* tests/Makefile.am:
+	Remove spurious comment.
+
 2004-12-17  Ross Burton  <ross@openedhand.com>
 
 	* test/pixbuf.c:

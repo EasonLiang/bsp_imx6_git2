@@ -1592,23 +1592,23 @@ mb_menu_xmenu_paint_active_item(MBMenu *mb,MBMenuMenu *menu)
 	 for (y = (menu->active_item->h/2) - 2; 
 	      y < (menu->active_item->h/2) + 3; y++)
 	   {
-	     mb_pixbuf_img_set_pixel(img, 
-				     menu->width - 10, y,
-				     mb_col_red(mb->bg_col),  
-				     mb_col_green(mb->bg_col),
-				     mb_col_blue(mb->bg_col));
+	     mb_pixbuf_img_plot_pixel(mb->pb,img, 
+				      menu->width - 10, y,
+				      mb_col_red(mb->bg_col),  
+				      mb_col_green(mb->bg_col),
+				      mb_col_blue(mb->bg_col));
 	   }
 	 for (y = (menu->active_item->h/2) - 1; 
 	      y < (menu->active_item->h/2) + 2; y++)
 	   {
-	     mb_pixbuf_img_set_pixel(img, 
+	     mb_pixbuf_img_plot_pixel(mb->pb, img, 
 				     menu->width - 9, y,
 				     mb_col_red(mb->bg_col),  
 				     mb_col_green(mb->bg_col),
 				     mb_col_blue(mb->bg_col));
 
 	   }
-	 mb_pixbuf_img_set_pixel(img, 
+	 mb_pixbuf_img_plot_pixel(mb->pb, img, 
 				 menu->width - 8, (menu->active_item->h/2),
 				 mb_col_red(mb->bg_col),  
 				 mb_col_green(mb->bg_col),
@@ -1773,7 +1773,7 @@ mb_menu_xmenu_paint(MBMenu *mb,MBMenuMenu *menu)
 	       x < menu->width - (WPAD + mb->inner_border_width);
 	       x++)
 	   {
-	     mb_pixbuf_img_set_pixel(img_dest, 
+	     mb_pixbuf_img_plot_pixel(mb->pb, img_dest, 
 				     x, item->y+(item->h/2),
 				     mb_col_red(mb->bd_col),  
 				     mb_col_green(mb->bd_col),
@@ -1812,7 +1812,7 @@ mb_menu_xmenu_paint(MBMenu *mb,MBMenuMenu *menu)
 	 int y;
 	 for (y = item->y+(item->h/2) - 2; y < item->y+(item->h/2) + 3; y++)
 	   {
-	     mb_pixbuf_img_set_pixel(img_dest, 
+	     mb_pixbuf_img_plot_pixel(mb->pb, img_dest, 
 				     menu->width - 8, y,
 				     mb_col_red(mb->fg_col),  
 				     mb_col_green(mb->fg_col),
@@ -1820,13 +1820,13 @@ mb_menu_xmenu_paint(MBMenu *mb,MBMenuMenu *menu)
 	   }
 	 for (y = item->y+(item->h/2) - 1; y < item->y+(item->h/2) + 2; y++)
 	   {
-	     mb_pixbuf_img_set_pixel(img_dest, 
+	     mb_pixbuf_img_plot_pixel(mb->pb, img_dest, 
 				     menu->width - 7, y,
 				     mb_col_red(mb->fg_col),  
 				     mb_col_green(mb->fg_col),
 				     mb_col_blue(mb->fg_col));
 	   }
-	 mb_pixbuf_img_set_pixel(img_dest, 
+	 mb_pixbuf_img_plot_pixel(mb->pb, img_dest, 
 				 menu->width - 6, item->y+(item->h/2),
 				 mb_col_red(mb->fg_col),  
 				 mb_col_green(mb->fg_col),

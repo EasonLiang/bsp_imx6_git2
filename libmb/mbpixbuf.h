@@ -147,6 +147,8 @@ typedef struct MBPixbuf
   MBPixbufColor *palette;
   Bool           have_shm;
 
+  int            internal_bytespp;
+
 } MBPixbuf;
 
 /**
@@ -163,11 +165,17 @@ typedef struct MBPixbufImage
   int            has_alpha; /**< has alpha channel flag */
   XImage        *ximg;      /**< ximage, if set */
 
+  int            internal_bytespp;
+
 } MBPixbufImage;
 
 /* macros */
 
-/* change to func ? and set to plot pixel */
+/**
+ * @def mb_pixbuf_img_set_pixel(i, x, y, r, g, b)
+ *
+ * DEPRICIATED. Use #mb_pixbuf_img_plot_pixel instead. 
+ */
 #define mb_pixbuf_img_set_pixel(i, x, y, r, g, b) { \
   (i)->rgba[(((y)*(i)->width*4)+((x)*4))]   = r;    \
   (i)->rgba[(((y)*(i)->width*4)+((x)*4))+1] = g;    \
@@ -181,8 +189,10 @@ typedef struct MBPixbufImage
  * sets a pixels alpha value
  */
 #define mb_pixbuf_img_set_pixel_alpha(i, x, y, a) { \
-  if ((i)->has_alpha) (i)->rgba[(((y)*(i)->width*4)+((x)*4))+3] = a;    \
+  if ((i)->has_alpha) (i)->rgba[(((y)*(i)->width*(i->internal_bytespp+1))+((x)*(i->internal_bytespp+1)))+i->internal_bytespp] = a;    \
 }
+
+
 
 /**
  * @def mb_pixbuf_img_get_width
@@ -343,6 +353,22 @@ mb_pixbuf_img_new_from_data(MBPixbuf            *pixbuf,
 
 
 /**
+ * Creates an mbpixbuf image from arbituary supplied INT ARGB data
+ *
+ * @param pixbuf mbpixbuf object
+ * @param data argb data
+ * @param width image width
+ * @param height image height
+ * @returns a MBPixbufImage object, NULL on faliure
+ */
+
+MBPixbufImage *
+mb_pixbuf_img_new_from_int_data(MBPixbuf            *pixbuf, 
+				const int           *data,
+				int                  width,
+				int                  height);
+ 
+/**
  * Frees up  a mbpixbuf image.
  *
  * @param pixbuf mbpixbuf object
@@ -422,12 +448,13 @@ MBPixbufImage *mb_pixbuf_img_clone (MBPixbuf      *pixbuf,
  * @param b blue component of color
  * @param a alpha component
  */
-void mb_pixbuf_img_fill (MBPixbuf      *pixbuf,
-			 MBPixbufImage *image,
-			 int            r,
-			 int            g,
-			 int            b,
-			 int            a);
+void
+mb_pixbuf_img_fill(MBPixbuf *pb, 
+		   MBPixbufImage *img,
+		   int r, 
+		   int g, 
+		   int b, 
+		   int a);
 
 /**
  * Plots a pixel on specified image.

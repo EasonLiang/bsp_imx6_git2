@@ -1,6 +1,5 @@
 TESTS = dot-desktop pixbuf
 
-## Should these be noinst_ ? do we really want to install the tests ?
 check_PROGRAMS=dot-desktop pixbuf
 
 AM_CPPFLAGS = @CHECK_CFLAGS@ -I../libmb @XLIBS_CFLAGS@
