@@ -14,6 +14,7 @@
 
 Display *dpy;
 MBPixbuf *pb = NULL;
+MBPixbufImage *OHImg;
 
 /**
  * Utility routine to dump a MBPixbufImage as a raw file.
@@ -34,24 +35,40 @@ static void dump_image(MBPixbufImage *img)
 /**
  * Setup for the tests. Connects to the X server and constructs a MBPixmap.
  */
-static void setup(void) { 
-  dpy = XOpenDisplay(NULL);
+static void 
+setup(void) 
+{ 
+
+
+  dpy = XOpenDisplay(getenv("DISPLAY"));
   fail_unless (dpy != NULL, "setup(): could not connect to X server");
   pb = mb_pixbuf_new(dpy, DefaultScreen(dpy));
   fail_unless (pb != NULL, NULL);
+
+  OHImg = mb_pixbuf_img_new_from_data(pb, OH, 
+				      OH_WIDTH, OH_HEIGHT, OH_HASALPHA); 
+
+  fail_unless (OHImg != NULL, NULL);
 }
 
 /**
  * Teardown for the tests.  Closes the X connection.
  */
-static void teardown(void)
+static void 
+teardown(void)
 {
   /* TODO: Destroy MBPixbuf when it is available */
+  mb_pixbuf_destroy(pb);
   XCloseDisplay(dpy);
 }
 
 
-static int compare_with_pixel(MBPixbufImage *img, unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+static int 
+compare_with_pixel(MBPixbufImage *img, 
+		   unsigned char  r, 
+		   unsigned char  g, 
+		   unsigned char  b, 
+		   unsigned char  a)
 {
   int x, y;
   for (y = 0; y < mb_pixbuf_img_get_height (img); ++y) {
@@ -64,25 +81,40 @@ static int compare_with_pixel(MBPixbufImage *img, unsigned char r, unsigned char
   return 1;
 }
 
-static int compare_with_array(MBPixbufImage *img, unsigned char* data)
+static int 
+compare_with_array(MBPixbufImage *img, 
+		   unsigned char *data)
 {
   int i;
   if (img == NULL || data == NULL) return 0;
-  for (i = 0; i < (img->width * img->height * (3 + img->has_alpha)); ++i) {
+
+  for (i = 0; 
+       i < (img->width*img->height*(pb->internal_bytespp + img->has_alpha)); 
+       ++i)
     if (img->rgba[i] != data[i]) return 0;
-  }
+
   return 1;
 }
 
-static int compare_with_image (MBPixbufImage *a, MBPixbufImage *b)
+static int 
+compare_with_image (MBPixbufImage *a, 
+		    MBPixbufImage *b)
 {
   int i;
   if (a == NULL || b == NULL) return 0;
-  if (a->width != b->width || a->height != b->height || a->has_alpha != b->has_alpha) return 0;
-  for (i = 0; i < (a->width * a->height * (3 + a->has_alpha)); ++i) {
-    //printf("Comparing %d with %d\n", a->rgba[i], b->rgba[i]);
-    if (a->rgba[i] != b->rgba[i]) return 0;
-  }
+  if (a->width != b->width || a->height != b->height 
+      || a->has_alpha != b->has_alpha) return 0;
+  for (i = 0; 
+       i < (a->width * a->height * (pb->internal_bytespp + a->has_alpha)); 
+       ++i)
+    { 
+      if (a->rgba[i] != b->rgba[i]) 
+	{
+	  printf("checking %i vs %i\n", a->rgba[i], b->rgba[i]);
+	  return 0;
+	}
+    }
+
   return 1;
 }
 
@@ -125,7 +157,31 @@ START_TEST (pixbuf_load_png)
   fail_unless (img != NULL, NULL);
   fail_unless (mb_pixbuf_img_get_width (img) == 16, NULL);
   fail_unless (mb_pixbuf_img_get_height (img) == 16, NULL);
-  fail_unless (compare_with_array (img, OH), NULL);
+  fail_unless (compare_with_array (img, OHImg->rgba), NULL);
+  mb_pixbuf_img_free (pb, img);
+}
+END_TEST
+
+START_TEST (pixbuf_load_jpeg)
+{
+  MBPixbufImage *img;
+  img = mb_pixbuf_img_new_from_file (pb, "oh.jpg");
+  fail_unless (img != NULL, NULL);
+  fail_unless (mb_pixbuf_img_get_width (img) == 16, NULL);
+  fail_unless (mb_pixbuf_img_get_height (img) == 16, NULL);
+  // fail_unless (compare_with_array (img, OHImg->rgba), NULL);
+  mb_pixbuf_img_free (pb, img);
+}
+END_TEST
+
+START_TEST (pixbuf_load_xpm)
+{
+  MBPixbufImage *img;
+  img = mb_pixbuf_img_new_from_file (pb, "oh.xpm");
+  fail_unless (img != NULL, NULL);
+  fail_unless (mb_pixbuf_img_get_width (img) == 16, NULL);
+  fail_unless (mb_pixbuf_img_get_height (img) == 16, NULL);
+  // fail_unless (compare_with_array (img, OHImg->rgba), NULL);
   mb_pixbuf_img_free (pb, img);
 }
 END_TEST
@@ -283,6 +339,8 @@ Suite *pixbuf_suite(void)
   tcase_add_test(tc_core, pixbuf_rgb_new_fill);
   tcase_add_test(tc_core, pixbuf_rgba_new_fill);
   tcase_add_test(tc_core, pixbuf_load_png);
+  tcase_add_test(tc_core, pixbuf_load_xpm);
+  tcase_add_test(tc_core, pixbuf_load_jpeg);
   tcase_add_test(tc_core, pixbuf_clone);
   tcase_add_test(tc_core, pixbuf_composite);
   tcase_add_test(tc_core, pixbuf_rotate_90_identity);

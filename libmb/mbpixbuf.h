@@ -249,6 +249,14 @@ mb_pixbuf_new_extended(Display *dpy,
 		       Visual  *vis,
 		       int      depth);
 
+/**
+ * Destroys a new MBPixbuf instance
+ *
+ * @param pixbuf MBPixbuf object
+ */
+void
+mb_pixbuf_destroy(MBPixbuf *pixbuf);
+
 
 /**
  * DEPRECIATED. Use #mb_pixbuf_img_rgb_new, #mb_pixbuf_img_rgba_new instead. 

@@ -783,6 +783,15 @@ mb_pixbuf_new(Display *dpy, int scr)
 				DefaultDepth(dpy, scr));
 }
 
+
+void
+mb_pixbuf_destroy(MBPixbuf *pb)
+{
+  /* XXX Probably needs to free more here */
+  XFreeGC(pb->dpy, pb->gc);
+  free(pb);
+}
+
 MBPixbuf *
 mb_pixbuf_new_extended(Display *dpy, 
 		       int      scr, 

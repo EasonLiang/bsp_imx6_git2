@@ -13,3 +13,6 @@ pixbuf_LDADD= @CHECK_LIBS@
 
 noinst_PROGRAMS = dump-image
 dump_image_SOURCES=dump-image.c
+
+EXTRA_DIST = oh-overlayed.png oh.png oh-scaled.png overlay.png
+	     oh.jpg oh.xpm
