@@ -366,7 +366,7 @@ mb_font_set_family (MBFont *font, const char *family);
  * Gets the fonts family.
  *
  * @param font The font to query
- * @retruns font family name
+ * @returns font family name
  */
 char*
 mb_font_get_family (MBFont *font);
@@ -514,7 +514,7 @@ mb_font_render_simple (MBFont          *font,
 
 /**
  * Returns the width in pixels of any text rendered with
- * @mb_font_render_simple, taking into account any clipping.
+ * #mb_font_render_simple, taking into account any clipping.
  * 
  * @param font The font to render
  * @param width The maximum width in pixels to render

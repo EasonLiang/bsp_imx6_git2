@@ -237,10 +237,10 @@ mb_pixbuf_new (Display *display,
 /**
  * Constructs a new MBPixbuf instance with non default depth and visual
  *
- * @param display 
- * @param screen 
- * @param vis
- * @param screen 
+ * @param dpy X display 
+ * @param scr X Screen 
+ * @param vis X Visual to use
+ * @param depth Depth to use
  * @returns a #MBPixbuf object
  */
 MBPixbuf *
@@ -413,8 +413,8 @@ void  mb_pixbuf_img_render_to_drawable (MBPixbuf      *pixbuf,
  * @param gc X11 GC to use on drawable.
  */
 void
-mb_pixbuf_img_render_to_drawable_with_gc(MBPixbuf    *pb,
-					 MBPixbufImage *img,
+mb_pixbuf_img_render_to_drawable_with_gc(MBPixbuf    *pixbuf,
+					 MBPixbufImage *image,
 					 Drawable     drw,
 					 int drw_x,
 					 int drw_y,
@@ -457,8 +457,8 @@ MBPixbufImage *mb_pixbuf_img_clone (MBPixbuf      *pixbuf,
  * @param a alpha component
  */
 void
-mb_pixbuf_img_fill(MBPixbuf *pb, 
-		   MBPixbufImage *img,
+mb_pixbuf_img_fill(MBPixbuf *pixbuf, 
+		   MBPixbufImage *image,
 		   int r, 
 		   int g, 
 		   int b, 

@@ -424,7 +424,7 @@ mb_tray_app_set_session ( MBTrayApp *mb_tray_app,
  * @returns True is sessioning active, False otherwise
  */
 Bool
-mb_tray_app_get_session ( MBTrayApp *mb );
+mb_tray_app_get_session ( MBTrayApp *mb_tray_app );
 
 /**
  * Gets the tray app co-ordinates relative to the root window. 

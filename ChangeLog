@@ -1,3 +1,12 @@
+2005-01-04  mallum,,,  <mallum@openedhand.com>
+
+	* libmb/mbexp.h:
+	* libmb/mbpixbuf.h:
+	* libmb/mbtray.h:
+	Fix Doxygen doc warnings
+	* libmb/mbtray.c: (_set_icon_hint):
+	Remove minor compiler warning
+
 2004-12-23  mallum,,,  <mallum@openedhand.com>
 
 	* configure.ac:

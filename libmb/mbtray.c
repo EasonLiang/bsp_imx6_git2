@@ -419,7 +419,7 @@ _set_icon_hint(MBTrayApp *mb, MBPixbuf *pb, MBPixbufImage *img)
   if (data)
     {
       unsigned char r,g,b,a;
-      int i = 2, idx = 0, x, y;
+      int i = 2, x, y;
       data[0] = img->width;
       data[1] = img->height;
 
