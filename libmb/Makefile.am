@@ -32,3 +32,5 @@ libmb_la_LDFLAGS = -version-info 1:2:0
 libmbheadersdir = $(includedir)/libmb
 libmbheaders_DATA = $(source_h)
 
+clean-local:
+	/bin/rm *.bb *.bbg *.da *.gcov .libs/*.da .libs/*.bbg || true

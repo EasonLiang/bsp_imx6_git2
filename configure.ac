@@ -27,40 +27,50 @@ SUPPORTS_XSETTINGS=0
 dnl ----- Args -------------------------------------------------------------
 
 AC_ARG_ENABLE(xft,
-  [  --disable-xft         disable xft (anti-aliased) support, [default=no]],
+  [  --disable-xft           disable xft (anti-aliased) support, [default=no]],
   enable_xft=$enableval, enable_xft=yes)
 
 AC_ARG_ENABLE(pango,
-  [  --enable-pango        enable Pango support.],
+  [  --enable-pango          enable Pango support.],
   enable_pango=$enableval, enable_pango=no)
 
 AC_ARG_ENABLE(jpeg,
-  [  --enable-jpeg          enable jpeg image support.],
+  [  --enable-jpeg           enable jpeg image support.],
   enable_jpeg=$enableval, enable_jpeg=no)
 
 AC_ARG_ENABLE(png,
-  [  --disable-png         disable png support [default=no]],
+  [  --disable-png           disable png support [default=no]],
      enable_png=$enableval, enable_png=yes )
 
-AC_ARG_ENABLE(doxygen-docs,     [  --enable-doxygen-docs     build DOXYGEN API documentation (requires Doxygen)], 
+AC_ARG_ENABLE(doxygen-docs,     
+  [  --enable-doxygen-docs   build DOXYGEN API documentation (requires Doxygen)], 
      enable_doxygen_docs=$enableval,enable_doxygen_docs=no)
 
 AC_ARG_ENABLE(xsettings,
-  [  --enable-xsettings    enable xsettings client support],
+  [  --enable-xsettings      enable xsettings client support],
      enable_xsettings=$enableval, enable_xsettings=no )
 
 AC_ARG_WITH(xsettings-includes,    
-	[  --with-xsettings-includes=DIR Use xesttings-client includes in DIR],
+  [  --with-xsettings-includes=DIR Use xsettings-client includes in DIR],
  
 	   xsettings_includes=$withval, xsettings_includes=yes)
 
 AC_ARG_WITH(xsettings-lib,         
-	[  --with-xsettings-lib=DIR   Use xsettings-client library in DIR], 
+  [  --with-xsettings-lib=DIR      Use xsettings-client library in DIR], 
 	   xsettings_lib=$withval, xsettings_lib=yes)
 
 AC_ARG_ENABLE(debug,
-  [  --enable-debug    enable debug ( verbose ) build],
+  [  --enable-debug          enable debug ( verbose ) build],
      enable_debug=$enableval, enable_debug=no )
+
+AC_ARG_ENABLE(gcov,
+  [  --enable-gcov           enable gcov coverage ( testing only ) build],
+     enable_gcov=$enableval, enable_gcov=no )
+
+AC_ARG_ENABLE(gprof,
+  [  --enable-gprof          enable gprof profiler ( testing only ) build],
+     enable_gprof=$enableval, enable_gprof=no )
+
 
 if test x$enable_pango = xyes; then
    enable_xft=no
@@ -264,7 +274,27 @@ AM_CONDITIONAL(HAVE_DOXYGEN, test x$enable_doxygen_docs = xyes)
 dnl ------ GCC flags --------------------------------------------------------
 
 if test "x$GCC" = "xyes"; then
-        GCC_WARNINGS="-g -Wall -fno-strict-aliasing"
+
+   if test x$enable_gprof = xyes; then
+         GCC_WARNINGS="$GCC_WARNINGS -pg"
+	 AC_MSG_RESULT([Enabling gprof Support.])	
+   fi	 
+
+   if test x$enable_gcov = xyes; then
+         GCC_WARNINGS="$GCC_WARNINGS -fprofile-arcs -ftest-coverage"
+	 AC_MSG_RESULT([Enabling gcov Support.])	
+   fi	 
+
+   GCC_WARNINGS="-g -Wall -fno-strict-aliasing $GCC_WARNINGS"
+
+else
+   if test x$enable_gprof = xyes; then
+      AC_MSG_WARN([*** Need gcc compiler for gprof support])
+   fi
+
+   if test x$enable_gcov = xyes; then
+      AC_MSG_WARN([*** Need gcc compiler for gcov support])
+   fi
 fi
 
 
@@ -330,6 +360,9 @@ echo "
         source code location:   ${srcdir}
 
         Building with Debug:                ${enable_debug}
+        Building with gcov:                 ${enable_gcov}
+        Building with gprof:                ${enable_gprof}
+
         Building with Xft:                  ${enable_xft}
         Building with Pango:                ${enable_pango}
         Building with PNG:                  ${enable_png}

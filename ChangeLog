@@ -1,3 +1,9 @@
+2004-04-13  Matthew Allum,,,  <mallum@handhelds.org>
+
+	* configure.ac:
+	* libmb/Makefile.am:
+	Add gcov and gprof magic
+
 2004-03-17  Matthew Allum,,,  <mallum@handhelds.org>
 
 	* configure.ac:
