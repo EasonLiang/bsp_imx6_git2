@@ -12,6 +12,7 @@
 #include <dirent.h>
 
 #include "libmb/mbconfig.h"
+#include "libmb/mbutil.h"
 
 /**
  * @defgroup freedesktop Freedesktop Standards utilitys

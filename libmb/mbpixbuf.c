@@ -1577,7 +1577,7 @@ mb_pixbuf_img_render_to_drawable_with_gc(MBPixbuf    *pb,
       else
 	{
 	  XShmPutImage(pb->dpy, drw, gc, img->ximg, 0, 0, 
-		       drw_x, drw_y, img->width, img->height, 1);
+		       drw_x, drw_y, img->width, img->height, False);
 
 	  XSync(pb->dpy, False);
 	  XShmDetach(pb->dpy, &shminfo);
@@ -1658,7 +1658,7 @@ mb_pixbuf_img_render_to_mask(MBPixbuf    *pb,
       else
 	{
 	  XShmPutImage(pb->dpy, mask, gc1, img->ximg, 0, 0, 
-		       drw_x, drw_y, img->width, img->height, 1);
+		       drw_x, drw_y, img->width, img->height, False);
 	  XSync(pb->dpy, False);
 	  XShmDetach(pb->dpy, &shminfo);
 	  XDestroyImage (img->ximg);

@@ -1,3 +1,11 @@
+2004-08-23  mallum,,,  <mallum@handhelds.org>
+
+	* libmb/mbdotdesktop.h:
+	Add missing include of mbutiil.h
+	* libmb/mbpixbuf.c: (mb_pixbuf_img_render_to_drawable_with_gc),
+	(mb_pixbuf_img_render_to_mask):
+	Stop request shm paint event
+
 2004-08-09  mallum,,,  <mallum@handhelds.org>
 
 	* libmb/mbdotdesktop.c: (mb_dot_desktop_icon_get_full_path):
