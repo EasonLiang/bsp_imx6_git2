@@ -650,6 +650,34 @@ main(int argc, char **argv)
 
   gdk_init(&argc, &argv);
 
+  if (!(argc > 1 && !strcmp(argv[1],"-n")))
+    {
+      
+      g_print("[settings daemon] Forking. run with -n to prevent fork\n");
+      
+      p = fork();
+      
+      switch (p) 
+	{
+	case -1:
+	  g_print("Fork failed.\n");
+	  g_assert_not_reached();
+	  exit(-1);
+	  break;
+	case 0:
+	  /* child */
+	  /*
+	  fclose( stdin );
+	  fclose( stdout );
+	  */
+	  break;
+	default:
+	  exit(0);
+	  break;
+	}
+    }
+
+
   g_type_init();
 
   context = g_main_context_default();
@@ -720,30 +748,6 @@ main(int argc, char **argv)
      }
    else fprintf(stderr, "Failed to initialise gconf client\n");
 
-   if (!(argc > 1 && !strcmp(argv[1],"-n")))
-     {
-
-       g_print("[settings daemon] Forking. run with -n to prevent fork\n");
-  
-       p = fork();
-
-       switch (p) 
-	 {
-	 case -1:
-	   g_print("Fork failed.\n");
-	   g_assert_not_reached();
-	   exit(-1);
-	   break;
-	 case 0:
-	   /* child */
-	   fclose( stdin );
-	   fclose( stdout );
-	   break;
-	 default:
-	   exit(0);
-	   break;
-	 }
-     }
 
    g_main_loop_run(loop);
   

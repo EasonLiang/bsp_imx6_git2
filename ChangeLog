@@ -1,3 +1,8 @@
+2005-03-14  mallum,,,  <mallum@openedhand.com>
+
+	* settings-daemon.c: (main):
+	Fork much ealier
+
 2005-02-04  mallum,,,  <mallum@openedhand.com>
 
 	* README:
