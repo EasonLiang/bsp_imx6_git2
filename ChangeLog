@@ -1,3 +1,16 @@
+2004-09-24  mallum,,,  <mallum@handhelds.org>
+
+	* configure.ac:
+	Bump up version 
+	* libmb/Makefile.am:
+	Bump up lib version
+	* libmb/mbexp.c: (mb_font_set_size_to_pixels):
+	Optimise this. 
+	* libmb/mbdotdesktop.h:	
+	* libmb/mbmenu.h:
+	* libmb/mbutil.h:
+	Add missing C++ protection  
+
 2004-09-07  mallum <mallum@handhelds.org>
 
 	* libmb/mbpixbuf.c: (mb_pixbuf_img_transform):

@@ -664,19 +664,53 @@ mb_font_set_point_size(MBFont* font, int points)
 int
 mb_font_set_size_to_pixels(MBFont* font, int max_pixels, int *points_to_try)
 {
-  int i = 0;
-  int pt_sizes[]  = { 72, 48, 32, 24, 20, 18, 16, 14, 12, 11, 10, 9, 8, 7, 6, 5, 0 }; 
+  int    likely_point_size;
+  int    i = 0;
+  double mm_per_pixel, inches_per_pixel;
+
+  /* point stuff not reallu used any more */
+  int    pt_sizes[]  = { 72, 48, 32, 24, 20, 18, 16, 14, 
+			 12, 11, 10, 9, 8, 7, 6, 5, 0 }; 
 
   if (points_to_try == NULL)
     points_to_try = pt_sizes;
+
+  mm_per_pixel = (double)DisplayHeightMM(font->dpy, DefaultScreen(font->dpy))
+                   / DisplayHeight(font->dpy, DefaultScreen(font->dpy));
+
+  /* 1 millimeter = 0.0393700787 inches */
+  
+  inches_per_pixel = (double)mm_per_pixel * 0.03;
+
+  /* 1 inch = 72 PostScript points */
+
+  likely_point_size = max_pixels * inches_per_pixel * 72;
+
+  /*
+    printf("%2f %2f, You asked for %i I reckon thats %ipt\n", 
+    mm_per_pixel, inches_per_pixel, max_pixels, likely_point_size); 
+  */      
+
+  if (font->font) _mb_font_free(font);
+
+  font->pt_size = likely_point_size;
+
+  _mb_font_load(font);
+
+  if (font->font && mb_font_get_height(font) < max_pixels)
+    return 1;
 
   while (pt_sizes[i])
     {
       if (font->font) _mb_font_free(font);
       font->pt_size = pt_sizes[i];
+
       _mb_font_load(font);
+
       if (font->font && mb_font_get_height(font) < max_pixels)
-	return 1;
+	{
+	  return 1;
+	}
       i++;
     }
   

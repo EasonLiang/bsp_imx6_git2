@@ -64,6 +64,11 @@
    - mb_menu menu calls to mb_menu_menu ?
 */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 /**
  * @enum MBMenuColorElement
  *
@@ -508,7 +513,13 @@ void mb_menu_item_remove(MBMenu *mbmenu, MBMenuMenu *menu, MBMenuItem *item);
  */
 void mb_menu_dump(MBMenu *mbmenu, MBMenuMenu *menu);
 
+#ifdef __cplusplus
+}
+#endif
+
+
 
 /** @} */
+
 
 #endif

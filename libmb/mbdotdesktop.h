@@ -14,6 +14,10 @@
 #include "libmb/mbconfig.h"
 #include "libmb/mbutil.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @defgroup freedesktop Freedesktop Standards utilitys
  * @brief Micro implementations of Freedesktop.org standards for .desktop files, icon themeing and vfolders. 
@@ -158,6 +162,12 @@ void mb_dot_desktop_folders_free(MBDotDesktopFolders* folders);
  */
 #define mb_dot_desktop_folder_entry_get_match(f) (f)->match
 
+#ifdef __cplusplus
+}
+#endif
+
+
 /** @} */
+
 
 #endif

@@ -44,6 +44,10 @@
  * @{
  */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * Exec a command similar to how a shell would, mainly passing quotes. 
  *
@@ -112,7 +116,12 @@ mb_util_animate_startup(Display *dpy,
 			int      width,
 			int      height);
 
+#ifdef __cplusplus
+}
+#endif
+
 
 /** @} */
+
 
 #endif
