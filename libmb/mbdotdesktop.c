@@ -72,7 +72,7 @@ _parse_desktop_entry(MBDotDesktop *dd)
 	  *val++ = '\0'; key = str;
 	  if (*val != '\0')
 	    {
-	      char new_key[64], locale[16];
+	      char new_key[65], locale[17];
  
 	      /* Trim ... 	      */
 	      while (isspace(*key)) key++;

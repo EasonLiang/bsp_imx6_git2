@@ -20,7 +20,6 @@
 #define _GNU_SOURCE   /* X11.pc sets -DXOPEN flag which this works round */
 
 #include "mbutil.h"
-#include <alloca.h>
 
 #define MAX_ARGS 255
 
