@@ -406,6 +406,27 @@ mb_tray_app_set_icon(MBTrayApp     *mb_tray_app,
 		     MBPixbufImage *image);
 
 /**
+ * Enable app to show session data so tray can 'remember it' for 
+ * future sessions.
+ * Defaults to True
+ *
+ * @param mb_tray_app Tray instance
+ * @param val         Boolean indicating action
+ */
+void
+mb_tray_app_set_session ( MBTrayApp *mb_tray_app,
+			  Bool       val );
+
+/**
+ * Get session state.
+ *
+ * @param mb_tray_app Tray instance
+ * @returns True is sessioning active, False otherwise
+ */
+Bool
+mb_tray_app_get_session ( MBTrayApp *mb );
+
+/**
  * Gets the tray app co-ordinates relative to the root window. 
  *
  * @param mb_tray_app Tray instance

@@ -328,8 +328,18 @@ mb_tray_app_set_user_data ( MBTrayApp *mb,
   mb->user_data = data;
 }
 
+void
+mb_tray_app_set_session ( MBTrayApp *mb,
+		      Bool       data )
+{
+  mb->show_session_data = data;
+}
 
-
+Bool
+mb_tray_app_get_session ( MBTrayApp *mb )
+{
+  return mb->show_session_data;
+}
 
 void*
 mb_tray_app_get_user_data (MBTrayApp *mb)
@@ -644,6 +654,8 @@ handle_configure(MBTrayApp       *mb,
   static int had_configure;
 
   if (event->window != mb->win) return;
+
+  if (mb->is_hidden) return;
 
   mb->have_cached_bg = False;
 
@@ -1043,6 +1055,13 @@ _init_docking (MBTrayApp *mb )
 
   /* we found the tray, so now figure out what the app params should be */
 
+  /* Dont attemp to dock if tray marked hidden */
+  if (mb->is_hidden) 
+    return;
+
+  TRAYDBG("%s() offset is %i, is vertical: %i\n", 
+	  __func__, mb->offset, mb->tray_is_vertical);
+
   mb->tray_is_vertical = tray_is_vertical_via_hint(mb);
 
   if (XGetWindowAttributes(mb->dpy, mb->win_tray, &win_tray_attr))
@@ -1161,7 +1180,8 @@ mb_tray_app_hide (MBTrayApp *mb )
   if (mb->is_hidden == False)
     {
       mb->is_hidden = True;
-      XDestroyWindow(mb->dpy, mb->win);
+      if (mb->win != None)
+	XDestroyWindow(mb->dpy, mb->win);
       mb->win = None;
     }
 }
@@ -1365,7 +1385,11 @@ mb_tray_handle_xevent(MBTrayApp *mb, XEvent *xevent)
 		}
 	    }
 	  break;
-	}	    
+	}
+
+      /* Handle event callback for hidden apps */
+      if (mb->is_hidden && mb->xevent_cb) 
+	mb->xevent_cb (mb, xevent);
     }
 }
 

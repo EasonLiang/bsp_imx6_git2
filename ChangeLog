@@ -1,10 +1,19 @@
 2004-02-13  Matthew Allum,,,  <mallum@openedhand.com>
 
+	* libmb/mbtray.c: (mb_tray_app_set_session),
+	(mb_tray_app_get_session), (handle_configure), (_init_docking),
+	(mb_tray_app_hide), (mb_tray_handle_xevent):
+	* libmb/mbtray.h:
+	Add mb_tray_app_get|set_session
+	Fix unhide/hide fuctionality
+
+2004-02-13  Matthew Allum,,,  <mallum@openedhand.com>
+
 	* configure.ac:
 	Remove AM_MAINTAINER_MODE, add AC_CONFIG_AUX
 	This seems to fix random missing .so naming problem
 
-2004-02-10 libmatchbox-0.8 released
+2004-02-10 libmatchbox-1.1 released
 
 2004-02-10  Matthew Allum,,,  <mallum@handhelds.org>
 
