@@ -319,6 +319,8 @@ _mb_font_load(MBFont *font)
 
   font->metrics = pango_font_get_metrics(font->font, NULL);
 
+  if (font->font != NULL) result = 2;
+
 #elif defined (USE_XFT)
 
   for (i=0; i < MB_N_WEIGHTS; i++)

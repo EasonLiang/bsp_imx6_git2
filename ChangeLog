@@ -1,3 +1,8 @@
+2004-07-22  mallum,,,  <mallum@handhelds.org>
+
+	* libmb/mbexp.c: (_mb_font_load):
+	Make sure pango font load returns correct success code.
+
 2004-05-28  Matthew Allum,,,  <mallum@handhelds.org>
 
 	* configure.ac:
