@@ -18,7 +18,7 @@ source_c = mbmenu.c       \
 
 DATADIR=$(datadir)
 
-AM_CFLAGS = @XLIBS_CFLAGS@ @PANGO_CFLAGS@ @PNG_CFLAGS@ -DDATADIR=\"$(datadir)\"
+AM_CFLAGS = @GCC_WARNINGS@ @XLIBS_CFLAGS@ @PANGO_CFLAGS@ @PNG_CFLAGS@ -DDATADIR=\"$(datadir)\"
 
 lib_LTLIBRARIES      = libmb.la
 libmb_la_SOURCES     = $(source_c) $(source_h)

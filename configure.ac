@@ -264,7 +264,6 @@ dnl ------ GCC flags --------------------------------------------------------
 
 if test "x$GCC" = "xyes"; then
         GCC_WARNINGS="-g -Wall -fno-strict-aliasing"
-        XLIBS_CFLAGS="$GCC_WARNINGS $XLIBS_CFLAGS"
 fi
 
 
@@ -277,6 +276,7 @@ AC_SUBST(PANGO_LIBS)
 AC_SUBST(PNG_CFLAGS)
 AC_SUBST(PNG_LIBS)
 AC_SUBST(JPEG_LIBS)
+AC_SUBST(GCC_WARNINGS)
 
 AC_SUBST(XSET_LIBS)
 AC_SUBST(XSET_CFLAGS)
@@ -310,8 +310,6 @@ AC_FUNC_SELECT_ARGTYPES
 AC_FUNC_STAT
 AC_FUNC_STRCOLL
 AC_CHECK_FUNCS([memset select setlocale strcasecmp strchr strdup strncasecmp strstr])
-
-dnl XXXXX FIXME: Doxygen docs ! XXXXXXXXXX
 
 AC_OUTPUT([
 Makefile

@@ -1,5 +1,11 @@
 2004-02-03  Matthew Allum, mallum@handhelds.org
 
+	* configure.ac:
+	* libmb/Makefile.am:
+	Stopped GCC flags leaking into libmb.pc
+
+2004-02-03  Matthew Allum, mallum@handhelds.org
+
 	* libmb/mb.h:
 	* libmb/mbmenu.c:
 	Fixed xsetting defines getting set right
