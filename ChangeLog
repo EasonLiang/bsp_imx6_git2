@@ -1,8 +1,14 @@
+2004-11-17  Ross Burton  <ross@burtonini.com>
+
+	* libmb/mbexp.c:
+	When freeing a MbColor free the XftColor, and when freeing a
+	MbFont unref the MbColor and the PangoContext.
+
 2004-11-16  mallum <mallum@handhelds.org>
 	    
 	* libmb/mbexp.c: (mb_font_unref):
 	Actually free up pango/core font resources properly.
-	Shoul fix bug #101
+	Should fix bug #101
 
 2004-09-24 1.4 Released
 

@@ -169,6 +169,13 @@ mb_col_unref(MBColor *col)
   col->ref_cnt--;
   if (col->ref_cnt == 0)
     {
+#if defined (USE_XFT) || defined (USE_PANGO)
+      MBPixbuf *pb = col->pb;
+      XftColorFree (pb->dpy,
+                    DefaultVisual(pb->dpy, pb->scr),
+                    DefaultColormap(pb->dpy, pb->scr),
+                    &col->xftcol);
+#endif
       free(col);
       col = NULL;
     }
@@ -599,14 +606,14 @@ mb_font_unref(MBFont* font)
 
   if (!font->ref_cnt)
     {
+      if (font->col)
+	mb_col_unref (font->col);
 #ifdef USE_PANGO
       if (font->fontdes)
 	pango_font_description_free (font->fontdes);
-
-      /* XXX Below dont need freeing ?
-      font->pgo_context = pango_xft_get_context ();
-      font->pgo_fontmap = pango_xft_get_font_map ();
-      */
+      if (font->pgo_context)
+	g_object_unref (font->pgo_context);
+      /* The Pango fontmap is owned by Pango apparently */
 
 #elif defined (USE_XFT)
       ;
