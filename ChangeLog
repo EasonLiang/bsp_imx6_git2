@@ -1,3 +1,8 @@
+2004-02-26  Matthew Allum,,,  <mallum@openedhand.com>
+
+	* libmb/mbexp.c: (_clip_some_text), (mb_font_render_simple):
+	Fix odd segv for really long trail clipped text. 
+
 2004-02-25  Matthew Allum,,,  <mallum@openedhand.com>
 
 	* libmb/mbpixbuf.c: (mb_pixbuf_img_plot_pixel),

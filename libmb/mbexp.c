@@ -842,10 +842,11 @@ _clip_some_text (MBFont         *font,
   if (opts & MB_FONT_RENDER_OPTS_CLIP_TRAIL)
     {
       unsigned char *str = malloc(len+5);
+      memset(str, 0, len+5);
 
-      len += 2;
+      /* len += 2; */
       strcpy(str, txt);
-      
+
       do {
 	  /* go back a glyth */
 	  if (encoding == MB_ENCODING_UTF8)
@@ -860,11 +861,7 @@ _clip_some_text (MBFont         *font,
 	  str[len]   = '.'; str[len+1] = '.'; 
 	  str[len+2] = '.'; str[len+3] = '\0'; 
 
-	  /*
-	  printf("%s() len %i str is now %s : %i vs %i\n", __func__, len, str, 
-		 mb_font_get_txt_width(font, str, len+3, encoding),
-		 max_width);
-	  */
+	  /* printf("%s() len %i str is now %s\n", __func__, len, str ); */
       }
       while (mb_font_get_txt_width(font, str, len+3, encoding) > max_width 
 	     && len >= 3);
@@ -1017,6 +1014,8 @@ mb_font_render_simple (MBFont          *font,
   orig_len = len = strlen(text);
 
   str = malloc(len+3);
+  memset(str, 0, len+3);
+
   strcpy(str, text);
 
   render_w = mb_font_get_txt_width(font, str, len, encoding);
@@ -1029,6 +1028,8 @@ mb_font_render_simple (MBFont          *font,
        *      be removing chars from front of string ?
        *
        */
+
+
 
       len = _clip_some_text (font, width, str, encoding, opts);
 
