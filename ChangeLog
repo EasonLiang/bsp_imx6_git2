@@ -1,3 +1,15 @@
+2004-12-23  mallum,,,  <mallum@openedhand.com>
+
+	* configure.ac:
+	Make check an --enable option ( eases x-compiling )
+
+	* libmb/mbpixbuf.c: (mb_pixbuf_img_scale_down),
+	(mb_pixbuf_img_render_to_drawable_with_gc):
+	Fix alignment errors
+
+	* libmb/mbtray.c: (mb_tray_app_new_with_display):
+	Honour MB_SYNC env var.
+
 2004-12-22  Ross Burton  <ross@openedhand.com>
 
 	* tests/menu/*:

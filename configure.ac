@@ -64,6 +64,10 @@ AC_ARG_ENABLE(gprof,
   [  --enable-gprof          enable gprof profiler ( testing only ) build],
      enable_gprof=$enableval, enable_gprof=no )
 
+AC_ARG_ENABLE(unit-tests,
+  [  --enable-unit-tests          enable unit tests ( Requires check )],
+     enable_unit_tests=$enableval, enable_unit_tests=no )
+
 
 
 if test x$enable_pango = xyes; then
@@ -294,7 +298,11 @@ fi
 dnl ------ 'check' for unit tests -------------------------------------------
 
 have_check=no
-AM_PATH_CHECK(,have_check=yes, have_check=no)
+
+if test x$enable_unit_tests = xyes; then
+  AM_PATH_CHECK(,have_check=yes, have_check=no)
+fi
+
 AM_CONDITIONAL(HAVE_CHECK, test x$have_check = xyes)
 
 dnl ------ Substitute in found libs, clags to Makefiles etc -----------------

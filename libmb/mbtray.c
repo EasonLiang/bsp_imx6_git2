@@ -590,6 +590,9 @@ mb_tray_app_new_with_display ( unsigned char         *app_name,
     }
   else mb->dpy = display;
   
+  if (getenv("MB_SYNC"))
+    XSynchronize (mb->dpy, True);
+
   mb->screen   = DefaultScreen(mb->dpy);
   mb->win_root = DefaultRootWindow(mb->dpy);
   mb->win = None;

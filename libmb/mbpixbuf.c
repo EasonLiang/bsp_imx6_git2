@@ -45,18 +45,21 @@
 #define internal_16bpp_pixel_next(p) \
       (p) += 2
 
-#define internal_16bpp_pixel_to_rgb(p,r,g,b) \
-      (r) = ((((unsigned short)*(unsigned short*)(p)) & 0xf800) >> 8);  \
-      (g) = ((((unsigned short)*(unsigned short*)(p)) & 0x07e0) >> 3);  \
-      (b) = ((((unsigned short)*(unsigned short*)(p)) & 0x001f) << 3);  
+#define internal_16bpp_pixel_to_rgb(p,r,g,b)          \
+      {                                               \
+         unsigned short s = ( *p | (*(p+1) << 8));    \
+         (r) = (( s & 0xf800) >> 8);                  \
+         (g) = (( s & 0x07e0) >> 3);                  \
+         (b) = (( s & 0x001f) << 3);                  \
+      }
 
 
-#define internal_rgb_to_16bpp_pixel(r,g,b,p)        \
-     {                                              \
+#define internal_rgb_to_16bpp_pixel(r,g,b,p)         \
+     {                                                \
       unsigned short s = (  (((b) >> 3) & 0x001f) |   \
                             (((g) << 3) & 0x07e0) |   \
                             (((r) << 8) & 0xf800) );  \
-     *(p)   = (unsigned char) s;                    \
+     *(p)   = (unsigned char) s;                      \
      *((p)+1) = (unsigned char) ((s >> 8) & 0xff);    \
      }
 
@@ -1690,8 +1693,9 @@ mb_pixbuf_img_scale_down(MBPixbuf *pb, MBPixbufImage *img,
 	    }
 	  else 
 	    {
-	      *((int *) dest) = *((int *) srcy);
-	      dest += (pb->internal_bytespp + img_scaled->has_alpha);
+	      int i;
+	      for (i=0; i<(pb->internal_bytespp + img_scaled->has_alpha); i++)
+		*dest++ = *srcy++;
 	    }
 	}
     }
@@ -1856,12 +1860,12 @@ mb_pixbuf_img_render_to_drawable_with_gc(MBPixbuf    *pb,
 	  for(y=0; y<img->height; y++)
 	    for(x=0; x<img->width; x++)
 	      {
-		internal_16bpp_pixel_to_rgb(p,r,g,b);
-		internal_16bpp_pixel_next(p);
-		a = ((img->has_alpha) ?  *p++ : 0xff);
+		/* Below is potentially dangerous.  
+		 */
+		pixel =  ( *p | (*(p+1) << 8)); 
 
-		pixel = mb_pixbuf_get_pixel(pb, r, g, b, a);
-
+		p +=  ((img->has_alpha) ?  3 : 2);
+		
 		XPutPixel(img->ximg, x, y, pixel);
 	      }
 	}
