@@ -1,5 +1,13 @@
 2005-01-04  mallum,,,  <mallum@openedhand.com>
 
+	* libmb/mbpixbuf.c: (mb_pixbuf_img_get_pixel):
+	* libmb/mbtray.c: (_set_icon_hint):
+	Fix odditiy in set icons being yellow.
+
+2005-01-04 1.5 Released 
+
+2005-01-04  mallum  <mallum@openedhand.com>
+
 	* libmb/mbexp.h:
 	* libmb/mbpixbuf.h:
 	* libmb/mbtray.h:

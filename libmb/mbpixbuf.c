@@ -45,12 +45,12 @@
 #define internal_16bpp_pixel_next(p) \
       (p) += 2
 
-#define internal_16bpp_pixel_to_rgb(p,r,g,b)          \
-      {                                               \
-         unsigned short s = ( *p | (*(p+1) << 8));    \
-         (r) = (( s & 0xf800) >> 8);                  \
-         (g) = (( s & 0x07e0) >> 3);                  \
-         (b) = (( s & 0x001f) << 3);                  \
+#define internal_16bpp_pixel_to_rgb(p,r,g,b)           \
+      {                                                \
+         unsigned short s = ( *(p) | (*((p)+1) << 8)); \
+         (r) = (( s & 0xf800) >> 8);                   \
+         (g) = (( s & 0x07e0) >> 3);                   \
+         (b) = (( s & 0x001f) << 3);                   \
       }
 
 
@@ -2013,7 +2013,7 @@ mb_pixbuf_img_get_pixel (MBPixbuf      *pixbuf,
 
   if (pixbuf->internal_bytespp == 2)
     {
-      int offset = (((y)*img->width*idx)+((x)*idx));
+      int offset = ( (y * img->width * idx) + ( x * idx ) );
       internal_16bpp_pixel_to_rgb(img->rgba+offset, *r, *g, *b);
 
       if (img->has_alpha)

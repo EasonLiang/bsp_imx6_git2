@@ -423,20 +423,12 @@ _set_icon_hint(MBTrayApp *mb, MBPixbuf *pb, MBPixbufImage *img)
       data[0] = img->width;
       data[1] = img->height;
 
-      /*
-      for( i=2; i < (img->width*img->height)+2; i++)
-	{
-	  idx = (i-2)*4;
-	  data[i] = img->rgba[idx] << 16 | img->rgba[idx+1] << 8  
-	    | img->rgba[idx+2] | img->rgba[idx+3] << 24;  
-	}
-      */
 
       for (y=0; y<img->height; y++)
 	for (x=0; x<img->width; x++)
 	  {
 	    mb_pixbuf_img_get_pixel (pb, img, x, y, &r, &g, &b, &a);
-	    data[i] = ( (a << 24)|(r << 16)|(g << 8)|b );
+	    data[i] = ( (a << 24) | (r << 16)| (g << 8) | b );
 	    i++;
 	  }
       
