@@ -28,6 +28,7 @@
 
 #include "mbtray.h"
 
+#include <strings.h>
 #ifdef USE_XSETTINGS
 #include <xsettings-client.h>
 #endif 
