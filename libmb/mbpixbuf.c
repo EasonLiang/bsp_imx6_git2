@@ -18,6 +18,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include <strings.h>
 #include "mbpixbuf.h"
 
 #define BYTE_ORD_24_RGB  0
