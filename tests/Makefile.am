@@ -2,7 +2,7 @@ TESTS = dot-desktop pixbuf
 
 check_PROGRAMS=dot-desktop pixbuf
 
-AM_CPPFLAGS = @CHECK_CFLAGS@ -I../libmb @XLIBS_CFLAGS@
+AM_CPPFLAGS = @CHECK_CFLAGS@ -I../libmb @XLIBS_CFLAGS@ @PANGO_CFLAGS@
 AM_LDFLAGS = -L../libmb -lmb
 
 dot_desktop_SOURCES=dot-desktop.c
