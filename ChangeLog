@@ -1,3 +1,8 @@
+2004-02-04  Matthew Allum, mallum@handhelds.org
+
+	* libmb/mbmenu.h:
+	Removed bogus xpm.h include.
+
 2004-02-03  Matthew Allum, mallum@handhelds.org
 
 	* configure.ac:
