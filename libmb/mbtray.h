@@ -232,6 +232,7 @@ mb_tray_app_new (unsigned char         *app_name,
  * @param paint_cb  application paint callback 
  * @param argc      command line parameter count
  * @param argv      command line parameter vector
+ * @param display   Pre-existing X Display
  * @returns a MBTrayApp object, NULL on failiure.
  */
 MBTrayApp* 
@@ -389,7 +390,7 @@ mb_tray_app_set_name (MBTrayApp     *mb_tray_app,
  * @param info        context button text
  */
 void
-mb_tray_app_set_context_info (MBTrayApp     *mb, 
+mb_tray_app_set_context_info (MBTrayApp     *mb_tray_app, 
 			      unsigned char *info);
 
 /**
@@ -544,14 +545,14 @@ int
 mb_tray_app_offset ( MBTrayApp *mb_tray_app ) ;
 
 /**
- * XXX experimental at the moment. probably should be renamed. 
  *
- * Inits the main loop ..
+ * Inits the main loop. Only needed if you plan on not using
+ * mbtrays main loop - eg if using with GTK. 
  *
  * @param mb_tray_app Tray instance
  */
 void
-mb_tray_app_main_init ( MBTrayApp *mb );
+mb_tray_app_main_init ( MBTrayApp *mb_tray_app );
 
 /**
  * Runs the tray app main loop until #mb_tray_app_main_quit is called

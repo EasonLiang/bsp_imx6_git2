@@ -1,3 +1,9 @@
+2004-02-06  Matthew Allum,,,  <mallum@openedhand.com>
+
+	* libmb/mbexp.h:
+	* libmb/mbtray.h:
+	Doc updates
+
 2004-02-05  Matthew Allum, <mallum@openedhand.com>
 
 	* configure.ac:

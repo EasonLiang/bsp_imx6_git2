@@ -243,7 +243,8 @@ mb_col_new_from_spec (MBPixbuf *pb, char *spec);
  * The format of the specification can be a color name
  * or the format '#rrggbb[aa]'
  *
- * @param col MBColor object to modify 
+ * @param col  MBColor object to modify 
+ * @param spec New Color specification
  * @returns True or False on failure.
  */
 Bool
@@ -408,7 +409,7 @@ mb_font_set_slant (MBFont *font, MBFontSlant slant);
  * Sets the fonts size.
  *
  * @param font The font to alter
- * @param point requested size in points
+ * @param points requested size in points
  */
 void
 mb_font_set_point_size (MBFont *font, int points);
@@ -590,13 +591,22 @@ mb_drawable_new (MBPixbuf *pixbuf, int width, int height);
  * @returns A MBDrawable Instance
  */
 MBDrawable*
-mb_drawable_new_from_pixmap (MBPixbuf *pb, Pixmap pxm);
+mb_drawable_new_from_pixmap (MBPixbuf *pixbuf, Pixmap pxm);
 
-/* FIXME: document */
+/**
+ * Unrefs ( frees ) a drawable
+ *
+ * @param drw MBDrawable to unref
+ * 
+ */
 void
 mb_drawable_unref (MBDrawable* drw);
 
-/* FIXME: document */
+/**
+ * @def mb_drawable_pixmap 
+ *
+ * Returns a drawables X pixmap
+ */
 #define mb_drawable_pixmap(drw) (drw)->xpixmap
 
 /* FIXME: document */
