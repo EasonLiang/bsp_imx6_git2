@@ -1,3 +1,9 @@
+2005-01-24  mallum,,,  <mallum@openedhand.com>
+
+	* libmb/Makefile.am:
+	* libmb/mbexp.c:
+	Bump up soname. add a comment to mbexp.c
+
 2005-01-11  mallum,,,  <mallum@openedhand.com>
 
 	* configure.ac:

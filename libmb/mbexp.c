@@ -19,7 +19,8 @@
 
 #include "mbexp.h"
 
-void 
+
+void /* Not Used  */
 mb_init(void)
 {
   /* XXXX init gtype system here ? */
