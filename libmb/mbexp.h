@@ -29,6 +29,7 @@
 #ifndef _MB_EXP_H_
 #define _MB_EXP_H_
 
+#include "libmb/mbconfig.h"
 #include "mbpixbuf.h"
 #include "mbdotdesktop.h"
 

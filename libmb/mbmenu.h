@@ -20,6 +20,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#include "libmb/mbconfig.h"
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -33,8 +35,6 @@
 #include <X11/Xutil.h>
 #include <X11/Xatom.h>
 
-#include "mbexp.h"
-
 #include <X11/xpm.h>
 #include <X11/Xresource.h>
 #include <X11/extensions/shape.h>
@@ -47,6 +47,8 @@
 #include <xsettings-client.h>
 #endif 
 
+#include "mbpixbuf.h"
+#include "mbexp.h"
 
 /**
  * @defgroup MBMenu MBMenu - A simple popup menu widget

@@ -35,6 +35,8 @@
 #include <X11/Xutil.h>
 #include <X11/Xatom.h>
 
+#include "libmb/mbconfig.h"
+
 /**
  * @defgroup util Various Utility functions
  * @brief Misc useful functions used by various parts of matchbox. 

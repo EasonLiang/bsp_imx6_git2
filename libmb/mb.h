@@ -27,30 +27,6 @@
 /* mbconfig.h is auto generated */
 #include "mbconfig.h"
 
-#ifdef MB_HAVE_PNG
-#ifndef USE_PNG  		/* config.h redefines  */
-#define USE_PNG 
-#endif
-#endif
-
-#ifdef MB_HAVE_JPEG
-#ifndef USE_JPG 
-#define USE_JPG 
-#endif
-#endif
-
-#ifdef MB_HAVE_XFT
-#ifndef USE_XFT  
-#define USE_XFT
-#endif 
-#endif
-
-#ifdef MB_HAVE_PANGO
-#ifndef USE_PANGO  
-#define USE_PANGO 
-#endif
-#endif
-
 #include "mbpixbuf.h"
 
 /* Experimental stuff */

@@ -11,6 +11,8 @@
 #include <sys/stat.h>
 #include <dirent.h>
 
+#include "libmb/mbconfig.h"
+
 /**
  * @defgroup freedesktop Freedesktop Standards utilitys
  * @brief Micro implementations of Freedesktop.org standards for .desktop files, icon themeing and vfolders. 
