@@ -618,7 +618,7 @@ mb_font_unref(MBFont* font)
 #elif defined (USE_XFT)
       ;
 #else
-      if (font->gc) XFreeGC(dpy, font->gc);
+      if (font->gc) XFreeGC(font->dpy, font->gc);
 #endif
 
       if (font->family) 

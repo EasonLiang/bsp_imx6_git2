@@ -1,3 +1,8 @@
+2005-01-07  Ross Burton  <ross@burtonini.com>
+
+	* libmb/mbexp.c:
+	Fix a compile error.
+
 2005-01-07  mallum,,,  <mallum@openedhand.com>
 
 	* configure.ac:
