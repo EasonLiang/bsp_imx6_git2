@@ -171,6 +171,35 @@ mb_dotdesktop_get_filename(MBDotDesktop *dd)
     return NULL;
 }
 
+char *
+mb_dotdesktop_get_exec (MBDotDesktop *dd)
+{
+  /* Source string, destination string */
+  char *source, *dest;
+  /* Source iterator, destination iterator */
+  char *s, *d;
+  
+  s = source = mb_dotdesktop_get (dd, "Exec");
+  if (source == NULL)
+    return NULL;
+  
+  d = dest = malloc (strlen(source) + 1);
+  while (*s) {
+    if (*s == '%') {
+      if (*++s == '%') {
+        *d++ = '%';
+      } else {
+        /* Otherwise ignore. TODO: should handle some of the escapes */
+        s++;
+      }
+    } else {
+      *d++ = *s++;
+    }
+  }
+  *d = '\0';
+  return dest;
+}
+
 unsigned char *
 mb_dotdesktop_get(MBDotDesktop *dd, char *field)
 {

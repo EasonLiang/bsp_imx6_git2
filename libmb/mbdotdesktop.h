@@ -79,6 +79,9 @@ mb_dotdesktop_get(MBDotDesktop *dd, char *key);
 char *
 mb_dotdesktop_get_filename(MBDotDesktop *dd);
 
+char *
+mb_dotdesktop_get_exec (MBDotDesktop *dd);
+
 /**
  * Free's a #MBDotDesktop instance
  *

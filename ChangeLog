@@ -1,7 +1,14 @@
+2004-11-30  Ross Burton  <ross@burtonini.com>
+
+	* libmb/mbdotdesktop.h:
+	* libmb/mbdotdesktop.c:
+	Add mb_dotdesktop_get_exec(), which expands any %-encoded
+	variables.
+	
 2004-11-26  mallum  <mallum@handhelds.org>
 
 	* COPYING:
-	Add LGPL Version so auto* does not generate incorrect GPL one. 
+	Add LGPL Version so auto* does not generate incorrect GPL one.
 
 2004-11-17  Ross Burton  <ross@burtonini.com>
 
