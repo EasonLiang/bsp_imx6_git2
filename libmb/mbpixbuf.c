@@ -1684,7 +1684,7 @@ mb_pixbuf_img_plot_pixel (MBPixbuf      *pb,
 			  unsigned char  b)
 { 
   int idx;
-  if (x > img->width || y > img->height) return;
+  if (x >= img->width || y >= img->height) return;
 
   idx = 3 + img->has_alpha;
 
@@ -1711,7 +1711,7 @@ mb_pixbuf_img_plot_pixel_with_alpha (MBPixbuf      *pb,
       return;
     }
     
-   if (x > img->width || y > img->height) return;   
+   if (x >= img->width || y >= img->height) return;   
               
   alpha_composite(img->rgba[idx],   (r), (a), img->rgba[idx]);    
   alpha_composite(img->rgba[idx+1], (g), (a), img->rgba[idx+1]);  
