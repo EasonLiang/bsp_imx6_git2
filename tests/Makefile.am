@@ -8,7 +8,7 @@ AM_LDFLAGS = -L../libmb -lmb
 dot_desktop_SOURCES=dot-desktop.c
 dot_desktop_LDADD= @CHECK_LIBS@
 
-pixbuf_SOURCES=pixbuf.c
+pixbuf_SOURCES=pixbuf.c oh.h
 pixbuf_LDADD= @CHECK_LIBS@
 
 noinst_PROGRAMS = dump-image
