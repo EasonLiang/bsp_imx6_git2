@@ -2,9 +2,9 @@ AC_PREREQ(2.53)
 AC_INIT([libmatchbox], 1.6, [mallum@handhelds.org])
 AC_CONFIG_SRCDIR([libmb/mbtray.c])
 
+AC_CONFIG_AUX_DIR(.)
 AM_INIT_AUTOMAKE()
 AM_CONFIG_HEADER([config.h])
-AC_CONFIG_AUX_DIR(.)
 
 # Checks for programs.
 AC_GNU_SOURCE

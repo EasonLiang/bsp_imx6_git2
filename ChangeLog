@@ -1,5 +1,10 @@
 2005-02-22  mallum,,,  <mallum@openedhand.com>
 
+	* configure.ac:
+        move AC_CONFIG_AUX_DIR above AM_INIT_AUTOMAKE
+
+2005-02-22  mallum,,,  <mallum@openedhand.com>
+
 	* libmb/mbtray.c: (get_xevent_timed):
 	Make timeouts work more correctly. Fixes bug with large timeouts
 	never getting called like with the clock applet.
