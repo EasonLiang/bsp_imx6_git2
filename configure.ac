@@ -7,8 +7,10 @@ AM_CONFIG_HEADER([config.h])
 AC_CONFIG_AUX_DIR(.)
 
 # Checks for programs.
+AC_GNU_SOURCE
 AC_PROG_CC
 AC_PROG_LIBTOOL
+AM_PATH_CHECK()
 
 #
 # TODO
@@ -349,6 +351,7 @@ libmb/Makefile
 libmb/mbconfig.h
 doc/Doxyfile
 doc/Makefile
+tests/Makefile
 ])
 
 dnl ==========================================================================

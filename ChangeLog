@@ -1,3 +1,10 @@
+2004-12-10  Ross Burton  <ross@openedhand.com>
+
+	* configure.ac:
+	* Makefile.am:
+	* tests/*
+	Add some unit tests for MBDotDesktop and MBPixbuf.
+
 2004-12-01  mallum  <mallum@handhelds.org>
 
 	* configure.ac:
