@@ -1,3 +1,9 @@
+2005-01-07  Ross Burton  <ross@burtonini.com>
+
+	* libmb/mbpixbuf.c:
+	Use _img_copy_composite() in _img_composite() instead of doing the
+	same code twice.
+
 2005-01-04  mallum,,,  <mallum@openedhand.com>
 
 	* libmb/mbpixbuf.c: (mb_pixbuf_img_get_pixel):
