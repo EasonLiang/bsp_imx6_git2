@@ -465,7 +465,8 @@ mb_pixbuf_img_fill(MBPixbuf *pixbuf,
 		   int a);
 
 /**
- * Plots a pixel on specified image.
+ * Plots a pixel on specified image. Note: on a RGBA image the alpha channel is
+ * left as-is.
  *
  * @param pixbuf mbpixbuf object
  * @param image destination image
@@ -614,7 +615,7 @@ void mb_pixbuf_img_copy_composite_with_alpha (MBPixbuf      *pixbuf,
 					      int overall_alpha );
 
 /**
- * DEPRECIATED. Use #mb_pixbuf_img_copy_composite instead. 
+ * DEPRECATED. Use #mb_pixbuf_img_copy_composite instead. 
  *
  */
 void mb_pixbuf_img_composite (MBPixbuf      *pb,
