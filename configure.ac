@@ -3,8 +3,8 @@ AC_INIT([libmatchbox], 1.1, [mallum@handhelds.org])
 AC_CONFIG_SRCDIR([libmb/mbtray.c])
 
 AM_INIT_AUTOMAKE()
-AM_MAINTAINER_MODE
 AM_CONFIG_HEADER([config.h])
+AC_CONFIG_AUX_DIR(.)
 
 # Checks for programs.
 AC_PROG_CC
