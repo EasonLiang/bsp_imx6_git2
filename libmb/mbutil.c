@@ -17,6 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#define _GNU_SOURCE   /* X11.pc sets -DXOPEN flag which this works round */
+
 #include "mbutil.h"
 #include <alloca.h>
 

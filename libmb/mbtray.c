@@ -26,6 +26,8 @@
 
  */
 
+#define _GNU_SOURCE
+
 #include "mbtray.h"
 
 #include <strings.h>

@@ -17,6 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#define _GNU_SOURCE
+
 #include "mbmenu.h"
 
 #define MBMAX(x,y) ((x>y)?(x):(y))

@@ -17,6 +17,8 @@
  * Boston, MA 02111-1307, USA.
  */
 
+#define _GNU_SOURCE
+
 #include "hash.h"
 
 // static struct nlist *hashtab[HASHSIZE];

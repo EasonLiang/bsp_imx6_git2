@@ -17,8 +17,9 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "mbexp.h"
+#define _GNU_SOURCE
 
+#include "mbexp.h"
 
 void /* Not Used  */
 mb_init(void)

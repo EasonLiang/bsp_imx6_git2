@@ -1,3 +1,14 @@
+2005-03-16  mallum,,,  <mallum@openedhand.com>
+
+	* libmb/hash.c:
+	* libmb/mbdotdesktop.c:
+	* libmb/mbexp.c:
+	* libmb/mbmenu.c:
+	* libmb/mbpixbuf.c:
+	* libmb/mbtray.c:
+	* libmb/mbutil.c:
+	Add _GNU_SOURCE define to fix -DXOPEN_SOURCE issues.
+
 2005-03-07  Ross Burton  <ross@burtonini.com>
 
 	* tests/Makefile.am:
