@@ -71,6 +71,15 @@ Window mb_single_instance_get_window(Display *dpy, const char *bin_name);
 Bool mb_single_instance_is_starting(Display *dpy, const char *bin_name);
 
 /** 
+ * Safely returns the current HOME directory or /tmp if not set. 
+ * You should not free the value returned. 
+ *
+ * @returns home directory or /tmp if not set
+ */
+char*
+mb_util_get_homedir(void);
+
+/** 
  * Raise/Activate an existing window 
  *
  * @param dpy X11 Display

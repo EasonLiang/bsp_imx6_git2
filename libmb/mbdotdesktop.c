@@ -220,8 +220,8 @@ mb_dot_desktop_icon_get_full_path (char* theme_name,
 
   char *icon_dirs[2] = { NULL, NULL };
 
-  icon_dirs[0] = alloca(sizeof(char) * (strlen(getenv("HOME")) + 8));
-  sprintf(icon_dirs[0], "%s/.icons", getenv("HOME"));
+  icon_dirs[0] = alloca(sizeof(char) * (strlen(mb_util_get_homedir()) + 8));
+  sprintf(icon_dirs[0], "%s/.icons", mb_util_get_homedir());
  
   icon_dirs[1] = alloca(sizeof(char) * (strlen(DATADIR) + 8));
   sprintf(icon_dirs[1], DATADIR "/icons");

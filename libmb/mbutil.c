@@ -229,6 +229,19 @@ file_exists(char *filename)
   return True;
 }
 
+char*
+mb_util_get_homedir(void)
+{
+  if (getenv("HOME") == NULL)
+    {
+      if (getenv("TMPDIR"))
+        return getenv("TMPDIR");
+      else
+        return "/tmp";
+    }
+
+  return getenv("HOME");
+}
 
 char *
 mb_util_get_theme_full_path(const char *theme_name)
@@ -244,7 +257,7 @@ mb_util_get_theme_full_path(const char *theme_name)
 	memset(theme_path, 0, sizeof(char)*255);
 
 	snprintf(theme_path, 255, "%s/.themes/%s/matchbox/",
-		 getenv("HOME"), theme_name);
+		 mb_util_get_homedir(), theme_name);
 	if (!file_exists(theme_path))
 	  {
 	    snprintf(theme_path, 255, "%s/themes/%s/matchbox/",

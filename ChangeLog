@@ -1,3 +1,11 @@
+2004-08-09  mallum,,,  <mallum@handhelds.org>
+
+	* libmb/mbdotdesktop.c: (mb_dot_desktop_icon_get_full_path):
+	* libmb/mbutil.c: (mb_util_get_homedir),
+	(mb_util_get_theme_full_path):
+	* libmb/mbutil.h:
+       Added mb_util_get_homedir() call.
+
 2004-07-30  mallum,,,  <mallum@handhelds.org>
 
 	* libmb/mbexp.c: (mb_font_render_simple_get_width):
