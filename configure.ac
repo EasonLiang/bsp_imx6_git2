@@ -359,6 +359,7 @@ libmb/mbconfig.h
 doc/Doxyfile
 doc/Makefile
 tests/Makefile
+tests/menu/Makefile
 ])
 
 dnl ==========================================================================

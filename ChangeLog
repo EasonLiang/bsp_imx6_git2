@@ -1,5 +1,13 @@
 2005-03-16  mallum,,,  <mallum@openedhand.com>
 
+	* Makefile.am:
+	* configure.ac:
+	* tests/Makefile.am:
+	* tests/menu/Makefile.am:
+	Add tests/menu to dist and make sure make dist includes it.
+
+2005-03-16  mallum,,,  <mallum@openedhand.com>
+
 	* libmb/hash.c:
 	* libmb/mbdotdesktop.c:
 	* libmb/mbexp.c:
