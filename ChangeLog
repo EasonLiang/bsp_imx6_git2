@@ -1,3 +1,9 @@
+2004-07-30  mallum,,,  <mallum@handhelds.org>
+
+	* libmb/mbexp.c: (mb_font_render_simple_get_width):
+	* libmb/mbexp.h:
+	Added mb_font_render_simple_get_width() call. 
+
 2004-07-22  mallum,,,  <mallum@handhelds.org>
 
 	* libmb/mbexp.c: (_mb_font_load):

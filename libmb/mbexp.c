@@ -987,13 +987,6 @@ _render_some_text (MBFont        *font,
 
 }
 
-/* 
-   renders single line of text
-
-   return num of glypths rendered
-
-   XXX pass flags for clipping ?
-*/
 int
 mb_font_render_simple (MBFont          *font, 
 		       MBDrawable      *drw, 
@@ -1083,6 +1076,55 @@ mb_font_render_simple (MBFont          *font,
   free(str);
   
   return len;
+}
+
+int
+mb_font_render_simple_get_width (MBFont          *font, 
+				 int              width,
+				 unsigned char   *text,
+				 int              encoding,
+				 MBFontRenderOpts opts )
+{
+  int render_w = 0, len = 0, orig_len = 0;
+  unsigned char *str = NULL;
+  Bool want_dots = False;
+
+  if (text == NULL) return 0;
+
+  if (!_mb_font_is_font_object_fresh (font))
+    _mb_font_load(font);
+
+  orig_len = len = strlen(text);
+
+  str = malloc(len+3);
+  memset(str, 0, len+3);
+
+  strcpy(str, text);
+
+  render_w = mb_font_get_txt_width(font, str, len, encoding);
+
+  if (render_w > width)
+    {
+      len = _clip_some_text (font, width, str, encoding, opts);
+
+      if (!len) { free(str); return 0; }
+      
+      if ((opts & MB_FONT_RENDER_OPTS_CLIP_TRAIL) && len > 3)
+	  want_dots = True;
+    }
+  
+  if ((opts & MB_FONT_RENDER_OPTS_CLIP_TRAIL) && want_dots)
+    {
+      str[len] = '.'; str[len+1] = '.'; str[len+2] = '.'; str[len+3] = '\0'; 
+
+      len += 3; 
+    }
+
+  render_w = mb_font_get_txt_width(font, str, len, encoding);
+  
+  free(str);
+  
+  return render_w;
 }
 
 

@@ -512,6 +512,25 @@ mb_font_render_simple (MBFont          *font,
 		       int              encoding,
 		       MBFontRenderOpts opts);
 
+/**
+ * Returns the width in pixels of any text rendered with
+ * @mb_font_render_simple, taking into account any clipping.
+ * 
+ * @param font The font to render
+ * @param width The maximum width in pixels to render
+ * @param text The text to render.
+ * @param encoding the encoding of the text to render
+ * @param opts Or'd #MBFontRenderOpts
+ * @returns The width in pixels
+ */
+int
+mb_font_render_simple_get_width (MBFont          *font, 
+				 int              width,
+				 unsigned char   *text,
+				 int              encoding,
+				 MBFontRenderOpts opts );
+
+
 /* Layout stuff 
  *
  * XXX: This stuff is experimental, subject to change and shouldn't 
