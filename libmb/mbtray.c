@@ -254,8 +254,7 @@ _xsettings_notify_cb (const char       *name,
 static Bool
 get_xevent_timed( MBTrayApp* mb, XEvent* event_return )
 {
-
-  struct timeval tv_tmp;
+  static struct timeval tv_tmp;
 
   if (mb->poll_fd == -1 && mb->poll_timeout == NULL) 
     {
@@ -274,8 +273,17 @@ get_xevent_timed( MBTrayApp* mb, XEvent* event_return )
       if (mb->poll_fd != -1)
 	FD_SET(mb->poll_fd, &readset);
 
-      if (mb->poll_timeout) /* select resets, so make copy  */
-	memcpy(&tv_tmp, mb->poll_timeout, sizeof(struct timeval));
+      if (mb->poll_timeout)
+	{
+	  if (tv_tmp.tv_sec <= 0 && tv_tmp.tv_usec <= 0)
+	    {
+	      /* select sets tv_tmp with time left so we let it decrement
+	       * to 0 and then reset.	  
+               * XXX According to man page Im not sure how portable this is.
+	      */
+	      memcpy(&tv_tmp, mb->poll_timeout, sizeof(struct timeval));
+	    }
+	}
 
       if (select( (fd > mb->poll_fd) ? fd+1 : mb->poll_fd+1 , 
 		  &readset, NULL, NULL, 
