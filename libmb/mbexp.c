@@ -599,17 +599,27 @@ mb_font_unref(MBFont* font)
 
   if (!font->ref_cnt)
     {
-      if (font->family) free(font->family);
+#ifdef USE_PANGO
+      if (font->fontdes)
+	pango_font_description_free (font->fontdes);
 
-#if defined (USE_PANGO)
-      /* FIXME To free 
-
-      font->pgo_context
-      font->pgo_fontmap
-      font->fontdes    
-
+      /* XXX Below dont need freeing ?
+      font->pgo_context = pango_xft_get_context ();
+      font->pgo_fontmap = pango_xft_get_font_map ();
       */
-#endif      
+
+#elif defined (USE_XFT)
+      ;
+#else
+      if (font->gc) XFreeGC(dpy, font->gc);
+#endif
+
+      if (font->family) 
+	free(font->family);
+
+      _mb_font_free(font);
+
+      free(font);
     }
 }
 
