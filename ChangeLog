@@ -1,3 +1,13 @@
+2005-01-11  mallum,,,  <mallum@openedhand.com>
+
+	* configure.ac:
+	Bump up version
+	* libmb/mbmenu.c: (mb_menu_new):
+	Change default font, avoiding fixed
+	* libmb/mbpixbuf.c: (_paletteAlloc), (mb_pixbuf_get_pixel):
+	* libmb/mbpixbuf.h:
+	Add new x_pixel call
+
 2005-01-10  Ross Burton  <ross@burtonini.com>
 
 	* libmb/mbdotdesktop.c:

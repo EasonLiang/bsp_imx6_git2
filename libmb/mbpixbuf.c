@@ -703,6 +703,7 @@ _paletteAlloc(MBPixbuf *pb)
   return colnum;
 }
 
+
 static unsigned long
 mb_pixbuf_get_pixel(MBPixbuf *pb, int r, int g, int b, int a)
 {
@@ -785,6 +786,13 @@ mb_pixbuf_get_pixel(MBPixbuf *pb, int r, int g, int b, int a)
     }
   return 0;
 }
+
+unsigned long
+mb_pixbuf_lookup_x_pixel(MBPixbuf *pb, int r, int g, int b, int a)
+{
+  return mb_pixbuf_get_pixel(pb, r, g, b, a);
+}
+
 
 MBPixbuf *
 mb_pixbuf_new(Display *dpy, int scr)

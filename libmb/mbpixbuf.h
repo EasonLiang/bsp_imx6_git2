@@ -257,6 +257,20 @@ mb_pixbuf_new_extended(Display *dpy,
 void
 mb_pixbuf_destroy(MBPixbuf *pixbuf);
 
+/** 
+ * Get the X pixel representation for a given color
+ * 
+ * @param pixbuf mbpixbuf object
+ * @param r red component of color
+ * @param g green component of color
+ * @param b blue component of color
+ * @param a alpha component
+ *
+ * @returns x pixel value 
+ */
+unsigned long
+mb_pixbuf_lookup_x_pixel(MBPixbuf *pixbuf, int r, int g, int b, int a);
+
 
 /**
  * DEPRECIATED. Use #mb_pixbuf_img_rgb_new, #mb_pixbuf_img_rgba_new instead. 

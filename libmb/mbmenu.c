@@ -131,7 +131,7 @@ mb_menu_new(Display *dpy, int screen)
   XGCValues gv;
   XWindowAttributes root_attr;
 
-  char *fontname = "Sans,fixed 8";
+  char *fontname = "Sans bold 14px"; /* will fall back to fixed */
 
   MBMenu *mbmenu = (MBMenu *)malloc(sizeof(MBMenu));
   memset(mbmenu, 0, sizeof(MBMenu));
