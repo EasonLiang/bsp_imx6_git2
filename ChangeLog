@@ -1,3 +1,9 @@
+2005-04-08  mallum,,,  <mallum@openedhand.com>
+
+	* configure.ac:
+	* libmb/Makefile.am:
+	Bump up version to 1.7
+
 2005-03-30  mallum,,,  <mallum@openedhand.com>
 
 	* libmb/mbpixbuf.c: (_load_xpm_file):
