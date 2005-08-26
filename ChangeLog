@@ -1,3 +1,24 @@
+2005-08-26  mallum,,,  <mallum@openedhand.com>
+
+	* configure.ac:
+	Tweak for people that try to compile without-x
+	* libmb/mbexp.c: (_clip_some_text), (mb_font_render_simple):
+	Dont put ellipses right after a space
+
+2005-04-28  mallum,,,  <mallum@openedhand.com>
+
+	reviewed by: <delete if not using a buddy>
+
+	* ChangeLog:
+	* configure.ac:
+
+2005-04-16  mallum,,,  <mallum@openedhand.com>
+
+	* configure.ac:
+	Check for AC_PATH_XTRA fail.
+
+2005-04-08 Release 1.7
+
 2005-04-08  mallum,,,  <mallum@openedhand.com>
 
 	* configure.ac:

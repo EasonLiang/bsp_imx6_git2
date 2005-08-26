@@ -906,7 +906,6 @@ _clip_some_text (MBFont         *font,
       unsigned char *str = malloc(len+5);
       memset(str, 0, len+5);
 
-      /* len += 2; */
       strcpy(str, txt);
 
       do {
@@ -1085,13 +1084,18 @@ mb_font_render_simple (MBFont          *font,
        */
 
 
-
       len = _clip_some_text (font, width, str, encoding, opts);
 
       if (!len) { free(str); return 0; }
       
       if ((opts & MB_FONT_RENDER_OPTS_CLIP_TRAIL) && len > 3)
+	{
+	  /* Avoid having a space before the elipsis */
+	  while (len-1 >= 0 && str[len-1] == ' ')
+	    len--;
+
 	  want_dots = True;
+	}
     }
   else
     {

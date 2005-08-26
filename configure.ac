@@ -90,10 +90,13 @@ if test $have_libx11pc = yes; then
 else
 
 AC_PATH_XTRA
+if test x"$no_x" = x"yes"; then
+    AC_MSG_ERROR([*** Required X11 Headers and libraries not found.***])
+fi
 
 XFT_LIBS=
 XFT_CFLAGS=
-
+ 
 # FIXME: Should check for shm 
 
 if test x$enable_xft != xno; then
