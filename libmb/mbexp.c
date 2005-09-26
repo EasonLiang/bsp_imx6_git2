@@ -406,6 +406,10 @@ mb_font_new(Display *dpy,
 #endif
   
   font = malloc(sizeof(MBFont));
+
+  if (font == NULL)
+    return NULL;
+
   memset(font, 0, sizeof(MBFont));
 
   if (family != NULL)
@@ -425,9 +429,12 @@ mb_font_new(Display *dpy,
    font->pgo_fontmap = pango_xft_get_font_map (font->dpy, DefaultScreen(dpy));
    font->fontdes     = pango_font_description_new ();
 
-   /* -- Needed ?
-   pango_context_set_language (w->pgo, pango_language_from_string ("ar_AE"));
-   */
+   /* If Pango is mis-setup the above will fail */
+   if (font->pgo_context == NULL || font->pgo_fontmap == NULL || font->fontdes == NULL)
+     {
+       free(font);
+       return NULL;
+     }
 
 #elif defined (USE_XFT)
 
@@ -581,7 +588,9 @@ MBFont*
 mb_font_new_from_string(Display *dpy, char *spec) 
 {
   MBFont *font = mb_font_new(dpy, NULL);
-  mb_font_set_from_string(font, spec); 
+
+  if (font)
+    mb_font_set_from_string(font, spec); 
   return font;
 }
 
