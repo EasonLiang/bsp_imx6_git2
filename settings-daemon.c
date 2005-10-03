@@ -119,13 +119,11 @@ translate_string_string_toolbar (TranslationEntry *trans,
   
   g_assert (value->type == trans->gconf_type);
 
-  /* This is kind of a workaround since GNOME expects the key value to be
-   * "both_horiz" and gtk+ wants the XSetting to be "both-horiz".
-
   tmp = gconf_value_get_string (value);
-  if (tmp && strcmp (tmp, "both_horiz") == 0)
-	  tmp = "both-horiz";
-   */
+  /* Is this still needed?
+     if (tmp && strcmp (tmp, "both_horiz") == 0)
+     tmp = "both-horiz";
+  */
 
   for (i = 0; managers [i]; i++) 
     xsettings_manager_set_string (managers [i],
@@ -171,6 +169,8 @@ static TranslationEntry translations [] = {
   { "/desktop/gnome/interface/file_chooser_backend",	"Gtk/FileChooserBackend",
       GCONF_VALUE_STRING,	translate_string_string },
   { "/desktop/gnome/interface/menus_have_icons",	"Gtk/MenuImages",
+      GCONF_VALUE_BOOL,		translate_bool_int },
+  { "/desktop/gnome/interface/stylus_mode",	"Gtk/StylusMode",
       GCONF_VALUE_BOOL,		translate_bool_int },
 };
 
@@ -720,6 +720,19 @@ main(int argc, char **argv)
    if (gconf_client != NULL)
      {
        sd_settings_xsettings_load (gconf_client);
+
+       gconf_client_add_dir(gconf_client,
+			    "/desktop/gnome",
+			    /* GCONF_CLIENT_PRELOAD_NONE */
+			    GCONF_CLIENT_PRELOAD_RECURSIVE,
+			    NULL);
+
+       gconf_client_notify_add(gconf_client, 
+			       "/desktop/gnome",
+			       gconf_key_changed_callback,
+			       NULL , /* UserData */
+			       NULL, 
+			       NULL);
 
        gconf_client_add_dir(gconf_client,
 			    "/apps/matchbox",
