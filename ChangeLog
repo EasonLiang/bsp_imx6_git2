@@ -1,6 +1,12 @@
 2005-10-03  Ross Burton  <ross@burtonini.com>
 
 	* settings-daemon.c:
+	Don't set the Xft values every time a key changes, as this
+	involves spawning xrdb.
+
+2005-10-03  Ross Burton  <ross@burtonini.com>
+
+	* settings-daemon.c:
 	Programatically monitor keys.
 
 2005-10-03  Ross Burton  <ross@burtonini.com>

@@ -63,11 +63,6 @@ struct _TranslationEntry
   TranslationFunc translate;
 };
 
-#ifdef HAVE_XFT2 
-static void sd_settings_update_xft (void);
-static void xft_callback              (GConfEntry  *entry);
-#endif /* HAVE_XFT2 */
-
 static void
 translate_bool_int (const TranslationEntry *trans,
 		    GConfValue       *value)
@@ -283,12 +278,6 @@ xsettings_callback (GConfEntry *entry)
 }
 
 #ifdef HAVE_XFT2
-static void
-xft_callback (GConfEntry *entry)
-{
-  sd_settings_update_xft ();
-}
-
 typedef struct
 {
   gboolean antialias;
@@ -300,7 +289,8 @@ typedef struct
 
 static const char rgba_types[][5] = { "rgb", "bgr", "vbgr", "vrgb" };
 
-/* Read GConf settings and determine the appropriate Xft settings based on them
+/**
+ * Read GConf settings and determine the appropriate Xft settings based on them
  * This probably could be done a bit more cleanly with gconf_string_to_enum
  */
 static void
@@ -392,14 +382,17 @@ sd_xft_settings_get (GConfClient      *client,
   g_free (antialiasing);
 }
 
+/**
+ * Apply the given Xft settings via X Settings.
+ */
 static void
 sd_xft_settings_set_xsettings (SdXftSettings *settings)
 {
   int i;
-
+  g_return_if_fail (settings != NULL);
+  
   for (i = 0; managers [i]; i++)  
     {
-
       xsettings_manager_set_int (managers [i], "Xft/Antialias", settings->antialias);
       xsettings_manager_set_int (managers [i], "Xft/Hinting", settings->hinting);
       xsettings_manager_set_string (managers [i], "Xft/HintStyle", settings->hintstyle);
@@ -455,7 +448,9 @@ wait_for_child (int  pid,
   return TRUE;
 }
 
-
+/**
+ * Utility function to call a command and pipe text to it.
+ */
 static void
 sd_spawn_with_input (char      **argv,
 		     const char *input)
@@ -504,15 +499,20 @@ sd_spawn_with_input (char      **argv,
     }
 }
 
-
+/**
+ * Apply the given Xft settings via X Resouces.
+ */
 static void
 sd_xft_settings_set_xresources (SdXftSettings *settings)
 {
-  char *add[] = { "xrdb", "-merge", NULL };
-  GString *add_string = g_string_new (NULL);
+  const char *add[] = { "xrdb", "-merge", NULL };
+  GString *add_string;
+  
+  g_return_if_fail (settings != NULL);
+  
+  add_string = g_string_new (NULL);
 
-  // setlocale (LC_NUMERIC, "C");
-
+  /* TODO: output locale-independent floats */
   g_string_append_printf (add_string,
 			  "Xft.dpi: %f\n", settings->dpi / 1024.);
   g_string_append_printf (add_string,
@@ -524,27 +524,35 @@ sd_xft_settings_set_xresources (SdXftSettings *settings)
   g_string_append_printf (add_string,
 			  "Xft.rgba: %s\n", settings->rgba);
 
-  sd_spawn_with_input (add, add_string->str);
-
+  sd_spawn_with_input ((char**)add, add_string->str);
+  
   g_string_free (add_string, TRUE);
- 
- // setlocale (LC_NUMERIC, old_locale);
-  // g_free (old_locale);
 }
 
-/* We mirror the Xft properties both through XSETTINGS and through
- * X resources
+/**
+ * We mirror the Xft properties both through XSETTINGS and through X resources.
  */
 static void
 sd_settings_update_xft (void)
 {
   SdXftSettings settings;
-
+  
   sd_xft_settings_get (gconf_client, &settings);
 
   sd_xft_settings_set_xsettings (&settings);
   sd_xft_settings_set_xresources (&settings);
 }
+
+/**
+ * Called by the GConf notification to try and handle Xft keys.
+ */
+static void
+xft_callback (GConfEntry *entry)
+{
+  if (g_str_has_prefix (entry->key, FONT_RENDER_DIR))
+    sd_settings_update_xft ();
+}
+
 #endif /* HAVE_XFT2 */
 
 static void
@@ -629,8 +637,9 @@ gconf_key_changed_callback (GConfClient *client,
 
   xsettings_callback (entry);
 
-  xft_callback(entry); 		/* this is a bit crap should be call 
-				   if above succedded */
+#ifdef HAVE_XFT2
+  xft_callback(entry);
+#endif
 
   for (i = 0; managers [i]; i++)  
     {
