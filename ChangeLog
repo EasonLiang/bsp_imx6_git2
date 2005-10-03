@@ -1,5 +1,11 @@
 2005-10-03  Ross Burton  <ross@burtonini.com>
 
+	* settings-daemon.c:
+	* Makefile.am:
+	Tweak the code a bit.
+
+2005-10-03  Ross Burton  <ross@burtonini.com>
+
 	* Mafefile.am:
 	Clean up, remove unused defines.
 

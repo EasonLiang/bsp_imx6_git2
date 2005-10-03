@@ -29,7 +29,6 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
@@ -41,9 +40,9 @@
 
 #include "xsettings-manager.h"
 
-XSettingsManager **managers = NULL;
-
-#define HAVE_XFT2 1
+static GMainLoop *loop;
+static GConfClient  *gconf_client;
+static XSettingsManager **managers = NULL;
 
 #ifdef HAVE_XFT2
 #define FONT_RENDER_DIR "/platform/ui/font_rendering"
@@ -54,13 +53,12 @@ XSettingsManager **managers = NULL;
 #endif /* HAVE_XFT2 */
 
 typedef struct _TranslationEntry TranslationEntry;
-typedef void (* TranslationFunc) (TranslationEntry *trans,
+typedef void (* TranslationFunc) (const TranslationEntry *trans,
                                   GConfValue       *value);
 struct _TranslationEntry
 {
   const char *gconf_key;
   const char *xsetting_name;
-  
   GConfValueType gconf_type;
   TranslationFunc translate;
 };
@@ -71,7 +69,7 @@ static void xft_callback              (GConfEntry  *entry);
 #endif /* HAVE_XFT2 */
 
 static void
-translate_bool_int (TranslationEntry *trans,
+translate_bool_int (const TranslationEntry *trans,
 		    GConfValue       *value)
 {
   int i;
@@ -84,7 +82,7 @@ translate_bool_int (TranslationEntry *trans,
 }
 
 static void
-translate_int_int (TranslationEntry *trans,
+translate_int_int (const TranslationEntry *trans,
                    GConfValue       *value)
 {
   int i;
@@ -97,7 +95,7 @@ translate_int_int (TranslationEntry *trans,
 }
 
 static void
-translate_string_string (TranslationEntry *trans,
+translate_string_string (const TranslationEntry *trans,
                          GConfValue       *value)
 {
   int i;
@@ -111,7 +109,7 @@ translate_string_string (TranslationEntry *trans,
 }
 
 static void
-translate_string_string_toolbar (TranslationEntry *trans,
+translate_string_string_toolbar (const TranslationEntry *trans,
 				 GConfValue       *value)
 {
   int i;
@@ -131,7 +129,7 @@ translate_string_string_toolbar (TranslationEntry *trans,
                                   tmp);
 }
 
-static TranslationEntry translations [] = {
+static const TranslationEntry translations [] = {
   { "/desktop/gnome/peripherals/mouse/double_click",	"Net/DoubleClickTime",
       GCONF_VALUE_INT,		translate_int_int },
   { "/desktop/gnome/peripherals/mouse/drag_threshold",  "Net/DndDragThreshold",
@@ -173,7 +171,7 @@ static TranslationEntry translations [] = {
       GCONF_VALUE_BOOL,		translate_bool_int },
 };
 
-static TranslationEntry*
+static const TranslationEntry*
 find_translation_entry (const char *gconf_key)
 {
   int i;
@@ -227,7 +225,7 @@ type_to_string (GConfValueType type)
 }
 
 static void
-process_value (TranslationEntry *trans,
+process_value (const TranslationEntry *trans,
                GConfValue       *val)
 {  
   if (val == NULL)
@@ -256,7 +254,7 @@ process_value (TranslationEntry *trans,
 static gboolean
 xsettings_callback (GConfEntry *entry)
 {
-  TranslationEntry *trans;
+  const TranslationEntry *trans;
 
   trans = find_translation_entry (entry->key);
   if (trans == NULL)
@@ -271,11 +269,7 @@ xsettings_callback (GConfEntry *entry)
 static void
 xft_callback (GConfEntry *entry)
 {
-  GConfClient *client;
-
-  client = gconf_client_get_default ();
-
-  sd_settings_update_xft (client);
+  sd_settings_update_xft (gconf_client);
 }
 
 typedef struct
@@ -287,7 +281,7 @@ typedef struct
   const char *hintstyle;
 } SdXftSettings;
 
-static const char *rgba_types[] = { "rgb", "bgr", "vbgr", "vrgb" };
+static const char rgba_types[][5] = { "rgb", "bgr", "vbgr", "vrgb" };
 
 /* Read GConf settings and determine the appropriate Xft settings based on them
  * This probably could be done a bit more cleanly with gconf_string_to_enum
@@ -420,7 +414,7 @@ write_all (int         fd,
   return TRUE;
 }
 
-gboolean
+static gboolean
 wait_for_child (int  pid,
 		int *status)
 {
@@ -536,7 +530,7 @@ sd_settings_update_xft (GConfClient *client)
 }
 #endif /* HAVE_XFT2 */
 
-void
+static void
 sd_settings_xsettings_load (GConfClient *client)
 {
   int i;
@@ -554,15 +548,15 @@ sd_settings_xsettings_load (GConfClient *client)
 
       if (err != NULL)
         {
-	  fprintf (stderr, "Error getting value for %s: %s\n",
-                   translations[i].gconf_key, err->message);
+          g_warning ("Error getting value for %s: %s",
+                     translations[i].gconf_key, err->message);
           g_error_free (err);
         }
       else
         {
           process_value (&translations[i], val);
-	  if (val != NULL)
-                  gconf_value_free (val);
+          if (val != NULL)
+            gconf_value_free (val);
         }
       
       ++i;
@@ -586,8 +580,7 @@ terminate_cb (void *data)
   
   *terminated = TRUE;
 
-  exit(0);
-  //gtk_main_quit ();
+  g_main_loop_quit (loop);
 }
 
 
@@ -624,29 +617,21 @@ gconf_key_changed_callback (GConfClient *client,
 
   for (i = 0; managers [i]; i++)  
     {
-      fprintf(stderr, "%s() notifing \n", __func__);
       xsettings_manager_notify (managers [i]);
     }
-
-  /*
-  value = gconf_entry_get_value(entry);
-  key   = (char *)gconf_entry_get_key(entry);
-  */
 }
 
 
 int
 main(int argc, char **argv)
 {
-  GMainContext *context;
-  GMainLoop    *loop;
-  GConfClient  *gconf_client;
   GdkDisplay   *display;
   GdkScreen    *screen;
   gboolean      terminated = FALSE;
   int           i, n_screens;
   pid_t         p;
 
+  g_type_init();
   gdk_init(&argc, &argv);
 
   if (!(argc > 1 && !strcmp(argv[1],"-n")))
@@ -659,9 +644,7 @@ main(int argc, char **argv)
       switch (p) 
 	{
 	case -1:
-	  g_print("Fork failed.\n");
-	  g_assert_not_reached();
-	  exit(-1);
+	  g_error("Fork failed.\n");
 	  break;
 	case 0:
 	  /* child */
@@ -676,11 +659,7 @@ main(int argc, char **argv)
 	}
     }
 
-
-  g_type_init();
-
-  context = g_main_context_default();
-  loop = g_main_loop_new(context, FALSE);
+  loop = g_main_loop_new(NULL, FALSE);
 
   display   = gdk_display_get_default ();
   n_screens = gdk_display_get_n_screens (display); 
@@ -693,8 +672,7 @@ main(int argc, char **argv)
       
       if (xsettings_manager_check_running (gdk_x11_display_get_xdisplay (display), i))
 	{
-	  fprintf (stderr, 
-		   "You can only run one xsettings manager at a time; exiting\n");
+	  g_printerr ("You can only run one xsettings manager at a time; exiting\n");
 	  exit (1);
 	}
       
@@ -702,9 +680,7 @@ main(int argc, char **argv)
 					    i, terminate_cb, &terminated);
       if (!managers [i])
 	{
-	  fprintf (stderr, 
-		   "Could not create xsettings manager for screen %d!\n", i);
-	  exit (1);
+	  g_error ("Could not create xsettings manager for screen %d!\n", i);
 	}
 
       gdk_window_add_filter (gdk_screen_get_root_window (screen),
@@ -758,10 +734,12 @@ main(int argc, char **argv)
 			       NULL, 
 			       NULL);
      }
-   else fprintf(stderr, "Failed to initialise gconf client\n");
+   else g_error ("Failed to initialise gconf client");
 
 
    g_main_loop_run(loop);
-  
+
+   g_object_unref (gconf_client);
+
    return 0;
 }
