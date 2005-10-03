@@ -152,14 +152,13 @@ static TranslationEntry translations [] = {
       GCONF_VALUE_BOOL,		translate_bool_int },
   { "/desktop/gnome/interface/cursor_blink_time",	"Net/CursorBlinkTime",
       GCONF_VALUE_INT,		translate_int_int },
-  /*
+#if 0
   { "/desktop/gnome/interface/gtk_theme",		"Net/ThemeName",
       GCONF_VALUE_STRING,	translate_string_string },
-  */
-
+#else
   { "/apps/matchbox/general/theme",		"Net/ThemeName",
       GCONF_VALUE_STRING,	translate_string_string },
-
+#endif
   { "/desktop/gnome/interface/gtk-im-preedit-style",	"Gtk/IMPreeditStyle",
       GCONF_VALUE_STRING,	translate_string_string },
   { "/desktop/gnome/interface/gtk-im-status-style",	"Gtk/IMStatusStyle",

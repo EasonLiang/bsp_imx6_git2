@@ -1,6 +1,11 @@
 2005-10-03  Ross Burton  <ross@burtonini.com>
 
 	* settings-daemon.c:
+	Make the use of the Matchbox theme key more explicit.
+
+2005-10-03  Ross Burton  <ross@burtonini.com>
+
+	* settings-daemon.c:
 	Add stylus mode, fix toolbar mode, monitor gnome keys for changes.
 
 2005-03-14  mallum,,,  <mallum@openedhand.com>
