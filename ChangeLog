@@ -1,6 +1,12 @@
 2005-10-03  Ross Burton  <ross@burtonini.com>
 
 	* settings-daemon.c:
+	Don't notify the X Settings when any key changes, just ones we are
+	interested in.
+	
+2005-10-03  Ross Burton  <ross@burtonini.com>
+
+	* settings-daemon.c:
 	Don't set the Xft values every time a key changes, as this
 	involves spawning xrdb.
 

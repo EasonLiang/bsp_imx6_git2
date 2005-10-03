@@ -270,11 +270,11 @@ xsettings_callback (GConfEntry *entry)
 
   trans = find_translation_entry (entry->key);
   if (trans == NULL)
-    return False;
+    return FALSE;
 
   process_value (trans, entry->value);
 
-  return True;
+  return TRUE;
 }
 
 #ifdef HAVE_XFT2
@@ -546,11 +546,15 @@ sd_settings_update_xft (void)
 /**
  * Called by the GConf notification to try and handle Xft keys.
  */
-static void
+static gboolean
 xft_callback (GConfEntry *entry)
 {
-  if (g_str_has_prefix (entry->key, FONT_RENDER_DIR))
+  if (g_str_has_prefix (entry->key, FONT_RENDER_DIR)) {
     sd_settings_update_xft ();
+    return TRUE;
+  } else {
+    return FALSE;
+  }
 }
 
 #endif /* HAVE_XFT2 */
@@ -617,7 +621,7 @@ manager_event_filter (GdkXEvent *xevent,
   int screen_num = GPOINTER_TO_INT (data);
 
   g_return_val_if_fail (managers != NULL, GDK_FILTER_CONTINUE);
-
+  
   if (xsettings_manager_process_event (managers [screen_num], 
 				       (XEvent *)xevent))
     return GDK_FILTER_REMOVE;
@@ -631,20 +635,22 @@ gconf_key_changed_callback (GConfClient *client,
 			    GConfEntry  *entry,
 			    gpointer    user_data)
 {
+  gboolean found = FALSE;
   int i;
 
-  /* this whole mechanism needs work */
-
-  xsettings_callback (entry);
-
+  found = xsettings_callback (entry);
+  
 #ifdef HAVE_XFT2
-  xft_callback(entry);
+  if (!found)
+    found = xft_callback(entry);
 #endif
 
-  for (i = 0; managers [i]; i++)  
-    {
-      xsettings_manager_notify (managers [i]);
-    }
+  if (found) {
+    for (i = 0; managers [i]; i++)  
+      {
+        xsettings_manager_notify (managers [i]);
+      }
+  }
 }
 
 
