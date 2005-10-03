@@ -64,7 +64,7 @@ struct _TranslationEntry
 };
 
 #ifdef HAVE_XFT2 
-static void sd_settings_update_xft (GConfClient *client);
+static void sd_settings_update_xft (void);
 static void xft_callback              (GConfEntry  *entry);
 #endif /* HAVE_XFT2 */
 
@@ -129,6 +129,23 @@ translate_string_string_toolbar (const TranslationEntry *trans,
                                   tmp);
 }
 
+/**
+ * The top-level GConf paths to catch all changes for.  Keep this in sync with
+ * translations, below. The more specific the paths, the better.
+ */
+static const char* toplevels[] = {
+  "/desktop/gnome",
+  "/apps/matchbox/general",
+#ifdef HAVE_XFT2
+  FONT_RENDER_DIR
+#endif
+};
+
+/**
+ * The list of translations from GConf keys to XSettings keys, with type
+ * information and a mapping function.
+ */
+/* TODO: include the Xft settings here for neatness */
 static const TranslationEntry translations [] = {
   { "/desktop/gnome/peripherals/mouse/double_click",	"Net/DoubleClickTime",
       GCONF_VALUE_INT,		translate_int_int },
@@ -269,7 +286,7 @@ xsettings_callback (GConfEntry *entry)
 static void
 xft_callback (GConfEntry *entry)
 {
-  sd_settings_update_xft (gconf_client);
+  sd_settings_update_xft ();
 }
 
 typedef struct
@@ -519,11 +536,11 @@ sd_xft_settings_set_xresources (SdXftSettings *settings)
  * X resources
  */
 static void
-sd_settings_update_xft (GConfClient *client)
+sd_settings_update_xft (void)
 {
   SdXftSettings settings;
 
-  sd_xft_settings_get (client, &settings);
+  sd_xft_settings_get (gconf_client, &settings);
 
   sd_xft_settings_set_xsettings (&settings);
   sd_xft_settings_set_xresources (&settings);
@@ -531,7 +548,7 @@ sd_settings_update_xft (GConfClient *client)
 #endif /* HAVE_XFT2 */
 
 static void
-sd_settings_xsettings_load (GConfClient *client)
+sd_settings_xsettings_load (void)
 {
   int i;
 
@@ -542,7 +559,7 @@ sd_settings_xsettings_load (GConfClient *client)
       GError *err;
 
       err = NULL;
-      val = gconf_client_get (client,
+      val = gconf_client_get (gconf_client,
                               translations[i].gconf_key,
                               &err);
 
@@ -563,7 +580,7 @@ sd_settings_xsettings_load (GConfClient *client)
     }
 
 #ifdef HAVE_XFT2  
-  sd_settings_update_xft (client);
+  sd_settings_update_xft ();
 #endif /* HAVE_XFT */
 
   for (i = 0; managers [i]; i++)  
@@ -662,8 +679,8 @@ main(int argc, char **argv)
   loop = g_main_loop_new(NULL, FALSE);
 
   display   = gdk_display_get_default ();
-  n_screens = gdk_display_get_n_screens (display); 
-      
+  n_screens = gdk_display_get_n_screens (display);
+  
   managers = g_new (XSettingsManager *, n_screens + 1);
 
   for (i = 0; i < n_screens; i++)
@@ -694,45 +711,19 @@ main(int argc, char **argv)
 
    if (gconf_client != NULL)
      {
-       sd_settings_xsettings_load (gconf_client);
+       for (i = 0; i < G_N_ELEMENTS (toplevels); i++) {
+         gconf_client_add_dir(gconf_client,
+                              toplevels[i],
+                              GCONF_CLIENT_PRELOAD_RECURSIVE,
+                              NULL);
+         
+         gconf_client_notify_add(gconf_client, toplevels[i],
+                                 gconf_key_changed_callback,
+                                 NULL, NULL, NULL);
+       }
+       
+       sd_settings_xsettings_load ();
 
-       gconf_client_add_dir(gconf_client,
-			    "/desktop/gnome",
-			    /* GCONF_CLIENT_PRELOAD_NONE */
-			    GCONF_CLIENT_PRELOAD_RECURSIVE,
-			    NULL);
-
-       gconf_client_notify_add(gconf_client, 
-			       "/desktop/gnome",
-			       gconf_key_changed_callback,
-			       NULL , /* UserData */
-			       NULL, 
-			       NULL);
-
-       gconf_client_add_dir(gconf_client,
-			    "/apps/matchbox",
-			    /* GCONF_CLIENT_PRELOAD_NONE */
-			    GCONF_CLIENT_PRELOAD_RECURSIVE,
-			    NULL);
-
-       gconf_client_notify_add(gconf_client, 
-			       "/apps/matchbox",
-			       gconf_key_changed_callback,
-			       NULL , /* UserData */
-			       NULL, 
-			       NULL);
-
-       gconf_client_add_dir(gconf_client,
-			    FONT_RENDER_DIR,
-			    GCONF_CLIENT_PRELOAD_RECURSIVE,
-			    NULL);
-
-       gconf_client_notify_add(gconf_client, 
-			       FONT_RENDER_DIR,
-			       gconf_key_changed_callback,
-			       NULL , /* UserData */
-			       NULL, 
-			       NULL);
      }
    else g_error ("Failed to initialise gconf client");
 
