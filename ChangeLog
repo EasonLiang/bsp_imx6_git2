@@ -1,3 +1,10 @@
+2005-10-04  mallum  <mallum@openedhand.com>
+
+	* appearance/Makefile.am:
+	Rename binary to matchbox-appearence
+	* autogen.sh:
+	Add this
+
 2005-10-04  Ross Burton  <ross@burtonini.com>
 
 	* appearance/Makefile.am:
