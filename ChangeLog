@@ -1,3 +1,8 @@
+2005-10-04  Ross Burton  <ross@burtonini.com>
+
+	* appearance/mb-appearance.desktop:
+	Use right binary name.
+
 2005-10-04  mallum  <mallum@openedhand.com>
 
 	* appearance/Makefile.am:

@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Name=Appearance
 Comment=Change the appearance
-Exec=mb-appearance
+Exec=matchbox-appearance
 Icon=mb-appearance
 Terminal=false
 Type=Application
