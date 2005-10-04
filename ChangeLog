@@ -1,5 +1,11 @@
 2005-10-04  Ross Burton  <ross@burtonini.com>
 
+	* appearance/Makefile.am:
+	* appearance/mb-appearance.desktop:
+	Add .desktop file.
+
+2005-10-04  Ross Burton  <ross@burtonini.com>
+
 	* appearance/:
 	Add simple tool to set the font and theme GConf keys.
 
