@@ -1,3 +1,8 @@
+2005-10-12  Matthew Allum  <mallum@openedhand.com>
+
+	* libmb/mbdotdesktop.c: (_parse_desktop_entry):
+	Hack to allow parsing of [icon theme] .desktop files
+
 2005-09-26  mallum  <mallum@openedhand.com>
 
 	* libmb/mbexp.c: (mb_font_new), (mb_font_set_from_string),
