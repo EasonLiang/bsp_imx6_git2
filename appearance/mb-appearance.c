@@ -28,8 +28,8 @@ static GConfClient *gconf;
 static GtkWidget *dialog;
 static GtkWidget *theme_combo, *font_button;
 
-#define THEME_KEY "/apps/matchbox/general/theme"
-#define FONT_KEY "/desktop/gnome/interface/font_name"
+#define THEME_KEY "/desktop/poky/interface/theme"
+#define FONT_KEY "/desktop/poky/interface/font_name"
 
 static void populate_themes(char *current) {
   int index = 0;

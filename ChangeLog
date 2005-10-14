@@ -1,3 +1,8 @@
+2005-10-14  Ross Burton  <ross@burtonini.com>
+
+	* appearance/mb-appearance.c:
+	Write to Poky keys.
+
 2005-10-04  Ross Burton  <ross@burtonini.com>
 
 	* appearance/mb-appearance.desktop:
