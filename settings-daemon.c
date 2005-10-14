@@ -129,8 +129,8 @@ translate_string_string_toolbar (const TranslationEntry *trans,
  * translations, below. The more specific the paths, the better.
  */
 static const char* toplevels[] = {
-  "/desktop/gnome",
-  "/apps/matchbox/general",
+  "/desktop/poky/interface",
+  "/desktop/poky/peripherals",
 #ifdef HAVE_XFT2
   FONT_RENDER_DIR
 #endif
@@ -142,45 +142,42 @@ static const char* toplevels[] = {
  */
 /* TODO: include the Xft settings here for neatness */
 static const TranslationEntry translations [] = {
-  { "/desktop/gnome/peripherals/mouse/double_click",	"Net/DoubleClickTime",
-      GCONF_VALUE_INT,		translate_int_int },
-  { "/desktop/gnome/peripherals/mouse/drag_threshold",  "Net/DndDragThreshold",
-      GCONF_VALUE_INT,          translate_int_int },
-  { "/desktop/gnome/gtk-color-palette",			"Gtk/ColorPalette",
-      GCONF_VALUE_STRING,	translate_string_string },
-  { "/desktop/gnome/interface/font_name",		"Gtk/FontName",
-      GCONF_VALUE_STRING,	translate_string_string },
-  { "/desktop/gnome/interface/gtk_key_theme",		"Gtk/KeyThemeName",
-      GCONF_VALUE_STRING,	translate_string_string },
-  { "/desktop/gnome/interface/toolbar_style",			"Gtk/ToolbarStyle",
-      GCONF_VALUE_STRING,	translate_string_string_toolbar },
-  { "/desktop/gnome/interface/toolbar_icon_size",		"Gtk/ToolbarIconSize",
-      GCONF_VALUE_STRING,	translate_string_string },
-  { "/desktop/gnome/interface/can_change_accels",		"Gtk/CanChangeAccels",
-      GCONF_VALUE_BOOL,		translate_bool_int },
-  { "/desktop/gnome/interface/cursor_blink",		"Net/CursorBlink",
-      GCONF_VALUE_BOOL,		translate_bool_int },
-  { "/desktop/gnome/interface/cursor_blink_time",	"Net/CursorBlinkTime",
-      GCONF_VALUE_INT,		translate_int_int },
-#if 0
-  { "/desktop/gnome/interface/gtk_theme",		"Net/ThemeName",
-      GCONF_VALUE_STRING,	translate_string_string },
-#else
-  { "/apps/matchbox/general/theme",		"Net/ThemeName",
-      GCONF_VALUE_STRING,	translate_string_string },
-#endif
-  { "/desktop/gnome/interface/gtk-im-preedit-style",	"Gtk/IMPreeditStyle",
-      GCONF_VALUE_STRING,	translate_string_string },
-  { "/desktop/gnome/interface/gtk-im-status-style",	"Gtk/IMStatusStyle",
-      GCONF_VALUE_STRING,	translate_string_string },
-  { "/desktop/gnome/interface/icon_theme",		"Net/IconThemeName",
-      GCONF_VALUE_STRING,	translate_string_string },
-  { "/desktop/gnome/interface/file_chooser_backend",	"Gtk/FileChooserBackend",
-      GCONF_VALUE_STRING,	translate_string_string },
-  { "/desktop/gnome/interface/menus_have_icons",	"Gtk/MenuImages",
-      GCONF_VALUE_BOOL,		translate_bool_int },
-  { "/desktop/gnome/interface/stylus_mode",	"Gtk/StylusMode",
-      GCONF_VALUE_BOOL,		translate_bool_int },
+  /* Hardware settings */
+  { "/desktop/poky/peripherals/mouse/double_click", "Net/DoubleClickTime",
+    GCONF_VALUE_INT, translate_int_int },
+  { "/desktop/poky/peripherals/mouse/drag_threshold", "Net/DndDragThreshold",
+    GCONF_VALUE_INT, translate_int_int },
+  { "/desktop/poky/peripherals/stylus_mode", "Gtk/StylusMode",
+    GCONF_VALUE_BOOL, translate_bool_int },
+  /* Appearance */
+  { "/desktop/poky/interface/gtk-color-palette", "Gtk/ColorPalette",
+    GCONF_VALUE_STRING, translate_string_string },
+  { "/desktop/poky/interface/font_name", "Gtk/FontName",
+    GCONF_VALUE_STRING, translate_string_string },
+  { "/desktop/poky/interface/gtk_key_theme", "Gtk/KeyThemeName",
+    GCONF_VALUE_STRING, translate_string_string },
+  { "/desktop/poky/interface/toolbar_style", "Gtk/ToolbarStyle",
+    GCONF_VALUE_STRING, translate_string_string_toolbar },
+  { "/desktop/poky/interface/toolbar_icon_size", "Gtk/ToolbarIconSize",
+    GCONF_VALUE_STRING, translate_string_string },
+  { "/desktop/poky/interface/can_change_accels", "Gtk/CanChangeAccels",
+    GCONF_VALUE_BOOL, translate_bool_int },
+  { "/desktop/poky/interface/cursor_blink", "Net/CursorBlink",
+    GCONF_VALUE_BOOL,translate_bool_int },
+  { "/desktop/poky/interface/cursor_blink_time", "Net/CursorBlinkTime",
+    GCONF_VALUE_INT, translate_int_int },
+  { "/desktop/poky/interface/theme", "Net/ThemeName",
+    GCONF_VALUE_STRING, translate_string_string },
+  { "/desktop/poky/interface/gtk-im-preedit-style", "Gtk/IMPreeditStyle",
+    GCONF_VALUE_STRING, translate_string_string },
+  { "/desktop/poky/interface/gtk-im-status-style", "Gtk/IMStatusStyle",
+    GCONF_VALUE_STRING, translate_string_string },
+  { "/desktop/poky/interface/icon_theme", "Net/IconThemeName",
+    GCONF_VALUE_STRING, translate_string_string },
+  { "/desktop/poky/interface/file_chooser_backend", "Gtk/FileChooserBackend",
+    GCONF_VALUE_STRING, translate_string_string },
+  { "/desktop/poky/interface/menus_have_icons", "Gtk/MenuImages",
+    GCONF_VALUE_BOOL, translate_bool_int },
 };
 
 static const TranslationEntry*
