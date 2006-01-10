@@ -1,3 +1,8 @@
+2006-01-10  Matthew Allum  <mallum@openedhand.com>
+
+	* libmb/mbpixbuf.c: (mb_pixbuf_new_extended):
+	Detach SHM test correctly via patch from Tapani
+
 2005-10-12  Matthew Allum  <mallum@openedhand.com>
 
 	* libmb/mbdotdesktop.c: (_parse_desktop_entry):

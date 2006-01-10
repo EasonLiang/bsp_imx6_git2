@@ -907,6 +907,7 @@ mb_pixbuf_new_extended(Display *dpy,
 	  fprintf(stderr, "mbpixbuf: unable to use XShm. DISPLAY remote?\n");
 	  pb->have_shm = False;
 	}
+      else XShmDetach(pb->dpy, &shminfo);
 
       shmdt(shminfo.shmaddr);
       shmctl(shminfo.shmid, IPC_RMID, 0);
