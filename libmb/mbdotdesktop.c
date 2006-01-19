@@ -55,8 +55,7 @@ _parse_desktop_entry(MBDotDesktop *dd)
   if (fgets(data,256,fp) != NULL)
     {
       /* FIXME: this check should be moved elsewhere if exist at all */
-      if (strncasecmp("[desktop entry]", data, 15)
-	  && strncasecmp("[icon theme]", data, 12) )
+      if (strncasecmp("[desktop entry]", data, 15))
 	{
 	  fprintf(stderr, "libmb: dont look like a desktop entry? %s\n", data);
 	  fclose(fp);

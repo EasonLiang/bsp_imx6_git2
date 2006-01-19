@@ -1,3 +1,8 @@
+2006-01-19  Matthew Allum  <mallum@openedhand.com>
+
+	* libmb/mbdotdesktop.c: (_parse_desktop_entry):
+	Backout 2005-10-12 change, needs proper fix 
+
 2006-01-10  Matthew Allum  <mallum@openedhand.com>
 
 	* libmb/mbpixbuf.c: (mb_pixbuf_new_extended):
