@@ -590,8 +590,9 @@ mb_font_new_from_string(Display *dpy, char *spec)
   MBFont *font = mb_font_new(dpy, NULL);
 
   if (font)
-    mb_font_set_from_string(font, spec); 
-  return font;
+    return mb_font_set_from_string(font, spec); 
+
+  return NULL;
 }
 
 MBFont*

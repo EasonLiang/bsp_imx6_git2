@@ -1,3 +1,11 @@
+2006-01-23  Matthew Allum  <mallum@openedhand.com>
+
+	* libmb/mbexp.c: (mb_font_new_from_string):
+	Return NULL when font can not be set. fixes bug #64 
+	* libmb/mbtray.c: (mb_tray_app_set_poll_timeout):
+	* libmb/mbtray.h:
+	Allow for timeout to be cleared.
+
 2006-01-19  Matthew Allum  <mallum@openedhand.com>
 
 	* libmb/mbdotdesktop.c: (_parse_desktop_entry):

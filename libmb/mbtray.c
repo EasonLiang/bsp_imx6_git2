@@ -320,6 +320,12 @@ mb_tray_app_set_poll_timeout ( MBTrayApp *mb,
 {
   if (mb->poll_timeout) free (mb->poll_timeout);
 
+  if (tv == NULL)
+    {
+      mb->poll_timeout = NULL;
+      return;
+    }
+
   mb->poll_timeout = malloc(sizeof(struct timeval));
   memcpy(mb->poll_timeout, tv, sizeof(struct timeval));
 

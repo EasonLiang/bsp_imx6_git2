@@ -279,7 +279,7 @@ mb_tray_app_set_theme_change_callback (MBTrayApp              *mb_tray_app,
  *
  * @param mb_tray_app Tray instance
  * @param poll_cb timeout callback
- * @param tv      a timeval struct specifying the timeout
+ * @param tv      a timeval struct specifying the timeout.
  */
 void
 mb_tray_app_set_timeout_callback (MBTrayApp              *mb_tray_app, 
@@ -348,8 +348,14 @@ void
 mb_tray_app_request_offset (MBTrayApp *mb_tray_app, 
 			    int        offset);
 
-
-void  				/* XXX needed ? */
+/**
+ * Set timing for any timeout callbacks.
+ *
+ * @param mb_tray_app Tray instance
+ * @param  tv      a timeval struct specifying the timeout. Pass NUll to clear
+ *                 any timeout callbacks.
+ */
+void
 mb_tray_app_set_poll_timeout (MBTrayApp      *mb_tray_app, 
 			      struct timeval *tv );
 
