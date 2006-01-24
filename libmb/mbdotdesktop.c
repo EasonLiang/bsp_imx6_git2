@@ -201,7 +201,7 @@ mb_dotdesktop_get_exec (MBDotDesktop *dd)
   /* Source iterator, destination iterator */
   char *s, *d;
   
-  s = source = mb_dotdesktop_get (dd, "Exec");
+  s = source = (char*)mb_dotdesktop_get (dd, "Exec");
   if (source == NULL)
     return NULL;
   
@@ -349,7 +349,7 @@ mb_dot_desktop_icon_get_full_path (char* theme_name,
 		    {
 		      theme_name_cur = NULL;
 		      strncpy(theme_name_cur, 
-			      mb_dotdesktop_get(dd, "Inherits"), 512);
+			      (char*)mb_dotdesktop_get(dd, "Inherits"), 512);
 		      i = 2;
 		    }
 		  mb_dotdesktop_free(dd);
@@ -451,13 +451,13 @@ mb_dot_desktop_folders_new(const char *vfolder_path)
 		}
 	      memset(entry_cur, 0, sizeof(MBDotDesktopFolderEntry));
 	  
-	      entry_cur->name = strdup(mb_dotdesktop_get(dd, "Name"));
-	      entry_cur->match = strdup(mb_dotdesktop_get(dd, "Match"));
+	      entry_cur->name = (unsigned char*)strdup((char*)mb_dotdesktop_get(dd, "Name"));
+	      entry_cur->match = (unsigned char*)strdup((char*)mb_dotdesktop_get(dd, "Match"));
 
 	      if (mb_dotdesktop_get(dd, "Icon"))
 		{
 		  entry_cur->icon 
-		    = strdup(mb_dotdesktop_get(dd, "Icon"));
+		    = (unsigned char*)strdup((char*)mb_dotdesktop_get(dd, "Icon"));
 		}
 
 	      folders->n_entries++;

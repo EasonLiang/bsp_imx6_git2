@@ -92,7 +92,7 @@ typedef struct MBColor
 typedef struct MBFont 
 {
   Display              *dpy; 
-  unsigned char        *family;
+  char                 *family;
   int                   weight;
   int                   slant;
   int                   pt_size;

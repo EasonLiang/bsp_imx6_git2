@@ -418,7 +418,7 @@ _load_xpm_file( MBPixbuf *pb, const char *filename, int *w, int *h, int *has_alp
 		      col[0] = 0;
 		      s[0] = 0;
 		      len = strlen(line);
-		      strncpy(cmap[j].str, line, cpp);
+		      strncpy((char*)cmap[j].str, line, cpp);
 		      cmap[j].str[cpp] = 0;
 		      cmap[j].r = -1;
 		      cmap[j].transp = 0;
@@ -537,7 +537,7 @@ _load_xpm_file( MBPixbuf *pb, const char *filename, int *w, int *h, int *has_alp
 			  i--;
 			  for (j = 0; j < ncolors; j++)
 			    {
-			      if (!strcmp(col, cmap[j].str))
+			      if (!strcmp(col, (char*)cmap[j].str))
 				{
 				  if (transp && cmap[j].transp)
 				    {
@@ -1087,7 +1087,8 @@ mb_pixbuf_img_new_from_x_drawable (MBPixbuf *pb,
   int num_of_cols = 1 << pb->depth;
 
   Window chld;
-  unsigned int rx, rw, rh, rb, rdepth;
+  int          rx;
+  unsigned int rw, rh, rb, rdepth;
 
   XShmSegmentInfo shminfo; 
 

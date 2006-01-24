@@ -68,7 +68,7 @@ struct nlist *hash_add(struct hash *h, char *key, char *val)
    } else {
       free((void *) np->value);
    }
-   if ((np->value = strdup(val)) == NULL)
+   if ((np->value = (unsigned char*)strdup(val)) == NULL)
       return NULL;
    return np;
 }

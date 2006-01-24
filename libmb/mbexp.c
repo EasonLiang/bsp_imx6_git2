@@ -904,7 +904,7 @@ _clip_some_text (MBFont         *font,
 		 int             encoding,
 		 int             opts)
 {
-  int len = strlen(txt);
+  int len = strlen((char*)txt);
 
   /* we cant clip single char string */
   if (len < 2) return 0;
@@ -916,7 +916,7 @@ _clip_some_text (MBFont         *font,
       unsigned char *str = malloc(len+5);
       memset(str, 0, len+5);
 
-      strcpy(str, txt);
+      strcpy((char*)str, (char*)txt);
 
       do {
 	  /* go back a glyth */
@@ -1075,12 +1075,12 @@ mb_font_render_simple (MBFont          *font,
   if (!_mb_font_is_font_object_fresh (font))
     _mb_font_load(font);
 
-  orig_len = len = strlen(text);
+  orig_len = len = strlen((char*)text);
 
   str = malloc(len+3);
   memset(str, 0, len+3);
 
-  strcpy(str, text);
+  strcpy((char*)str, (char*)text);
 
   render_w = mb_font_get_txt_width(font, str, len, encoding);
 
@@ -1161,12 +1161,12 @@ mb_font_render_simple_get_width (MBFont          *font,
   if (!_mb_font_is_font_object_fresh (font))
     _mb_font_load(font);
 
-  orig_len = len = strlen(text);
+  orig_len = len = strlen((char*)text);
 
   str = malloc(len+3);
   memset(str, 0, len+3);
 
-  strcpy(str, text);
+  strcpy((char*)str, (char*)text);
 
   render_w = mb_font_get_txt_width(font, str, len, encoding);
 
@@ -1271,7 +1271,7 @@ mb_layout_set_text(MBLayout       *layout,
 {
   if (layout->txt) free(layout->txt);
 
-  layout->txt = strdup(text);
+  layout->txt = (unsigned char*)strdup((char*)text);
   layout->txt_encoding = encoding;
 }
 
@@ -1318,7 +1318,7 @@ _mb_layout_render_magic (MBLayout        *layout,
 			 MBFontRenderOpts opts,
 			 Bool             do_render)
 {
-  unsigned char *orig_p, *p = strdup(layout->txt);
+  unsigned char *orig_p, *p = (unsigned char*)strdup((char*)layout->txt);
   unsigned char *q = p;
   unsigned char *backtrack = NULL;
   int            v_offset  = 0;
@@ -1340,7 +1340,7 @@ _mb_layout_render_magic (MBLayout        *layout,
 	  
 	  /* XXX q should be current_line_start */
 
-	  cur_width = mb_font_get_txt_width(layout->font, q, strlen(q), 
+	  cur_width = mb_font_get_txt_width(layout->font, q, strlen((char*)q), 
 					    layout->txt_encoding) ;
 	  
 	  if (cur_width > layout->width )
@@ -1419,7 +1419,7 @@ mb_layout_render (MBLayout        *layout,
 
   if (layout->_have_autocalc_size) /* Easy case */
     {
-      unsigned char *str = strdup(layout->txt), *start = NULL, *orig = NULL;
+      char *str = strdup((char*)layout->txt), *start = NULL, *orig = NULL;
 
       orig = str;
 
@@ -1440,7 +1440,7 @@ mb_layout_render (MBLayout        *layout,
 		                 x,
 		                 y,
 				 layout->width,
-				 start,
+				 (unsigned char*)start,
 		                 layout->txt_encoding,
 		                 0 );
 	  

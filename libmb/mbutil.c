@@ -111,9 +111,8 @@ mb_single_instance_get_window(Display *dpy, const char *bin_name)
 
   Atom type;
   int format;
-  long bytes_after;
   unsigned char *data = NULL;
-  long n_items;
+  unsigned long n_items, bytes_after;
   int result;
 
   unsigned char *p, *key = NULL, *value = NULL;
@@ -153,9 +152,9 @@ mb_single_instance_get_window(Display *dpy, const char *bin_name)
 
       *p = '\0';      
 
-      if (!strcmp(key, bin_name))
+      if (!strcmp((char*)key, (char*)bin_name))
 	{
-	  win_found = atoi(value); /* XXX should check window ID 
+	  win_found = atoi((char*)value); /* XXX should check window ID 
 				      actually exists */
 	  XFree (data);
 	  return ( (win_found > 0) ? win_found : None );
@@ -175,9 +174,8 @@ mb_single_instance_is_starting(Display *dpy, const char *bin_name)
 
   Atom type;
   int format;
-  long bytes_after;
   unsigned char *data = NULL;
-  long n_items;
+  unsigned long n_items, bytes_after;
   int result;
 
   result =  XGetWindowProperty (dpy, RootWindow(dpy, DefaultScreen(dpy)), 
@@ -193,9 +191,7 @@ mb_single_instance_is_starting(Display *dpy, const char *bin_name)
       return False;
     }
 
-
-
-  if (strstr(data, bin_name) != NULL)
+  if (strstr((char*)data, (char*)bin_name) != NULL)
     {
       XFree(data);
       return True;
@@ -282,9 +278,8 @@ mb_util_get_root_pixmap(Display *dpy)
 
   Atom type;
   int format;
-  long bytes_after;
   Pixmap *data = NULL;
-  long n_items;
+  unsigned long n_items, bytes_after;
   int result;
 
   result =  XGetWindowProperty (dpy, RootWindow(dpy, DefaultScreen(dpy)),

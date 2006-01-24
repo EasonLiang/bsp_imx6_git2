@@ -1,3 +1,15 @@
+2006-01-24  Matthew Allum  <mallum@openedhand.com>
+
+	* libmb/hash.c:
+	* libmb/mbdotdesktop.c:
+	* libmb/mbexp.c:
+	* libmb/mbexp.h:
+	* libmb/mbmenu.c:	
+	* libmb/mbpixbuf.c:
+	* libmb/mbtray.c:
+	* libmb/mbutil.c:
+	Fix various GCC 4 warnings
+
 2006-01-23  Matthew Allum  <mallum@openedhand.com>
 
 	* libmb/mbexp.c: (mb_font_new_from_string):

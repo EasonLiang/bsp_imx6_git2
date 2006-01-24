@@ -296,7 +296,9 @@ mb_menu_set_trans(MBMenu *mbmenu, int trans)
 }
 
 void
-mb_menu_set_col(MBMenu *mbmenu, MBMenuColorElement element, char *col_spec)
+mb_menu_set_col(MBMenu            *mbmenu, 
+		MBMenuColorElement element, 
+		char              *col_spec)
 {
   
   switch (element)
@@ -726,25 +728,25 @@ menu_set_theme_from_root_prop(MBMenu *mb)
 	      if (mb_dotdesktop_get(theme, "MenuBgColor"))
 		{
 		  mb_menu_set_col(mb, MBMENU_SET_BG_COL, 
-				  mb_dotdesktop_get(theme, "MenuBgColor"));
+				  (char*)mb_dotdesktop_get(theme, "MenuBgColor"));
 		}
 
 	      if (mb_dotdesktop_get(theme, "MenuFont"))
 		{
 		  mb_menu_set_font (mb, 
-				    mb_dotdesktop_get(theme, "MenuFont"));
+				    (char*)mb_dotdesktop_get(theme, "MenuFont"));
 		}
 
 	      if (mb_dotdesktop_get(theme, "MenuFgColor"))
 		{
 		  mb_menu_set_col(mb, MBMENU_SET_FG_COL, 
-				  mb_dotdesktop_get(theme, "MenuFgColor"));
+				  (char*)mb_dotdesktop_get(theme, "MenuFgColor"));
 		}
 
 	      if (mb_dotdesktop_get(theme, "MenuHlColor"))
 		{
 		  mb_menu_set_col(mb, MBMENU_SET_HL_COL, 
-				  mb_dotdesktop_get(theme, "MenuHlColor"));
+				  (char*)mb_dotdesktop_get(theme, "MenuHlColor"));
 		    mb->have_highlight_col = True;
 		}
 	      else mb->have_highlight_col = False;
@@ -752,7 +754,7 @@ menu_set_theme_from_root_prop(MBMenu *mb)
 	      if (mb_dotdesktop_get(theme, "MenuBdColor"))
 		{
 		  mb_menu_set_col(mb, MBMENU_SET_BD_COL, 
-				  mb_dotdesktop_get(theme, "MenuBdColor"));
+				  (char*)mb_dotdesktop_get(theme, "MenuBdColor"));
 		}
 
 	      /* xxx currently broke xxx

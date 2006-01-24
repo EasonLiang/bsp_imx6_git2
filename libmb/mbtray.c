@@ -204,7 +204,7 @@ _get_server_time(Display* dpy)
 {
   XEvent xevent;
   Atom timestamp_atom = XInternAtom(dpy, "_MB_DOCK_TIMESTAMP", False);
-  char c = 'a';
+  unsigned char c = 'a';
 
   XChangeProperty (dpy, RootWindow(dpy, DefaultScreen(dpy)), 
 		   timestamp_atom, timestamp_atom,
@@ -621,7 +621,7 @@ mb_tray_app_new_with_display ( unsigned char         *app_name,
 
   mb->tray_id = 0;
 
-  mb->app_name = app_name ? strdup(app_name) : strdup("unnamed");
+  mb->app_name = (unsigned char*)(app_name ? strdup((char*)app_name) : strdup("unnamed"));
 
   mb->have_cached_bg = False; 
   mb->cached_bg      = NULL;
@@ -644,7 +644,7 @@ mb_tray_app_set_name (MBTrayApp     *mb,
 		      unsigned char *name)
 {
   if (mb->app_name) free(mb->app_name);
-  mb->app_name = strdup(name);
+  mb->app_name = (unsigned char*)strdup((char*)name);
 }
 
 void
@@ -655,7 +655,7 @@ mb_tray_app_set_context_info (MBTrayApp     *mb,
 
   if (mb->context_info) free(mb->context_info);
 
-  mb->context_info = strdup(info);
+  mb->context_info = (unsigned char*)strdup((char*)info);
 
   if (mb->win) _set_win_context_hint(mb);
 
@@ -1061,7 +1061,7 @@ _set_win_utf8_name(MBTrayApp *mb)
 		   mb->atoms[ATOM_NET_WM_NAME], 
 		   mb->atoms[ATOM_UTF8_STRING], 
 		   8, 
-		   PropModeReplace, mb->app_name, strlen(mb->app_name));
+		   PropModeReplace, mb->app_name, strlen((char*)mb->app_name));
 }
 
 static void
@@ -1074,7 +1074,7 @@ _set_win_context_hint(MBTrayApp *mb)
 		       mb->atoms[ATOM_UTF8_STRING], 
 		       8, 
 		       PropModeReplace, 
-		       mb->context_info, strlen(mb->context_info));
+		       mb->context_info, strlen((char*)mb->context_info));
     }
 }
 
@@ -1176,7 +1176,7 @@ _init_docking (MBTrayApp *mb )
   
   TRAYDBG("%s() set w: %i, h: %i\n", __func__, mb->w, mb->h);
 
-  XSetStandardProperties(mb->dpy, mb->win, mb->app_name,
+  XSetStandardProperties(mb->dpy, mb->win, (char*)mb->app_name,
 			 NULL, 0, NULL, 0, &size_hints);
 
   _set_win_utf8_name(mb);
@@ -1192,7 +1192,7 @@ void
 mb_tray_app_tray_send_message(MBTrayApp *mb, unsigned char* msg, int timeout)
 {
    unsigned char buf[20];
-   int msg_len = strlen(msg);
+   int msg_len = strlen((char*)msg);
    int id = 12345; /* TODO id should unique */
    int bytes_sent = 0;
    
