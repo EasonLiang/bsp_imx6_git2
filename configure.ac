@@ -87,6 +87,7 @@ if test $have_libx11pc = yes; then
    fi
 # XXX : xau is missing from x11.pc - workaround is too add here 
    PKG_CHECK_MODULES(XLIBS, x11 xext  $xft_pkg)
+   XLIBS_REQUIRED="x11 xext"
 else
 
 AC_PATH_XTRA
@@ -128,6 +129,9 @@ fi
 XLIBS_CFLAGS="$XLIBS_CLAGS $XFT_CFLAGS"
 XLIBS_LIBS="$X_LIBS $XFT_LIBS -lX11 -lXext"
 
+MB_EXTRA_LIBS="$MB_EXTRA_LIBS $XLIBS_LIBS"
+MB_EXTRA_CFLAGS="$MB_EXTRA_LIBS $XLIBS_CFLAGS"
+
 fi
 
 
@@ -138,6 +142,7 @@ if test x$enable_pango != xno; then
   if test x$have_pango=xyes; then
     AC_DEFINE(USE_PANGO, [1], [Use Pango])
     SUPPORTS_PANGO=1
+    PANGO_REQUIRED="pango pangoxft"
   else
     AC_MSG_WARN([*** Cannot find pango, disabling support])
     enable_pango=no
@@ -155,6 +160,7 @@ if test x$enable_png != xno; then
 	PNG_CFLAGS=`$PKG_CONFIG --cflags libpng12`
         AC_DEFINE(USE_PNG, [1], [Use Png])
 	SUPPORTS_PNG=1
+	PNG_REQUIRED="libpng12"
   else
 	AC_MSG_RESULT(no)
         # AC_CHECK_HEADERS(png.h, [ have_png_h="yes" ], [ have_png_h="no" ] )
@@ -164,6 +170,7 @@ if test x$enable_png != xno; then
             AC_DEFINE(USE_PNG, [1], [Use Png])
 	    SUPPORTS_PNG=1
             PNG_LIBS="-lpng -lz"
+            MB_EXTRA_LIBS="$MB_EXTRA_LIBS $XLIBS_LIBS $PNG_LIBS"
         else
 	    AC_MSG_WARN([*** Cannot find PNG, disabling support])
             enable_png=no
@@ -182,6 +189,7 @@ if test x$enable_jpeg != xno; then
         AC_DEFINE(USE_JPG, [1], [Use JPEG])
 	SUPPORTS_JPEG=1
 	JPEG_LIBS="-ljpeg"
+        MB_EXTRA_LIBS="$MB_EXTRA_LIBS -ljpeg"
   else
 	AC_MSG_WARN([*** Cannot find libjpeg, disabling support])
         enable_jpeg=no
@@ -233,6 +241,9 @@ if test x$enable_xsettings != xno; then
    	
    CPPFLAGS="$saved_CPPFLAGS"
    LIBS="$saved_LIBS"
+
+   MB_EXTRA_LIBS="$MB_EXTRA_LIBS $XSET_LIBS"	
+   MB_EXTRA_CFLAGS="$MB_EXTRA_CFLAGS $XSET_CFLAGS"	
 
    AC_DEFINE(USE_XSETTINGS, [1], [Use XSettings Client])
 
@@ -321,6 +332,12 @@ AC_SUBST(GCC_WARNINGS)
 
 AC_SUBST(XSET_LIBS)
 AC_SUBST(XSET_CFLAGS)
+
+AC_SUBST(MB_EXTRA_LIBS)
+AC_SUBST(MB_EXTRA_CFLAGS)
+AC_SUBST(XLIBS_REQUIRED)
+AC_SUBST(PANGO_REQUIRED)
+AC_SUBST(PNG_REQUIRED)
 
 dnl ------ Below used for mbconfig.h ----------------------------------------
 

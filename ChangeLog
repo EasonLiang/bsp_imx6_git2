@@ -1,5 +1,11 @@
 2006-01-24  Matthew Allum  <mallum@openedhand.com>
 
+	* configure.ac:
+	* libmb.pc.in:
+	Rework pc file to use requires
+
+2006-01-24  Matthew Allum  <mallum@openedhand.com>
+
 	* libmb/hash.c:
 	* libmb/mbdotdesktop.c:
 	* libmb/mbexp.c:
