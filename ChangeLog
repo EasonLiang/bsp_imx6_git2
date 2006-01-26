@@ -1,3 +1,12 @@
+2006-01-26  Matthew Allum  <mallum@openedhand.com>
+
+	* libmb/Makefile.am:
+	* libmb/mb.h:
+	* libmb/mbmenu.c: (mb_menu_check_scroll_button):
+	* libmb/mbtray.c:
+	Fix xsettings never actually getting used :(
+	A Little reformatting.
+
 2006-01-24  Matthew Allum  <mallum@openedhand.com>
 
 	* configure.ac:

@@ -19,6 +19,10 @@
 
 #define _GNU_SOURCE
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #include "mbmenu.h"
 
 #define MBMAX(x,y) ((x>y)?(x):(y))
@@ -665,23 +669,6 @@ mb_menu_check_scroll_button(MBMenu *mb,MBMenuMenu *m, int y_pos)
       MENUDBG("%s() retruning want scroll down\n", __func__);
       return WANT_SCROLL_DOWN;
     }
-
-  /*
-  for(tmpi = m->too_big_start_item;
-      tmpi != NULL; 
-      tmpi = tmpi->next_item)
-    if ( (tmpi->y + tmpi->h) >= (m->height - SCROLL_BUTT_H) )
-      {
-	h = tmpi->y;
-	break;
-      }
-  
-  if (y_pos > h)
-    {
-      MENUDBG("%s() retruning want scroll up\n", __func__);
-      return WANT_SCROLL_UP;
-    }
-  */
 
   if (m->too_big_end_item
       && y_pos > (m->too_big_end_item->y+m->too_big_end_item->h))

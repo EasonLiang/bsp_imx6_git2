@@ -20,17 +20,12 @@
 #ifndef _MB_H_
 #define _MB_H_
 
-
 /* mbconfig.h is auto generated */
 #include "mbconfig.h"
 
 #include "mbpixbuf.h"
-
-/* Experimental stuff */
 #include "mbexp.h"
-
 #include "mbtray.h"
-
 #include "mbutil.h"
 #include "mbmenu.h"
 #include "mbdotdesktop.h"
