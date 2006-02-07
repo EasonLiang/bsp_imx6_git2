@@ -130,9 +130,11 @@ XLIBS_CFLAGS="$XLIBS_CLAGS $XFT_CFLAGS"
 XLIBS_LIBS="$X_LIBS $XFT_LIBS -lX11 -lXext"
 
 MB_EXTRA_LIBS="$MB_EXTRA_LIBS $XLIBS_LIBS"
-MB_EXTRA_CFLAGS="$MB_EXTRA_LIBS $XLIBS_CFLAGS"
 
 fi
+
+# do this here for freetype include
+MB_EXTRA_CFLAGS="$MB_EXTRA_CFLAGS $XLIBS_CFLAGS"
 
 
 dnl ------ Check for Pango ---------------------------------------------------
