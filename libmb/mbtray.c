@@ -1163,7 +1163,9 @@ _init_docking (MBTrayApp *mb )
 
   this_pid = getpid();
   XChangeProperty (mb->dpy, mb->win, mb->atoms[ATOM_NET_WM_PID], XA_CARDINAL, 
-		   32, PropModeReplace, (unsigned char *)this_pid, 0);
+		   32, PropModeReplace, (unsigned char *)&this_pid, 1);
+
+  printf("pid is %i\n", this_pid);
 
   if (mb->show_session_data)
     XSetCommand(mb->dpy, mb->win, mb->argv_copy, mb->argc_copy); 
