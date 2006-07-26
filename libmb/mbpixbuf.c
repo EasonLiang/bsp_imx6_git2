@@ -150,7 +150,8 @@ _load_jpg_file( const char *file,
   unsigned char *data = NULL;
 
   if ((infile = fopen(file, "rb")) == NULL) {
-    fprintf(stderr, "mbpixbuf: can't open %s\n", file);
+    if (mb_want_warnings())
+      fprintf(stderr, "mbpixbuf: can't open %s\n", file);
     return NULL;
   }
 
@@ -176,8 +177,9 @@ _load_jpg_file( const char *file,
 
   if( cinfo.output_components != 3 ) 
     {
-      fprintf( stderr, "mbpixbuf: jpegs with %d channles not supported\n", 
-	       cinfo.output_components );
+      if (mb_want_warnings())
+	fprintf( stderr, "mbpixbuf: jpegs with %d channles not supported\n", 
+		 cinfo.output_components );
       jpeg_finish_decompress(&cinfo);
       jpeg_destroy_decompress(&cinfo);
       return NULL;
@@ -374,7 +376,8 @@ _load_xpm_file( MBPixbuf *pb, const char *filename, int *w, int *h, int *has_alp
 		  sscanf(line, "%i %i %i %i", w, h, &ncolors, &cpp);
                   if (ncolors > 32766 || cpp > 5 || *w > 32767 || *h > 32767)
 		    {
-		      fprintf(stderr, "xpm file invalid");
+		      if (mb_want_warnings())
+			fprintf(stderr, "xpm file invalid");
 		      fclose(file);
 		      free(line);
 		      fclose(file);
@@ -643,7 +646,8 @@ _paletteAlloc(MBPixbuf *pb)
 	  
 	  if (!XAllocColor(pb->dpy, pb->root_cmap, &xcl))
 	    {
-	      //printf("alloc color failed\n");
+	      if (mb_want_warnings())
+		printf("alloc color failed\n");
 	    }
 	  is_used = 0;
 	  for (j = 0; j < num_used; j++)
@@ -678,7 +682,8 @@ _paletteAlloc(MBPixbuf *pb)
 	  
 	  if (!XAllocColor(pb->dpy, pb->root_cmap, &xcl))
 	    {
-	      fprintf(stderr, "libmb: alloc color failed\n");
+	      if (mb_want_warnings())
+		fprintf(stderr, "libmb: alloc color failed\n");
 	    }
 	  is_used = 0;
 	  for (j = 0; j < num_used; j++)
@@ -1851,7 +1856,7 @@ mb_pixbuf_img_render_to_drawable_with_gc(MBPixbuf    *pb,
 
 	  if (img->ximg->data == (char *)-1)
 	    {
-	      fprintf(stderr, "MBPIXBUF ERROR: SHM can't attach SHM Segment for Shared XImage, falling back to XImages\n");
+	      fprintf(stderr, "mbpixbuf: SHM can't attach SHM Segment for Shared XImage, falling back to XImages\n");
 	      XDestroyImage(img->ximg);
 	      shmctl(shminfo.shmid, IPC_RMID, 0);
 	    }
@@ -1959,7 +1964,8 @@ mb_pixbuf_img_render_to_mask(MBPixbuf    *pb,
 
 	  if (img->ximg->data == (char *)-1)
 	    {
-	      fprintf(stderr, "MBPIXBUF ERROR: SHM can't attach SHM Segment for Shared XImage, falling back to XImages\n");
+	      if (mb_want_warnings())
+		fprintf(stderr, "mbpixbuf: SHM can't attach SHM Segment for Shared XImage, falling back to XImages\n");
 	      XDestroyImage(img->ximg);
 	      shmctl(shminfo.shmid, IPC_RMID, 0);
 	    }

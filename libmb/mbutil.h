@@ -116,6 +116,10 @@ mb_util_animate_startup(Display *dpy,
 			int      width,
 			int      height);
 
+
+int
+mb_want_warnings ();
+
 #ifdef __cplusplus
 }
 #endif

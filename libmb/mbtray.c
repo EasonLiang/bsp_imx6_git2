@@ -1011,7 +1011,7 @@ _send_tray_message_data( MBTrayApp *mb, unsigned char *data )
 
    XSendEvent(mb->dpy, mb->win_tray, False, NoEventMask, &ev);
 
-   if (untrap_errors()) 
+   if (untrap_errors() && mb_want_warnings())
      fprintf(stderr, "mbtray : X error %i on message send\n",
 	     trapped_error_code );
 }
@@ -1041,10 +1041,9 @@ _send_tray_opcode(
    trap_errors();
    XSendEvent(mb->dpy, mb->win_tray, False, NoEventMask, &ev);
    XSync(mb->dpy, False);
-   if (untrap_errors()) {
-      fprintf(stderr, "Tray.c : X error %i on opcode send\n",
-	      trapped_error_code );
-   }
+   if (untrap_errors() && mb_want_warnings()) 
+     fprintf(stderr, "Tray.c : X error %i on opcode send\n",
+	     trapped_error_code );
 }
 
 long
@@ -1164,8 +1163,6 @@ _init_docking (MBTrayApp *mb )
   this_pid = getpid();
   XChangeProperty (mb->dpy, mb->win, mb->atoms[ATOM_NET_WM_PID], XA_CARDINAL, 
 		   32, PropModeReplace, (unsigned char *)&this_pid, 1);
-
-  printf("pid is %i\n", this_pid);
 
   if (mb->show_session_data)
     XSetCommand(mb->dpy, mb->win, mb->argv_copy, mb->argc_copy); 

@@ -57,7 +57,9 @@ _parse_desktop_entry(MBDotDesktop *dd)
       /* FIXME: this check should be moved elsewhere if exist at all */
       if (strncasecmp("[desktop entry]", data, 15))
 	{
-	  fprintf(stderr, "libmb: dont look like a desktop entry? %s\n", data);
+	  if (mb_want_warnings())
+	    fprintf(stderr, "libmb: dont look like a desktop entry? %s\n", 
+		    data);
 	  fclose(fp);
 	  return DD_ERROR_NOT_DESKTOP_FILE;
 	}
@@ -401,7 +403,8 @@ mb_dot_desktop_folders_new(const char *vfolder_path)
 
   if (!(fp = fopen(order_path, "r"))) 
     { 
-      fprintf(stderr, "libmb: failed to open %s\n", order_path); 
+      if (mb_want_warnings())
+	fprintf(stderr, "libmb: failed to open %s\n", order_path); 
       return NULL;
     }
 
@@ -417,7 +420,8 @@ mb_dot_desktop_folders_new(const char *vfolder_path)
 
   if (!folder_cnt) 
     { 
-       fprintf(stderr, "libmb: no vfolders defined\n"); 
+      if (mb_want_warnings())
+	fprintf(stderr, "libmb: no vfolders defined\n"); 
        fclose(fp); 
        return NULL; 
     }

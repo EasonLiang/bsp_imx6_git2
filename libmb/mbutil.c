@@ -369,4 +369,14 @@ mb_util_animate_startup(Display *dpy,
   XFreeGC(dpy, gc);
 }
 
+int
+mb_want_warning ()
+{
+  static int env_checked = 0;
+
+  if (env_checked == 0)
+    env_checked = getenv("MB_WARNINGS") ? 1 : 2;
+  else
+    return env_checked-1;
+}
 

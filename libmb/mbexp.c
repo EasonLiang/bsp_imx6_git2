@@ -107,7 +107,8 @@ mb_col_set (MBColor *col, char *spec)
 	    }
 	  else
 	    {
-	      fprintf(stderr, "mbcolor: failed to parse color %s\n", spec);
+	      if (mb_want_warnings())
+		fprintf(stderr, "mbcolor: failed to parse color %s\n", spec);
 	      return False;
 	    } 
 
@@ -122,7 +123,8 @@ mb_col_set (MBColor *col, char *spec)
 			   DefaultColormap(pb->dpy, pb->scr),
 			   spec, &col->xcol))
 	    {
-	      fprintf(stderr, "mbcolor: failed to parse color %s\n", spec);
+	      if (mb_want_warnings())
+		fprintf(stderr, "mbcolor: failed to parse color %s\n", spec);
 	      return False;
 	    } 
 
@@ -374,11 +376,13 @@ _mb_font_load(MBFont *font)
     { 
       result = 1;  /* XXX: should retry with weight, slant set to '*' */ 
 
-      fprintf(stderr, "mbfont: failed to load %s, falling back to fixed\n", font_spec);
+      if (mb_want_warnings())
+	fprintf(stderr, "mbfont: failed to load %s, falling back to fixed\n", font_spec);
 
       if ((font->font = XLoadQueryFont(font->dpy, "fixed")) == NULL)
 	{
-	  fprintf(stderr, "mbfont: fixed failed, no usable fonts\n");
+	  if (mb_want_warnings())
+	    fprintf(stderr, "mbfont: fixed failed, no usable fonts\n");
 	  result = 0;
 	}
     }
@@ -1067,8 +1071,9 @@ mb_font_render_simple (MBFont          *font,
 
   if (font->col == NULL) 
     {
-      fprintf(stderr, 
-	      "libmb: **error** font has no color set. unable to render\n");
+      if (mb_want_warnings())
+	fprintf(stderr, 
+		"libmb: **error** font has no color set. unable to render\n");
       return 0;
     }
 

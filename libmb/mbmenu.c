@@ -228,8 +228,9 @@ mb_menu_set_default_icons(MBMenu *mbmenu, char *folder, char *app)
       if ((mbmenu->img_default_app
 	   = mb_pixbuf_img_new_from_file(mbmenu->pb, app)) == NULL)
 	    {
-	      fprintf(stderr, "libmb: failed to get load image: %s\n", 
-		      app);
+	      if (mb_want_warnings())
+		fprintf(stderr, "libmb: failed to get load image: %s\n", 
+			app);
 	      mbmenu->img_default_app = NULL;
 	    }
       else
@@ -257,8 +258,9 @@ mb_menu_set_default_icons(MBMenu *mbmenu, char *folder, char *app)
 	   = mb_pixbuf_img_new_from_file(mbmenu->pb, 
 					 folder)) == NULL)
 	{
-	  fprintf(stderr, "libmb: failed to get load image: %s\n", 
-		  folder);
+	  if (mb_want_warnings())
+	    fprintf(stderr, "libmb: failed to get load image: %s\n", 
+		    folder);
 	  mbmenu->img_default_folder = NULL;
 	}
       else
@@ -701,7 +703,8 @@ menu_set_theme_from_root_prop(MBMenu *mb)
   if (status != Success || value == 0
       || *value == 0 || n == 0)
     {
-      fprintf(stderr, "mbmenu: no _MB_THEME set on root window\n");
+      if (mb_want_warnings())
+	fprintf(stderr, "mbmenu: no _MB_THEME set on root window\n");
     } else {
       strcpy(app_cfg, value);
       strcat(app_cfg, "/theme.desktop");
@@ -1104,10 +1107,12 @@ new_menu_item(MBMenu *mb, char *title, char *icon, char *info,
    menu_item->icon_fn   = NULL;
    menu_item->img       = NULL;
 
-   if (title == NULL) {
-      fprintf(stderr, "Cant create menu with no title\n"); 
-      exit(0);
-   }
+   if (title == NULL) 
+     {
+       if (mb_want_warnings())
+	 fprintf(stderr, "Cant create menu with no title\n"); 
+       exit(0);
+     }
 
    MENUDBG("adding menu item -> %s\n", title);
    
@@ -1146,7 +1151,8 @@ new_menu_item(MBMenu *mb, char *title, char *icon, char *info,
 	}
       else
 	{
-	  fprintf(stderr, "failed to load image: %s \n", menu_item->icon_fn);
+	  if (mb_want_warnings())
+	    fprintf(stderr, "failed to load image: %s \n", menu_item->icon_fn);
 	  free(menu_item->icon_fn);
 	  menu_item->icon_fn = (char *)NULL;
 	}
