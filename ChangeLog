@@ -1,3 +1,8 @@
+2006-07-27  Matthew Allum  <mallum@openedhand.com>
+
+	* settings-daemon.c: (main):
+	fork before calling gtk_init()
+
 2005-10-14  Ross Burton  <ross@burtonini.com>
 
 	* settings-daemon.c:

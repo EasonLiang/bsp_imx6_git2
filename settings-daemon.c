@@ -660,9 +660,6 @@ main(int argc, char **argv)
   int           i, n_screens;
   pid_t         p;
 
-  g_type_init();
-  gdk_init(&argc, &argv);
-
   if (!(argc > 1 && !strcmp(argv[1],"-n")))
     {
       
@@ -687,6 +684,8 @@ main(int argc, char **argv)
 	  break;
 	}
     }
+
+  gdk_init(&argc, &argv);
 
   loop = g_main_loop_new(NULL, FALSE);
 
