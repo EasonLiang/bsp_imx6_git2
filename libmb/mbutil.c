@@ -370,7 +370,7 @@ mb_util_animate_startup(Display *dpy,
 }
 
 int
-mb_want_warning ()
+mb_want_warnings ()
 {
   static int env_checked = 0;
 
