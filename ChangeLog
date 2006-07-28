@@ -1,3 +1,11 @@
+2006-07-28  Chris Lord  <chris@openedhand.com>
+
+	* configure.ac:
+	* Makefile.am:
+	* settings-daemon.schemas:
+	Add GConf schema to install default value of 'Clearlooks' to
+	/desktop/poky/interface/theme.
+
 2006-07-27  Matthew Allum  <mallum@openedhand.com>
 
 	* settings-daemon.c: (main):
