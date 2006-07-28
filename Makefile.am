@@ -7,4 +7,18 @@ settings_daemon_SOURCES = \
 
 settings_daemon_CPPFLAGS = @APP_CFLAGS@ -DHAVE_XFT2
 settings_daemon_CFLAGS = -Wall
-settings_daemon_LDADD = @APP_LIBS@ 
+settings_daemon_LDADD = @APP_LIBS@
+
+schemadir = $(GCONF_SCHEMA_FILE_DIR)
+schema_DATA = settings-daemon.schemas
+
+install-data-local:
+	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) \
+		$(GCONFTOOL) --makefile-install-rule $(schema_DATA) || \
+		(echo ;\
+		echo "*****************************************************"; \
+		echo "Installation of schemas failed, install them manually"; \
+		echo "*****************************************************";)
+		@true
+
+EXTRA_DIST = $(schema_DATA)

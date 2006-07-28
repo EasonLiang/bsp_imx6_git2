@@ -20,6 +20,16 @@ PKG_CHECK_MODULES(APP, [gconf-2.0 gdk-x11-2.0])
 AC_SUBST(APP_CFLAGS)
 AC_SUBST(APP_LIBS)
 
+
+# Find how and where to put the GConf schemas
+
+AC_PATH_PROG(GCONFTOOL, gconftool-2, no)
+if test x"$GCONFTOOL" = xno; then
+	AC_MSG_WARN([gconftool-2 executable not found in your path])
+fi
+AM_GCONF_SOURCE_2
+
+
 # Checks for header files.
 
 AC_HEADER_STDC
