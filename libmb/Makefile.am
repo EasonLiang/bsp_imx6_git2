@@ -27,7 +27,7 @@ libmb_la_LIBADD      = @XLIBS_LIBS@ @PANGO_LIBS@ @JPEG_LIBS@ @PNG_LIBS@ @XSET_CF
 # http://sources.redhat.com/autobook/autobook/autobook_91.html#SEC91
 # current : revision : age
 
-libmb_la_LDFLAGS = -version-info 1:8:0
+libmb_la_LDFLAGS = -version-info 1:9:0
 
 libmbheadersdir = $(includedir)/libmb
 libmbheaders_DATA = $(source_h)

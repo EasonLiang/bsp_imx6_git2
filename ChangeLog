@@ -1,3 +1,12 @@
+2006-08-04  1.9 Released.
+
+2006-08-04  Matthew Allum  <mallum@openedhand.com>
+
+	* NEWS:
+	* configure.ac:
+	* libmb/Makefile.am:
+	Bump up to 1.9
+
 2006-07-27  Matthew Allum  <mallum@openedhand.com>
 
 	* libmb/mbutil.c:
