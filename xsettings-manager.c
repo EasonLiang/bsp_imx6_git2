@@ -45,7 +45,7 @@ struct _XSettingsManager
   unsigned long serial;
 };
 
-XSettingsList *settings;
+static XSettingsList *settings;
 
 typedef struct 
 {
@@ -156,7 +156,13 @@ xsettings_manager_new (Display                *display,
   timestamp = get_server_time (display, manager->window);
 
   XSetSelectionOwner (display, manager->selection_atom,
-		      manager->window, timestamp);
+		      manager->window, 
+		      /* NOTE: using CurrentTime rather timestamp. 
+                       * For some reason timestamp causes the selection      
+                       * to fail on v slow machines at least - not sure
+                       * why this is. Very odd. 
+		      */  
+		      CurrentTime);
 
   /* Check to see if we managed to claim the selection. If not,
    * we treat it as if we got it then immediately lost it

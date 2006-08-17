@@ -1,3 +1,9 @@
+2006-08-17  Matthew Allum  <mallum@openedhand.com>
+
+	* xsettings-manager.c: (xsettings_manager_new):
+	Make SetSelection use CurrentTime rather than generated timestamp.
+       Appears to work around wierd race issues on slow machines.
+
 2006-07-28  Chris Lord  <chris@openedhand.com>
 
 	* configure.ac:
