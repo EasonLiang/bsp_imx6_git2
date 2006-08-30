@@ -1,3 +1,9 @@
+2006-08-30  Matthew Allum  <mallum@openedhand.com>
+
+	* libmb/mbtray.c: (mb_tray_handle_xevent):
+	Only handle exposes for tray window. Fixes issues
+	when used with GTK.
+
 2006-08-04  1.9 Released.
 
 2006-08-04  Matthew Allum  <mallum@openedhand.com>

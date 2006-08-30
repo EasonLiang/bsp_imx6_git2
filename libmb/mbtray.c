@@ -1379,7 +1379,8 @@ mb_tray_handle_xevent(MBTrayApp *mb, XEvent *xevent)
 	  break;
 	case Expose:
 	  TRAYDBG("%s() Expose event\n", __func__ );
-	  handle_expose(mb, &xevent->xexpose);
+	  if (xevent->xexpose.window == mb->win)
+	    handle_expose(mb, &xevent->xexpose);
 	  break; 
 	case ButtonPress:
 	  TRAYDBG("%s() Button Press Notify event\n", __func__ );
