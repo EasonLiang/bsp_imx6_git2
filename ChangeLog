@@ -1,3 +1,9 @@
+2006-10-16  Matthew Allum  <mallum@openedhand.com>
+
+	* libmb/mbexp.c: (mb_font_get_txt_width), (_render_some_text):
+	Use logical rather than ink rects for pango extents. 
+	( maemo #41691 )    
+
 2006-08-30  Matthew Allum  <mallum@openedhand.com>
 
 	* libmb/mbtray.c: (mb_tray_handle_xevent):

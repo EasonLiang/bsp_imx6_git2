@@ -820,8 +820,8 @@ mb_font_get_txt_width(MBFont        *font,
 
        pango_glyph_string_extents (  glyphs,
 				     this->analysis.font,
-				     &rect,
-				     NULL);
+				     NULL,
+				     &rect);
 
        width += (( rect.x + rect.width ) / PANGO_SCALE);
        
@@ -1015,8 +1015,8 @@ _render_some_text (MBFont        *font,
        /* calculate rendered area */
        pango_glyph_string_extents (glyphs,
 				   this->analysis.font,
-				   &rect,
-				   NULL);
+				   NULL,
+				   &rect);
 
        x += ( rect.x + rect.width ) / PANGO_SCALE; /* XXX Correct ? */
        
