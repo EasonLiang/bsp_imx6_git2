@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<theme name="Clearlooks" author="Matthew Allum - mallum@handhelds.org"
+       desc="A version of clearlooks for mb" version="1.0" engine_version="1" >
+
+
+<color id="white" def="#ffffff" />
+<color id="black" def="#000000" />
+
+<color id="text" def="#e3e3e3" />
+<color id="base" def="#66cc33" />
+
+<font id="titlefont" def="Sans bold 32px" />
+<font id="menufont" def="Sans bold 24px" />
+
+<pixmap id="titlebar-left-edge" filename="titlebar-left-edge.png" />
+<pixmap id="titlebar-right-edge" filename="titlebar-right-edge.png" />  
+<pixmap id="titlebar-tile" filename="titlebar-tile.png" />
+<pixmap id="close-button" filename="close-button.png" />
+
+<frame id="main" height="48">
+
+  <layer x="0" y="0" w="100%"  h="100%" 
+   type="plain" color="base" />
+
+  <layer x="48" y="0" w="100%-96"  h="48" 
+   type="pixmap" pixmap="titlebar-tile" />
+
+  <layer x="0" y="0" w="48"  h="48" 
+   type="pixmap" pixmap="titlebar-right-edge" />
+
+  <layer x="100%-48" y="0" w="48"  h="48" 
+   type="pixmap" pixmap="titlebar-left-edge" />
+
+  <layer x="48" y="8" w="100%-100" h="32" 
+   type="label" color="text" justify="left" font="titlefont" />
+
+  <button x="100%-48" y="8" w="32" h="32" action="close" >
+   <active pixmap="close-button" blend="100"/>
+   <inactive pixmap="close-button"  />
+  </button>
+
+<!--
+   <panel x="100%-94" y="1" w="54" h="20" />
+-->
+
+</frame>
+
+<frame id="main-west"  width="0" >
+</frame>
+
+<frame id="main-east"  width="0" >
+</frame>
+
+<frame id="main-south" height="5" >
+</frame>
+
+
+<frame id="dialog" height="24" options="shaped">
+
+<!--
+  <layer x="14" y="4" w="100%-70" h="20" 
+   type="label" color="white" justify="center" font="titlefont" />
+
+  <button x="100%-24" y="3" w="19" h="19" action="close" >
+   <active pixmap="closebutton" />
+   <inactive pixmap="closebuttondown" />
+  </button>
+-->  
+
+</frame>
+
+
+<frame id="dialog-north" height="4" options="shaped">
+
+
+</frame>
+
+<frame id="dialog-east" width="4" >
+
+</frame>
+
+<frame id="dialog-west" width="5" >
+
+</frame>
+
+<frame id="dialog-south" height="5" >
+
+</frame>
+
+</theme>
