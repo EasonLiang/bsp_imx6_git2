@@ -1,3 +1,8 @@
+2006-11-17  Matthew Allum  <mallum@openedhand.com>
+
+	* libmb/Makefile.am:
+	Fix typo switching XSET_CFLAGS <-> XSET_LIBS
+
 2006-10-16  Matthew Allum  <mallum@openedhand.com>
 
 	* libmb/mbexp.c: (mb_font_get_txt_width), (_render_some_text):
