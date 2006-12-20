@@ -8,6 +8,7 @@
 
 <color id="text" def="#e3e3e3" />
 <color id="base" def="#66cc33" />
+<color id="dia-border" def="#383838" />
 
 <font id="titlefont" def="Sans bold 32px" />
 <font id="menufont" def="Sans bold 24px" />
@@ -16,6 +17,9 @@
 <pixmap id="titlebar-right-edge" filename="titlebar-right-edge.png" />  
 <pixmap id="titlebar-tile" filename="titlebar-tile.png" />
 <pixmap id="close-button" filename="close-button.png" />
+<pixmap id="dia-left-edge" filename="dia-left-edge.png" />
+<pixmap id="dia-right-edge" filename="dia-right-edge.png" />  
+<pixmap id="dia-tile" filename="dia-tile.png" />
 
 <frame id="main" height="48">
 
@@ -51,39 +55,46 @@
 <frame id="main-east"  width="0" >
 </frame>
 
-<frame id="main-south" height="5" >
+<frame id="main-south" height="0" >
 </frame>
 
+<frame id="dialog" height="48" options="shaped">
+  <layer x="12" y="0" w="100%-24"  h="48" 
+   type="pixmap" pixmap="dia-tile" />
 
-<frame id="dialog" height="24" options="shaped">
+  <layer x="0" y="0" w="12"  h="48" 
+   type="pixmap" pixmap="dia-left-edge" />
 
-<!--
-  <layer x="14" y="4" w="100%-70" h="20" 
-   type="label" color="white" justify="center" font="titlefont" />
+  <layer x="100%-12" y="0" w="12"  h="48" 
+   type="pixmap" pixmap="dia-right-edge" />
 
-  <button x="100%-24" y="3" w="19" h="19" action="close" >
-   <active pixmap="closebutton" />
-   <inactive pixmap="closebuttondown" />
+  <layer x="12" y="8" w="100%-100" h="32" 
+   type="label" color="text" justify="left" font="titlefont" />
+
+  <button x="100%-48" y="8" w="32" h="32" action="close" >
+   <active pixmap="close-button" blend="100"/>
+   <inactive pixmap="close-button"  />
   </button>
--->  
-
 </frame>
 
-
-<frame id="dialog-north" height="4" options="shaped">
-
-
+<frame id="dialog-north" height="1" options="shaped">
+  <layer x="0" y="0" w="100%"  h="100%" 
+   type="plain" color="dia-border" />
 </frame>
 
-<frame id="dialog-east" width="4" >
-
+<frame id="dialog-east" width="1" >
+  <layer x="0" y="0" w="100%"  h="100%" 
+   type="plain" color="dia-border" />
 </frame>
 
-<frame id="dialog-west" width="5" >
-
+<frame id="dialog-west" width="1" >
+  <layer x="0" y="0" w="100%"  h="100%" 
+   type="plain" color="dia-border" />
 </frame>
 
-<frame id="dialog-south" height="5" >
+<frame id="dialog-south" height="1" >
+  <layer x="0" y="0" w="100%"  h="100%" 
+   type="plain" color="dia-border" />
 
 </frame>
 
