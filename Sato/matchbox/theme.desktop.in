@@ -1,18 +1,4 @@
 [Desktop Entry]
 Type=MBTheme
-Name=Clearlooks
-Comment=Clearlooks MB Theme 
-
-TitlebarDockBgColor=#dcd7bc
-DockBgColor=#efebe7
-PanelFgColor=#222222
-PanelMsgBgCol=#e2dec6
-PanelMsgBgUrgentCol=#ffdec6
-PanelMsgFgCol=#000000
-MenuBgColor=#dcd7bc
-MenuFgColor=black
-MenuBdColor=#cccccc
-MenuFont=Sans-10:bold
-DesktopFont=Sans-8
-DesktopHlCol=#333333
-DesktopBgSpec=img-stretched:PREFIX/share/themes/Clearlooks/background/default.png
+Name=Sato
+Comment=Sato MB Theme 
