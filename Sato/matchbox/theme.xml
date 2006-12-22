@@ -43,9 +43,7 @@
    <inactive pixmap="close-button"  />
   </button>
 
-<!--
-   <panel x="100%-94" y="1" w="54" h="20" />
--->
+   <panel x="100%-324" y="0" w="260" h="48" />
 
 </frame>
 
