@@ -2,7 +2,6 @@
 <theme name="Clearlooks" author="Matthew Allum - mallum@handhelds.org"
        desc="A version of clearlooks for mb" version="1.0" engine_version="1" >
 
-
 <color id="white" def="#ffffff" />
 <color id="black" def="#000000" />
 
@@ -35,7 +34,7 @@
   <layer x="100%-48" y="0" w="48"  h="48" 
    type="pixmap" pixmap="titlebar-left-edge" />
 
-  <layer x="48" y="8" w="100%-100" h="32" 
+  <layer x="16" y="8" w="100%-340" h="32" 
    type="label" color="text" justify="left" font="titlefont" />
 
   <button x="100%-48" y="8" w="32" h="32" action="close" >
