@@ -1,3 +1,9 @@
+2006-12-24  Ross Burton  <ross@openedhand.com>
+
+	* settings-daemon.c:
+	Set Xft.dpi from the X DPI instead of making up 96 if the value
+	isn't set in GConf.
+
 2006-08-17  Matthew Allum  <mallum@openedhand.com>
 
 	* xsettings-manager.c: (xsettings_manager_new):

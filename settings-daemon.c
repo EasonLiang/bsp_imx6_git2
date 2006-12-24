@@ -41,6 +41,7 @@
 #include "xsettings-manager.h"
 
 static GMainLoop *loop;
+static GdkDisplay *display;
 static GConfClient  *gconf_client;
 static XSettingsManager **managers = NULL;
 
@@ -178,6 +179,8 @@ static const TranslationEntry translations [] = {
     GCONF_VALUE_STRING, translate_string_string },
   { "/desktop/poky/interface/menus_have_icons", "Gtk/MenuImages",
     GCONF_VALUE_BOOL, translate_bool_int },
+  { "/desktop/poky/interface/touchscreen", "Gtk/TouchscreenMode",
+    GCONF_VALUE_BOOL, translate_bool_int },
 };
 
 static const TranslationEntry*
@@ -286,6 +289,19 @@ typedef struct
 
 static const char rgba_types[][5] = { "rgb", "bgr", "vbgr", "vrgb" };
 
+static int
+get_display_dpi (void)
+{
+  GdkScreen* screen;
+  
+  g_return_val_if_fail (display != NULL, 96);
+  
+  screen = gdk_display_get_default_screen  (display);
+  
+  return (gdk_screen_get_width (screen) * 254 + gdk_screen_get_width_mm (screen)*5)
+    / (gdk_screen_get_width_mm (screen)*10);
+}
+
 /**
  * Read GConf settings and determine the appropriate Xft settings based on them
  * This probably could be done a bit more cleanly with gconf_string_to_enum
@@ -302,7 +318,7 @@ sd_xft_settings_get (GConfClient      *client,
   settings->antialias = TRUE;
   settings->hinting = TRUE;
   settings->hintstyle = "hintfull";
-  settings->dpi = 96 * 1024;
+  settings->dpi = get_display_dpi () * 1024;
   settings->rgba = "rgb";
 
 
@@ -654,7 +670,6 @@ gconf_key_changed_callback (GConfClient *client,
 int
 main(int argc, char **argv)
 {
-  GdkDisplay   *display;
   GdkScreen    *screen;
   gboolean      terminated = FALSE;
   int           i, n_screens;
