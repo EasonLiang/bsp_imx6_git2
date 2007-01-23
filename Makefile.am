@@ -19,5 +19,6 @@ bin_PROGRAMS = screenshot
 screenshot_SOURCES = main.c
 screenshot_LDADD = $(GTK_LIBS) libshot.la
 
+# The icon for the panel applet.
 icondir = $(datadir)/pixmaps
 icon_DATA = applet-screenshot.png
