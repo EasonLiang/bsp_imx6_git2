@@ -1,3 +1,11 @@
+/* 
+ * (C) 2007 OpenedHand Ltd.
+ *
+ * Author: Ross Burton <ross@openedhand.com>
+ *
+ * Licensed under the GPL v2 or greater.
+ */
+
 #include <gtk/gtk.h>
 #include "screenshot-utils.h"
 
