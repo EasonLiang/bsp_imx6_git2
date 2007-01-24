@@ -1,3 +1,11 @@
+2007-01-24  Ross Burton  <ross@openedhand.com>
+
+	* configure.ac:
+	Disable static libraries
+
+	* Makefile.am:
+	Disable library versioning.
+
 2007-01-23  Ross Burton  <ross@openedhand.com>
 
 	* Initial import.

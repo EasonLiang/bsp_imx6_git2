@@ -11,7 +11,7 @@ libshot_la_SOURCES = \
 appletdir = $(libdir)/matchbox-panel
 applet_LTLIBRARIES = libscreenshot.la
 libscreenshot_la_SOURCES = applet.c
-libscreenshot_la_LDFLAGS = -no-undefined
+libscreenshot_la_LDFLAGS = -avoid-version
 libscreenshot_la_LIBADD = $(GTK_LIBS) libshot.la
 
 # A standalone tool for running from a terminal and scripts
