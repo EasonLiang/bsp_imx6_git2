@@ -1,3 +1,8 @@
+2007-04-10  Ross Burton  <ross@burtonini.com>
+
+	* appearance/appearance.glade:
+	Make the window wider.
+
 2005-10-14  Ross Burton  <ross@burtonini.com>
 
 	* appearance/mb-appearance.c:

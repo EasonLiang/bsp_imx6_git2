@@ -4,6 +4,7 @@
 <glade-interface>
 
 <widget class="GtkDialog" id="dialog">
+  <property name="width_request">280</property>
   <property name="visible">True</property>
   <property name="title" translatable="yes">Appearance</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
