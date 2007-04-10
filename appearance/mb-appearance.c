@@ -82,7 +82,7 @@ int main (int argc, char **argv) {
 
   dialog = glade_xml_get_widget (glade, "dialog");
   g_assert (dialog);
-  gtk_window_set_icon_from_file (GTK_WINDOW (dialog), DATADIR "/pixmaps/mb-appearance.png", NULL);
+  /* gtk_window_set_icon_from_file (GTK_WINDOW (dialog), DATADIR "/pixmaps/mb-appearance.png", NULL); */
   gtk_widget_show (dialog);
 
   theme_combo = glade_xml_get_widget (glade, "theme_combo");
