@@ -26,7 +26,7 @@ mb_panel_applet_create (const char *id, GtkOrientation orientation)
   gtk_widget_set_name (button, "MatchboxPanelScreenshot");
   gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
 
-  image = mb_panel_scaling_image_new ("applet-screenshot");
+  image = mb_panel_scaling_image_new (orientation, "applet-screenshot");
   gtk_container_add (GTK_CONTAINER (button), image);
 
   g_signal_connect (button, "clicked", G_CALLBACK (on_clicked), NULL);
