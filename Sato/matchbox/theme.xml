@@ -37,6 +37,8 @@
   <layer x="16" y="8" w="100%-340" h="32" 
    type="label" color="text" justify="left" font="titlefont" />
 
+  <button x="0" y="0" w="60%" h="48" action="custom" options="inputonly" />
+
   <button x="100%-48" y="8" w="32" h="32" action="close" >
    <active pixmap="close-button" blend="100"/>
    <inactive pixmap="close-button"  />
