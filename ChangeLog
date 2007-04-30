@@ -1,3 +1,11 @@
+2007-04-26  Tomas Frydrych  <tf@openedhand.com>
+
+	* libmb/mbexp.c: 
+	Added some (char*) casts to silence signedness warnings.
+	(_clip_some_text):
+	Speeded up pango branch by running the rendering pipeline
+	only once.
+
 2007-04-23  Matthew Allum  <mallum@openedhand.com>
 
 	* configure.ac:

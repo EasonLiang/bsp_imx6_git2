@@ -791,7 +791,7 @@ mb_font_get_txt_width(MBFont        *font,
    */
 
   attr_list = pango_attr_list_new (); /* no markup - empty attributes */
-  str       = strdup(txt);
+  str       = strdup((char*)txt);
 
   str[byte_len] = '\0';
   /*
@@ -908,11 +908,130 @@ _clip_some_text (MBFont         *font,
 		 int             encoding,
 		 int             opts)
 {
+#ifdef USE_PANGO
+  /* We cache the width of the elipsis for the given font */
+  static int     trailing_width = 0;
+  static MBFont *font_prev = NULL;
+  
+  GList         *items     = NULL, *items_head = NULL;
+  PangoAttrList *attr_list = NULL;
+  int            width     = 0;
+  int            length    = 0;
+  int            done = 0;
+  int            bytelen = strlen((char*)txt);
+
+  /* we can't clip single char string */
+  if (bytelen < 2) return 0;
+
+  if (font != font_prev || !_mb_font_is_font_object_fresh (font))
+    trailing_width = 0; /* different font, recalculate */
+  
+  if (!_mb_font_is_font_object_fresh (font)) /* XXX Make define ? */
+    _mb_font_load(font);
+
+  attr_list = pango_attr_list_new (); /* no markup - empty attributes */
+  
+  /* Measure the trailing elipsis */
+  if ((opts & MB_FONT_RENDER_OPTS_CLIP_TRAIL) && trailing_width == 0)
+    {
+      items = pango_itemize (font->pgo_context, ".", 0, 1, attr_list, NULL);
+
+      if (items)
+	{
+	  PangoItem        *this   = (PangoItem *)items->data;
+	  PangoGlyphString *glyphs = pango_glyph_string_new ();
+	  PangoRectangle    rect;
+       
+	  pango_shape  (".", 1, &this->analysis, glyphs);
+
+	  pango_glyph_string_extents (  glyphs,
+					this->analysis.font,
+					NULL,
+					&rect);
+
+	  trailing_width = ((3 * ( rect.x + rect.width )) / PANGO_SCALE);
+       
+	  pango_item_free (this);
+	  pango_glyph_string_free (glyphs);
+
+	  g_list_free (items);
+
+	  font_prev = font;
+	}
+    }
+
+  /* Measure the actual string */
+  items_head = items = pango_itemize (font->pgo_context, (char*)txt, 0, 
+				      strlen ((char*)txt), attr_list, NULL);
+
+   while (items)
+     {
+       PangoItem *this = (PangoItem *)items->data;
+
+       if (!done)
+	 {
+	   PangoGlyphString *glyphs = pango_glyph_string_new ();
+	   PangoRectangle    rect;
+	   int               rtl = (this->analysis.level & 1);
+	   
+	   pango_shape  ((char*)&txt[this->offset], this->length, 
+			 &this->analysis, glyphs);
+
+	   pango_glyph_string_extents (  glyphs,
+					 this->analysis.font,
+					 NULL,
+					 &rect);
+
+	   width += (( rect.x + rect.width ) / PANGO_SCALE);
+	   length += this->length;
+       
+	   if (width + trailing_width == max_width)
+	     {
+	       done = 1;
+	     }
+	   else if (width + trailing_width > max_width)
+	     {
+	       /* The required break is somewhere in this item */
+	       int k;
+	       int trim = width + trailing_width - max_width;
+	       int byte_off = 0;
+	       
+	       for (k = 0; k < glyphs->num_glyphs; ++k)
+		 {
+		   int indx = rtl ? k : glyphs->num_glyphs - k - 1;
+		   
+		   trim -= (glyphs->glyphs[indx].geometry.x_offset +
+			    glyphs->glyphs[indx].geometry.width) / PANGO_SCALE;
+
+		   byte_off = glyphs->log_clusters[indx];
+		   
+		   if (trim <= 0)
+		     break;
+		 }
+
+	       length -= (this->length - byte_off);
+	       done = 1;
+	     }
+	   
+	   pango_glyph_string_free (glyphs);
+	 }
+       
+       pango_item_free (this);
+       items = items->next;
+     }
+
+   
+   pango_attr_list_unref (attr_list);
+   
+   if (items_head) g_list_free (items_head);
+
+   return length;
+   
+#else
   int len = strlen((char*)txt);
 
   /* we cant clip single char string */
   if (len < 2) return 0;
-
   /* XXX RTL case for pango */
 
   if (opts & MB_FONT_RENDER_OPTS_CLIP_TRAIL)
@@ -958,6 +1077,7 @@ _clip_some_text (MBFont         *font,
       else len--;
     }
   return len;
+#endif
 }
 
 void
@@ -988,10 +1108,10 @@ _render_some_text (MBFont        *font,
    */
 
    attr_list = pango_attr_list_new (); /* no markup - empty attributes */
-   str       = strdup(text);
+   str       = (unsigned char*)strdup((char*)text);
 
    /* analyse string, breaking up into items */
-   items_head = items = pango_itemize (font->pgo_context, str, 
+   items_head = items = pango_itemize (font->pgo_context, (char*)str, 
 				       0, bytes_to_render,
 				       attr_list, NULL);
 
@@ -1002,7 +1122,7 @@ _render_some_text (MBFont        *font,
        PangoRectangle    rect;
        
        /* shape current item into run of glyphs */
-       pango_shape  (&str[this->offset], this->length, 
+       pango_shape  ((char*)&str[this->offset], this->length, 
 		     &this->analysis, glyphs);
 
        /* render the glyphs */
