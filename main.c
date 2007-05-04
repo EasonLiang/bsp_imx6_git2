@@ -14,7 +14,7 @@ int main (int argc, char **argv)
 
   gtk_init (&argc, &argv);
 
-  screenshot ();
+  screenshot (NULL);
 
   return 0;
 }

@@ -9,6 +9,6 @@
 #ifndef _SCREENSHOT_UI_H
 #define _SCREENSHOT_UI_H
 
-void screenshot (void);
+void screenshot (const char *filename);
 
 #endif /* _SCREENSHOT_UI_H */

@@ -9,20 +9,41 @@
 #include <gtk/gtk.h>
 #include "screenshot-utils.h"
 
-void screenshot (void)
+static void
+save (GtkWindow *parent, GdkPixbuf *pixbuf, const char *filename)
 {
   GError *error = NULL;
+  
+  g_assert (pixbuf);
+  g_assert (filename);
+  
+  if (!gdk_pixbuf_save (pixbuf, filename, "png", &error, NULL)) {
+    screenshot_show_gerror_dialog  (parent, "Could not save screenshot", error);
+  }
+  gdk_pixbuf_unref (pixbuf);
+}
+
+void
+screenshot (const char *filename)
+{
   GtkWidget *filechooser;
   GdkPixbuf *pixbuf;
   int response;
-  char *filename;
 
+  /* Get the screenshot */
   pixbuf = screenshot_get_pixbuf (GDK_ROOT_WINDOW());
   if (!pixbuf) {
     screenshot_show_error_dialog (NULL, "Could not capture a screenshot.", NULL);
     return;
   }
 
+  /* If we were passed a filename, save it now */
+  if (filename) {
+    save (NULL, pixbuf, filename);
+    return;
+  }
+  
+  /* Otherwise, open a file chooser to get a filename */
   filechooser = gtk_file_chooser_dialog_new ("Save Screenshot", NULL,
                                              GTK_FILE_CHOOSER_ACTION_SAVE,
                                              GTK_STOCK_CANCEL, GTK_RESPONSE_REJECT,
@@ -38,10 +59,7 @@ void screenshot (void)
   response = gtk_dialog_run (GTK_DIALOG (filechooser));
   if (response == GTK_RESPONSE_ACCEPT) {
     filename = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (filechooser));
-    if (!gdk_pixbuf_save (pixbuf, filename, "png", &error, NULL)) {
-      screenshot_show_gerror_dialog  (GTK_WINDOW (filechooser),
-                                      "Could not save screenshot", error);
-    }
+    save (GTK_WINDOW (filechooser), pixbuf, filename);
   }
   gtk_widget_destroy (filechooser);
 

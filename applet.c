@@ -14,7 +14,7 @@
 static void
 on_clicked (GtkButton *button)
 {
-  screenshot ();
+  screenshot (NULL);
 }
 
 G_MODULE_EXPORT GtkWidget *
