@@ -1,5 +1,10 @@
 2007-05-04  Ross Burton  <ross@openedhand.com>
 
+	* main.c:
+	Allow an argument as the filename to save the screenshot too.
+
+2007-05-04  Ross Burton  <ross@openedhand.com>
+
 	* screenshot-ui.[ch]:
 	Pull out the core save code, and allow a filename to be passed to
 	screenshot().
