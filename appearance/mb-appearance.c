@@ -20,18 +20,18 @@
  */
 
 #include <string.h>
+#include <glib/gi18n.h>
 #include <gconf/gconf-client.h>
 #include <gtk/gtk.h>
-#include <glade/glade-xml.h>
 
 static GConfClient *gconf;
-static GtkWidget *dialog;
 static GtkWidget *theme_combo, *font_button;
 
 #define THEME_KEY "/desktop/poky/interface/theme"
 #define FONT_KEY "/desktop/poky/interface/font_name"
 
-static void populate_themes(char *current) {
+static void
+populate_themes(char *current) {
   int index = 0;
   GDir *dir;
   const char *entry;
@@ -68,37 +68,78 @@ static void on_font_set (GtkFontButton *font_button, gpointer user_data) {
   gconf_client_set_string (gconf, FONT_KEY, gtk_font_button_get_font_name (font_button), NULL);
 }
 
-int main (int argc, char **argv) {
-  GladeXML *glade;
+static GtkWidget *
+new_frame (const char *title, GtkWidget **align)
+{
+  GtkWidget *frame, *label;
+  char *markup;
+
+  g_assert (title);
+  g_assert (align);
+
+  markup = g_markup_printf_escaped ("<b>%s</b>", title);
+
+  frame = g_object_new (GTK_TYPE_FRAME,
+                        "label", markup,
+                        "shadow-type", GTK_SHADOW_NONE,
+                        NULL);
+  
+  g_free (markup);
+
+  label = gtk_frame_get_label_widget (GTK_FRAME (frame));
+  gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
+
+  *align = g_object_new (GTK_TYPE_ALIGNMENT,
+                        "top-padding", 6, "bottom-padding", 0,
+                        "left-padding", 12, "right-padding", 0,
+                        NULL);
+  
+  gtk_container_add (GTK_CONTAINER (frame), *align);
+
+  return frame;
+}
+
+int
+main (int argc, char **argv) {
+  GtkWidget *dialog, *frame, *align;
+  GtkBox *box;
 
   gtk_init (&argc, &argv);
 
   gconf = gconf_client_get_default ();
   g_assert (gconf);
 
-  glade = glade_xml_new (PKGDATADIR "/appearance.glade", NULL, NULL);
-  g_assert (glade);
-  glade_xml_signal_autoconnect (glade);
+  dialog = gtk_dialog_new_with_buttons (_("Appearance"), NULL, 
+                                        GTK_DIALOG_NO_SEPARATOR,
+                                        GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+                                        NULL);
 
-  dialog = glade_xml_get_widget (glade, "dialog");
-  g_assert (dialog);
-  /* gtk_window_set_icon_from_file (GTK_WINDOW (dialog), DATADIR "/pixmaps/mb-appearance.png", NULL); */
-  gtk_widget_show (dialog);
+  gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
 
-  theme_combo = glade_xml_get_widget (glade, "theme_combo");
-  g_assert (theme_combo);
+  box = GTK_BOX (GTK_DIALOG (dialog)->vbox);
+  gtk_box_set_spacing (box, 6);
+  gtk_container_set_border_width (GTK_CONTAINER (dialog), 6);
+  
+  frame = new_frame (_("Appearance"), &align);
+  gtk_box_pack_start (GTK_BOX (box), frame, TRUE, TRUE, 0);
+  theme_combo = gtk_combo_box_new_text ();
+  gtk_container_add (GTK_CONTAINER (align), theme_combo);
+
+  frame = new_frame (_("Font"), &align);
+  gtk_box_pack_start (GTK_BOX (box), frame, TRUE, TRUE, 0);
+  font_button = gtk_font_button_new ();
+  gtk_container_add (GTK_CONTAINER (align), font_button);
 
   populate_themes(gconf_client_get_string (gconf, THEME_KEY, NULL));
   g_signal_connect (theme_combo, "changed", G_CALLBACK (on_theme_set), NULL);
 
-  font_button = glade_xml_get_widget (glade, "fontbutton");
-  g_assert (font_button);
-
   gtk_font_button_set_font_name (GTK_FONT_BUTTON (font_button), gconf_client_get_string (gconf, FONT_KEY, NULL));
   g_signal_connect (font_button, "font-set", G_CALLBACK (on_font_set), NULL);
 
+  gtk_widget_show_all (dialog);
   gtk_main ();
 
   g_object_unref (gconf);
+  
   return 0;
 }

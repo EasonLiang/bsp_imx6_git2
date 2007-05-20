@@ -1,14 +1,27 @@
-2007-04-10  Ross Burton  <ross@burtonini.com>
+2007-05-20  Ross Burton  <ross@openedhand.com>
+
+	* configure.ac:
+	* appearance/Makefile.am:
+	Remove glade check.
+
+	* appearance/appearance.glade:
+	* appearance/appearance.gladep:
+	Remove.
+
+	* appearance/mb-appearance.c:
+	Manually construct the UI instead of using glade.
+
+2007-04-10  Ross Burton  <ross@openedhand.com>
 
 	* appearance/appearance.glade:
 	Make the window wider.
 
-2005-10-14  Ross Burton  <ross@burtonini.com>
+2005-10-14  Ross Burton  <ross@openedhand.com>
 
 	* appearance/mb-appearance.c:
 	Write to Poky keys.
 
-2005-10-04  Ross Burton  <ross@burtonini.com>
+2005-10-04  Ross Burton  <ross@openedhand.com>
 
 	* appearance/mb-appearance.desktop:
 	Use right binary name.
@@ -20,13 +33,13 @@
 	* autogen.sh:
 	Add this
 
-2005-10-04  Ross Burton  <ross@burtonini.com>
+2005-10-04  Ross Burton  <ross@openedhand.com>
 
 	* appearance/Makefile.am:
 	* appearance/mb-appearance.desktop:
 	Add .desktop file.
 
-2005-10-04  Ross Burton  <ross@burtonini.com>
+2005-10-04  Ross Burton  <ross@openedhand.com>
 
 	* appearance/:
 	Add simple tool to set the font and theme GConf keys.
