@@ -2,7 +2,6 @@ AC_INIT(matchbox-config-gtk, 0.1, http://www.o-hand.com/)
 AM_INIT_AUTOMAKE([1.6])
 AM_CONFIG_HEADER(config.h)
 AC_CONFIG_SRCDIR(appearance/mb-appearance.c)
-AM_MAINTAINER_MODE
 
 AC_ISC_POSIX
 AC_PROG_CC
