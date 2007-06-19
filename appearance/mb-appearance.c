@@ -18,6 +18,10 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
+/*
+ * TODO: if gtk+ 2.10, handle symbolic colours
+ */
+
 #include <string.h>
 #include <glib/gi18n.h>
 #include <gconf/gconf-client.h>
