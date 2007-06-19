@@ -1,3 +1,9 @@
+2007-06-19  Ross Burton  <ross@openedhand.com>
+
+	* appearance/mb-appearance.c:
+	Total rewrite!  Now uses metathemes, just installing random themes
+	won' t work.
+
 2007-05-20  Ross Burton  <ross@openedhand.com>
 
 	* configure.ac:

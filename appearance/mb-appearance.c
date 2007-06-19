@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2005 Opened Hand Ltd.
+ * Copyright (C) 2005-2007 Opened Hand Ltd.
  *
  * Author: Ross Burton <ross@openedhand.com>
  *
@@ -16,7 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- *
  */
 
 #include <string.h>
@@ -26,48 +25,269 @@
 
 static GConfClient *gconf;
 static GtkWidget *theme_combo, *font_button;
+static GtkListStore *theme_store;
 
-#define THEME_KEY "/desktop/poky/interface/theme"
-#define FONT_KEY "/desktop/poky/interface/font_name"
+enum {
+  COL_NAME, /* Human readable name */
+  COL_GTK, /* GTK+ theme */
+  COL_WM, /* Matchbox theme */
+  COL_ICON, /* Icon theme */
+  COL_COUNT, /* Marker value */
+};
 
+/* Key file group names */
+#define METATHEME "X-GNOME-Metatheme"
+#define DESKTOPENTRY "Desktop Entry"
+
+/* GConf keys */
+#define INTERFACE_DIR "/desktop/poky/interface"
+#define GTK_THEME_KEY INTERFACE_DIR "/theme"
+#define WM_THEME_KEY INTERFACE_DIR "/wm_theme"
+#define ICON_THEME_KEY INTERFACE_DIR "/icon_theme"
+#define FONT_KEY INTERFACE_DIR "/font_name"
+
+/*
+ * Look through a directory loading any themes.
+ */
 static void
-populate_themes(char *current) {
-  int index = 0;
+scan_data_dir (const char *path)
+{
+  GError *error = NULL;
   GDir *dir;
   const char *entry;
-  char *path;
+  char *filename;
+  g_assert (path);
 
-  dir = g_dir_open (DATADIR "/themes/", 0, NULL);
+  /* Silently ignore non-existant directories */
+  if (!g_file_test (path, G_FILE_TEST_EXISTS))
+    return;
+
+  dir = g_dir_open (path, 0, &error);
+  if (!dir) {
+    g_warning ("Cannot open directory %s: %s", path, error->message);
+    g_error_free (error);
+    return;
+  }
+  
   while ((entry = g_dir_read_name (dir)) != NULL) {
-    path = g_build_filename (DATADIR "/themes/", entry, NULL);
-    if (g_file_test (path, G_FILE_TEST_IS_DIR)) {
-      char *p1, *p2;
-      p1 = g_build_filename (path, "matchbox", NULL);
-      p2 = g_build_filename (path, "gtk-2.0", NULL);
-      if (g_file_test (p1, G_FILE_TEST_IS_DIR) && g_file_test (p1, G_FILE_TEST_IS_DIR)) {
-        gtk_combo_box_append_text (GTK_COMBO_BOX (theme_combo), entry);
-        if (current && strcmp (current, entry) == 0) {
-          gtk_combo_box_set_active (GTK_COMBO_BOX (theme_combo), index);
-        }
-        index++;
-      }
-      g_free (p1);
-      g_free (p2);
+    GKeyFile *keys;
+    char *name, *gtk_theme, *wm_theme, *icon_theme;
+    GtkTreeIter iter;
+
+    keys = NULL;
+    
+    filename = g_build_filename (path, entry, "index.theme", NULL);
+    
+    if (!g_file_test (filename, G_FILE_TEST_IS_REGULAR))
+      goto done;
+    
+    keys = g_key_file_new ();
+    if (!g_key_file_load_from_file (keys, filename, G_KEY_FILE_NONE, &error)) {
+      g_warning ("Cannot read %s: %s", filename, error->message);
+      g_error_free (error);
+      goto done;
     }
-    g_free (path);
+
+    if (!g_key_file_has_group (keys, METATHEME))
+      goto done;
+
+    /* Get the name from the metatheme group, falling back to the Desktop Entry
+       group, fallback back to the directory name. */
+    name = g_key_file_get_locale_string (keys, METATHEME, "Name", NULL, NULL);
+    if (name == NULL)
+      name = g_key_file_get_locale_string (keys, DESKTOPENTRY, "Name", NULL, NULL);
+    if (name == NULL)
+      name = g_strdup (entry);
+    
+    gtk_theme = g_key_file_get_string (keys, METATHEME, "GtkTheme", NULL);
+    wm_theme = g_key_file_get_string (keys, METATHEME, "MatchboxTheme", NULL);
+    icon_theme = g_key_file_get_string (keys, METATHEME, "IconTheme", NULL);
+    
+    gtk_list_store_insert_with_values (theme_store, &iter, 0,
+                                       COL_NAME, name,
+                                       COL_GTK, gtk_theme,
+                                       COL_WM, wm_theme,
+                                       COL_ICON, icon_theme,
+                                       -1);
+
+    g_free (name);
+    g_free (gtk_theme);
+    g_free (wm_theme);
+    g_free (icon_theme);
+
+  done:
+    if (keys)
+      g_key_file_free (keys);
+    g_free (filename);
   }
 
-  g_free (current);
+  g_dir_close (dir);
 }
 
-static void on_theme_set (GtkComboBox *theme_combo, gpointer user_data) {
-  gconf_client_set_string (gconf, THEME_KEY, gtk_combo_box_get_active_text (theme_combo), NULL);
+/*
+ * Load themes from every directory themes can be in.
+ */
+static void
+load_themes (void)
+{
+  const char *const *system_dirs;
+  char *path;
+
+  path = g_build_filename (g_get_home_dir (), ".themes", NULL);
+  scan_data_dir (path);
+  g_free (path);
+
+  path = g_build_filename (g_get_user_data_dir (), "themes", NULL);
+  scan_data_dir (path);
+  g_free (path);
+
+  system_dirs = g_get_system_data_dirs ();
+  while (*system_dirs) {
+    path = g_build_filename (*system_dirs++, "themes", NULL);
+    scan_data_dir (path);
+    g_free (path);
+  }
 }
 
-static void on_font_set (GtkFontButton *font_button, gpointer user_data) {
+/*
+ * Utility method to compare two strings, handling NULLs.
+ */
+static gboolean
+matches (const char *s1, const char *s2)
+{
+  if (s1 == NULL && s2 == NULL)
+    return TRUE;
+
+  if (s1 == NULL || s2 == NULL)
+    return FALSE;
+
+  return strcmp (s1, s2) == 0;
+}
+
+/*
+ * Change the combo to reflect the currently selected theme in GConf.  Called by
+ * on_gconf_value_changed.
+ */
+static void
+select_current_theme (GtkComboBox *combo)
+{
+  GtkTreeModel *model;
+  GtkTreeIter iter;
+  char *current_gtk_theme, *gtk_theme;
+  char *current_wm_theme, *wm_theme;
+  char *current_icon_theme, *icon_theme;
+  gboolean done = FALSE;
+
+  g_assert (GTK_IS_COMBO_BOX (combo));
+
+  model = gtk_combo_box_get_model (combo);
+
+  if (!gtk_tree_model_get_iter_first (model, &iter))
+    return;
+
+  current_gtk_theme = gconf_client_get_string (gconf, GTK_THEME_KEY, NULL);
+  current_wm_theme = gconf_client_get_string (gconf, WM_THEME_KEY, NULL);
+  current_icon_theme = gconf_client_get_string (gconf, ICON_THEME_KEY, NULL);
+
+  do {
+    gtk_theme = wm_theme = icon_theme = NULL;
+
+    gtk_tree_model_get (model, &iter,
+                        COL_GTK, &gtk_theme,
+                        COL_WM, &wm_theme,
+                        COL_ICON, &icon_theme,
+                        -1);
+
+    if (matches (current_gtk_theme, gtk_theme) &&
+        matches (current_wm_theme, wm_theme) && 
+        matches (current_icon_theme, icon_theme)) {
+      gtk_combo_box_set_active_iter (combo, &iter);
+      done = TRUE;
+    }
+
+    g_free (gtk_theme);
+    g_free (wm_theme);
+    g_free (icon_theme);
+  } while (!done && gtk_tree_model_iter_next (model, &iter));
+
+  /* If we didn't find a matching theme, unset the combo */
+  if (!done) {
+    gtk_combo_box_set_active (combo, -1);
+  }
+
+  g_free (current_gtk_theme);
+  g_free (current_wm_theme);
+  g_free (current_icon_theme);
+}
+
+/*
+ * Callback for when a theme is changed in the theme combo.
+ */
+static void
+on_theme_set (GtkComboBox *combo, gpointer user_data)
+{
+  GtkTreeModel *model;
+  GtkTreeIter iter;
+  char *gtk_theme = NULL, *wm_theme = NULL, *icon_theme = NULL;
+
+  if (!gtk_combo_box_get_active_iter (combo, &iter))
+    return;
+
+  model = gtk_combo_box_get_model (combo);
+
+  gtk_tree_model_get (model, &iter,
+                      COL_GTK, &gtk_theme,
+                      COL_WM, &wm_theme,
+                      COL_ICON, &icon_theme,
+                      -1);
+
+  if (gtk_theme)
+    gconf_client_set_string (gconf, GTK_THEME_KEY, gtk_theme, NULL);
+  else
+    gconf_client_unset (gconf, GTK_THEME_KEY, NULL);
+  
+  if (wm_theme)
+    gconf_client_set_string (gconf, WM_THEME_KEY, wm_theme, NULL);
+  else
+    gconf_client_unset (gconf, WM_THEME_KEY, NULL);
+  
+  if (icon_theme)
+    gconf_client_set_string (gconf, ICON_THEME_KEY, icon_theme, NULL);
+  else
+    gconf_client_unset (gconf, ICON_THEME_KEY, NULL);
+  
+  g_free (gtk_theme);
+  g_free (wm_theme);
+  g_free (icon_theme);
+}
+
+/*
+ * Callback for when the selected font in the font selector is changed.
+ */
+static void
+on_font_set (GtkFontButton *font_button, gpointer user_data) {
   gconf_client_set_string (gconf, FONT_KEY, gtk_font_button_get_font_name (font_button), NULL);
 }
 
+/*
+ * Callback for when a gconf value we are monitoring changes.  This updates the UI.
+ */
+static void
+on_gconf_value_changed (GConfClient* client, const gchar* key, GConfValue* value)
+{
+  if (strcmp (key, GTK_THEME_KEY) == 0 ||
+      strcmp (key, WM_THEME_KEY) == 0 ||
+      strcmp (key, ICON_THEME_KEY) == 0) {
+    select_current_theme (GTK_COMBO_BOX (theme_combo));
+  } else if (strcmp (key, FONT_KEY) == 0) {
+    gtk_font_button_set_font_name (GTK_FONT_BUTTON (font_button),
+                                   gconf_value_get_string (value));
+  }
+}
+
+/*
+ * Utility function to make a nice looking frame.
+ */
 static GtkWidget *
 new_frame (const char *title, GtkWidget **align)
 {
@@ -102,6 +322,7 @@ new_frame (const char *title, GtkWidget **align)
 int
 main (int argc, char **argv) {
   GtkWidget *dialog, *frame, *align;
+  GtkCellRenderer *renderer;
   GtkBox *box;
 
   gtk_init (&argc, &argv);
@@ -109,10 +330,18 @@ main (int argc, char **argv) {
   gconf = gconf_client_get_default ();
   g_assert (gconf);
 
+  theme_store = gtk_list_store_new (COL_COUNT,
+                                    G_TYPE_STRING,
+                                    G_TYPE_STRING,
+                                    G_TYPE_STRING,
+                                    G_TYPE_STRING);
+  gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (theme_store), COL_NAME, GTK_SORT_ASCENDING);
+
   dialog = gtk_dialog_new_with_buttons (_("Appearance"), NULL, 
                                         GTK_DIALOG_NO_SEPARATOR,
                                         GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
                                         NULL);
+  g_signal_connect (dialog, "response", G_CALLBACK (gtk_main_quit), NULL);
 
   gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
 
@@ -122,19 +351,27 @@ main (int argc, char **argv) {
   
   frame = new_frame (_("Appearance"), &align);
   gtk_box_pack_start (GTK_BOX (box), frame, TRUE, TRUE, 0);
-  theme_combo = gtk_combo_box_new_text ();
+  theme_combo = gtk_combo_box_new_with_model (GTK_TREE_MODEL (theme_store));
+  g_signal_connect (theme_combo, "changed", G_CALLBACK (on_theme_set), NULL);
+  renderer = gtk_cell_renderer_text_new ();
+  gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (theme_combo), renderer, TRUE);
+  gtk_cell_layout_add_attribute  (GTK_CELL_LAYOUT (theme_combo), renderer,
+                                  "text", COL_NAME);
+
   gtk_container_add (GTK_CONTAINER (align), theme_combo);
 
   frame = new_frame (_("Font"), &align);
   gtk_box_pack_start (GTK_BOX (box), frame, TRUE, TRUE, 0);
   font_button = gtk_font_button_new ();
+  g_signal_connect (font_button, "font-set", G_CALLBACK (on_font_set), NULL);
   gtk_container_add (GTK_CONTAINER (align), font_button);
 
-  populate_themes(gconf_client_get_string (gconf, THEME_KEY, NULL));
-  g_signal_connect (theme_combo, "changed", G_CALLBACK (on_theme_set), NULL);
+  gconf_client_add_dir (gconf, INTERFACE_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
+  g_signal_connect (gconf, "value-changed", G_CALLBACK (on_gconf_value_changed), NULL);
 
-  gtk_font_button_set_font_name (GTK_FONT_BUTTON (font_button), gconf_client_get_string (gconf, FONT_KEY, NULL));
-  g_signal_connect (font_button, "font-set", G_CALLBACK (on_font_set), NULL);
+  load_themes ();
+  gconf_client_notify (gconf, GTK_THEME_KEY);
+  gconf_client_notify (gconf, FONT_KEY);
 
   gtk_widget_show_all (dialog);
   gtk_main ();
