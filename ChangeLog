@@ -1,3 +1,8 @@
+2007-06-20  Ross Burton  <ross@openedhand.com>
+
+	* appearance/mb-appearance.c:
+	Set the window icon.
+
 2007-06-19  Ross Burton  <ross@openedhand.com>
 
 	* appearance/mb-appearance.c:

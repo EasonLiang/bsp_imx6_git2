@@ -334,6 +334,8 @@ main (int argc, char **argv) {
   gconf = gconf_client_get_default ();
   g_assert (gconf);
 
+  gtk_window_set_default_icon_name ("preferences-desktop-theme");
+
   theme_store = gtk_list_store_new (COL_COUNT,
                                     G_TYPE_STRING,
                                     G_TYPE_STRING,
