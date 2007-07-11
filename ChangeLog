@@ -1,3 +1,9 @@
+2007-07-11  Matthew Allum  <mallum@openedhand.com>
+
+	* Sato/matchbox/Makefile.am:
+	* Sato/matchbox/theme.xml:
+	Fix window close button state.
+
 2006-12-23  Matthew Allum  <mallum@openedhand.com>
 
 	* Sato/matchbox/theme.xml:
