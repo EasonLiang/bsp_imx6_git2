@@ -20,6 +20,9 @@
 <pixmap id="dia-left-edge" filename="dia-left-edge.png" />
 <pixmap id="dia-right-edge" filename="dia-right-edge.png" />  
 <pixmap id="dia-tile" filename="dia-tile.png" />
+<pixmap id="arrow-down" filename="arrow-down.png" />
+<pixmap id="arrow-down-active" filename="arrow-down-active.png" />
+
 
 <frame id="main" height="48">
 
@@ -35,10 +38,13 @@
   <layer x="100%-48" y="0" w="48"  h="48" 
    type="pixmap" pixmap="titlebar-left-edge" />
 
-  <layer x="16" y="8" w="100%-340" h="32" 
+  <layer  x="8" y="16" w="32" h="16"
+   type="pixmap" pixmap="arrow-down" />
+
+  <layer x="48" y="8" w="100%-328" h="32" 
    type="label" color="text" justify="left" font="titlefont" />
 
-  <button x="0" y="0" w="60%" h="48" action="custom" options="inputonly" />
+  <button x="0" y="0" w="100%-340" h="48" action="custom" options="inputonly"/>
 
   <button x="100%-48" y="8" w="32" h="32" action="close" >
    <active pixmap="close-button-active"/>

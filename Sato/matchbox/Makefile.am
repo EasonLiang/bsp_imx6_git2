@@ -1,6 +1,8 @@
 pngs = \
   close-button.png         \
   close-button-active.png  \
+  arrow-down.png           \
+  arrow-down-active.png    \
   titlebar-left-edge.png   \
   titlebar-right-edge.png  \
   titlebar-tile.png        \
