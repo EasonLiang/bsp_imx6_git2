@@ -181,6 +181,8 @@ static const TranslationEntry translations [] = {
     GCONF_VALUE_BOOL, translate_bool_int },
   { "/desktop/poky/interface/touchscreen", "Gtk/TouchscreenMode",
     GCONF_VALUE_BOOL, translate_bool_int },
+  { "/desktop/poky/interface/handed", "Gtk/Handed",
+    GCONF_VALUE_STRING, translate_string_string },
 };
 
 static const TranslationEntry*

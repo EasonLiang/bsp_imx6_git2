@@ -185,6 +185,18 @@
     </locale>
   </schema>
 
+  <schema>
+    <key>/schemas/desktop/poky/interface/handed</key>
+    <applyto>/desktop/poky/interface/handed</applyto>
+    <owner>gnome</owner>
+    <type>string</type>
+    <default>right</default>
+    <locale name="C">
+      <short>User handedness</short>
+      <long>Whether the user is right or left handed. Valid values: left, right.</long>
+    </locale>
+  </schema>
+
 
 </schemalist>
 </gconfschemafile>

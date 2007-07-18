@@ -1,3 +1,10 @@
+2007-07-18  Ross Burton  <ross@openedhand.com>
+
+	* settings-daemon.schemas:
+	* settings-daemon.c:
+	Add a schema and sync /desktop/poky/interface/handed, which
+	specifies the user's preferred hand.
+
 2007-05-08  Thomas Wood  <thomas@openedhand.com>
 
 	* settings-daemon.schemas: Add more schemas
