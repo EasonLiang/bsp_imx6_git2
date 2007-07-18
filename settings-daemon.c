@@ -181,7 +181,7 @@ static const TranslationEntry translations [] = {
     GCONF_VALUE_BOOL, translate_bool_int },
   { "/desktop/poky/interface/touchscreen", "Gtk/TouchscreenMode",
     GCONF_VALUE_BOOL, translate_bool_int },
-  { "/desktop/poky/interface/handed", "Gtk/Handed",
+  { "/desktop/poky/interface/gtk-scrolled-window-placement", "Gtk/ScrolledWindowPlacement",
     GCONF_VALUE_STRING, translate_string_string },
 };
 

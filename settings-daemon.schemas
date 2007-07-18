@@ -186,14 +186,13 @@
   </schema>
 
   <schema>
-    <key>/schemas/desktop/poky/interface/handed</key>
-    <applyto>/desktop/poky/interface/handed</applyto>
+    <key>/schemas/desktop/poky/interface/gtk-scrolled-window-placement</key>
+    <applyto>/desktop/poky/interface/gtk-scrolled-window-placement</applyto>
     <owner>gnome</owner>
     <type>string</type>
     <default>right</default>
     <locale name="C">
-      <short>User handedness</short>
-      <long>Whether the user is right or left handed. Valid values: left, right.</long>
+      <short>Scrollbar placement</short>
     </locale>
   </schema>
 

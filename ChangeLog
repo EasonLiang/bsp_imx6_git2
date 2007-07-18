@@ -2,6 +2,13 @@
 
 	* settings-daemon.schemas:
 	* settings-daemon.c:
+	For now, change handedness to the implementation of
+	gtk-scrolled-window-placement.
+
+2007-07-18  Ross Burton  <ross@openedhand.com>
+
+	* settings-daemon.schemas:
+	* settings-daemon.c:
 	Add a schema and sync /desktop/poky/interface/handed, which
 	specifies the user's preferred hand.
 
