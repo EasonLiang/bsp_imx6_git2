@@ -1,3 +1,9 @@
+2007-07-22  Ross Burton  <ross@openedhand.com>
+
+	* Sato/matchbox/theme.xml:
+	Implement the custom menu icon as a button, so it can be hidden
+	when the window doesn't support custom.
+
 2007-07-13  Matthew Allum  <mallum@openedhand.com>
 
 	* Sato/matchbox/Makefile.am:

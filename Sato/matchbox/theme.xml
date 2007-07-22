@@ -38,13 +38,15 @@
   <layer x="100%-48" y="0" w="48"  h="48" 
    type="pixmap" pixmap="titlebar-left-edge" />
 
-  <layer  x="8" y="16" w="32" h="16"
-   type="pixmap" pixmap="arrow-down" />
+  <button x="8" y="16" w="32" h="16" action="custom">
+      <active pixmap="arrow-down-active"/>
+      <inactive pixmap="arrow-down"/>
+  </button>
 
   <layer x="48" y="8" w="100%-328" h="32" 
    type="label" color="text" justify="left" font="titlefont" />
 
-  <button x="0" y="0" w="100%-340" h="48" action="custom" options="inputonly"/>
+  <button x="40" y="0" w="100%-340" h="48" action="custom" options="inputonly"/>
 
   <button x="100%-48" y="8" w="32" h="32" action="close" >
    <active pixmap="close-button-active"/>
