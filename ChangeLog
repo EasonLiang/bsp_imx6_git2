@@ -1,3 +1,9 @@
+2007-07-20  Ross Burton  <ross@openedhand.com>
+
+	* appearance/mb-appearance.c:
+	Add a check box for whether the user is left or right handed,
+	which sets the GtkScrolledWindowPosition key.
+
 2007-06-20  Ross Burton  <ross@openedhand.com>
 
 	* appearance/mb-appearance.c:

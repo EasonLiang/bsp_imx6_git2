@@ -28,7 +28,7 @@
 #include <gtk/gtk.h>
 
 static GConfClient *gconf;
-static GtkWidget *theme_combo, *font_button;
+static GtkWidget *theme_combo, *font_button, *handed_check;
 static GtkListStore *theme_store;
 
 enum {
@@ -49,6 +49,7 @@ enum {
 #define WM_THEME_KEY INTERFACE_DIR "/wm_theme"
 #define ICON_THEME_KEY INTERFACE_DIR "/icon_theme"
 #define FONT_KEY INTERFACE_DIR "/font_name"
+#define HANDED_KEY INTERFACE_DIR "/gtk-scrolled-window-position"
 
 /*
  * Look through a directory loading any themes.
@@ -273,12 +274,24 @@ on_font_set (GtkFontButton *font_button, gpointer user_data) {
   gconf_client_set_string (gconf, FONT_KEY, gtk_font_button_get_font_name (font_button), NULL);
 }
 
+static void
+on_handed_set (GtkToggleButton *button, gpointer user_data)
+{
+  gconf_client_set_string (gconf, HANDED_KEY,
+                           gtk_toggle_button_get_active (button) ?
+                           "GTK_CORNER_TOP_RIGHT" : "GTK_CORNER_TOP_LEFT",
+                           NULL);
+}
+
 /*
  * Callback for when a gconf value we are monitoring changes.  This updates the UI.
  */
 static void
 on_gconf_value_changed (GConfClient* client, const gchar* key, GConfValue* value)
 {
+  if (!value)
+    return;
+  
   if (strcmp (key, GTK_THEME_KEY) == 0 ||
       strcmp (key, WM_THEME_KEY) == 0 ||
       strcmp (key, ICON_THEME_KEY) == 0) {
@@ -286,6 +299,12 @@ on_gconf_value_changed (GConfClient* client, const gchar* key, GConfValue* value
   } else if (strcmp (key, FONT_KEY) == 0) {
     gtk_font_button_set_font_name (GTK_FONT_BUTTON (font_button),
                                    gconf_value_get_string (value));
+  } else if (strcmp (key, HANDED_KEY) == 0) {
+    GEnumValue *e;
+    e = g_enum_get_value_by_name (g_type_class_ref (GTK_TYPE_CORNER_TYPE),
+                                  gconf_value_get_string (value));
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (handed_check),
+                                  e->value == GTK_CORNER_TOP_RIGHT);
   }
 }
 
@@ -354,23 +373,34 @@ main (int argc, char **argv) {
   box = GTK_BOX (GTK_DIALOG (dialog)->vbox);
   gtk_box_set_spacing (box, 6);
   gtk_container_set_border_width (GTK_CONTAINER (dialog), 6);
-  
+
+  /* Theme */
+
   frame = new_frame (_("Appearance"), &align);
   gtk_box_pack_start (GTK_BOX (box), frame, TRUE, TRUE, 0);
   theme_combo = gtk_combo_box_new_with_model (GTK_TREE_MODEL (theme_store));
+  gtk_container_add (GTK_CONTAINER (align), theme_combo);
   g_signal_connect (theme_combo, "changed", G_CALLBACK (on_theme_set), NULL);
   renderer = gtk_cell_renderer_text_new ();
   gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (theme_combo), renderer, TRUE);
   gtk_cell_layout_add_attribute  (GTK_CELL_LAYOUT (theme_combo), renderer,
                                   "text", COL_NAME);
 
-  gtk_container_add (GTK_CONTAINER (align), theme_combo);
-
+  /* Font */
+  
   frame = new_frame (_("Font"), &align);
   gtk_box_pack_start (GTK_BOX (box), frame, TRUE, TRUE, 0);
   font_button = gtk_font_button_new ();
   g_signal_connect (font_button, "font-set", G_CALLBACK (on_font_set), NULL);
   gtk_container_add (GTK_CONTAINER (align), font_button);
+
+  /* Left/Right Handed */
+  
+  frame = new_frame (_("Orientation"), &align);
+  gtk_box_pack_start (GTK_BOX (box), frame, TRUE, TRUE, 0);
+  handed_check = gtk_check_button_new_with_mnemonic (_("_Left-handed"));
+  g_signal_connect (handed_check, "toggled", G_CALLBACK (on_handed_set), NULL);
+  gtk_container_add (GTK_CONTAINER (align), handed_check);
 
   gconf_client_add_dir (gconf, INTERFACE_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
   g_signal_connect (gconf, "value-changed", G_CALLBACK (on_gconf_value_changed), NULL);
@@ -378,6 +408,7 @@ main (int argc, char **argv) {
   load_themes ();
   gconf_client_notify (gconf, GTK_THEME_KEY);
   gconf_client_notify (gconf, FONT_KEY);
+  gconf_client_notify (gconf, HANDED_KEY);
 
   gtk_widget_show_all (dialog);
   gtk_main ();
