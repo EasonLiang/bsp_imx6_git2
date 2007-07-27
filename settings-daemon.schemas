@@ -190,9 +190,9 @@
     <applyto>/desktop/poky/interface/gtk-scrolled-window-placement</applyto>
     <owner>gnome</owner>
     <type>string</type>
-    <default>right</default>
+    <default>GTK_CORNER_TOP_LEFT</default>
     <locale name="C">
-      <short>Scrollbar placement</short>
+      <short>Scrolled window content placement</short>
     </locale>
   </schema>
 

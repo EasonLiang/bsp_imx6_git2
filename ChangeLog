@@ -1,3 +1,8 @@
+2007-07-27  Ross Burton  <ross@openedhand.com>
+
+	* settings-daemon.schemas:
+	Set a valid default value.
+
 2007-07-18  Ross Burton  <ross@openedhand.com>
 
 	* settings-daemon.schemas:
