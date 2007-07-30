@@ -1,3 +1,9 @@
+2007-07-30  Matthew Allum  <mallum@openedhand.com>
+
+	* Sato/matchbox/Makefile.am:
+	Remove need for theme.desktop, not needed with newer panel/desktop
+	and breaking distcheck.
+
 2007-07-22  Ross Burton  <ross@openedhand.com>
 
 	* Sato/matchbox/theme.xml:

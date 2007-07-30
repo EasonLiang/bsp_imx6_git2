@@ -11,12 +11,9 @@ pngs = \
   dia-tile.png
 
 themesdir = $(datadir)/themes/Sato/matchbox
-themes_DATA = theme.xml $(pngs) theme.desktop
+themes_DATA = theme.xml $(pngs)
 
-EXTRA_DIST = theme.xml $(pngs) theme.desktop.in
-
-theme.desktop: theme.desktop.in
-	sed -e "s,PREFIX,@prefix@," theme.desktop.in > theme.desktop
+EXTRA_DIST = theme.xml $(pngs) 
 
 clean:
 	rm -f theme.desktop
