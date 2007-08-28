@@ -1,5 +1,13 @@
 2007-08-28  Ross Burton  <ross@openedhand.com>
 
+	* screenshot-ui.c:
+	Set the automatic overwrite confirmation, and set a sane default name.
+
+	* configure.ac:
+	Require GTK+ 2.8.
+
+2007-08-28  Ross Burton  <ross@openedhand.com>
+
 	* README:
 	* TODO:
 	Update.
