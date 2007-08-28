@@ -1,0 +1,6 @@
+Screenshot
+===
+
+Screenshot is an ultra-simple screen capture utility, aimed at handheld devices.
+It is intentionally very limited in features so that it has a small effective
+footprint, yet uses GTK+ to be usable.
