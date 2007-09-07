@@ -10,7 +10,7 @@ AC_PROG_CC
 AC_STDC_HEADERS
 AC_PROG_LIBTOOL
 
-PKG_CHECK_MODULES(GTK, gtk+-2.0 >= 2.8 matchbox-panel)
+PKG_CHECK_MODULES(GTK, gtk+-2.0 matchbox-panel)
 
 dnl appletdir=$(pkg-config --variable=appletdir matchbox-panel)
 

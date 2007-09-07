@@ -1,3 +1,11 @@
+2007-09-07  Ross Burton  <ross@openedhand.com>
+
+	* screenshot-ui.c:
+	Conditionally set overwrite confirmation based on GTK+ version.
+
+	* configure.ac:
+	Allow any GTK+ version.
+
 2007-08-28  Ross Burton  <ross@openedhand.com>
 
 	* screenshot-ui.c:

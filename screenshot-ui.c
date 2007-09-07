@@ -50,8 +50,10 @@ screenshot (const char *filename)
                                              GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
                                              NULL);
   gtk_dialog_set_default_response (GTK_DIALOG (filechooser), GTK_RESPONSE_ACCEPT);
+#if GTK_CHECK_VERSION(2,7,3)
   gtk_file_chooser_set_do_overwrite_confirmation (GTK_FILE_CHOOSER (filechooser),
                                                   TRUE);
+#endif
   gtk_file_chooser_set_current_name (GTK_FILE_CHOOSER (filechooser), "Screenshot.png");
   gtk_widget_show (filechooser);
 
