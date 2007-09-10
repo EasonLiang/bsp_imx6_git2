@@ -3,6 +3,13 @@
 	* configure.ac:
 	* Makefile.am:
 
+	Renamed --disable-applet to --without-applet.
+	
+2007-09-10  Tomas Frydrych  <tf@o-hand.com>
+
+	* configure.ac:
+	* Makefile.am:
+
 	Added --disable-applet option to build commandline tool only.
 	
 2007-09-07  Ross Burton  <ross@openedhand.com>

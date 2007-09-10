@@ -7,7 +7,7 @@ libshot_la_SOURCES = \
 	screenshot-utils.c screenshot-utils.h \
 	screenshot-ui.c screenshot-ui.h
 
-if ENABLE_MB_APPLET
+if WITH_MB_APPLET
 # A matchbox-panel-2 applet
 appletdir = $(libdir)/matchbox-panel
 applet_LTLIBRARIES = libscreenshot.la

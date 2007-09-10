@@ -14,17 +14,18 @@ PKG_CHECK_MODULES(GTK, gtk+-2.0)
 
 MB_APPLET="yes"
 
-AC_ARG_ENABLE(applet,
-     AC_HELP_STRING([--disable-applet], [disable building of matchbox applet]),
+AC_ARG_WITH(applet,
+     AC_HELP_STRING([--without-applet], [disable building of matchbox applet]),
      [
-	if test "x$enableval" = "xno"; then
+	if test "x$withval" = "xno"; then
 	   MB_APPLET="no"
 	else
 	   PKG_CHECK_MODULES(MBAPP, matchbox-panel)
 	fi
-])
+     ],
+     [PKG_CHECK_MODULES(MBAPP, matchbox-panel)])
 
-AM_CONDITIONAL(ENABLE_MB_APPLET, test "x$MB_APPLET" = "xyes")
+AM_CONDITIONAL(WITH_MB_APPLET, test "x$MB_APPLET" = "xyes")
 
 dnl appletdir=$(pkg-config --variable=appletdir matchbox-panel)
 
