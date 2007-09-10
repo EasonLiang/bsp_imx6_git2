@@ -1,4 +1,4 @@
-AC_PREREQ(2.53)
+AC_PREREQq(2.53)
 AC_INIT(screenshot, 0.1, http://www.openedhand.com/)
 AM_INIT_AUTOMAKE()
 AC_CONFIG_SRCDIR(screenshot-utils.c)
@@ -10,7 +10,21 @@ AC_PROG_CC
 AC_STDC_HEADERS
 AC_PROG_LIBTOOL
 
-PKG_CHECK_MODULES(GTK, gtk+-2.0 matchbox-panel)
+PKG_CHECK_MODULES(GTK, gtk+-2.0)
+
+MB_APPLET="yes"
+
+AC_ARG_ENABLE(applet,
+     AC_HELP_STRING([--disable-applet], [disable building of matchbox applet]),
+     [
+	if test "x$enableval" = "xno"; then
+	   MB_APPLET="no"
+	else
+	   PKG_CHECK_MODULES(MBAPP, matchbox-panel)
+	fi
+])
+
+AM_CONDITIONAL(ENABLE_MB_APPLET, test "x$MB_APPLET" = "xyes")
 
 dnl appletdir=$(pkg-config --variable=appletdir matchbox-panel)
 
