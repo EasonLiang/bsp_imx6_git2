@@ -1,3 +1,7 @@
+2007-10-17  Thomas Wood  <thomas@openedhand.com>
+
+	* settings-daemon.c: Add support for gtk-color-scheme setting
+
 2007-07-27  Ross Burton  <ross@openedhand.com>
 
 	* settings-daemon.schemas:

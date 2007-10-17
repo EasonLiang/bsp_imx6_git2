@@ -183,6 +183,8 @@ static const TranslationEntry translations [] = {
     GCONF_VALUE_BOOL, translate_bool_int },
   { "/desktop/poky/interface/gtk-scrolled-window-placement", "Gtk/ScrolledWindowPlacement",
     GCONF_VALUE_STRING, translate_string_string },
+  { "/desktop/poky/interface/gtk_color_scheme", "Gtk/ColorScheme",
+    GCONF_VALUE_STRING, translate_string_string },
 };
 
 static const TranslationEntry*
