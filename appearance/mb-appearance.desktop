@@ -6,5 +6,5 @@ Icon=preferences-desktop-theme
 Terminal=false
 Type=Application
 Categories=GTK;Settings;DesktopSettings;
-X-SingleInstance=true
+X-MB-SingleInstance=true
 StartupNotify=true
