@@ -1,3 +1,8 @@
+2007-11-14  Ross Burton  <ross@openedhand.com>
+
+	* appearance/mb-appearance.desktop:
+	Remove Encoding key, rename SingleInstance to X-SingleInstance.
+
 2007-07-20  Ross Burton  <ross@openedhand.com>
 
 	* appearance/mb-appearance.c:

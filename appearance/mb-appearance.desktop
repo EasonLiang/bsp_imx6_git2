@@ -1,5 +1,4 @@
 [Desktop Entry]
-Encoding=UTF-8
 Name=Appearance
 Comment=Change the appearance
 Exec=matchbox-appearance
@@ -7,5 +6,5 @@ Icon=preferences-desktop-theme
 Terminal=false
 Type=Application
 Categories=GTK;Settings;DesktopSettings;
-SingleInstance=true
+X-SingleInstance=true
 StartupNotify=true
