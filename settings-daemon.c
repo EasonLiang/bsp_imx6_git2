@@ -522,7 +522,7 @@ sd_spawn_with_input (char      **argv,
 static void
 sd_xft_settings_set_xresources (SdXftSettings *settings)
 {
-  const char *add[] = { "xrdb", "-merge", NULL };
+  const char *add[] = { "xrdb", "-merge", "-nocpp", NULL };
   GString *add_string;
   
   g_return_if_fail (settings != NULL);

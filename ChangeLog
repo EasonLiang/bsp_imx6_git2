@@ -1,3 +1,9 @@
+2007-11-16  Ross Burton  <ross@openedhand.com>
+
+	* settings-daemon.c:
+	Pass -nocpp to xrdb, as cpp isn't really used on devices. Hell,
+	maybe this entire chunk of code should die.
+
 2007-10-17  Thomas Wood  <thomas@openedhand.com>
 
 	* settings-daemon.c: Add support for gtk-color-scheme setting
