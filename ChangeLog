@@ -1,6 +1,12 @@
 2007-01-08  Tomas Frydrych  <tf@o-hand.com>
 
 	* Sato/matchbox2/theme.xml:
+	Description of matchbox-desktop.
+	Further reduced size of title-bar font.
+
+2007-01-08  Tomas Frydrych  <tf@o-hand.com>
+
+	* Sato/matchbox2/theme.xml:
 	Added description of matchbox-panel.
 	Reduced size of title-bar font.
 
