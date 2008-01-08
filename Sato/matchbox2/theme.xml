@@ -7,7 +7,7 @@
         x="0" y="0" width="640" height="48"
         clr-bg="#66cc33"
         clr-fg="#e3e3e3"
-        font-family="Sans bold" font-size="32">
+        font-family="Sans bold" font-size="28">
   <button type="close"     width="32" height="32"
           x="592"          y="8"
           active-x="608"   active-y="48"
@@ -21,8 +21,12 @@
 
 <client type="dialog" shaped="yes">
  <decor type="north" show-title="yes"
+        font-family="Sans bold" font-size="28"
         clr-fg="#e3e3e3"
         x="0"  y="48"  width="535" height="48"  />
+</client>
+
+<client type="panel" layout-hints="fixed-x,overlaps" height="48" x="316" width="260">
 </client>
 
 </theme>
