@@ -381,6 +381,8 @@ sd_xft_settings_get (GConfClient      *client,
 	settings->antialias = 0;
       else if (strcmp (antialiasing, "grayscale") == 0)
 	settings->antialias = 1;
+      else if (strcmp (antialiasing, "greyscale") == 0)
+	settings->antialias = 1;
       else if (strcmp (antialiasing, "rgba") == 0)
 	{
 	  settings->antialias = 1;

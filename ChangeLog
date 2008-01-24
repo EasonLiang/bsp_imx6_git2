@@ -1,3 +1,8 @@
+2008-01-24  Ross Burton  <ross@openedhand.com>
+
+	* settings-daemon.c:
+	Handle "greyscale" and "grayscale".
+
 2007-11-16  Ross Burton  <ross@openedhand.com>
 
 	* settings-daemon.c:
