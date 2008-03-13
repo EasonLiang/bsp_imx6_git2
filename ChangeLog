@@ -1,3 +1,9 @@
+2008-03-13  Robert Bragg  <bob@o-hand.com>
+
+	* Sato/matchbox2/theme.xml:
+	Updated to use the new xml schema.
+	Renamed background.png -> template.png
+
 2007-01-08  Tomas Frydrych  <tf@o-hand.com>
 
 	* Sato/matchbox2/theme.xml:

@@ -1,36 +1,41 @@
 <?xml version="1.0"?>
 <theme name="Sato" author="Tomas Frydrych, tf@o-hand.com"
        desc="" version="1.0" engine-version="2" engine-type="png" shaped="yes">
-<img src="background.png" />
+<img src="template.png" />
 <client type="app">
  <decor type="north" show-title="yes"
-        x="0" y="0" width="640" height="48"
-        clr-bg="#66cc33"
-        clr-fg="#e3e3e3"
+        template-x="0" template-y="0"
+        template-width="640" template-height="48"
+        color-bg="#66cc33"
+        color-fg="#e3e3e3"
         font-family="Sans bold" font-size="12">
-  <button type="close"     width="32" height="32"
-          x="592"          y="8"
-          active-x="608"   active-y="48"
-          inactive-x="540" inactive-y="48"/>
-  <button type="menu"       width="32" height="16"  x="8"   y="16"
-          active-x="576"    active-y="48"
-          inactive-x="576"  inactive-y="66" />
-
+  <button type="close"
+          template-x="592" template-y="8"
+          template-active-x="608" template-active-y="48"
+          template-inactive-x="540" template-inactive-y="48"
+          width="32" height="32"/>
+  <button type="menu"
+          template-x="8"   template-y="16"
+          template-active-x="576"    template-active-y="48"
+          template-inactive-x="576"  template-inactive-y="66"
+          width="32" height="16"/>
  </decor>
 </client>
 
 <client type="dialog" shaped="yes">
  <decor type="north" show-title="yes"
         font-family="Sans bold" font-size="12"
-        clr-fg="#e3e3e3"
-        x="0"  y="48"  width="535" height="48"  />
+        color-fg="#e3e3e3"
+        template-x="0" template-y="48"
+        template-width="535" template-height="48"/>
 </client>
 
 <client type="desktop">
  <decor type="north" show-title="yes"
-        x="0" y="0" width="640" height="48"
-        clr-bg="#66cc33"
-        clr-fg="#e3e3e3"
+        template-x="0" template-y="0"
+        template-width="640" template-height="48"
+        color-bg="#66cc33"
+        color-fg="#e3e3e3"
         font-family="Sans bold" font-size="12">
  </decor>
 </client>
