@@ -1,3 +1,7 @@
+2008-04-08  Thomas Wood  <thomas@openedhand.com>
+
+	* settings-daemon.c: (main): Fork only after settings have been applied
+
 2008-01-24  Ross Burton  <ross@openedhand.com>
 
 	* settings-daemon.c:

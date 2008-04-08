@@ -681,31 +681,6 @@ main(int argc, char **argv)
   int           i, n_screens;
   pid_t         p;
 
-  if (!(argc > 1 && !strcmp(argv[1],"-n")))
-    {
-      
-      g_print("[settings daemon] Forking. run with -n to prevent fork\n");
-      
-      p = fork();
-      
-      switch (p) 
-	{
-	case -1:
-	  g_error("Fork failed.\n");
-	  break;
-	case 0:
-	  /* child */
-	  /*
-	  fclose( stdin );
-	  fclose( stdout );
-	  */
-	  break;
-	default:
-	  exit(0);
-	  break;
-	}
-    }
-
   g_type_init();
 
   gdk_init(&argc, &argv);
@@ -760,6 +735,32 @@ main(int argc, char **argv)
 
      }
    else g_error ("Failed to initialise gconf client");
+
+
+  if (!(argc > 1 && !strcmp(argv[1],"-n")))
+    {
+      
+      g_print("[settings daemon] Forking. run with -n to prevent fork\n");
+      
+      p = fork();
+      
+      switch (p) 
+	{
+	case -1:
+	  g_error("Fork failed.\n");
+	  break;
+	case 0:
+	  /* child */
+	  /*
+	  fclose( stdin );
+	  fclose( stdout );
+	  */
+	  break;
+	default:
+	  exit(0);
+	  break;
+	}
+    }
 
 
    g_main_loop_run(loop);
