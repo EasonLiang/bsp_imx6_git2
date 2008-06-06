@@ -1673,7 +1673,7 @@ int 				/* XXX this can be much smaller see glib */
 mb_util_next_utf8_char(unsigned char **string)
 {
   unsigned char *s, mask;
-  int length;
+  int length, tmp;
   
   s = *string;
 
@@ -1704,7 +1704,8 @@ mb_util_next_utf8_char(unsigned char **string)
   }
 	    
   *s++;
-  while(length-- > 0) {
+  tmp = length;
+  while(tmp-- > 0) {
     if((*s & 0xc0) != 0x80) { /* trailer must be 10xxxxxx */
       /* ERROR */ 
       return -1;
@@ -1713,6 +1714,6 @@ mb_util_next_utf8_char(unsigned char **string)
   } 
   
   *string = s; 
-  return length;
+  return length + 1;
 
 }
