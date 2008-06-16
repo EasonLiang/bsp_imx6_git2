@@ -1,3 +1,10 @@
+2008-06-16  Ross Burton  <ross@openedhand.com>
+
+	* configure.ac:
+	* settings-daemon.c:
+	Add --with-xrdb to enable use of xrdb to set Xft properties.
+	Disable it by default.
+
 2008-04-08  Thomas Wood  <thomas@openedhand.com>
 
 	* settings-daemon.c: (main): Fork only after settings have been applied

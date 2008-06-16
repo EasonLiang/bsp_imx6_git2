@@ -25,6 +25,8 @@
  * Authors:  Owen Taylor, Havoc Pennington
  */
 
+#include <config.h>
+
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <signal.h>
@@ -420,6 +422,7 @@ sd_xft_settings_set_xsettings (SdXftSettings *settings)
     }
 }
 
+#if WITH_XRDB
 static gboolean
 write_all (int         fd,
 	   const char *buf,
@@ -547,6 +550,7 @@ sd_xft_settings_set_xresources (SdXftSettings *settings)
   
   g_string_free (add_string, TRUE);
 }
+#endif
 
 /**
  * We mirror the Xft properties both through XSETTINGS and through X resources.
@@ -559,7 +563,9 @@ sd_settings_update_xft (void)
   sd_xft_settings_get (gconf_client, &settings);
 
   sd_xft_settings_set_xsettings (&settings);
+#if WITH_XRDB
   sd_xft_settings_set_xresources (&settings);
+#endif
 }
 
 /**

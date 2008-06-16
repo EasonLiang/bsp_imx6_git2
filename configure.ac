@@ -29,6 +29,13 @@ if test x"$GCONFTOOL" = xno; then
 fi
 AM_GCONF_SOURCE_2
 
+AC_MSG_CHECKING([whether to use xrdb to set Xft settings])
+AC_ARG_WITH([xrdb],
+        [AS_HELP_STRING([--with-xrdb],
+        [use xrdb [default=no]])],
+        [],[with_xrdb=no])
+AS_IF([test "$with_xrdb" = "yes"], [AC_DEFINE(WITH_XRDB, 1, [Use xrdb])])
+AC_MSG_RESULT([$with_xrdb])
 
 # Checks for header files.
 
@@ -39,6 +46,5 @@ AC_C_CONST
 AC_TYPE_PID_T
 
 
-# Checks for library functions.
  
 AC_OUTPUT([Makefile])
