@@ -17,6 +17,13 @@ AC_ARG_ENABLE(matchbox-2,
 AM_CONDITIONAL(MATCHBOX1, [test "x$matchbox1" = "xyes"])
 AM_CONDITIONAL(MATCHBOX2, [test "x$matchbox2" = "xyes"])
 
+flavour=vga
+AC_ARG_WITH([mode],
+            AC_HELP_STRING([--with-mode=@<:@vga/qvga@:>@], []),
+            flavour=$with_mode)
+
+AM_CONDITIONAL(WITH_QVGA, test "x$flavour" = "xqvga")
+
 AC_OUTPUT([
 Makefile
 Sato/Makefile
@@ -30,4 +37,5 @@ echo "
 
         Matchbox WM 1 theme : ${matchbox1}
         Matchbox WM 2 theme : ${matchbox2}
+        Screen Mode         : ${flavour}
 "

@@ -1,3 +1,22 @@
+2008-08-06  Galen Wetterling  <wetterlg@o-hand.com>
+
+	* Sato/matchbox/Makefile.am:
+	* configure.ac:
+	* Sato/matchbox/arrow-down-active-qvga.png
+	* Sato/matchbox/arrow-down-qvga.png
+	* Sato/matchbox/close-button-active-qvga.png
+	* Sato/matchbox/close-button-qvga.png
+	* Sato/matchbox/dia-left-edge-qvga.png
+	* Sato/matchbox/dia-right-edge-qvga.png
+	* Sato/matchbox/dia-tile-qvga.png
+	* Sato/matchbox/titlebar-left-edge-qvga.png
+	* Sato/matchbox/titlebar-right-edge-qvga.png
+	* Sato/matchbox/titlebar-tile-qvga.png
+	
+	Added qvga-sized images and a configure flag to use them:
+	--with-mode=vga     (default, uses original images)
+	--with-mode=qvga    (uses new images)
+
 2008-03-13  Robert Bragg  <bob@o-hand.com>
 
 	* Sato/matchbox2/theme.xml:
