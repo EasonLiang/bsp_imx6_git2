@@ -1,5 +1,13 @@
 2008-08-06  Galen Wetterling  <wetterlg@wetterlg-laptop>
 
+	* Sato/matchbox/theme.xml:
+	* configure.ac:
+	
+	Cleanup: Removed theme.xml. configure.ac now creates it from theme-vga.xml
+	or theme-qvga.xml as appropriate.
+
+2008-08-06  Galen Wetterling  <wetterlg@wetterlg-laptop>
+
 	* Sato/matchbox/theme-qvga.xml
 	* Sato/matchbox/theme-vga.xml
 	* Sato/matchbox/theme.xml
