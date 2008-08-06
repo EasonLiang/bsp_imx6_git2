@@ -24,6 +24,12 @@ AC_ARG_WITH([mode],
 
 AM_CONDITIONAL(WITH_QVGA, test "x$flavour" = "xqvga")
 
+if test "x$flavour" = "xqvga" ; then
+  cp Sato/matchbox/theme-qvga.xml Sato/matchbox/theme.xml
+else
+  cp Sato/matchbox/theme-vga.xml Sato/matchbox/theme.xml
+fi
+
 AC_OUTPUT([
 Makefile
 Sato/Makefile

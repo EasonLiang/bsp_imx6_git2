@@ -1,3 +1,16 @@
+2008-08-06  Galen Wetterling  <wetterlg@wetterlg-laptop>
+
+	* Sato/matchbox/theme-qvga.xml
+	* Sato/matchbox/theme-vga.xml
+	* Sato/matchbox/theme.xml
+	* configure.ac
+	
+	Made a qvga-specific version of theme.xml, which is used in place 
+	of the original theme.xml when --with-mode=qvga is passed as a
+	configure option. The modified theme.xml file uses the qvga
+	images.
+	
+
 2008-08-06  Galen Wetterling  <wetterlg@o-hand.com>
 
 	* Sato/matchbox/Makefile.am:
