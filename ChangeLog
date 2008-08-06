@@ -1,5 +1,11 @@
 2008-08-06  Galen Wetterling  <wetterlg@wetterlg-laptop>
 
+	* Sato/matchbox/*.png:
+	
+	(Bugfix) Resized  image files.
+
+2008-08-06  Galen Wetterling  <wetterlg@wetterlg-laptop>
+
 	* Sato/matchbox/theme.xml:
 	* configure.ac:
 	
