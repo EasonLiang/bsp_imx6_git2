@@ -1,3 +1,8 @@
+2008-09-25  Ross Burton  <ross@linux.intel.com>
+
+	* appearance/mb-appearance.c:
+	Name the matchbox theme column more appropriately.
+
 2007-11-14  Ross Burton  <ross@openedhand.com>
 
 	* appearance/mb-appearance.desktop:

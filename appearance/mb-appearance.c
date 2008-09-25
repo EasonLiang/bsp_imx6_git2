@@ -34,7 +34,7 @@ static GtkListStore *theme_store;
 enum {
   COL_NAME, /* Human readable name */
   COL_GTK, /* GTK+ theme */
-  COL_WM, /* Matchbox theme */
+  COL_MATCHBOX, /* Matchbox theme */
   COL_ICON, /* Icon theme */
   COL_COUNT, /* Marker value */
 };
@@ -111,7 +111,7 @@ scan_data_dir (const char *path)
     gtk_list_store_insert_with_values (theme_store, &iter, 0,
                                        COL_NAME, name,
                                        COL_GTK, gtk_theme,
-                                       COL_WM, wm_theme,
+                                       COL_MATCHBOX, wm_theme,
                                        COL_ICON, icon_theme,
                                        -1);
 
@@ -199,7 +199,7 @@ select_current_theme (GtkComboBox *combo)
 
     gtk_tree_model_get (model, &iter,
                         COL_GTK, &gtk_theme,
-                        COL_WM, &wm_theme,
+                        COL_MATCHBOX, &wm_theme,
                         COL_ICON, &icon_theme,
                         -1);
 
@@ -242,7 +242,7 @@ on_theme_set (GtkComboBox *combo, gpointer user_data)
 
   gtk_tree_model_get (model, &iter,
                       COL_GTK, &gtk_theme,
-                      COL_WM, &wm_theme,
+                      COL_MATCHBOX, &wm_theme,
                       COL_ICON, &icon_theme,
                       -1);
 
