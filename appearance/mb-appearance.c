@@ -35,6 +35,7 @@ enum {
   COL_NAME, /* Human readable name */
   COL_GTK, /* GTK+ theme */
   COL_MATCHBOX, /* Matchbox theme */
+  COL_METACITY, /* Metacity theme */
   COL_ICON, /* Icon theme */
   COL_COUNT, /* Marker value */
 };
@@ -46,7 +47,8 @@ enum {
 /* GConf keys */
 #define INTERFACE_DIR "/desktop/poky/interface"
 #define GTK_THEME_KEY INTERFACE_DIR "/theme"
-#define WM_THEME_KEY INTERFACE_DIR "/wm_theme"
+#define MATCHBOX_THEME_KEY INTERFACE_DIR "/matchbox_theme"
+#define METACITY_THEME_KEY "/apps/metacity/general/theme"
 #define ICON_THEME_KEY INTERFACE_DIR "/icon_theme"
 #define FONT_KEY INTERFACE_DIR "/font_name"
 #define HANDED_KEY INTERFACE_DIR "/gtk-scrolled-window-position"
@@ -76,7 +78,7 @@ scan_data_dir (const char *path)
   
   while ((entry = g_dir_read_name (dir)) != NULL) {
     GKeyFile *keys;
-    char *name, *gtk_theme, *wm_theme, *icon_theme;
+    char *name, *gtk_theme, *metacity_theme, *matchbox_theme, *icon_theme;
     GtkTreeIter iter;
 
     keys = NULL;
@@ -105,19 +107,22 @@ scan_data_dir (const char *path)
       name = g_strdup (entry);
     
     gtk_theme = g_key_file_get_string (keys, METATHEME, "GtkTheme", NULL);
-    wm_theme = g_key_file_get_string (keys, METATHEME, "MatchboxTheme", NULL);
+    matchbox_theme = g_key_file_get_string (keys, METATHEME, "MatchboxTheme", NULL);
+    metacity_theme = g_key_file_get_string (keys, METATHEME, "MetacityTheme", NULL);
     icon_theme = g_key_file_get_string (keys, METATHEME, "IconTheme", NULL);
     
     gtk_list_store_insert_with_values (theme_store, &iter, 0,
                                        COL_NAME, name,
                                        COL_GTK, gtk_theme,
-                                       COL_MATCHBOX, wm_theme,
+                                       COL_MATCHBOX, matchbox_theme,
+                                       COL_METACITY, metacity_theme,
                                        COL_ICON, icon_theme,
                                        -1);
 
     g_free (name);
     g_free (gtk_theme);
-    g_free (wm_theme);
+    g_free (matchbox_theme);
+    g_free (metacity_theme);
     g_free (icon_theme);
 
   done:
@@ -179,7 +184,8 @@ select_current_theme (GtkComboBox *combo)
   GtkTreeModel *model;
   GtkTreeIter iter;
   char *current_gtk_theme, *gtk_theme;
-  char *current_wm_theme, *wm_theme;
+  char *current_matchbox_theme, *matchbox_theme;
+  char *current_metacity_theme, *metacity_theme;
   char *current_icon_theme, *icon_theme;
   gboolean done = FALSE;
 
@@ -191,27 +197,30 @@ select_current_theme (GtkComboBox *combo)
     return;
 
   current_gtk_theme = gconf_client_get_string (gconf, GTK_THEME_KEY, NULL);
-  current_wm_theme = gconf_client_get_string (gconf, WM_THEME_KEY, NULL);
+  current_matchbox_theme = gconf_client_get_string (gconf, MATCHBOX_THEME_KEY, NULL);
+  current_metacity_theme = gconf_client_get_string (gconf, METACITY_THEME_KEY, NULL);
   current_icon_theme = gconf_client_get_string (gconf, ICON_THEME_KEY, NULL);
 
   do {
-    gtk_theme = wm_theme = icon_theme = NULL;
+    gtk_theme = matchbox_theme = icon_theme = NULL;
 
     gtk_tree_model_get (model, &iter,
                         COL_GTK, &gtk_theme,
-                        COL_MATCHBOX, &wm_theme,
+                        COL_MATCHBOX, &matchbox_theme,
+                        COL_METACITY, &metacity_theme,
                         COL_ICON, &icon_theme,
                         -1);
 
     if (matches (current_gtk_theme, gtk_theme) &&
-        matches (current_wm_theme, wm_theme) && 
+        matches (current_matchbox_theme, matchbox_theme) && 
+        matches (current_metacity_theme, metacity_theme) && 
         matches (current_icon_theme, icon_theme)) {
       gtk_combo_box_set_active_iter (combo, &iter);
       done = TRUE;
     }
 
     g_free (gtk_theme);
-    g_free (wm_theme);
+    g_free (matchbox_theme);
     g_free (icon_theme);
   } while (!done && gtk_tree_model_iter_next (model, &iter));
 
@@ -221,7 +230,7 @@ select_current_theme (GtkComboBox *combo)
   }
 
   g_free (current_gtk_theme);
-  g_free (current_wm_theme);
+  g_free (current_matchbox_theme);
   g_free (current_icon_theme);
 }
 
@@ -233,7 +242,7 @@ on_theme_set (GtkComboBox *combo, gpointer user_data)
 {
   GtkTreeModel *model;
   GtkTreeIter iter;
-  char *gtk_theme = NULL, *wm_theme = NULL, *icon_theme = NULL;
+  char *gtk_theme = NULL, *matchbox_theme = NULL, *metacity_theme = NULL, *icon_theme = NULL;
 
   if (!gtk_combo_box_get_active_iter (combo, &iter))
     return;
@@ -242,7 +251,8 @@ on_theme_set (GtkComboBox *combo, gpointer user_data)
 
   gtk_tree_model_get (model, &iter,
                       COL_GTK, &gtk_theme,
-                      COL_MATCHBOX, &wm_theme,
+                      COL_MATCHBOX, &matchbox_theme,
+                      COL_METACITY, &metacity_theme,
                       COL_ICON, &icon_theme,
                       -1);
 
@@ -251,10 +261,15 @@ on_theme_set (GtkComboBox *combo, gpointer user_data)
   else
     gconf_client_unset (gconf, GTK_THEME_KEY, NULL);
   
-  if (wm_theme)
-    gconf_client_set_string (gconf, WM_THEME_KEY, wm_theme, NULL);
+  if (matchbox_theme)
+    gconf_client_set_string (gconf, MATCHBOX_THEME_KEY, matchbox_theme, NULL);
   else
-    gconf_client_unset (gconf, WM_THEME_KEY, NULL);
+    gconf_client_unset (gconf, MATCHBOX_THEME_KEY, NULL);
+
+  if (metacity_theme)
+    gconf_client_set_string (gconf, METACITY_THEME_KEY, metacity_theme, NULL);
+  else
+    gconf_client_unset (gconf, METACITY_THEME_KEY, NULL);
   
   if (icon_theme)
     gconf_client_set_string (gconf, ICON_THEME_KEY, icon_theme, NULL);
@@ -262,7 +277,8 @@ on_theme_set (GtkComboBox *combo, gpointer user_data)
     gconf_client_unset (gconf, ICON_THEME_KEY, NULL);
   
   g_free (gtk_theme);
-  g_free (wm_theme);
+  g_free (matchbox_theme);
+  g_free (metacity_theme);
   g_free (icon_theme);
 }
 
@@ -293,7 +309,8 @@ on_gconf_value_changed (GConfClient* client, const gchar* key, GConfValue* value
     return;
   
   if (strcmp (key, GTK_THEME_KEY) == 0 ||
-      strcmp (key, WM_THEME_KEY) == 0 ||
+      strcmp (key, MATCHBOX_THEME_KEY) == 0 ||
+      strcmp (key, METACITY_THEME_KEY) == 0 ||
       strcmp (key, ICON_THEME_KEY) == 0) {
     select_current_theme (GTK_COMBO_BOX (theme_combo));
   } else if (strcmp (key, FONT_KEY) == 0) {
@@ -356,6 +373,7 @@ main (int argc, char **argv) {
   gtk_window_set_default_icon_name ("preferences-desktop-theme");
 
   theme_store = gtk_list_store_new (COL_COUNT,
+                                    G_TYPE_STRING,
                                     G_TYPE_STRING,
                                     G_TYPE_STRING,
                                     G_TYPE_STRING,
