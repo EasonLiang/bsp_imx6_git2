@@ -348,7 +348,7 @@ _mb_font_load(MBFont *font)
 			    XFT_SIZE, XftTypeDouble   , (double)font->pt_size,
 			    XFT_WEIGHT, XftTypeInteger, weight,
 			    XFT_SLANT, XftTypeInteger , slant,
-			    0);
+			    NULL);
 
   if (font->font != NULL ) result = 2;
 
