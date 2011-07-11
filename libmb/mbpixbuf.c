@@ -721,7 +721,13 @@ mb_pixbuf_get_pixel(MBPixbuf *pb, int r, int g, int b, int a)
 	case 15:
 	  return ((r & 0xf8) << 7) | ((g & 0xf8) << 2) | ((b & 0xf8) >> 3);
 	case 16:
-	  return ((r & 0xf8) << 8) | ((g & 0xfc) << 3) | ((b & 0xf8) >> 3);
+	  switch (pb->byte_order)
+	    {
+	    case BYTE_ORD_24_RGB:
+	      return ((r & 0xf8) << 8) | ((g & 0xfc) << 3) | ((b & 0xf8) >> 3);
+	    case BYTE_ORD_24_BGR:
+	      return ((b & 0xf8) << 8) | ((g & 0xfc) << 3) | ((r & 0xf8) >> 3);
+	    }
 	case 24:
 	case 32:
 	  switch (pb->byte_order)
@@ -1886,12 +1892,11 @@ mb_pixbuf_img_render_to_drawable_with_gc(MBPixbuf    *pb,
 	  for(y=0; y<img->height; y++)
 	    for(x=0; x<img->width; x++)
 	      {
-		/* Below is potentially dangerous.  
-		 */
-		pixel =  ( *p | (*(p+1) << 8)); 
+		internal_16bpp_pixel_to_rgb(p, r, g, b);
+		internal_16bpp_pixel_next(p);
+		a = ((img->has_alpha) ?  *p++ : 0xff);
 
-		p +=  ((img->has_alpha) ?  3 : 2);
-		
+		pixel = mb_pixbuf_get_pixel(pb, r, g, b, a);
 		XPutPixel(img->ximg, x, y, pixel);
 	      }
 	}
