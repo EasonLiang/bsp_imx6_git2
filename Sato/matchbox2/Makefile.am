@@ -1,4 +1,4 @@
-pngs = background.png
+pngs = template.png
 
 themesdir = $(datadir)/themes/Sato/matchbox2
 themes_DATA = theme.xml $(pngs)
