@@ -224,6 +224,7 @@ _load_png_file( const char *file,
   png_structp png_ptr;
   png_infop info_ptr;
   png_bytep *row_pointers;
+  png_byte ct;
 
   if ((fd = fopen( file, "rb" )) == NULL) return NULL;
 
@@ -247,7 +248,7 @@ _load_png_file( const char *file,
     return NULL;
   }
 
-  if ( setjmp( png_ptr->jmpbuf ) ) {
+  if ( setjmp( png_jmpbuf( png_ptr ) ) ) {
     png_destroy_read_struct( &png_ptr, &info_ptr, NULL);
     fclose(fd);
     return NULL;
@@ -268,9 +269,11 @@ _load_png_file( const char *file,
   if (( color_type == PNG_COLOR_TYPE_GRAY )||
       ( color_type == PNG_COLOR_TYPE_GRAY_ALPHA ))
     png_set_gray_to_rgb(png_ptr);
- 
-  if ( info_ptr->color_type == PNG_COLOR_TYPE_RGB_ALPHA 
-       || info_ptr->color_type == PNG_COLOR_TYPE_GRAY_ALPHA
+
+  ct = png_get_color_type(png_ptr, info_ptr);
+
+  if ( ct == PNG_COLOR_TYPE_RGB_ALPHA
+       || ct == PNG_COLOR_TYPE_GRAY_ALPHA
        )
     *has_alpha = 1;
   else
