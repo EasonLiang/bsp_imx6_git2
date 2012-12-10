@@ -2,8 +2,8 @@ SUBDIRS = menu
 
 TESTS = dot-desktop pixbuf
 
-AM_CPPFLAGS = @CHECK_CFLAGS@ -I../libmb @GCC_WARNINGS@ @XLIBS_CFLAGS@ @PANGO_CFLAGS@ @PNG_CFLAGS@
-AM_LDFLAGS = -L../libmb -lmb
+AM_CPPFLAGS = @CHECK_CFLAGS@ -I$(top_srcdir) -I$(top_builddir) @GCC_WARNINGS@ @XLIBS_CFLAGS@ @PANGO_CFLAGS@ @PNG_CFLAGS@
+AM_LDFLAGS = ../libmb/libmb.la
 
 if HAVE_CHECK
 
