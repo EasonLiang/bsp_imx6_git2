@@ -85,6 +85,7 @@ if test $have_libx11pc = yes; then
       xft_pkg=xft
       SUPPORTS_XFT=1
       AC_DEFINE(USE_XFT, [1], [Use Xft])	
+      XFT_REQUIRED="xft"
    fi
 # XXX : xau is missing from x11.pc - workaround is too add here 
    PKG_CHECK_MODULES(XLIBS, x11 xext  $xft_pkg)
@@ -109,6 +110,7 @@ if test x$enable_xft != xno; then
     AC_DEFINE(USE_XFT, [1], [Use Xft])
     SUPPORTS_XFT=1
     AC_MSG_RESULT(yes)
+    XFT_REQUIRED="xft"
   else
 
     AC_PATH_PROG(XFT_CONFIG, xft-config, no)
@@ -123,20 +125,16 @@ if test x$enable_xft != xno; then
       AC_DEFINE(USE_XFT, [1], [Use Xft])
       SUPPORTS_XFT=1    
       AC_MSG_RESULT(yes)
+      MB_EXTRA_CFLAGS="$MB_EXTRA_CFLAGS $XFT_CFLAGS"
+      MB_EXTRA_LIBS="$MB_EXTRA_LIBS $XFT_LIBS"
     fi
   fi
 fi
 
 XLIBS_CFLAGS="$XLIBS_CLAGS $XFT_CFLAGS"
-XLIBS_LIBS="$X_LIBS $XFT_LIBS -lX11 -lXext"
-
-MB_EXTRA_LIBS="$MB_EXTRA_LIBS $XLIBS_LIBS"
+XLIBS_LIBS="$XLIBS_LIBS $XFT_LIBS -lX11 -lXext"
 
 fi
-
-# do this here for freetype include
-MB_EXTRA_CFLAGS="$MB_EXTRA_CFLAGS $XLIBS_CFLAGS"
-
 
 dnl ------ Check for Pango ---------------------------------------------------
 
@@ -173,7 +171,7 @@ if test x$enable_png != xno; then
             AC_DEFINE(USE_PNG, [1], [Use Png])
 	    SUPPORTS_PNG=1
             PNG_LIBS="-lpng -lz"
-            MB_EXTRA_LIBS="$MB_EXTRA_LIBS $XLIBS_LIBS $PNG_LIBS"
+            MB_EXTRA_LIBS="$MB_EXTRA_LIBS $PNG_LIBS"
         else
 	    AC_MSG_WARN([*** Cannot find PNG, disabling support])
             enable_png=no
@@ -342,6 +340,7 @@ AC_SUBST(MB_EXTRA_CFLAGS)
 AC_SUBST(XLIBS_REQUIRED)
 AC_SUBST(PANGO_REQUIRED)
 AC_SUBST(PNG_REQUIRED)
+AC_SUBST(XFT_REQUIRED)
 
 dnl ------ Below used for mbconfig.h ----------------------------------------
 
