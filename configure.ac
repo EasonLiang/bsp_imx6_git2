@@ -6,6 +6,8 @@ AC_CONFIG_AUX_DIR(.)
 AM_INIT_AUTOMAKE()
 AM_CONFIG_HEADER([config.h])
 
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
+
 # Checks for programs.
 AC_GNU_SOURCE
 AC_PROG_CC
