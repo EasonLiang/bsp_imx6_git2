@@ -203,9 +203,6 @@ fi
 dnl ------ Check for XSettings ----------------------------------------------
 
 if test x$enable_xsettings != xno; then
-
-  AC_MSG_CHECKING([for xsettings])
-
   case "$xsettings_includes" in
     yes|no)
 	XSET_CFLAGS=""
@@ -249,8 +246,6 @@ if test x$enable_xsettings != xno; then
    MB_EXTRA_CFLAGS="$MB_EXTRA_CFLAGS $XSET_CFLAGS"	
 
    AC_DEFINE(USE_XSETTINGS, [1], [Use XSettings Client])
-
-   AC_MSG_RESULT([yes])
 fi
 
 
