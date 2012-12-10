@@ -1183,7 +1183,7 @@ mb_font_render_simple (MBFont          *font,
 		       int              encoding,
 		       MBFontRenderOpts opts )
 {
-  int render_w = 0, len = 0, orig_len = 0;
+  int render_w = 0, len = 0;
   unsigned char *str = NULL;
   Bool want_dots = False;
 
@@ -1200,7 +1200,7 @@ mb_font_render_simple (MBFont          *font,
   if (!_mb_font_is_font_object_fresh (font))
     _mb_font_load(font);
 
-  orig_len = len = strlen((char*)text);
+  len = strlen((char*)text);
 
   str = malloc(len+3);
   memset(str, 0, len+3);
@@ -1277,7 +1277,7 @@ mb_font_render_simple_get_width (MBFont          *font,
 				 int              encoding,
 				 MBFontRenderOpts opts )
 {
-  int render_w = 0, len = 0, orig_len = 0;
+  int render_w = 0, len = 0;
   unsigned char *str = NULL;
   Bool want_dots = False;
 
@@ -1286,7 +1286,7 @@ mb_font_render_simple_get_width (MBFont          *font,
   if (!_mb_font_is_font_object_fresh (font))
     _mb_font_load(font);
 
-  orig_len = len = strlen((char*)text);
+  len = strlen((char*)text);
 
   str = malloc(len+3);
   memset(str, 0, len+3);
@@ -1672,7 +1672,7 @@ mb_util_utf8_len()
 int 				/* XXX this can be much smaller see glib */
 mb_util_next_utf8_char(unsigned char **string)
 {
-  unsigned char *s, mask;
+  unsigned char *s;
   int length, tmp;
   
   s = *string;
@@ -1686,19 +1686,19 @@ mb_util_next_utf8_char(unsigned char **string)
   }
   
   if((*s & 0xe0) == 0xc0) { /* 110xxxxx followed by one trailer */
-    mask = 0x1f; length = 1;
+    length = 1;
   } else if ((*s & 0xf0) == 0xe0) { 
     /* 1110xxxx followed by two trailers */     
-    mask = 0x0f; length = 2;
+    length = 2;
   } else if ((*s & 0xf8) == 0xf0) { 
     /* 11110xxx followed by three trailers */     
-    mask = 0x07; length = 3;
+    length = 3;
   } else if((*s & 0xfc) == 0xf8) { 
     /* 111110xx followed by four trailers */     
-    mask = 0x03; length = 4;
+    length = 4;
   } else if((*s * 0xfe) == 0xfc) { 
     /* 1111110x followed by five trailers */     
-    mask = 0x01; length = 5;
+    length = 5;
   } else { /* 1111111x is invalid in UTF8 */     
     return -1;
   }

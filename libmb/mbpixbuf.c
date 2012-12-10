@@ -22,6 +22,7 @@
 
 #include <strings.h>
 #include "mbpixbuf.h"
+#include "mbutil.h"
 
 #define BYTE_ORD_24_RGB  0
 #define BYTE_ORD_24_RBG  1
