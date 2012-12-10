@@ -20,7 +20,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include "libmb/mbconfig.h"
+#include <libmb/mbconfig.h>
 
 #include <stdio.h>
 #include <stdlib.h>

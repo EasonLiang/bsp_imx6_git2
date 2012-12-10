@@ -21,14 +21,14 @@
 #define _MB_H_
 
 /* mbconfig.h is auto generated */
-#include "mbconfig.h"
+#include <libmb/mbconfig.h>
 
-#include "mbpixbuf.h"
-#include "mbexp.h"
-#include "mbtray.h"
-#include "mbutil.h"
-#include "mbmenu.h"
-#include "mbdotdesktop.h"
+#include <libmb/mbpixbuf.h>
+#include <libmb/mbexp.h>
+#include <libmb/mbtray.h>
+#include <libmb/mbutil.h>
+#include <libmb/mbmenu.h>
+#include <libmb/mbdotdesktop.h>
 
 #undef USE_PNG
 #undef USE_JPG

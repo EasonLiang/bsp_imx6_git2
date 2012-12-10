@@ -11,8 +11,8 @@
 #include <sys/stat.h>
 #include <dirent.h>
 
-#include "libmb/mbconfig.h"
-#include "libmb/mbutil.h"
+#include <libmb/mbconfig.h>
+#include <libmb/mbutil.h>
 
 #ifdef __cplusplus
 extern "C" {

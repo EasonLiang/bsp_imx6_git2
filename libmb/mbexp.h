@@ -29,9 +29,9 @@
 #ifndef _MB_EXP_H_
 #define _MB_EXP_H_
 
-#include "libmb/mbconfig.h"
-#include "mbpixbuf.h"
-#include "mbdotdesktop.h"
+#include <libmb/mbconfig.h>
+#include <libmb/mbpixbuf.h>
+#include <libmb/mbdotdesktop.h>
 
 #ifdef USE_XFT
 #include <X11/Xft/Xft.h>
