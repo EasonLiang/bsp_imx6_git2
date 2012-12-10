@@ -20,7 +20,7 @@ SUPPORTS_XSETTINGS=0
 dnl ----- Args -------------------------------------------------------------
 
 AC_ARG_ENABLE(xft,
-  [  --disable-xft           disable xft (anti-aliased) support, [default=no]],
+  [  --disable-xft           disable xft (anti-aliased) support, [default=enabled]],
   enable_xft=$enableval, enable_xft=yes)
 
 AC_ARG_ENABLE(pango,
@@ -70,7 +70,8 @@ AC_ARG_ENABLE(unit-tests,
 
 
 
-if test x$enable_pango = xyes; then
+if test x$enable_pango = xyes -a x$enable_xft = xyes; then
+   AC_MSG_WARN([Pango enabled, disabling Xft])
    enable_xft=no
 fi
 
