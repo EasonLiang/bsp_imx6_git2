@@ -376,7 +376,6 @@ mb_want_warnings ()
 
   if (env_checked == 0)
     env_checked = getenv("MB_WARNINGS") ? 1 : 2;
-  else
-    return env_checked-1;
+  return env_checked-1;
 }
 
