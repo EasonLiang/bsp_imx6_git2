@@ -18,10 +18,10 @@ source_c = mbmenu.c       \
 
 DATADIR=$(datadir)
 
-AM_CFLAGS = @GCC_WARNINGS@ @XLIBS_CFLAGS@ @PANGO_CFLAGS@ @PNG_CFLAGS@ @XSET_CFLAGS@ -DDATADIR=\"$(datadir)\"
 
 lib_LTLIBRARIES      = libmb.la
 libmb_la_SOURCES     = $(source_c) $(source_h)
+libmb_la_CPPFLAGS    = -I$(top_srcdir) @GCC_WARNINGS@ @XLIBS_CFLAGS@ @PANGO_CFLAGS@ @PNG_CFLAGS@ @XSET_CFLAGS@ -DDATADIR=\"$(datadir)\"
 libmb_la_LIBADD      = @XLIBS_LIBS@ @PANGO_LIBS@ @JPEG_LIBS@ @PNG_LIBS@ @XSET_LIBS@
 
 # http://sources.redhat.com/autobook/autobook/autobook_91.html#SEC91
