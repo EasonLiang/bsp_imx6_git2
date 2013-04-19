@@ -1,4 +1,4 @@
-bin_PROGRAMS = settings-daemon
+bin_PROGRAMS = settings-daemon xsettings-dump
 
 settings_daemon_SOURCES = \
 	xsettings-common.c xsettings-common.h \
@@ -8,6 +8,15 @@ settings_daemon_SOURCES = \
 settings_daemon_CPPFLAGS = @APP_CFLAGS@ -DHAVE_XFT2
 settings_daemon_CFLAGS = -Wall
 settings_daemon_LDADD = @APP_LIBS@
+
+xsettings_dump_SOURCES = \
+	xsettings-common.c xsettings-common.h \
+	xsettings-client.c xsettings-client.h \
+	xsettings-dump.c
+
+xsettings_dump_CPPFLAGS = @APP_CFLAGS@
+xsettings_dump_CFLAGS = -Wall
+xsettings_dump_LDADD = @APP_LIBS@
 
 schemadir = $(GCONF_SCHEMA_FILE_DIR)
 schema_DATA = settings-daemon.schemas
