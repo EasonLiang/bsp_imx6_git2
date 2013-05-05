@@ -1,0 +1,5 @@
+init-system-helpers (1.0) unstable; urgency=low
+
+  * Initial release
+
+ -- Michael Stapelberg <stapelberg@debian.org>  Sun, 05 May 2013 11:25:48 +0200
