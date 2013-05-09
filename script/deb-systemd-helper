@@ -94,8 +94,6 @@ sub make_link {
     } elsif (! -l $service_link) {
         my $statefile = "$state_dir/" . basename($service_link);
         if (-e $statefile) {
-# TODO: remove this message
-            print STDERR "DEBUG: not enabling $service_link due to existing $statefile.\n";
             return $already_enabled;
         }
         make_path(dirname($service_link));
