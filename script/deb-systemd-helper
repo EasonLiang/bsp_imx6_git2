@@ -91,15 +91,19 @@ sub make_link {
 
     if ($action eq 'is-enabled') {
         $already_enabled = 0 if ! -l $service_link;
-    } elsif (! -l $service_link) {
+    } else {
         my $statefile = "$state_dir/" . basename($service_link);
         if (-e $statefile) {
             return $already_enabled;
         }
-        make_path(dirname($service_link));
-        print STDERR "ln -s '$service_path' '$service_link'\n";
-        symlink($service_path, $service_link) or
-            error("unable to link $service_link to $service_path: $!");
+
+        if (! -l $service_link) {
+            make_path(dirname($service_link));
+            print STDERR "ln -s '$service_path' '$service_link'\n";
+            symlink($service_path, $service_link) or
+                error("unable to link $service_link to $service_path: $!");
+            $changed_sth = 1;
+        }
 
         # Store the fact that we ran enable for this service_path,
         # so that we can skip enable the next time.
@@ -112,7 +116,6 @@ sub make_link {
         }
         open(my $fh, '>', $statefile);
         close($fh);
-        $changed_sth = 1;
     }
 
     return $already_enabled;
