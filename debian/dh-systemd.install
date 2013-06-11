@@ -1,0 +1,4 @@
+usr/bin/dh_systemd
+usr/share/perl5/Debian/Debhelper/Sequence/systemd.pm
+usr/share/debhelper/autoscripts
+usr/share/man/man1/dh_systemd.1p

@@ -1,0 +1,3 @@
+if [ -d /run/systemd/system ] && [ "$1" = remove ]; then
+	systemctl stop #UNITFILES# >/dev/null
+fi

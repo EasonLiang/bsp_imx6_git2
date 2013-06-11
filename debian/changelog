@@ -1,3 +1,10 @@
+init-system-helpers (1.1) unstable; urgency=low
+
+  * deb-systemd-helper: also store enable state for already enabled units
+  * add dh-systemd package which contains the dh_systemd debhelper add-on
+
+ -- Michael Stapelberg <stapelberg@debian.org>  Tue, 11 Jun 2013 23:32:02 +0200
+
 init-system-helpers (1.0) unstable; urgency=low
 
   * Initial release

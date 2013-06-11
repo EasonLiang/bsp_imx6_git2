@@ -1,0 +1,3 @@
+if [ -d /run/systemd/system ]; then
+	systemctl try-restart #UNITFILES# >/dev/null || true
+fi
