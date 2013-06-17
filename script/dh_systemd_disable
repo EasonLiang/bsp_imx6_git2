@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-dh_systemd_enable - enable/disable systemd unit files
+dh_systemd_disable - disable systemd unit files
 
 =cut
 
@@ -13,24 +13,24 @@ use Text::ParseWords qw(shellwords); # in core since Perl 5
 
 =head1 SYNOPSIS
 
-B<dh_systemd_enable> [S<I<debhelper options>>] [B<--disable-in-prerm>] [S<I<unit file> ...>]
+B<dh_systemd_disable> [S<I<debhelper options>>] [B<--disable-in-prerm>] [S<I<unit file> ...>]
 
 =head1 DESCRIPTION
 
-B<dh_systemd_enable> is a debhelper program that is responsible for enabling
-and disabling systemd unit files.
+B<dh_systemd_disable> is a debhelper program that is responsible for disabling
+systemd unit files.
 
 In the simple case, it finds all unit files installed by a package (e.g.
-bacula-fd.service) and enables them. It is not necessary that the machine
+bacula-fd.service) and disables them. It is not necessary that the machine
 actually runs systemd during package installation time, enabling happens on all
 machines in order to be able to switch from sysvinit to systemd and back.
 
-In the complex case, you can call B<dh_systemd_enable> and B<dh_systemd_start>
+In the complex case, you can call B<dh_systemd_disable> and B<dh_systemd_start>
 manually (by overwriting the debian/rules targets) and specify flags per unit
 file. An example is colord, which ships colord.service, a dbus-activated
-service without an [Install] section. This service file cannot be enabled or
+service without an [Install] section. This service file cannot be disabled or
 disabled (a state called "static" by systemd) because it has no
-[Install] section. Therefore, running dh_systemd_enable does not make sense.
+[Install] section. Therefore, running dh_systemd_disable does not make sense.
 
 =head1 OPTIONS
 
@@ -66,9 +66,9 @@ between invocations of this command (with the same arguments). Otherwise, it
 may cause multiple instances of the same text to be added to maintainer
 scripts.
 
-Note that B<dh_systemd_enable> should be run before B<dh_installinit>.
+Note that B<dh_systemd_disable> should be run after B<dh_installinit>.
 The default sequence in B<dh> does the right thing, this note is only relevant
-when you are calling B<dh_systemd_enable> manually.
+when you are calling B<dh_systemd_after> manually.
 
 =cut
 
@@ -76,54 +76,6 @@ init(options => {
 	"no-also" => \$dh{NO_ALSO},
 	"disable-in-prerm" => \$dh{DISABLE_IN_PRERM},
 });
-
-# Like debhelper’s autoscript, but without the (postrm/prerm) order reversing.
-# We need this hack to run _before_ dh_installinit so that our code gets run
-# before invoke-rc.d.
-sub same_order_autoscript {
-	my $package=shift;
-	my $script=shift;
-	my $filename=shift;
-	my $sed=shift || "";
-
-	# This is the file we will modify.
-	my $outfile="debian/".pkgext($package)."$script.debhelper";
-
-	# Figure out what shell script snippet to use.
-	my $infile;
-	if (defined($ENV{DH_AUTOSCRIPTDIR}) &&
-	    -e "$ENV{DH_AUTOSCRIPTDIR}/$filename") {
-		$infile="$ENV{DH_AUTOSCRIPTDIR}/$filename";
-	}
-	else {
-		if (-e "/usr/share/debhelper/autoscripts/$filename") {
-			$infile="/usr/share/debhelper/autoscripts/$filename";
-		}
-		else {
-			error("/usr/share/debhelper/autoscripts/$filename does not exist");
-		}
-	}
-
-	complex_doit("echo \"# Automatically added by ".basename($0)."\">> $outfile");
-	autoscript_sed($sed, $infile, $outfile);
-	complex_doit("echo '# End automatically added section' >> $outfile");
-}
-
-sub autoscript_sed {
-	my $sed = shift;
-	my $infile = shift;
-	my $outfile = shift;
-	if (ref($sed) eq 'CODE') {
-		open(IN, $infile) or die "$infile: $!";
-		open(OUT, ">>$outfile") or die "$outfile: $!";
-		while (<IN>) { $sed->(); print OUT }
-		close(OUT) or die "$outfile: $!";
-		close(IN) or die "$infile: $!";
-	}
-	else {
-		complex_doit("sed \"$sed\" $infile >> $outfile");
-	}
-}
 
 # Extracts the Also= or Alias= line(s) from a unit file.
 # In case this produces horribly wrong results, you can pass --no-also, but
@@ -272,9 +224,6 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 
 	next if @units == 0;
 
-	my $unitargs = join(" ", map { basename($_) } @units);
-	autoscript($package, "postinst", "postinst-systemd-enable", "s/#UNITFILES#/$unitargs/");
-
 	# These autoscripts contain a call to deb-systemd-helper disable,
 	# which needs to have all Aliases passed explicitly
 	# in order to properly cleanup the state file (the
@@ -285,12 +234,12 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 		@both = (@both, @{$aliases{$unit}});
 	}
 
-	$unitargs = join(" ", map { basename($_) } @both);
+	my $unitargs = join(" ", map { basename($_) } @both);
 	my $filename = "postrm";
 	if ($dh{DISABLE_IN_PRERM}) {
 		$filename = "prerm";
 	}
-	same_order_autoscript($package, $filename, "postrm-systemd", "s/#UNITFILES#/$unitargs/");
+	autoscript($package, $filename, "postrm-systemd", "s/#UNITFILES#/$unitargs/");
 
 	# init-system-helpers ships deb-systemd-helper which we use in our
 	# autoscripts
@@ -299,7 +248,7 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 
 =head1 SEE ALSO
 
-L<debhelper(7)>
+L<dh_systemd_enable(1)>, L<dh_systemd_start(1)>, L<debhelper(7)>
 
 =head1 AUTHORS
 
