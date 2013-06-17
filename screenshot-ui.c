@@ -20,7 +20,7 @@ save (GtkWindow *parent, GdkPixbuf *pixbuf, const char *filename)
   if (!gdk_pixbuf_save (pixbuf, filename, "png", &error, NULL)) {
     screenshot_show_gerror_dialog  (parent, "Could not save screenshot", error);
   }
-  gdk_pixbuf_unref (pixbuf);
+  g_object_unref (pixbuf);
 }
 
 void
