@@ -4,7 +4,8 @@ name 'init-system-helpers';
 version '1.0';
 
 install_script 'deb-systemd-helper';
-install_script 'dh_systemd';
+install_script 'dh_systemd_enable';
+install_script 'dh_systemd_start';
 
 postamble <<'END_OF_MAKEFILE';
 install:: extra_install
