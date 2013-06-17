@@ -13,7 +13,7 @@ appletdir = $(libdir)/matchbox-panel
 applet_LTLIBRARIES = libscreenshot.la
 libscreenshot_la_SOURCES = applet.c
 libscreenshot_la_LDFLAGS = -avoid-version
-libscreenshot_la_LIBADD = $(DEPS_LIBS) $(MBAPP_LIBS) libshot.la
+libscreenshot_la_LIBADD = libshot.la $(DEPS_LIBS) $(MBAPP_LIBS)
 
 # The icon for the panel applet.
 icondir = $(datadir)/pixmaps
@@ -23,4 +23,4 @@ endif
 # A standalone tool for running from a terminal and scripts
 bin_PROGRAMS = screenshot
 screenshot_SOURCES = main.c
-screenshot_LDADD = $(DEPS_LIBS) libshot.la
+screenshot_LDADD = libshot.la $(DEPS_LIBS)
