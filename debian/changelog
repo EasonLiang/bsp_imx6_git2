@@ -4,8 +4,9 @@ init-system-helpers (1.2) unstable; urgency=low
     each helper much easier and allows us to do the right thing — we need to
     run parts of the code _before_ dh_installinit and parts of the code
     _afterwards_.
+  * deb-systemd-helper: only remove state file on purge.
 
- -- Michael Stapelberg <stapelberg@debian.org>  Mon, 17 Jun 2013 20:13:25 +0200
+ -- Michael Stapelberg <stapelberg@debian.org>  Mon, 17 Jun 2013 20:58:11 +0200
 
 init-system-helpers (1.1) unstable; urgency=low
 

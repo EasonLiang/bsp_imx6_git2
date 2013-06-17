@@ -45,7 +45,8 @@ systemctl, B<deb-systemd-helper> does not require systemd to be running.
 
 The "enable" action will only be performed once (when first installing the
 package). On the first "enable", an state file is created which will be deleted
-upon "disable", which is called when dpkg removes the package.
+upon "disable", but only when _DEB_SYSTEMD_HELPER_PURGE=1 to distinguish purge
+from remove.
 
 B<deb-systemd-helper> is intended to be used from maintscripts to enable
 systemd unit files. It is specifically NOT intended to be used interactively by
@@ -178,7 +179,11 @@ sub remove_links {
     }, '/etc/systemd/system/');
 
     my $statefile = "$state_dir/" . basename($service_path);
-    unlink($statefile) if -e $statefile;
+    # This environment variable gets set by maintscripts to distinguish remove
+    # from purge.
+    if (defined($ENV{_DEB_SYSTEMD_HELPER_PURGE}) && $ENV{_DEB_SYSTEMD_HELPER_PURGE} == 1) {
+        unlink($statefile) if -e $statefile;
+    }
 
     # Read $service_path, recurse for all Also= units.
     # This might not work when $service_path was already deleted,
