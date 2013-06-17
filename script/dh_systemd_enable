@@ -66,18 +66,6 @@ this option.
 
 Do not stop service on upgrade.
 
-=item B<--assume-sysv-present>
-
-When running B<dh_systemd> before B<dh_installinit>, init scripts might
-not be installed yet and thus cannot be found by B<dh_systemd>. By
-specifying B<--assume-sysv-present>, start/stop/restart will be done through
-invoke-rc.d, i.e. no systemd-specific code will be generated.
-
-This option is only useful in cases where the init script is installed with a
-different name and you need to run B<dh_systemd> before B<dh_installinit> in
-order to get aliases (symlinks) created in the scripts before invoke-rc.d is
-called.
-
 =back
 
 =head1 NOTES
@@ -100,7 +88,6 @@ init(options => {
 	"no-start" => \$dh{NO_START},
 	"no-enable" => \$dh{NO_ENABLE},
 	"R|restart-after-upgrade" => \$dh{RESTART_AFTER_UPGRADE},
-	"assume-sysv-present" => \$dh{ASSUME_SYSV_PRESENT},
 	"no-also" => \$dh{NO_ALSO},
 });
 
@@ -135,8 +122,57 @@ sub extract_key {
 foreach my $package (@{$dh{DOPACKAGES}}) {
 	my $tmpdir = tmpdir($package);
 	my @installed_units;
-	my %unitfiles;
+	my @units;
 	my %aliases;
+
+	# XXX: This is duplicated in dh_installinit, which is unfortunate.
+	# We do need the service files before running dh_installinit though,
+	# every other solution makes things much worse for all the maintainers.
+
+	# Figure out what filename to install it as.
+	my $script;
+	my $jobfile=$package;
+	if (defined $dh{NAME}) {
+		$jobfile=$script=$dh{NAME};
+	}
+	elsif ($dh{D_FLAG}) {
+		# -d on the command line sets D_FLAG. We will
+		# remove a trailing 'd' from the package name and
+		# use that as the name.
+		$script=$package;
+		if ($script=~m/(.*)d$/) {
+			$jobfile=$script=$1;
+		}
+		else {
+			warning("\"$package\" has no final d' in its name, but -d was specified.");
+		}
+	}
+	elsif ($dh{INIT_SCRIPT}) {
+		$script=$dh{INIT_SCRIPT};
+	}
+	else {
+		$script=$package;
+	}
+
+	my $service=pkgfile($package,"service");
+	if ($service ne '') {
+		my $path="$tmpdir/lib/systemd/system";
+		if (! -d "$path") {
+			doit("install","-d","$path");
+		}
+
+		doit("install","-p","-m644",$service,"$path/$script.service");
+	}
+
+	my $tmpfile=pkgfile($package,"tmpfile");
+	if ($tmpfile ne '') {
+		my $path="$tmpdir/usr/lib/tmpfiles.d";
+		if (! -d "$path") {
+			doit("install","-d","$path");
+		}
+
+		doit("install","-p","-m644",$tmpfile,"$path/$script.conf");
+	}
 
 	find({
 		wanted => sub {
@@ -185,7 +221,7 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 		# without specifying the instance (e.g. getty@ttyS0.service) is
 		# not useful.
 		if ($name =~ /\@/) {
-			return;
+			next;
 		}
 
 		# Handle all unit files specified via Also= explicitly.
@@ -197,97 +233,32 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 		@args = (@args, @also);
 
 		$aliases{$name} = [ extract_key($name, 'Alias') ];
-		my @sysv = grep {
-				my $base = $_;
-				$base =~ s/\.service$//g;
-				-f "$tmpdir/etc/init.d/$base"
-			} ($base, @{$aliases{$name}});
-		if (@sysv > 0 || $dh{ASSUME_SYSV_PRESENT}) {
-			$unitfiles{$name} = 'sysv';
-		} else {
-			$unitfiles{$name} = 'systemd-only';
-		}
+		push @units, $name;
 	}
 
-	# Calls autoscript() as appropriate.
-	# Called once for all systemd files that have a corresponding SysV init
-	# script (invoke-rc.d handles start/stop/restart) and once for all
-	# systemd files without a corresponding SysV init script (systemctl
-	# handles start/stop/restart).
-	my $add_scripts = sub {
-		my ($units, $sysv_present) = @_;
+	next if @units == 0;
 
-		return 0 if @$units == 0;
+	if (! $dh{NO_ENABLE}) {
+		my $unitargs = join(" ", map { basename($_) } @units);
+		autoscript($package, "postinst", "postinst-systemd-enable", "s/#UNITFILES#/$unitargs/");
 
-		# The $package and $sed parameters are always the same.
-		# This wrapper function makes the following logic easier to read.
-		my $sd_autoscript = sub {
-			my ($script, $filename) = @_;
-			my $unitargs = join(" ", map { basename($_) } @$units);
-			autoscript($package, $script, $filename, "s/#UNITFILES#/$unitargs/");
-		};
-
-		if (! $dh{NO_ENABLE}) {
-			if ($sysv_present) {
-				$sd_autoscript->("postinst", "postinst-systemd-enable");
-			} elsif ($dh{RESTART_AFTER_UPGRADE}) {
-				$sd_autoscript->("postinst", "postinst-systemd-enable-restart");
-			} elsif ($dh{NO_START}) {
-				# RESTART_AFTER_UPGRADE takes precedence
-				$sd_autoscript->("postinst", "postinst-systemd-enable");
-			} else {
-				$sd_autoscript->("postinst", "postinst-systemd-enable-start");
-			}
-		} else {
-			if (!$sysv_present && $dh{RESTART_AFTER_UPGRADE}) {
-				$sd_autoscript->("postinst", "postinst-systemd-restart");
-			} elsif (!$sysv_present) {
-				# We need to stop/start before/after the upgrade.
-				$sd_autoscript->("postinst", "postinst-systemd-start");
-			}
+		# These autoscripts contain a call to deb-systemd-helper disable,
+		# which needs to have all Aliases passed explicitly
+		# in order to properly cleanup the state file (the
+		# information is stored only in the symlinks which the
+		# admin might have removed).
+		my @both = @units;
+		for my $unit (@units) {
+			@both = (@both, @{$aliases{$unit}});
 		}
 
-		if (! $dh{NO_ENABLE}) {
-			# These autoscripts contain a call to deb-systemd-helper disable,
-			# which needs to have all Aliases passed explicitly
-			# in order to properly cleanup the state file (the
-			# information is stored only in the symlinks which the
-			# admin might have removed).
-			my $filename = 'postrm-systemd';
-			$filename .= '-reload' if !$sysv_present;
-
-			my @both = @$units;
-			for my $unit (@$units) {
-				@both = (@both, @{$aliases{$unit}});
-			}
-
-			my $unitargs = join(" ", map { basename($_) } @both);
-			autoscript($package, "postrm", $filename, "s/#UNITFILES#/$unitargs/");
-		} else {
-			if (!$sysv_present) {
-				$sd_autoscript->("postrm", "postrm-systemd-reload-only");
-			}
-		}
-
-		if (!$sysv_present) {
-			if ($dh{R_FLAG} || $dh{RESTART_AFTER_UPGRADE}) {
-				# stop service only on remove
-				$sd_autoscript->("prerm", "prerm-systemd-restart");
-			} elsif (!$dh{NO_START}) {
-				# always stop service
-				$sd_autoscript->("prerm", "prerm-systemd");
-			}
-		}
-
-		return 1;
-	};
-
-	if (($add_scripts->([ grep { $unitfiles{$_} eq 'systemd-only' } keys %unitfiles ], 0) +
-	     $add_scripts->([ grep { $unitfiles{$_} eq 'sysv' } keys %unitfiles ], 1)) > 0) {
-		# init-system-helpers ships deb-systemd-helper which we use in
-		# our autoscripts
-		addsubstvar($package, "misc:Depends", "init-system-helpers");
+		$unitargs = join(" ", map { basename($_) } @both);
+		autoscript($package, "postrm", "postrm-systemd", "s/#UNITFILES#/$unitargs/");
 	}
+
+	# init-system-helpers ships deb-systemd-helper which we use in our
+	# autoscripts
+	addsubstvar($package, "misc:Depends", "init-system-helpers");
 }
 
 =head1 SEE ALSO
