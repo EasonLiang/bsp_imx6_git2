@@ -13,7 +13,7 @@ use Text::ParseWords qw(shellwords); # in core since Perl 5
 
 =head1 SYNOPSIS
 
-B<dh_systemd_enable> [S<I<debhelper options>>] [S<I<unit file> ...>]
+B<dh_systemd_enable> [S<I<debhelper options>>] [B<--disable-in-prerm>] [S<I<unit file> ...>]
 
 =head1 DESCRIPTION
 
@@ -32,6 +32,33 @@ service without an [Install] section. This service file cannot be enabled or
 disabled (a state called "static" by systemd) because it has no
 [Install] section. Therefore, running dh_systemd_enable does not make sense.
 
+=head1 OPTIONS
+
+=over 4
+
+=item B<--disable-in-prerm>
+
+Call deb-systemd-helper disable in prerm instead of postrm (calling it in
+postrm is the default).
+
+This is necessary in cases where stopping the service can only be done after
+the service file has been disabled. As an example, take rsyslog: due to its
+socket activation, it would get re-enabled immediately when trying to stop it
+as long as there is something on your machine writing to syslog. Even worse,
+this actually makes the stop call fail. Using --disable-in-prerm helps here.
+
+We cannot make this flag the default behavior because for other cases it breaks
+things, e.g. when you have a systemd service file which is called differently
+than the corresponding init script and uses Alias= to handle that behavior
+(e.g. NetworkManager).
+
+=item B<-r>, B<--no-restart-on-upgrade>
+
+Do not stop service on upgrade.
+
+=back
+
+
 =head1 NOTES
 
 Note that this command is not idempotent. L<dh_prep(1)> should be called
@@ -47,7 +74,56 @@ when you are calling B<dh_systemd_enable> manually.
 
 init(options => {
 	"no-also" => \$dh{NO_ALSO},
+	"disable-in-prerm" => \$dh{DISABLE_IN_PRERM},
 });
+
+# Like debhelper’s autoscript, but without the (postrm/prerm) order reversing.
+# We need this hack to run _before_ dh_installinit so that our code gets run
+# before invoke-rc.d.
+sub same_order_autoscript {
+	my $package=shift;
+	my $script=shift;
+	my $filename=shift;
+	my $sed=shift || "";
+
+	# This is the file we will modify.
+	my $outfile="debian/".pkgext($package)."$script.debhelper";
+
+	# Figure out what shell script snippet to use.
+	my $infile;
+	if (defined($ENV{DH_AUTOSCRIPTDIR}) &&
+	    -e "$ENV{DH_AUTOSCRIPTDIR}/$filename") {
+		$infile="$ENV{DH_AUTOSCRIPTDIR}/$filename";
+	}
+	else {
+		if (-e "/usr/share/debhelper/autoscripts/$filename") {
+			$infile="/usr/share/debhelper/autoscripts/$filename";
+		}
+		else {
+			error("/usr/share/debhelper/autoscripts/$filename does not exist");
+		}
+	}
+
+	complex_doit("echo \"# Automatically added by ".basename($0)."\">> $outfile");
+	autoscript_sed($sed, $infile, $outfile);
+	complex_doit("echo '# End automatically added section' >> $outfile");
+}
+
+sub autoscript_sed {
+	my $sed = shift;
+	my $infile = shift;
+	my $outfile = shift;
+	if (ref($sed) eq 'CODE') {
+		open(IN, $infile) or die "$infile: $!";
+		open(OUT, ">>$outfile") or die "$outfile: $!";
+		while (<IN>) { $sed->(); print OUT }
+		close(OUT) or die "$outfile: $!";
+		close(IN) or die "$infile: $!";
+	}
+	else {
+		complex_doit("sed \"$sed\" $infile >> $outfile");
+	}
+}
 
 # Extracts the Also= or Alias= line(s) from a unit file.
 # In case this produces horribly wrong results, you can pass --no-also, but
@@ -210,7 +286,11 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 	}
 
 	$unitargs = join(" ", map { basename($_) } @both);
-	autoscript($package, "postrm", "postrm-systemd", "s/#UNITFILES#/$unitargs/");
+	my $filename = "postrm";
+	if ($dh{DISABLE_IN_PRERM}) {
+		$filename = "prerm";
+	}
+	same_order_autoscript($package, $filename, "postrm-systemd", "s/#UNITFILES#/$unitargs/");
 
 	# init-system-helpers ships deb-systemd-helper which we use in our
 	# autoscripts
