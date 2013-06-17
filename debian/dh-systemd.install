@@ -1,5 +1,6 @@
 usr/bin/dh_systemd_start
 usr/bin/dh_systemd_enable
+usr/bin/dh_systemd_disable
 usr/share/perl5/Debian/Debhelper/Sequence/systemd.pm
 usr/share/debhelper/autoscripts
 usr/share/man/man1/dh_systemd_start.1p
