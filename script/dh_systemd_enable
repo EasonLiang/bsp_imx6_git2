@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-dh_systemd - enable/start/stop/restart systemd unit files
+dh_systemd_enable - enable/disable systemd unit files
 
 =cut
 
@@ -13,60 +13,24 @@ use Text::ParseWords qw(shellwords); # in core since Perl 5
 
 =head1 SYNOPSIS
 
-B<dh_systemd> [S<I<debhelper options>>] [B<--no-enable>] [B<--restart-after-upgrade>] [B<--no-restart-on-upgrade>] [B<--assume-sysv-present>] [S<I<unit file> ...>]
+B<dh_systemd_enable> [S<I<debhelper options>>] [S<I<unit file> ...>]
 
 =head1 DESCRIPTION
 
-B<dh_systemd> is a debhelper program that is responsible for enabling,
-starting/stopping or restarting systemd unit files.
+B<dh_systemd_enable> is a debhelper program that is responsible for enabling
+and disabling systemd unit files.
 
 In the simple case, it finds all unit files installed by a package (e.g.
 bacula-fd.service) and enables them. It is not necessary that the machine
 actually runs systemd during package installation time, enabling happens on all
 machines in order to be able to switch from sysvinit to systemd and back.
 
-Furthermore, as with B<dh_installinit>, the unit file is stopped before
-upgrades and started afterwards (unless B<--restart-after-upgrade> is
-specified, in which case it will only be restarted after the upgrade).
-This logic is not used when there is a corresponding SysV init script
-because invoke-rc.d performs the stop/start/restart in that case.
-
-In the complex case, you can call B<dh_systemd> manually and specify
-flags per unit file. An example is colord, which ships colord.service, a
-dbus-activated service without an [Install] section. This service file cannot
-be enabled or disabled (a state called "static" by systemd) because it has no
-[Install] section. Therefore, run
-
-    dh_systemd --no-enable colord.service
-
-=head1 OPTIONS
-
-=over 4
-
-=item B<--no-enable>
-
-Do not enable the unit file. This option is most useful when calling
-B<dh_systemd> for a specific unit file.
-
-Example (see DESCRIPTION):
-    dh_systemd --no-enable colord.service
-
-=item B<--restart-after-upgrade>
-
-Do not stop the unit file until after the package upgrade has been completed.
-This is different than the default behavior, which stops the unit file in the
-F<prerm> and starts it again in the F<postinst> maintscript.
-
-This can be useful for daemons that should not have a possibly long
-downtime during upgrade. But you should make sure that the daemon will not
-get confused by the package being upgraded while it's running before using
-this option.
-
-=item B<-r>, B<--no-restart-on-upgrade>
-
-Do not stop service on upgrade.
-
-=back
+In the complex case, you can call B<dh_systemd_enable> and B<dh_systemd_start>
+manually (by overwriting the debian/rules targets) and specify flags per unit
+file. An example is colord, which ships colord.service, a dbus-activated
+service without an [Install] section. This service file cannot be enabled or
+disabled (a state called "static" by systemd) because it has no
+[Install] section. Therefore, running dh_systemd_enable does not make sense.
 
 =head1 NOTES
 
@@ -75,19 +39,13 @@ between invocations of this command (with the same arguments). Otherwise, it
 may cause multiple instances of the same text to be added to maintainer
 scripts.
 
-Note that B<dh_systemd> should be run after B<dh_installinit> so that it
-can detect corresponding SysV init scripts. The default sequence in B<dh> does
-the right thing, this note is only relevant when you are calling
-B<dh_systemd> manually.
+Note that B<dh_systemd_enable> should be run before B<dh_installinit>.
+The default sequence in B<dh> does the right thing, this note is only relevant
+when you are calling B<dh_systemd_enable> manually.
 
 =cut
 
 init(options => {
-	"r" => \$dh{R_FLAG},
-	"no-restart-on-upgrade" => \$dh{R_FLAG},
-	"no-start" => \$dh{NO_START},
-	"no-enable" => \$dh{NO_ENABLE},
-	"R|restart-after-upgrade" => \$dh{RESTART_AFTER_UPGRADE},
 	"no-also" => \$dh{NO_ALSO},
 });
 
@@ -238,23 +196,21 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 
 	next if @units == 0;
 
-	if (! $dh{NO_ENABLE}) {
-		my $unitargs = join(" ", map { basename($_) } @units);
-		autoscript($package, "postinst", "postinst-systemd-enable", "s/#UNITFILES#/$unitargs/");
+	my $unitargs = join(" ", map { basename($_) } @units);
+	autoscript($package, "postinst", "postinst-systemd-enable", "s/#UNITFILES#/$unitargs/");
 
-		# These autoscripts contain a call to deb-systemd-helper disable,
-		# which needs to have all Aliases passed explicitly
-		# in order to properly cleanup the state file (the
-		# information is stored only in the symlinks which the
-		# admin might have removed).
-		my @both = @units;
-		for my $unit (@units) {
-			@both = (@both, @{$aliases{$unit}});
-		}
-
-		$unitargs = join(" ", map { basename($_) } @both);
-		autoscript($package, "postrm", "postrm-systemd", "s/#UNITFILES#/$unitargs/");
+	# These autoscripts contain a call to deb-systemd-helper disable,
+	# which needs to have all Aliases passed explicitly
+	# in order to properly cleanup the state file (the
+	# information is stored only in the symlinks which the
+	# admin might have removed).
+	my @both = @units;
+	for my $unit (@units) {
+		@both = (@both, @{$aliases{$unit}});
 	}
+
+	$unitargs = join(" ", map { basename($_) } @both);
+	autoscript($package, "postrm", "postrm-systemd", "s/#UNITFILES#/$unitargs/");
 
 	# init-system-helpers ships deb-systemd-helper which we use in our
 	# autoscripts
