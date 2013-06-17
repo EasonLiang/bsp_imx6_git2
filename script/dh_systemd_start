@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-dh_systemd - enable/start/stop/restart systemd unit files
+dh_systemd_start - start/stop/restart systemd unit files
 
 =cut
 
@@ -13,43 +13,23 @@ use Text::ParseWords qw(shellwords); # in core since Perl 5
 
 =head1 SYNOPSIS
 
-B<dh_systemd> [S<I<debhelper options>>] [B<--no-enable>] [B<--restart-after-upgrade>] [B<--no-restart-on-upgrade>] [B<--assume-sysv-present>] [S<I<unit file> ...>]
+B<dh_systemd_start> [S<I<debhelper options>>] [B<--restart-after-upgrade>] [B<--no-restart-on-upgrade>] [S<I<unit file> ...>]
 
 =head1 DESCRIPTION
 
-B<dh_systemd> is a debhelper program that is responsible for enabling,
-starting/stopping or restarting systemd unit files.
+B<dh_systemd_start> is a debhelper program that is responsible for
+starting/stopping or restarting systemd unit files in case no corresponding
+sysv init script is available.
 
-In the simple case, it finds all unit files installed by a package (e.g.
-bacula-fd.service) and enables them. It is not necessary that the machine
-actually runs systemd during package installation time, enabling happens on all
-machines in order to be able to switch from sysvinit to systemd and back.
-
-Furthermore, as with B<dh_installinit>, the unit file is stopped before
+As with B<dh_installinit>, the unit file is stopped before
 upgrades and started afterwards (unless B<--restart-after-upgrade> is
 specified, in which case it will only be restarted after the upgrade).
 This logic is not used when there is a corresponding SysV init script
 because invoke-rc.d performs the stop/start/restart in that case.
 
-In the complex case, you can call B<dh_systemd> manually and specify
-flags per unit file. An example is colord, which ships colord.service, a
-dbus-activated service without an [Install] section. This service file cannot
-be enabled or disabled (a state called "static" by systemd) because it has no
-[Install] section. Therefore, run
-
-    dh_systemd --no-enable colord.service
-
 =head1 OPTIONS
 
 =over 4
-
-=item B<--no-enable>
-
-Do not enable the unit file. This option is most useful when calling
-B<dh_systemd> for a specific unit file.
-
-Example (see DESCRIPTION):
-    dh_systemd --no-enable colord.service
 
 =item B<--restart-after-upgrade>
 
@@ -66,18 +46,6 @@ this option.
 
 Do not stop service on upgrade.
 
-=item B<--assume-sysv-present>
-
-When running B<dh_systemd> before B<dh_installinit>, init scripts might
-not be installed yet and thus cannot be found by B<dh_systemd>. By
-specifying B<--assume-sysv-present>, start/stop/restart will be done through
-invoke-rc.d, i.e. no systemd-specific code will be generated.
-
-This option is only useful in cases where the init script is installed with a
-different name and you need to run B<dh_systemd> before B<dh_installinit> in
-order to get aliases (symlinks) created in the scripts before invoke-rc.d is
-called.
-
 =back
 
 =head1 NOTES
@@ -87,10 +55,10 @@ between invocations of this command (with the same arguments). Otherwise, it
 may cause multiple instances of the same text to be added to maintainer
 scripts.
 
-Note that B<dh_systemd> should be run after B<dh_installinit> so that it
+Note that B<dh_systemd_start> should be run after B<dh_installinit> so that it
 can detect corresponding SysV init scripts. The default sequence in B<dh> does
 the right thing, this note is only relevant when you are calling
-B<dh_systemd> manually.
+B<dh_systemd_start> manually.
 
 =cut
 
@@ -98,9 +66,7 @@ init(options => {
 	"r" => \$dh{R_FLAG},
 	"no-restart-on-upgrade" => \$dh{R_FLAG},
 	"no-start" => \$dh{NO_START},
-	"no-enable" => \$dh{NO_ENABLE},
 	"R|restart-after-upgrade" => \$dh{RESTART_AFTER_UPGRADE},
-	"assume-sysv-present" => \$dh{ASSUME_SYSV_PRESENT},
 	"no-also" => \$dh{NO_ALSO},
 });
 
@@ -135,7 +101,7 @@ sub extract_key {
 foreach my $package (@{$dh{DOPACKAGES}}) {
 	my $tmpdir = tmpdir($package);
 	my @installed_units;
-	my %unitfiles;
+	my @units;
 	my %aliases;
 
 	find({
@@ -185,7 +151,7 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 		# without specifying the instance (e.g. getty@ttyS0.service) is
 		# not useful.
 		if ($name =~ /\@/) {
-			return;
+			next;
 		}
 
 		# Handle all unit files specified via Also= explicitly.
@@ -202,91 +168,36 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 				$base =~ s/\.service$//g;
 				-f "$tmpdir/etc/init.d/$base"
 			} ($base, @{$aliases{$name}});
-		if (@sysv > 0 || $dh{ASSUME_SYSV_PRESENT}) {
-			$unitfiles{$name} = 'sysv';
-		} else {
-			$unitfiles{$name} = 'systemd-only';
+		if (@sysv == 0) {
+			push @units, $name;
 		}
 	}
 
-	# Calls autoscript() as appropriate.
-	# Called once for all systemd files that have a corresponding SysV init
-	# script (invoke-rc.d handles start/stop/restart) and once for all
-	# systemd files without a corresponding SysV init script (systemctl
-	# handles start/stop/restart).
-	my $add_scripts = sub {
-		my ($units, $sysv_present) = @_;
+	next if @units == 0;
 
-		return 0 if @$units == 0;
-
-		# The $package and $sed parameters are always the same.
-		# This wrapper function makes the following logic easier to read.
-		my $sd_autoscript = sub {
-			my ($script, $filename) = @_;
-			my $unitargs = join(" ", map { basename($_) } @$units);
-			autoscript($package, $script, $filename, "s/#UNITFILES#/$unitargs/");
-		};
-
-		if (! $dh{NO_ENABLE}) {
-			if ($sysv_present) {
-				$sd_autoscript->("postinst", "postinst-systemd-enable");
-			} elsif ($dh{RESTART_AFTER_UPGRADE}) {
-				$sd_autoscript->("postinst", "postinst-systemd-enable-restart");
-			} elsif ($dh{NO_START}) {
-				# RESTART_AFTER_UPGRADE takes precedence
-				$sd_autoscript->("postinst", "postinst-systemd-enable");
-			} else {
-				$sd_autoscript->("postinst", "postinst-systemd-enable-start");
-			}
-		} else {
-			if (!$sysv_present && $dh{RESTART_AFTER_UPGRADE}) {
-				$sd_autoscript->("postinst", "postinst-systemd-restart");
-			} elsif (!$sysv_present) {
-				# We need to stop/start before/after the upgrade.
-				$sd_autoscript->("postinst", "postinst-systemd-start");
-			}
-		}
-
-		if (! $dh{NO_ENABLE}) {
-			# These autoscripts contain a call to deb-systemd-helper disable,
-			# which needs to have all Aliases passed explicitly
-			# in order to properly cleanup the state file (the
-			# information is stored only in the symlinks which the
-			# admin might have removed).
-			my $filename = 'postrm-systemd';
-			$filename .= '-reload' if !$sysv_present;
-
-			my @both = @$units;
-			for my $unit (@$units) {
-				@both = (@both, @{$aliases{$unit}});
-			}
-
-			my $unitargs = join(" ", map { basename($_) } @both);
-			autoscript($package, "postrm", $filename, "s/#UNITFILES#/$unitargs/");
-		} else {
-			if (!$sysv_present) {
-				$sd_autoscript->("postrm", "postrm-systemd-reload-only");
-			}
-		}
-
-		if (!$sysv_present) {
-			if ($dh{R_FLAG} || $dh{RESTART_AFTER_UPGRADE}) {
-				# stop service only on remove
-				$sd_autoscript->("prerm", "prerm-systemd-restart");
-			} elsif (!$dh{NO_START}) {
-				# always stop service
-				$sd_autoscript->("prerm", "prerm-systemd");
-			}
-		}
-
-		return 1;
+	# The $package and $sed parameters are always the same.
+	# This wrapper function makes the following logic easier to read.
+	my $sd_autoscript = sub {
+		my ($script, $filename) = @_;
+		my $unitargs = join(" ", map { basename($_) } @units);
+		autoscript($package, $script, $filename, "s/#UNITFILES#/$unitargs/");
 	};
 
-	if (($add_scripts->([ grep { $unitfiles{$_} eq 'systemd-only' } keys %unitfiles ], 0) +
-	     $add_scripts->([ grep { $unitfiles{$_} eq 'sysv' } keys %unitfiles ], 1)) > 0) {
-		# init-system-helpers ships deb-systemd-helper which we use in
-		# our autoscripts
-		addsubstvar($package, "misc:Depends", "init-system-helpers");
+	if ($dh{RESTART_AFTER_UPGRADE}) {
+		$sd_autoscript->("postinst", "postinst-systemd-restart");
+	} else {
+		# We need to stop/start before/after the upgrade.
+		$sd_autoscript->("postinst", "postinst-systemd-start");
+	}
+
+	$sd_autoscript->("postrm", "postrm-systemd-reload-only");
+
+	if ($dh{R_FLAG} || $dh{RESTART_AFTER_UPGRADE}) {
+		# stop service only on remove
+		$sd_autoscript->("prerm", "prerm-systemd-restart");
+	} elsif (!$dh{NO_START}) {
+		# always stop service
+		$sd_autoscript->("prerm", "prerm-systemd");
 	}
 }
 
