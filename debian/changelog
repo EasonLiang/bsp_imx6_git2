@@ -1,3 +1,12 @@
+init-system-helpers (1.2) unstable; urgency=low
+
+  * split dh_systemd into dh_systemd_start and dh_systemd_enable. This makes
+    each helper much easier and allows us to do the right thing — we need to
+    run parts of the code _before_ dh_installinit and parts of the code
+    _afterwards_.
+
+ -- Michael Stapelberg <stapelberg@debian.org>  Mon, 17 Jun 2013 20:13:25 +0200
+
 init-system-helpers (1.1) unstable; urgency=low
 
   * deb-systemd-helper: also store enable state for already enabled units
