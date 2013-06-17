@@ -38,8 +38,9 @@ disabled (a state called "static" by systemd) because it has no
 
 =item B<--disable-in-prerm>
 
-Call deb-systemd-helper disable in prerm instead of postrm (calling it in
-postrm is the default).
+Call deb-systemd-helper disable in prerm in addition to postrm (calling it in
+postrm is the default). The postrm case always stays so we can delete state
+files at package purge time.
 
 This is necessary in cases where stopping the service can only be done after
 the service file has been disabled. As an example, take rsyslog: due to its
@@ -235,11 +236,10 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 	}
 
 	my $unitargs = join(" ", map { basename($_) } @both);
-	my $filename = "postrm";
 	if ($dh{DISABLE_IN_PRERM}) {
-		$filename = "prerm";
+		autoscript($package, "prerm", "postrm-systemd", "s/#UNITFILES#/$unitargs/");
 	}
-	autoscript($package, $filename, "postrm-systemd", "s/#UNITFILES#/$unitargs/");
+	autoscript($package, "postrm", "postrm-systemd", "s/#UNITFILES#/$unitargs/");
 
 	# init-system-helpers ships deb-systemd-helper which we use in our
 	# autoscripts
