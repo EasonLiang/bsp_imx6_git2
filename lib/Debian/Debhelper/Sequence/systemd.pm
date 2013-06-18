@@ -11,9 +11,4 @@ insert_before("dh_installinit", "dh_systemd_enable");
 # script, so it runs after dh_installinit.
 insert_after("dh_installinit", "dh_systemd_start");
 
-# The prerm and postrm autoscripts are written in reverse order by debhelper,
-# so dh_systemd_disable needs to run after dh_installinit to have its
-# autoscript run before dh_installinit’s.
-insert_after("dh_installinit", "dh_systemd_disable");
-
 1

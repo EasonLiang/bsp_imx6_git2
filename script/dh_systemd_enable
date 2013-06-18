@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-dh_systemd_enable - enable systemd unit files
+dh_systemd_enable - enable/disable systemd unit files
 
 =cut
 
@@ -148,6 +148,7 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 
 	my $unitargs = join(" ", map { basename($_) } @units);
 	autoscript($package, "postinst", "postinst-systemd-enable", "s/#UNITFILES#/$unitargs/");
+	autoscript($package, "postrm", "postrm-systemd", "s/#UNITFILES#/$unitargs/");
 
 	# init-system-helpers ships deb-systemd-helper which we use in our
 	# autoscripts
@@ -156,7 +157,7 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 
 =head1 SEE ALSO
 
-L<dh_systemd_start(1)>, L<dh_systemd_disable(1)>, L<debhelper(7)>
+L<dh_systemd_start(1)>, L<debhelper(7)>
 
 =head1 AUTHORS
 
