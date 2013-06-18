@@ -1,7 +1,7 @@
 use inc::Module::Install;
 
 name 'init-system-helpers';
-version '1.0';
+version '1.2';
 
 install_script 'deb-systemd-helper';
 install_script 'dh_systemd_enable';
