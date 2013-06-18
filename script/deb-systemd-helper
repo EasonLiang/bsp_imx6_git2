@@ -87,7 +87,7 @@ sub find_unit {
 }
 
 sub make_link {
-    my ($service_path, $service_link, $action) = @_;
+    my ($service_path, $service_link, $action, $orig_statename) = @_;
     my $already_enabled = 1;
 
     if ($action eq 'is-enabled') {
@@ -115,7 +115,11 @@ sub make_link {
             # /var/lib/systemd is shipped by this package
             mkdir $state_dir;
         }
-        open(my $fh, '>', $statefile);
+        open(my $fh, '>>', $statefile);
+        close($fh);
+
+        open($fh, '>>', "$state_dir/$orig_statename");
+        print $fh "$service_path\n";
         close($fh);
     }
 
@@ -123,7 +127,9 @@ sub make_link {
 }
 
 sub make_systemd_links {
-    my ($scriptname, $service_path, $action) = @_;
+    my ($scriptname, $service_path, $action, $statename) = @_;
+
+    $statename //= basename($scriptname);
 
     my $already_enabled = 1;
     open my $fh, '<', $service_path or error("unable to read $service_path");
@@ -137,21 +143,21 @@ sub make_systemd_links {
                 $wants_dir .= '.wants' if $1 eq 'WantedBy';
                 $wants_dir .= '.requires' if $1 eq 'RequiredBy';
                 $already_enabled = 0 if
-                    !make_link($service_path, "$wants_dir/$scriptname", $action);
+                    !make_link($service_path, "$wants_dir/$scriptname", $action, $statename);
             }
         }
 
         if ($line =~ /^\s*Also=(.+)$/i) {
             for my $value (shellwords($1)) {
                 $already_enabled = 0 if
-                    !make_systemd_links($value, find_unit($value), $action);
+                    !make_systemd_links($value, find_unit($value), $action, $statename);
             }
         }
 
         if ($line =~ /^\s*Alias=(.+)$/i) {
             for my $value (shellwords($1)) {
                 $already_enabled = 0 if
-                    !make_link($service_path, "/etc/systemd/system/$1", $action);
+                    !make_link($service_path, "/etc/systemd/system/$1", $action, $statename);
             }
         }
 
@@ -173,17 +179,27 @@ sub remove_links {
             print STDERR "rm '$link'\n";
             unlink($link) or error("unable to delete $link: $!");
             $changed_sth = 1;
+
+            my $statefile = "$state_dir/" . basename($link);
+            my $fh;
+            my @other;
+            if (open($fh, '<', $statefile)) {
+                @other = map { chomp; $_ } <$fh>;
+                close($fh);
+            }
+
+            # This environment variable gets set by maintscripts to distinguish remove
+            # from purge.
+            if (defined($ENV{_DEB_SYSTEMD_HELPER_PURGE}) && $ENV{_DEB_SYSTEMD_HELPER_PURGE} == 1) {
+                unlink($statefile) if -e $statefile;
+            }
+
+            # Also disable all the units which were enabled when this one was enabled.
+            remove_links($_) for @other;
         },
         follow => 0,
         no_chdir => 1,
     }, '/etc/systemd/system/');
-
-    my $statefile = "$state_dir/" . basename($service_path);
-    # This environment variable gets set by maintscripts to distinguish remove
-    # from purge.
-    if (defined($ENV{_DEB_SYSTEMD_HELPER_PURGE}) && $ENV{_DEB_SYSTEMD_HELPER_PURGE} == 1) {
-        unlink($statefile) if -e $statefile;
-    }
 
     # Read $service_path, recurse for all Also= units.
     # This might not work when $service_path was already deleted,
@@ -229,7 +245,7 @@ for my $scriptname (@ARGV) {
 
     if ($action eq 'reenable') {
         remove_links($service_path);
-        make_systemd_links($scriptname, $service_path, $action);
+        make_systemd_links($scriptname, $service_path, $action, undef);
     }
 
     if ($action eq 'disable') {
@@ -237,7 +253,7 @@ for my $scriptname (@ARGV) {
     }
 
     if ($action eq 'enable') {
-        make_systemd_links($scriptname, $service_path, $action);
+        make_systemd_links($scriptname, $service_path, $action, undef);
     }
 }
 
