@@ -140,8 +140,8 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 			if (defined($full)) {
 				$name = $full;
 			} else {
-				warning(qq|Could not find "$name" in the /lib/systemd/system of $package.| .
-					qq|This could be a typo, or using Also= with a service file from another package.| .
+				warning(qq|Could not find "$name" in the /lib/systemd/system of $package. | .
+					qq|This could be a typo, or using Also= with a service file from another package. | .
 					qq|Please check carefully that this message is harmless.|);
 			}
 		}
