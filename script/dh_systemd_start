@@ -165,7 +165,7 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 		$aliases{$name} = [ extract_key($name, 'Alias') ];
 		my @sysv = grep {
 				my $base = $_;
-				$base =~ s/\.service$//g;
+				$base =~ s/\.(?:service|socket)$//g;
 				-f "$tmpdir/etc/init.d/$base"
 			} ($base, @{$aliases{$name}});
 		if (@sysv == 0) {
