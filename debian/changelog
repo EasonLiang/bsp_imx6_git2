@@ -5,8 +5,11 @@ init-system-helpers (1.2) unstable; urgency=low
     run parts of the code _before_ dh_installinit and parts of the code
     _afterwards_.
   * deb-systemd-helper: only remove state file on purge.
+  * deb-systemd-helper: store state about which units were enabled in addition
+    to the specified one. This allows us to drop Also= and Alias= units from
+    the call to deb-systemd-helper and behave more like systemctl.
 
- -- Michael Stapelberg <stapelberg@debian.org>  Mon, 17 Jun 2013 20:58:11 +0200
+ -- Michael Stapelberg <stapelberg@debian.org>  Tue, 18 Jun 2013 23:38:45 +0200
 
 init-system-helpers (1.1) unstable; urgency=low
 
