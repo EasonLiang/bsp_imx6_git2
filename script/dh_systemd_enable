@@ -45,43 +45,12 @@ when you are calling B<dh_systemd_enable> manually.
 
 =cut
 
-init(options => {
-	"no-also" => \$dh{NO_ALSO},
-});
-
-# Extracts the Also= or Alias= line(s) from a unit file.
-# In case this produces horribly wrong results, you can pass --no-also, but
-# that should really not be necessary. Please report bugs to
-# pkg-systemd-maintainers.
-sub extract_key {
-	my ($unit_path, $key) = @_;
-	my @values;
-	my $fh;
-
-	if ($dh{NO_ALSO}) {
-		return @values;
-	}
-
-	if (!open($fh, '<', $unit_path)) {
-		warning("Cannot open($unit_path) for extracting the Also= line(s)");
-		return;
-	}
-	while (my $line = <$fh>) {
-		chomp($line);
-
-		if ($line =~ /^\s*$key=(.+)$/i) {
-			@values = (@values, shellwords($1));
-		}
-	}
-	close($fh);
-	return @values;
-}
+init();
 
 foreach my $package (@{$dh{DOPACKAGES}}) {
 	my $tmpdir = tmpdir($package);
 	my @installed_units;
 	my @units;
-	my %aliases;
 
 	# XXX: This is duplicated in dh_installinit, which is unfortunate.
 	# We do need the service files before running dh_installinit though,
@@ -146,17 +115,7 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 	# all unit files that are installed in this package.
 	my @args = @ARGV > 0 ? @ARGV : @installed_units;
 
-	# This hash prevents us from looping forever in the following while loop.
-	# An actual real-world example of such a loop is systemd’s
-	# systemd-readahead-drop.service, which contains
-	# Also=systemd-readahead-collect.service, and that file in turn
-	# contains Also=systemd-readahead-drop.service, thus forming an endless
-	# loop.
-	my %seen;
-
-	# We use while/shift because we push to the list in the body.
-	while (@args) {
-		my $name = shift @args;
+	for my $name (@args) {
 		my $base = basename($name);
 
 		# Try to make the path absolute, so that the user can call
@@ -182,15 +141,6 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 			next;
 		}
 
-		# Handle all unit files specified via Also= explicitly.
-		# This is not necessary for enabling, but for disabling, as we
-		# cannot read the unit file when disabling (it was already
-		# deleted).
-		my @also = grep { !exists($seen{$_}) } extract_key($name, 'Also');
-		$seen{$_} = 1 for @also;
-		@args = (@args, @also);
-
-		$aliases{$name} = [ extract_key($name, 'Alias') ];
 		push @units, $name;
 	}
 
