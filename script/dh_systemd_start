@@ -168,7 +168,7 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 				$base =~ s/\.(?:service|socket)$//g;
 				-f "$tmpdir/etc/init.d/$base"
 			} ($base, @{$aliases{$name}});
-		if (@sysv == 0) {
+		if (@sysv == 0 && !grep { $_ eq $name } @units) {
 			push @units, $name;
 		}
 	}
