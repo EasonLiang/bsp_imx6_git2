@@ -120,6 +120,7 @@ sub make_link {
 
         open($fh, '>>', "$state_dir/$orig_statename");
         print $fh "$service_path\n";
+        print $fh "$service_link\n";
         close($fh);
     }
 
@@ -201,6 +202,27 @@ sub remove_links {
         no_chdir => 1,
     }, '/etc/systemd/system/');
 
+    my $statefile = "$state_dir/" . basename($service_path);
+    my $fh;
+    my @other;
+    if (open($fh, '<', $statefile)) {
+        @other = map { chomp; $_ } <$fh>;
+        close($fh);
+    }
+
+    # This environment variable gets set by maintscripts to distinguish remove
+    # from purge.
+    if (defined($ENV{_DEB_SYSTEMD_HELPER_PURGE}) && $ENV{_DEB_SYSTEMD_HELPER_PURGE} == 1) {
+        unlink($statefile) if -e $statefile;
+    }
+
+    # Also disable all the units which were enabled when this one was enabled.
+    for my $o (@other) {
+        next if basename($o) eq basename($service_path);
+
+        remove_links($o);
+    }
+
     # Read $service_path, recurse for all Also= units.
     # This might not work when $service_path was already deleted,
     # i.e. after apt-get remove. In this case we just return
@@ -208,7 +230,7 @@ sub remove_links {
     # disabling actually worked or not — the case is handled by
     # dh_installsystemd generating an appropriate disable
     # command by parsing the service file at debhelper-time.
-    open my $fh, '<', $service_path or return;
+    open $fh, '<', $service_path or return;
     while (my $line = <$fh>) {
         chomp($line);
         my $service_link;
