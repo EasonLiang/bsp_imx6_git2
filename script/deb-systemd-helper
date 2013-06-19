@@ -96,6 +96,22 @@ sub find_unit {
     return $service_path;
 }
 
+# Writes $service_link into $statefile unless it’s already in there.
+sub record_in_statefile {
+    my ($statefile, $service_link) = @_;
+
+    open(my $fh, '>>', $statefile) or error("unable to write to $statefile");
+    while (<$fh>) {
+        chomp;
+        if ($_ eq $service_link) {
+            close($fh);
+            return;
+        }
+    }
+    print $fh "$service_link\n";
+    close($fh);
+}
+
 sub make_link {
     my ($service_path, $service_link, $action, $orig_statename) = @_;
     my $already_enabled = 1;
@@ -103,6 +119,8 @@ sub make_link {
     if ($action eq 'is-enabled') {
         $already_enabled = 0 if ! -l $service_link;
     } else {
+        record_in_statefile("$state_dir/$orig_statename", $service_link);
+
         my $statefile = $service_link;
         $statefile =~ s,^/etc/systemd/system/,$state_dir/,;
         if (-e $statefile) {
@@ -124,10 +142,6 @@ sub make_link {
         # of a package.
         make_path(dirname($statefile));
         open(my $fh, '>>', $statefile);
-        close($fh);
-
-        open($fh, '>>', "$state_dir/$orig_statename");
-        print $fh "$service_link\n";
         close($fh);
     }
 
