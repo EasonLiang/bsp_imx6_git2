@@ -195,8 +195,12 @@ sub remove_links {
 
     # Also disable all the units which were enabled when this one was enabled.
     for my $link (@other) {
-        # Delete the corresponding state file
-        if (is_purge()) {
+        # Delete the corresponding state file:
+        # • Always when purging
+        # • If the user did not disable (= link still exists) the service.
+        #   If we don’t do this, the link will be deleted a few lines down,
+        #   but not re-created when re-installing the package.
+        if (is_purge() || -l $link) {
             my $link_state = $link;
             $link_state =~ s,^/etc/systemd/system/,$state_dir/,;
             unlink($link_state);
