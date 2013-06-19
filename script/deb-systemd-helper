@@ -74,6 +74,16 @@ sub error {
     exit (1);
 }
 
+sub debug {
+    my ($msg) = @_;
+    return if !defined($ENV{_DEB_SYSTEMD_HELPER_DEBUG}) || $ENV{_DEB_SYSTEMD_HELPER_DEBUG} != 1;
+    print STDERR "(deb-systemd-helper DEBUG) $msg\n";
+}
+
+sub is_purge {
+    return (defined($ENV{_DEB_SYSTEMD_HELPER_PURGE}) && $ENV{_DEB_SYSTEMD_HELPER_PURGE} == 1)
+}
+
 sub find_unit {
     my ($scriptname) = @_;
 
@@ -93,7 +103,8 @@ sub make_link {
     if ($action eq 'is-enabled') {
         $already_enabled = 0 if ! -l $service_link;
     } else {
-        my $statefile = "$state_dir/" . basename($service_link);
+        my $statefile = $service_link;
+        $statefile =~ s,^/etc/systemd/system/,$state_dir/,;
         if (-e $statefile) {
             return $already_enabled;
         }
@@ -111,15 +122,11 @@ sub make_link {
         # This allows us to call deb-systemd-helper unconditionally
         # and still only enable unit files on the initial installation
         # of a package.
-        if (! -d $state_dir) {
-            # /var/lib/systemd is shipped by this package
-            mkdir $state_dir;
-        }
+        make_path(dirname($statefile));
         open(my $fh, '>>', $statefile);
         close($fh);
 
         open($fh, '>>', "$state_dir/$orig_statename");
-        print $fh "$service_path\n";
         print $fh "$service_link\n";
         close($fh);
     }
@@ -130,7 +137,7 @@ sub make_link {
 sub make_systemd_links {
     my ($scriptname, $service_path, $action, $statename) = @_;
 
-    $statename //= basename($scriptname);
+    $statename //= basename($scriptname) . '.dsh-also';
 
     my $already_enabled = 1;
     open my $fh, '<', $service_path or error("unable to read $service_path");
@@ -170,39 +177,9 @@ sub make_systemd_links {
 
 sub remove_links {
     my ($service_path) = @_;
-    # scan /etc/systemd/system/* and delete symlinks to $service_path
-    find({
-        wanted => sub {
-            my $link = $File::Find::name;
-            return unless -l $link;
-            return unless readlink($link) eq $service_path ||
-                          basename(readlink($link)) eq $service_path;
-            print STDERR "rm '$link'\n";
-            unlink($link) or error("unable to delete $link: $!");
-            $changed_sth = 1;
 
-            my $statefile = "$state_dir/" . basename($link);
-            my $fh;
-            my @other;
-            if (open($fh, '<', $statefile)) {
-                @other = map { chomp; $_ } <$fh>;
-                close($fh);
-            }
-
-            # This environment variable gets set by maintscripts to distinguish remove
-            # from purge.
-            if (defined($ENV{_DEB_SYSTEMD_HELPER_PURGE}) && $ENV{_DEB_SYSTEMD_HELPER_PURGE} == 1) {
-                unlink($statefile) if -e $statefile;
-            }
-
-            # Also disable all the units which were enabled when this one was enabled.
-            remove_links($_) for @other;
-        },
-        follow => 0,
-        no_chdir => 1,
-    }, '/etc/systemd/system/');
-
-    my $statefile = "$state_dir/" . basename($service_path);
+    my $statefile = "$state_dir/" . basename($service_path) . '.dsh-also';
+    debug "Reading state file $statefile";
     my $fh;
     my @other;
     if (open($fh, '<', $statefile)) {
@@ -210,17 +187,26 @@ sub remove_links {
         close($fh);
     }
 
-    # This environment variable gets set by maintscripts to distinguish remove
-    # from purge.
-    if (defined($ENV{_DEB_SYSTEMD_HELPER_PURGE}) && $ENV{_DEB_SYSTEMD_HELPER_PURGE} == 1) {
+    debug "Contents: " . Dumper(\@other);
+
+    if (is_purge()) {
         unlink($statefile) if -e $statefile;
     }
 
     # Also disable all the units which were enabled when this one was enabled.
-    for my $o (@other) {
-        next if basename($o) eq basename($service_path);
+    for my $link (@other) {
+        # Delete the corresponding state file
+        if (is_purge()) {
+            my $link_state = $link;
+            $link_state =~ s,^/etc/systemd/system/,$state_dir/,;
+            unlink($link_state);
+        }
 
-        remove_links($o);
+        next unless -l $link;
+        print STDERR "rm '$link'\n";
+        unlink($link);
+
+        $changed_sth = 1;
     }
 
     # Read $service_path, recurse for all Also= units.
@@ -255,9 +241,13 @@ if (!$ENV{DPKG_MAINTSCRIPT_PACKAGE}) {
     exit 1;
 }
 
+debug "is purge = " . (is_purge() ? "yes" : "no");
+
 my $rc = $action eq 'is-enabled' ? 1 : 0;
 for my $scriptname (@ARGV) {
     my $service_path = find_unit($scriptname);
+
+    debug "action = $action, scriptname = $scriptname, service_path = $service_path";
 
     if ($action eq 'is-enabled') {
         my $enabled = make_systemd_links($scriptname, $service_path, $action);
