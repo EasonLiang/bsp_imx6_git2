@@ -4,6 +4,7 @@ name 'init-system-helpers';
 version '1.2';
 
 install_script 'deb-systemd-helper';
+install_script 'deb-systemd-invoke';
 install_script 'dh_systemd_enable';
 install_script 'dh_systemd_start';
 
