@@ -28,8 +28,9 @@ Architecture: all
 Depends: ${perl:Depends}, ${misc:Depends}, debhelper
 Description: debhelper add-on to handle systemd unit files
  dh-systemd provides a debhelper sequence addon named 'systemd' and the
- dh_systemd command.
+ dh_systemd_enable/dh_systemd_start commands.
  .
- The dh_systemd command adds the appropriate code to the postinst, prerm and
- postrm maint scripts to properly enable/disable systemd service files and deal
- with start/stop/restart on upgrades for systemd-only service files.
+ The dh_systemd_enable command adds the appropriate code to the postinst, prerm
+ and postrm maint scripts to properly enable/disable systemd service files.
+ The dh_systemd_start command deals with start/stop/restart on upgrades for
+ systemd-only service files.
