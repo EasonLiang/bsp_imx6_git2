@@ -13,6 +13,7 @@ Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/init-system-helper
 Package: init-system-helpers
 Architecture: all
 Depends: ${perl:Depends}, ${misc:Depends}
+Breaks: systemd (<< 44-12)
 Description: helper tools for all init systems
  This package contains helper tools that are necessary for switching between
  the various init systems that Debian contains (e.g. sysvinit, upstart,
