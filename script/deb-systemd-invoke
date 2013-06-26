@@ -42,11 +42,6 @@ B<deb-systemd-invoke> start|stop|restart S<I<unit file> ...>
 B<deb-systemd-invoke> is a Debian-specific helper script which asks
 /usr/sbin/policy-rc.d before performing a systemctl call.
 
-The "enable" action will only be performed once (when first installing the
-package). On the first "enable", an state file is created which will be deleted
-upon "disable", but only when _DEB_SYSTEMD_HELPER_PURGE=1 to distinguish purge
-from remove.
-
 B<deb-systemd-invoke> is intended to be used from maintscripts to start
 systemd unit files. It is specifically NOT intended to be used interactively by
 users. Instead, users should run systemd and use systemctl, or not bother about
