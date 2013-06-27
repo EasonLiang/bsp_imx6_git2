@@ -112,6 +112,7 @@ sub find_unit {
 sub record_in_statefile {
     my ($statefile, $service_link) = @_;
 
+    make_path(dirname($statefile));
     open(my $fh, '>>', $statefile) or error("unable to write to $statefile");
     while (<$fh>) {
         chomp;
