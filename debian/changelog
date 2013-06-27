@@ -1,3 +1,10 @@
+init-system-helpers (1.4) unstable; urgency=low
+
+  * deb-systemd-helper: ensure state directory exists before writing to it
+    (Thanks uau, bigon) (Closes: #714265)
+
+ -- Michael Stapelberg <stapelberg@debian.org>  Thu, 27 Jun 2013 18:28:36 +0200
+
 init-system-helpers (1.3) unstable; urgency=low
 
   * deb-systemd-helpe): replicate /etc/systemd/system in state dir
