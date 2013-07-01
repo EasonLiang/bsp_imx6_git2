@@ -259,6 +259,20 @@ sub remove_links {
     close($fh);
 }
 
+# Recursively deletes a directory structure, if all (!) components are empty,
+# e.g. to clean up after purging.
+sub rmdir_if_empty {
+    my ($dir) = @_;
+
+    debug "rmdir_if_empty $dir";
+
+    rmdir_if_empty($_) for (grep { -d } <$dir/*>);
+
+    if (!rmdir($dir)) {
+        debug "rmdir($dir) failed ($!)";
+    }
+}
+
 my $action = shift;
 if (!defined($action)) {
     # Called without arguments. Explain that this script should not be run interactively.
@@ -293,6 +307,14 @@ for my $scriptname (@ARGV) {
 
     if ($action eq 'disable') {
         remove_links($service_path);
+        # Clean up the state dir if it’s empty, or at least clean up all empty
+        # subdirectories. Necessary to cleanly pass a piuparts run.
+        rmdir_if_empty('/var/lib/systemd/deb-systemd-helper-enabled');
+
+        # Same with /etc/systemd, where we create symlinks. If systemd is not
+        # installed (and no other package shipping service files), this would
+        # make piuparts fail, too.
+        rmdir_if_empty('/etc/systemd');
     }
 
     if ($action eq 'enable') {
