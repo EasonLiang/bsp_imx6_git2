@@ -2,8 +2,10 @@ init-system-helpers (1.5) unstable; urgency=low
 
   * deb-systemd-helper: clean up /var/lib/systemd/deb-systemd-helper-enabled
     and /etc/systemd to pass a piuparts run.
+  * deb-systemd-helper: add --quiet
+  * dh_systemd_enable: add --no-enable
 
- -- Michael Stapelberg <stapelberg@debian.org>  Mon, 01 Jul 2013 23:21:16 +0200
+ -- Michael Stapelberg <stapelberg@debian.org>  Sun, 14 Jul 2013 21:53:26 +0200
 
 init-system-helpers (1.4) unstable; urgency=low
 
