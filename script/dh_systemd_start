@@ -46,6 +46,11 @@ this option.
 
 Do not stop service on upgrade.
 
+=item B<--no-start>
+
+Do not start the unit file after upgrades and after initial installation (the
+latter is only relevant for services without a corresponding init script).
+
 =back
 
 =head1 NOTES
@@ -185,9 +190,10 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 
 	if ($dh{RESTART_AFTER_UPGRADE}) {
 		$sd_autoscript->("postinst", "postinst-systemd-restart");
-	} else {
+	} elsif (!$dh{NO_START}) {
 		# We need to stop/start before/after the upgrade.
 		$sd_autoscript->("postinst", "postinst-systemd-start");
+		}
 	}
 
 	$sd_autoscript->("postrm", "postrm-systemd-reload-only");

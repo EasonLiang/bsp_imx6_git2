@@ -4,6 +4,7 @@ init-system-helpers (1.5) unstable; urgency=low
     and /etc/systemd to pass a piuparts run.
   * deb-systemd-helper: add --quiet
   * dh_systemd_enable: add --no-enable
+  * dh_systemd_start: add --no-start
 
  -- Michael Stapelberg <stapelberg@debian.org>  Sun, 14 Jul 2013 21:53:26 +0200
 
