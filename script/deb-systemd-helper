@@ -73,8 +73,10 @@ use File::Path qw(make_path); # in core since Perl 5.001
 use File::Basename; # in core since Perl 5
 use File::Find; # in core since Perl 5
 use Text::ParseWords qw(shellwords); # in core since Perl 5
+use Getopt::Long; # in core since Perl 5
 use Data::Dumper;
 
+my $quiet = 0;
 my $state_dir = '/var/lib/systemd/deb-systemd-helper-enabled';
 
 # Globals are bad, but in this specific case, it really makes things much
@@ -142,7 +144,7 @@ sub make_link {
 
         if (! -l $service_link) {
             make_path(dirname($service_link));
-            print STDERR "ln -s '$service_path' '$service_link'\n";
+            print STDERR "ln -s '$service_path' '$service_link'\n" unless $quiet;
             symlink($service_path, $service_link) or
                 error("unable to link $service_link to $service_path: $!");
             $changed_sth = 1;
@@ -234,7 +236,7 @@ sub remove_links {
         }
 
         next unless -l $link;
-        print STDERR "rm '$link'\n";
+        print STDERR "rm '$link'\n" unless $quiet;
         unlink($link);
 
         $changed_sth = 1;
@@ -272,6 +274,10 @@ sub rmdir_if_empty {
         debug "rmdir($dir) failed ($!)";
     }
 }
+
+my $result = GetOptions(
+    "quiet" => \$quiet,
+);
 
 my $action = shift;
 if (!defined($action)) {

@@ -13,7 +13,7 @@ use Text::ParseWords qw(shellwords); # in core since Perl 5
 
 =head1 SYNOPSIS
 
-B<dh_systemd_enable> [S<I<debhelper options>>] [S<I<unit file> ...>]
+B<dh_systemd_enable> [S<I<debhelper options>>] [B<--no-enable>] [S<I<unit file> ...>]
 
 =head1 DESCRIPTION
 
@@ -32,6 +32,16 @@ service without an [Install] section. This service file cannot be enabled or
 disabled (a state called "static" by systemd) because it has no
 [Install] section. Therefore, running dh_systemd_enable does not make sense.
 
+=head1 OPTIONS
+
+=over 4
+
+=item B<--no-enable>
+
+Just disable the service(s) on purge, but do not enable them by default.
+
+=back
+
 =head1 NOTES
 
 Note that this command is not idempotent. L<dh_prep(1)> should be called
@@ -45,7 +55,9 @@ when you are calling B<dh_systemd_enable> manually.
 
 =cut
 
-init();
+init(options => {
+	"no-enable" => \$dh{NO_ENABLE},
+});
 
 foreach my $package (@{$dh{DOPACKAGES}}) {
 	my $tmpdir = tmpdir($package);
@@ -147,7 +159,11 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 	next if @units == 0;
 
 	my $unitargs = join(" ", map { basename($_) } @units);
-	autoscript($package, "postinst", "postinst-systemd-enable", "s/#UNITFILES#/$unitargs/");
+	if ($dh{NO_ENABLE}) {
+		autoscript($package, "postinst", "postinst-systemd-dont-enable", "s/#UNITFILES#/$unitargs/");
+	} else {
+		autoscript($package, "postinst", "postinst-systemd-enable", "s/#UNITFILES#/$unitargs/");
+	}
 	autoscript($package, "postrm", "postrm-systemd", "s/#UNITFILES#/$unitargs/");
 
 	# init-system-helpers ships deb-systemd-helper which we use in our
