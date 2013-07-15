@@ -1,3 +1,9 @@
+init-system-helpers (1.6) unstable; urgency=low
+
+  * Fix syntax error in dh_systemd_start (Closes: #716946)
+
+ -- Michael Stapelberg <stapelberg@debian.org>  Mon, 15 Jul 2013 17:49:57 +0200
+
 init-system-helpers (1.5) unstable; urgency=low
 
   * deb-systemd-helper: clean up /var/lib/systemd/deb-systemd-helper-enabled

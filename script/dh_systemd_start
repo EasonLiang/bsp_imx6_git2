@@ -193,7 +193,6 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 	} elsif (!$dh{NO_START}) {
 		# We need to stop/start before/after the upgrade.
 		$sd_autoscript->("postinst", "postinst-systemd-start");
-		}
 	}
 
 	$sd_autoscript->("postrm", "postrm-systemd-reload-only");
