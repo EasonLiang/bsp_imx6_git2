@@ -1,3 +1,10 @@
+init-system-helpers (1.7) unstable; urgency=low
+
+  * Drop dependency on libmodule-install-perl to make it easier to have this
+    package in Ubuntu (Thanks Jeremy Bicha) (Closes: #716929)
+
+ -- Michael Stapelberg <stapelberg@debian.org>  Tue, 16 Jul 2013 23:53:28 +0200
+
 init-system-helpers (1.6) unstable; urgency=low
 
   * Fix syntax error in dh_systemd_start (Closes: #716946)
