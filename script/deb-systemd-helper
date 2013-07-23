@@ -40,8 +40,7 @@ B<deb-systemd-helper> enable|disable|is-enabled|reenable S<I<unit file> ...>
 =head1 DESCRIPTION
 
 B<deb-systemd-helper> is a Debian-specific helper script which re-implements
-the enable, disable, is-enabled and reenable commands from systemctl. Unlike
-systemctl, B<deb-systemd-helper> does not require systemd to be running.
+the enable, disable, is-enabled and reenable commands from systemctl.
 
 The "enable" action will only be performed once (when first installing the
 package). On the first "enable", an state file is created which will be deleted
