@@ -35,7 +35,7 @@ deb-systemd-helper - subset of systemctl for machines not running systemd
 
 =head1 SYNOPSIS
 
-B<deb-systemd-helper> enable|disable|is-enabled|was-enabled|reenable S<I<unit file> ...>
+B<deb-systemd-helper> enable|disable|is-enabled|was-enabled|debian-installed|reenable S<I<unit file> ...>
 
 =head1 DESCRIPTION
 
@@ -50,6 +50,9 @@ from remove.
 The "was-enabled" action is not present in systemctl, but is required in Debian
 so that we can figure out whether a service was enabled before we installed an
 updated service file. See http://bugs.debian.org/717603 for details.
+
+The "debian-installed" action is also not present in systemctl. It returns 0 if
+the state file of at least one of the given units is present.
 
 B<deb-systemd-helper> is intended to be used from maintscripts to enable
 systemd unit files. It is specifically NOT intended to be used interactively by
@@ -232,6 +235,12 @@ sub was_enabled {
     return 1;
 }
 
+sub debian_installed {
+    my ($service_path) = @_;
+    my $statefile = "$state_dir/" . basename($service_path) . '.dsh-also';
+    return -f $statefile;
+}
+
 sub remove_links {
     my ($service_path) = @_;
 
@@ -322,7 +331,11 @@ if (!$ENV{DPKG_MAINTSCRIPT_PACKAGE}) {
 
 debug "is purge = " . (is_purge() ? "yes" : "no");
 
-my $rc = $action eq 'is-enabled' ? 1 : 0;
+my $rc = 0;
+if ($action eq 'is-enabled' ||
+    $action eq 'debian-installed') {
+    $rc = 1;
+}
 for my $scriptname (@ARGV) {
     my $service_path = find_unit($scriptname);
 
@@ -347,6 +360,10 @@ for my $scriptname (@ARGV) {
         my $enabled = was_enabled($service_path);
         print STDERR ($enabled ? "enabled\n" : "disabled\n");
         $rc = 0 if $enabled;
+    }
+
+    if ($action eq 'debian-installed') {
+        $rc = 0 if debian_installed($service_path);
     }
 
     if ($action eq 'reenable') {
