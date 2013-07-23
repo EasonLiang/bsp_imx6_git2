@@ -35,7 +35,7 @@ deb-systemd-helper - subset of systemctl for machines not running systemd
 
 =head1 SYNOPSIS
 
-B<deb-systemd-helper> enable|disable|is-enabled|reenable S<I<unit file> ...>
+B<deb-systemd-helper> enable|disable|is-enabled|was-enabled|reenable S<I<unit file> ...>
 
 =head1 DESCRIPTION
 
@@ -46,6 +46,10 @@ The "enable" action will only be performed once (when first installing the
 package). On the first "enable", an state file is created which will be deleted
 upon "disable", but only when _DEB_SYSTEMD_HELPER_PURGE=1 to distinguish purge
 from remove.
+
+The "was-enabled" action is not present in systemctl, but is required in Debian
+so that we can figure out whether a service was enabled before we installed an
+updated service file. See http://bugs.debian.org/717603 for details.
 
 B<deb-systemd-helper> is intended to be used from maintscripts to enable
 systemd unit files. It is specifically NOT intended to be used interactively by
@@ -203,6 +207,31 @@ sub make_systemd_links {
     return $already_enabled;
 }
 
+sub was_enabled {
+    my ($service_path) = @_;
+
+    my $statefile = "$state_dir/" . basename($service_path) . '.dsh-also';
+    debug "Reading state file $statefile";
+    my $fh;
+    my @other;
+    if (open($fh, '<', $statefile)) {
+        @other = map { chomp; $_ } <$fh>;
+        close($fh);
+    }
+
+    debug "Contents: " . Dumper(\@other);
+
+    for my $link (@other) {
+        if (! -l $link) {
+            debug "Link $link is missing, considering $service_path was-disabled.";
+            return 0;
+        }
+    }
+
+    debug "All links present, considering $service_path was-enabled.";
+    return 1;
+}
+
 sub remove_links {
     my ($service_path) = @_;
 
@@ -301,6 +330,21 @@ for my $scriptname (@ARGV) {
 
     if ($action eq 'is-enabled') {
         my $enabled = make_systemd_links($scriptname, $service_path, $action);
+        print STDERR ($enabled ? "enabled\n" : "disabled\n");
+        $rc = 0 if $enabled;
+    }
+
+    # was-enabled is the same as is-enabled, but only considers links recorded
+    # in the state file. This is useful after package upgrades, to determine
+    # whether the unit file was enabled before upgrading, even if the unit file
+    # has changed and is not entirely enabled currently (due to a new Alias=
+    # line for example).
+    #
+    # If all machines were running systemd, this issue would not be present
+    # because is-enabled would query systemd, which would not have picked up
+    # the new unit file yet.
+    if ($action eq 'was-enabled') {
+        my $enabled = was_enabled($service_path);
         print STDERR ($enabled ? "enabled\n" : "disabled\n");
         $rc = 0 if $enabled;
     }
