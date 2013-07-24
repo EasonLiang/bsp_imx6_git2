@@ -122,22 +122,27 @@ sub find_unit {
     return $service_path;
 }
 
-# Writes $service_link into $statefile unless it’s already in there.
+sub dsh_state_path {
+    my ($scriptname) = @_;
+    return $state_dir . '/' . basename($scriptname) . '.dsh-also';
+}
+
+# Writes $service_link into $dsh_state unless it’s already in there.
 sub record_in_statefile {
-    my ($statefile, $service_link) = @_;
+    my ($dsh_state, $service_link) = @_;
 
     # Appending a newline makes the following code simpler; we can skip
     # chomp()ing and appending newlines in every print.
     $service_link .= "\n";
 
-    make_path(dirname($statefile));
+    make_path(dirname($dsh_state));
     my $line_exists;
     my ($outfh, $tmpname) = tempfile('.stateXXXXX',
-        DIR => dirname($statefile),
+        DIR => dirname($dsh_state),
         SUFFIX => '.tmp',
         UNLINK => 0);
-    if (-e $statefile) {
-        open(my $infh, '<', $statefile) or error("unable to read from $statefile");
+    if (-e $dsh_state) {
+        open(my $infh, '<', $dsh_state) or error("unable to read from $dsh_state");
         while (<$infh>) {
             $line_exists = 1 if $_ eq $service_link;
             print $outfh $_;
@@ -147,9 +152,9 @@ sub record_in_statefile {
     print $outfh $service_link unless $line_exists;
     close($outfh);
 
-    debug "Renaming temp file $tmpname to state file $statefile";
-    rename($tmpname, $statefile) or
-        error("Unable to move $tmpname to $statefile");
+    debug "Renaming temp file $tmpname to state file $dsh_state";
+    rename($tmpname, $dsh_state) or
+        error("Unable to move $tmpname to $dsh_state");
 }
 
 # Gets the transitive closure of links, i.e. all links that need to be created
@@ -194,14 +199,14 @@ sub get_link_closure {
 sub make_systemd_links {
     my ($scriptname, $service_path) = @_;
 
-    my $statepath = $state_dir . '/' . basename($scriptname) . '.dsh-also';
+    my $dsh_state = dsh_state_path($scriptname);
 
     my @links = get_link_closure($scriptname, $service_path);
     for my $link (@links) {
         my $service_path = $link->{dest};
         my $service_link = $link->{src};
 
-        record_in_statefile($statepath, $service_link);
+        record_in_statefile($dsh_state, $service_link);
 
         my $statefile = $service_link;
         $statefile =~ s,^/etc/systemd/system/,$state_dir/,;
@@ -237,14 +242,14 @@ sub make_systemd_links {
 sub update_state {
     my ($scriptname, $service_path) = @_;
 
+    my $dsh_state = dsh_state_path($scriptname);
     my @links = get_link_closure($scriptname, $service_path);
-    my $statepath = $state_dir . '/' . basename($scriptname) . '.dsh-also';
 
     # TODO: read the old state file and dump it
 
-    make_path(dirname($statepath));
+    make_path(dirname($dsh_state));
     my ($outfh, $tmpname) = tempfile('.stateXXXXX',
-        DIR => dirname($statepath),
+        DIR => dirname($dsh_state),
         SUFFIX => '.tmp',
         UNLINK => 0);
     for my $link (@links) {
@@ -252,19 +257,19 @@ sub update_state {
     }
     close($outfh);
 
-    debug "Renaming temp file $tmpname to state file $statepath";
-    rename($tmpname, $statepath) or
-        error("Unable to move $tmpname to $statepath");
+    debug "Renaming temp file $tmpname to state file $dsh_state";
+    rename($tmpname, $dsh_state) or
+        error("Unable to move $tmpname to $dsh_state");
 }
 
 sub was_enabled {
-    my ($service_path) = @_;
+    my ($scriptname) = @_;
 
-    my $statefile = "$state_dir/" . basename($service_path) . '.dsh-also';
-    debug "Reading state file $statefile";
+    my $dsh_state = dsh_state_path($scriptname);
+    debug "Reading state file $dsh_state";
     my $fh;
     my @other;
-    if (open($fh, '<', $statefile)) {
+    if (open($fh, '<', $dsh_state)) {
         @other = map { chomp; $_ } <$fh>;
         close($fh);
     }
@@ -273,29 +278,28 @@ sub was_enabled {
 
     for my $link (@other) {
         if (! -l $link) {
-            debug "Link $link is missing, considering $service_path was-disabled.";
+            debug "Link $link is missing, considering $scriptname was-disabled.";
             return 0;
         }
     }
 
-    debug "All links present, considering $service_path was-enabled.";
+    debug "All links present, considering $scriptname was-enabled.";
     return 1;
 }
 
 sub debian_installed {
-    my ($service_path) = @_;
-    my $statefile = "$state_dir/" . basename($service_path) . '.dsh-also';
-    return -f $statefile;
+    my ($scriptname) = @_;
+    return -f dsh_state_path($scriptname);
 }
 
 sub remove_links {
     my ($service_path) = @_;
 
-    my $statefile = "$state_dir/" . basename($service_path) . '.dsh-also';
-    debug "Reading state file $statefile";
+    my $dsh_state = dsh_state_path($service_path);
+    debug "Reading state file $dsh_state";
     my $fh;
     my @other;
-    if (open($fh, '<', $statefile)) {
+    if (open($fh, '<', $dsh_state)) {
         @other = map { chomp; $_ } <$fh>;
         close($fh);
     }
@@ -303,7 +307,7 @@ sub remove_links {
     debug "Contents: " . Dumper(\@other);
 
     if (is_purge()) {
-        unlink($statefile) if -e $statefile;
+        unlink($dsh_state) if -e $dsh_state;
     }
 
     # Also disable all the units which were enabled when this one was enabled.
@@ -406,7 +410,7 @@ for my $scriptname (@ARGV) {
     # because is-enabled would query systemd, which would not have picked up
     # the new unit file yet.
     if ($action eq 'was-enabled') {
-        my $enabled = was_enabled($service_path);
+        my $enabled = was_enabled($scriptname);
         print STDERR ($enabled ? "enabled\n" : "disabled\n");
         $rc = 0 if $enabled;
     }
@@ -416,7 +420,7 @@ for my $scriptname (@ARGV) {
     }
 
     if ($action eq 'debian-installed') {
-        $rc = 0 if debian_installed($service_path);
+        $rc = 0 if debian_installed($scriptname);
     }
 
     if ($action eq 'reenable') {
