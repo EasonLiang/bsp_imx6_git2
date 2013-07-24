@@ -1,3 +1,10 @@
-if [ -x "/usr/bin/deb-systemd-helper" ]; then
-	deb-systemd-helper enable #UNITFILES# >/dev/null || true
+# was-enabled defaults to true, so new installations run enable.
+if deb-systemd-helper was-enabled #UNITFILE#; then
+	# Enables the unit on first installation, creates new
+	# symlinks on upgrades if the unit file has changed.
+	deb-systemd-helper enable #UNITFILE# >/dev/null || true
+else
+	# Update the statefile to add new symlinks (if any), which need to be
+	# cleaned up on purge. Also remove old symlinks.
+	deb-systemd-helper update-state #UNITFILE# >/dev/null || true
 fi
