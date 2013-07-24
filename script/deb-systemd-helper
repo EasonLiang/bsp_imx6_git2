@@ -127,6 +127,17 @@ sub dsh_state_path {
     return $state_dir . '/' . basename($scriptname) . '.dsh-also';
 }
 
+sub state_file_entries {
+    my ($dsh_state) = @_;
+    debug "Reading state file $dsh_state";
+    my @entries;
+    if (open(my $fh, '<', $dsh_state)) {
+        @entries = map { chomp; $_ } <$fh>;
+        close($fh);
+    }
+    return @entries;
+}
+
 # Writes $service_link into $dsh_state unless it’s already in there.
 sub record_in_statefile {
     my ($dsh_state, $service_link) = @_;
@@ -245,7 +256,8 @@ sub update_state {
     my $dsh_state = dsh_state_path($scriptname);
     my @links = get_link_closure($scriptname, $service_path);
 
-    # TODO: read the old state file and dump it
+    debug "Old state file contents: " .
+        Dumper([ state_file_entries($dsh_state) ]);
 
     make_path(dirname($dsh_state));
     my ($outfh, $tmpname) = tempfile('.stateXXXXX',
@@ -260,23 +272,18 @@ sub update_state {
     debug "Renaming temp file $tmpname to state file $dsh_state";
     rename($tmpname, $dsh_state) or
         error("Unable to move $tmpname to $dsh_state");
+
+    debug "New state file contents: " .
+        Dumper([ state_file_entries($dsh_state) ]);
 }
 
 sub was_enabled {
     my ($scriptname) = @_;
 
-    my $dsh_state = dsh_state_path($scriptname);
-    debug "Reading state file $dsh_state";
-    my $fh;
-    my @other;
-    if (open($fh, '<', $dsh_state)) {
-        @other = map { chomp; $_ } <$fh>;
-        close($fh);
-    }
+    my @entries = state_file_entries(dsh_state_path($scriptname));
+    debug "Contents: " . Dumper(\@entries);
 
-    debug "Contents: " . Dumper(\@other);
-
-    for my $link (@other) {
+    for my $link (@entries) {
         if (! -l $link) {
             debug "Link $link is missing, considering $scriptname was-disabled.";
             return 0;
@@ -296,22 +303,15 @@ sub remove_links {
     my ($service_path) = @_;
 
     my $dsh_state = dsh_state_path($service_path);
-    debug "Reading state file $dsh_state";
-    my $fh;
-    my @other;
-    if (open($fh, '<', $dsh_state)) {
-        @other = map { chomp; $_ } <$fh>;
-        close($fh);
-    }
-
-    debug "Contents: " . Dumper(\@other);
+    my @entries = state_file_entries($dsh_state);
+    debug "Contents: " . Dumper(\@entries);
 
     if (is_purge()) {
         unlink($dsh_state) if -e $dsh_state;
     }
 
     # Also disable all the units which were enabled when this one was enabled.
-    for my $link (@other) {
+    for my $link (@entries) {
         # Delete the corresponding state file:
         # • Always when purging
         # • If the user did not disable (= link still exists) the service.
@@ -337,7 +337,7 @@ sub remove_links {
     # disabling actually worked or not — the case is handled by
     # dh_installsystemd generating an appropriate disable
     # command by parsing the service file at debhelper-time.
-    open $fh, '<', $service_path or return;
+    open(my $fh, '<', $service_path) or return;
     while (my $line = <$fh>) {
         chomp($line);
         my $service_link;
