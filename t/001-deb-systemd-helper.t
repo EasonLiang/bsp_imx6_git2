@@ -18,17 +18,20 @@ use Linux::Clone; # neither in core nor in Debian :-/
 
 my $dsh = "$FindBin::Bin/../script/deb-systemd-helper";
 
-sub _unit_enabled {
-    my ($unit_file, $cb, $verb) = @_;
+sub _unit_check {
+    my ($unit_file, $cmd, $cb, $verb) = @_;
 
-    my $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh is-enabled $unit_file");
+    my $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh $cmd $unit_file");
     isnt($retval, -1, 'deb-systemd-helper could be executed');
     ok(!($retval & 127), 'deb-systemd-helper did not exit due to a signal');
-    $cb->($retval >> 8, 0, "random unit file $verb enabled");
+    $cb->($retval >> 8, 0, "random unit file $verb $cmd");
 }
 
-sub is_enabled { _unit_enabled($_[0], \&is, 'is') }
-sub isnt_enabled { _unit_enabled($_[0], \&isnt, 'isnt') }
+sub is_enabled { _unit_check($_[0], 'is-enabled', \&is, 'is') }
+sub isnt_enabled { _unit_check($_[0], 'is-enabled', \&isnt, 'isnt') }
+
+sub is_debian_installed { _unit_check($_[0], 'debian-installed', \&is, 'is') }
+sub isnt_debian_installed { _unit_check($_[0], 'debian-installed', \&isnt, 'isnt') }
 
 my $retval = Linux::Clone::unshare Linux::Clone::NEWNS;
 BAIL_OUT("Cannot unshare(NEWNS): $!") if $retval != 0;
@@ -57,6 +60,7 @@ close($fh);
 $random_unit = basename($random_unit);
 
 isnt_enabled($random_unit);
+isnt_debian_installed($random_unit);
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃ Verify “is-enabled” is not true for a random, existing unit file.         ┃
@@ -78,6 +82,7 @@ EOT
 close($fh);
 
 isnt_enabled($random_unit);
+isnt_debian_installed($random_unit);
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃ Verify “enable” creates the requested symlinks.                           ┃
@@ -97,6 +102,7 @@ is(readlink($symlink_path), $servicefile_path,
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
 is_enabled($random_unit);
+is_debian_installed($random_unit);
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃ Verify deleting the symlinks and running “enable” again does not          ┃
@@ -106,6 +112,7 @@ is_enabled($random_unit);
 unlink($symlink_path);
 ok(! -l $symlink_path, 'symlink deleted');
 isnt_enabled($random_unit);
+is_debian_installed($random_unit);
 
 $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh enable $random_unit");
 
@@ -122,6 +129,7 @@ ok(-f $statefile, 'state file exists');
 $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test _DEB_SYSTEMD_HELPER_PURGE=1 $dsh disable $random_unit");
 
 ok(! -f $statefile, 'state file does not exist anymore after purging');
+isnt_debian_installed($random_unit);
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃ Verify “enable” after purging does re-create the symlinks.                ┃
@@ -133,5 +141,6 @@ isnt_enabled($random_unit);
 $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh enable $random_unit");
 
 is_enabled($random_unit);
+is_debian_installed($random_unit);
 
 done_testing;

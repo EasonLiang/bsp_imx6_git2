@@ -105,7 +105,7 @@ is_enabled($random_unit);
 # ┃ Modify the unit file and verify that “is-enabled” is no longer true.      ┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-open($fh, '>', $servicefile_path);
+open($fh, '>>', $servicefile_path);
 print $fh "Alias=newalias.service\n";
 close($fh);
 
@@ -151,5 +151,87 @@ is_deeply(
     [ state_file_entries($statefile) ],
     [ $symlink_path, $new_symlink_path ],
     'state file updated');
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ Modify the unit file and verify that “is-enabled” is no longer true.      ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+open($fh, '>>', $servicefile_path);
+print $fh "Alias=another.service\n";
+close($fh);
+
+isnt_enabled($random_unit);
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ Verify “was-enabled” is still true (operates on the state file).          ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh was-enabled $random_unit");
+isnt($retval, -1, 'deb-systemd-helper could be executed');
+ok(!($retval & 127), 'deb-systemd-helper did not exit due to a signal');
+is($retval >> 8, 0, "random unit file was-enabled");
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ Verify the new symlink is not yet in the state file.                      ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+is_deeply(
+    [ state_file_entries($statefile) ],
+    [ $symlink_path, $new_symlink_path ],
+    'state file does not contain the new link yet');
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ Verify “update-state” does not create the symlink, but records it in the  ┃
+# ┃ state file.                                                               ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+my $new_symlink_path2 = '/etc/systemd/system/another.service';
+ok(! -l $new_symlink_path2, 'new symlink does not exist yet');
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh update-state $random_unit");
+ok(! -l $new_symlink_path2, 'new symlink still does not exist');
+
+isnt_enabled($random_unit);
+
+is_deeply(
+    [ state_file_entries($statefile) ],
+    [ $symlink_path, $new_symlink_path, $new_symlink_path2 ],
+    'state file updated');
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ Rewrite the original contents and verify “update-state” removes the old   ┃
+# ┃ links that are no longer present.                                         ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+open($fh, '>', $servicefile_path);
+print $fh <<'EOT';
+[Unit]
+Description=test unit
+
+[Service]
+ExecStart=/bin/sleep 1
+
+[Install]
+WantedBy=multi-user.target
+EOT
+close($fh);
+
+unlink($new_symlink_path);
+
+ok(! -l $new_symlink_path, 'new symlink still does not exist');
+ok(! -l $new_symlink_path2, 'new symlink 2 still does not exist');
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh update-state $random_unit");
+
+ok(! -l $new_symlink_path, 'new symlink still does not exist');
+ok(! -l $new_symlink_path2, 'new symlink 2 still does not exist');
+
+is_enabled($random_unit);
+
+is_deeply(
+    [ state_file_entries($statefile) ],
+    [ $symlink_path ],
+    'state file updated');
+
 
 done_testing;
