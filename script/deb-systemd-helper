@@ -384,6 +384,7 @@ debug "is purge = " . (is_purge() ? "yes" : "no");
 
 my $rc = 0;
 if ($action eq 'is-enabled' ||
+    $action eq 'was-enabled' ||
     $action eq 'debian-installed') {
     $rc = 1;
 }
