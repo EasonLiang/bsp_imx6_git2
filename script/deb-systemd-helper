@@ -83,6 +83,7 @@ use warnings;
 use File::Path qw(make_path); # in core since Perl 5.001
 use File::Basename; # in core since Perl 5
 use File::Find; # in core since Perl 5
+use File::Temp qw(tempfile); # in core since Perl 5.6.1
 use Text::ParseWords qw(shellwords); # in core since Perl 5
 use Getopt::Long; # in core since Perl 5
 use Data::Dumper;
@@ -125,20 +126,30 @@ sub find_unit {
 sub record_in_statefile {
     my ($statefile, $service_link) = @_;
 
-# TODO: make this an atomic update.
+    # Appending a newline makes the following code simpler; we can skip
+    # chomp()ing and appending newlines in every print.
+    $service_link .= "\n";
 
     make_path(dirname($statefile));
-    open(my $fh, '+>>', $statefile) or error("unable to write to $statefile");
-    seek($fh, 0, 0);
-    while (<$fh>) {
-        chomp;
-        if ($_ eq $service_link) {
-            close($fh);
-            return;
+    my $line_exists;
+    my ($outfh, $tmpname) = tempfile('.stateXXXXX',
+        DIR => dirname($statefile),
+        SUFFIX => '.tmp',
+        UNLINK => 0);
+    if (-e $statefile) {
+        open(my $infh, '<', $statefile) or error("unable to read from $statefile");
+        while (<$infh>) {
+            $line_exists = 1 if $_ eq $service_link;
+            print $outfh $_;
         }
+        close($infh);
     }
-    print $fh "$service_link\n";
-    close($fh);
+    print $outfh $service_link unless $line_exists;
+    close($outfh);
+
+    debug "Renaming temp file $tmpname to state file $statefile";
+    rename($tmpname, $statefile) or
+        error("Unable to move $tmpname to $statefile");
 }
 
 # Gets the transitive closure of links, i.e. all links that need to be created
@@ -229,14 +240,21 @@ sub update_state {
     my @links = get_link_closure($scriptname, $service_path);
     my $statepath = $state_dir . '/' . basename($scriptname) . '.dsh-also';
 
-# TODO: make this atomic
-
     # TODO: read the old state file and dump it
-    open(my $fh, '>', $statepath);
+
+    make_path(dirname($statepath));
+    my ($outfh, $tmpname) = tempfile('.stateXXXXX',
+        DIR => dirname($statepath),
+        SUFFIX => '.tmp',
+        UNLINK => 0);
     for my $link (@links) {
-        print $fh $link->{src} . "\n";
+        print $outfh $link->{src} . "\n";
     }
-    close($fh);
+    close($outfh);
+
+    debug "Renaming temp file $tmpname to state file $statepath";
+    rename($tmpname, $statepath) or
+        error("Unable to move $tmpname to $statepath");
 }
 
 sub was_enabled {
