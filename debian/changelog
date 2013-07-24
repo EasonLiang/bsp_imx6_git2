@@ -1,3 +1,14 @@
+init-system-helpers (1.8) unstable; urgency=low
+
+  * Add test suite (development-time, not build-time)
+  * deb-systemd-helper: implement was-enabled, debian-installed, update-state
+  * deb-systemd-helper: update files atomically to be more robust when being
+    cancelled
+  * dh_systemd_enable: deal with changes to the [Install] section
+    (Closes: #717603)
+
+ -- Michael Stapelberg <stapelberg@debian.org>  Wed, 24 Jul 2013 22:43:08 +0200
+
 init-system-helpers (1.7) unstable; urgency=low
 
   * Drop dependency on libmodule-install-perl to make it easier to have this
