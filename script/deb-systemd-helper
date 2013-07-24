@@ -35,7 +35,7 @@ deb-systemd-helper - subset of systemctl for machines not running systemd
 
 =head1 SYNOPSIS
 
-B<deb-systemd-helper> enable|disable|is-enabled|was-enabled|debian-installed|reenable S<I<unit file> ...>
+B<deb-systemd-helper> enable|disable|is-enabled|was-enabled|debian-installed|update-state|reenable S<I<unit file> ...>
 
 =head1 DESCRIPTION
 
@@ -53,6 +53,11 @@ updated service file. See http://bugs.debian.org/717603 for details.
 
 The "debian-installed" action is also not present in systemctl. It returns 0 if
 the state file of at least one of the given units is present.
+
+The "update-state" action is also not present in systemctl. It updates
+B<deb-systemd-helper>'s state file, removing obsolete entries (e.g. service
+files that are no longer shipped by the package) and adding new entries (e.g.
+new service files shipped by the package) without enabling them.
 
 B<deb-systemd-helper> is intended to be used from maintscripts to enable
 systemd unit files. It is specifically NOT intended to be used interactively by
@@ -120,6 +125,8 @@ sub find_unit {
 sub record_in_statefile {
     my ($statefile, $service_link) = @_;
 
+# TODO: make this an atomic update.
+
     make_path(dirname($statefile));
     open(my $fh, '+>>', $statefile) or error("unable to write to $statefile");
     seek($fh, 0, 0);
@@ -134,20 +141,60 @@ sub record_in_statefile {
     close($fh);
 }
 
-sub make_link {
-    my ($service_path, $service_link, $action, $orig_statename) = @_;
-    my $already_enabled = 1;
+# Gets the transitive closure of links, i.e. all links that need to be created
+# when enabling this service file. Not straight-forward because service files
+# can refer to other service files using Also=.
+sub get_link_closure {
+    my ($scriptname, $service_path) = @_;
 
-    if ($action eq 'is-enabled') {
-        $already_enabled = 0 if ! -l $service_link;
-    } else {
-        record_in_statefile("$state_dir/$orig_statename", $service_link);
+    my @links;
+
+    open my $fh, '<', $service_path or error("unable to read $service_path");
+    while (my $line = <$fh>) {
+        chomp($line);
+        my $service_link;
+
+        if ($line =~ /^\s*(WantedBy|RequiredBy)=(.+)$/i) {
+            for my $value (shellwords($2)) {
+                my $wants_dir = "/etc/systemd/system/$value";
+                $wants_dir .= '.wants' if $1 eq 'WantedBy';
+                $wants_dir .= '.requires' if $1 eq 'RequiredBy';
+                push @links, { dest => $service_path, src => "$wants_dir/$scriptname" };
+            }
+        }
+
+        if ($line =~ /^\s*Also=(.+)$/i) {
+            for my $value (shellwords($1)) {
+                push @links, get_link_closure($value, find_unit($value));
+            }
+        }
+
+        if ($line =~ /^\s*Alias=(.+)$/i) {
+            for my $value (shellwords($1)) {
+                push @links, { dest => $service_path, src => "/etc/systemd/system/$1" };
+            }
+        }
+    }
+    close($fh);
+
+    return @links;
+}
+
+sub make_systemd_links {
+    my ($scriptname, $service_path) = @_;
+
+    my $statepath = $state_dir . '/' . basename($scriptname) . '.dsh-also';
+
+    my @links = get_link_closure($scriptname, $service_path);
+    for my $link (@links) {
+        my $service_path = $link->{dest};
+        my $service_link = $link->{src};
+
+        record_in_statefile($statepath, $service_link);
 
         my $statefile = $service_link;
         $statefile =~ s,^/etc/systemd/system/,$state_dir/,;
-        if (-e $statefile) {
-            return $already_enabled;
-        }
+        next if -e $statefile;
 
         if (! -l $service_link) {
             make_path(dirname($service_link));
@@ -167,48 +214,29 @@ sub make_link {
         close($fh);
     }
 
-    return $already_enabled;
 }
 
-sub make_systemd_links {
-    my ($scriptname, $service_path, $action, $statename) = @_;
+# In contrary to make_systemd_links(), which only modifies the state file in an
+# append-only fashion, update_state() can also remove entries from the state
+# file.
+#
+# The distinction is important because update_state() should only be called
+# when the unit file(s) are guaranteed to be on-disk, e.g. on package updates,
+# but not on package removals.
+sub update_state {
+    my ($scriptname, $service_path) = @_;
 
-    $statename //= basename($scriptname) . '.dsh-also';
+    my @links = get_link_closure($scriptname, $service_path);
+    my $statepath = $state_dir . '/' . basename($scriptname) . '.dsh-also';
 
-    my $already_enabled = 1;
-    open my $fh, '<', $service_path or error("unable to read $service_path");
-    while (my $line = <$fh>) {
-        chomp($line);
-        my $service_link;
+# TODO: make this atomic
 
-        if ($line =~ /^\s*(WantedBy|RequiredBy)=(.+)$/i) {
-            for my $value (shellwords($2)) {
-                my $wants_dir = "/etc/systemd/system/$value";
-                $wants_dir .= '.wants' if $1 eq 'WantedBy';
-                $wants_dir .= '.requires' if $1 eq 'RequiredBy';
-                $already_enabled = 0 if
-                    !make_link($service_path, "$wants_dir/$scriptname", $action, $statename);
-            }
-        }
-
-        if ($line =~ /^\s*Also=(.+)$/i) {
-            for my $value (shellwords($1)) {
-                $already_enabled = 0 if
-                    !make_systemd_links($value, find_unit($value), $action, $statename);
-            }
-        }
-
-        if ($line =~ /^\s*Alias=(.+)$/i) {
-            for my $value (shellwords($1)) {
-                $already_enabled = 0 if
-                    !make_link($service_path, "/etc/systemd/system/$1", $action, $statename);
-            }
-        }
-
+    # TODO: read the old state file and dump it
+    open(my $fh, '>', $statepath);
+    for my $link (@links) {
+        print $fh $link->{src} . "\n";
     }
     close($fh);
-
-    return $already_enabled;
 }
 
 sub was_enabled {
@@ -343,7 +371,9 @@ for my $scriptname (@ARGV) {
     debug "action = $action, scriptname = $scriptname, service_path = $service_path";
 
     if ($action eq 'is-enabled') {
-        my $enabled = make_systemd_links($scriptname, $service_path, $action);
+        my @links = get_link_closure($scriptname, $service_path);
+        my @missing_links = grep { ! -l $_->{src} } @links;
+        my $enabled = (@missing_links == 0);
         print STDERR ($enabled ? "enabled\n" : "disabled\n");
         $rc = 0 if $enabled;
     }
@@ -363,13 +393,17 @@ for my $scriptname (@ARGV) {
         $rc = 0 if $enabled;
     }
 
+    if ($action eq 'update-state') {
+        update_state($scriptname, $service_path);
+    }
+
     if ($action eq 'debian-installed') {
         $rc = 0 if debian_installed($service_path);
     }
 
     if ($action eq 'reenable') {
         remove_links($service_path);
-        make_systemd_links($scriptname, $service_path, $action, undef);
+        make_systemd_links($scriptname, $service_path);
     }
 
     if ($action eq 'disable') {
@@ -385,7 +419,7 @@ for my $scriptname (@ARGV) {
     }
 
     if ($action eq 'enable') {
-        make_systemd_links($scriptname, $service_path, $action, undef);
+        make_systemd_links($scriptname, $service_path);
     }
 }
 
