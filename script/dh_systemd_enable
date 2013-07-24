@@ -160,10 +160,11 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 
 	my $unitargs = join(" ", map { basename($_) } @units);
 	for my $unit (@units) {
+		my $base = basename($unit);
 		if ($dh{NO_ENABLE}) {
-			autoscript($package, "postinst", "postinst-systemd-dont-enable", "s/#UNITFILE#/$unit/");
+			autoscript($package, "postinst", "postinst-systemd-dont-enable", "s/#UNITFILE#/$base/");
 		} else {
-			autoscript($package, "postinst", "postinst-systemd-enable", "s/#UNITFILE#/$unit/");
+			autoscript($package, "postinst", "postinst-systemd-enable", "s/#UNITFILE#/$base/");
 		}
 	}
 	autoscript($package, "postrm", "postrm-systemd", "s/#UNITFILES#/$unitargs/");
