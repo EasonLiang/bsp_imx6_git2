@@ -1,5 +1,5 @@
 # was-enabled defaults to true, so new installations run enable.
-if deb-systemd-helper was-enabled #UNITFILE#; then
+if deb-systemd-helper --quiet was-enabled #UNITFILE#; then
 	# Enables the unit on first installation, creates new
 	# symlinks on upgrades if the unit file has changed.
 	deb-systemd-helper enable #UNITFILE# >/dev/null || true

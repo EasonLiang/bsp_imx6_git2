@@ -1,5 +1,5 @@
 if deb-systemd-helper debian-installed #UNITFILE#; then
-	if deb-systemd-helper was-enabled #UNITFILE#; then
+	if deb-systemd-helper --quiet was-enabled #UNITFILE#; then
 		# Create new symlinks, if any.
 		deb-systemd-helper enable #UNITFILE# >/dev/null || true
 	fi
