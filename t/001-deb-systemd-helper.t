@@ -143,4 +143,12 @@ $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh enable $random_unit");
 is_enabled($random_unit);
 is_debian_installed($random_unit);
 
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ Verify “disable” removes the symlinks.                                    ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test _DEB_SYSTEMD_HELPER_PURGE=1 $dsh disable $random_unit");
+
+isnt_enabled($random_unit);
+
 done_testing;
