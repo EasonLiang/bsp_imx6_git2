@@ -312,7 +312,7 @@ dnl ------ 'check' for unit tests -------------------------------------------
 have_check=no
 
 if test x$enable_unit_tests = xyes; then
-  AM_PATH_CHECK(,have_check=yes, have_check=no)
+  PKG_CHECK_MODULES([CHECK], [check], have_check=yes, have_check=no)
 fi
 
 AM_CONDITIONAL(HAVE_CHECK, test x$have_check = xyes)
