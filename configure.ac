@@ -239,8 +239,8 @@ if test x$enable_xsettings != xno; then
       AC_MSG_ERROR([cannot find Xsettings-client headers])
    fi
    	
-   CPPFLAGS="$saved_CPPFLAGS"
-   LIBS="$saved_LIBS"
+   CPPFLAGS="$xsetsaved_CPPFLAGS"
+   LIBS="$xsetsaved_LIBS"
 
    MB_EXTRA_LIBS="$MB_EXTRA_LIBS $XSET_LIBS"	
    MB_EXTRA_CFLAGS="$MB_EXTRA_CFLAGS $XSET_CFLAGS"	
