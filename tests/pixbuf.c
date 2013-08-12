@@ -225,7 +225,6 @@ END_TEST
 
 START_TEST (pixbuf_load_jpeg)
 {
-#ifdef MB_HAVE_JPEG
   MBPixbufImage *img;
   img = mb_pixbuf_img_new_from_file (pb, "oh.jpg");
   fail_unless (img != NULL, NULL);
@@ -233,9 +232,6 @@ START_TEST (pixbuf_load_jpeg)
   fail_unless (mb_pixbuf_img_get_height (img) == 16, NULL);
   // TODO fail_unless (compare_with_array (img, OHImg->rgba), NULL);
   mb_pixbuf_img_free (pb, img);
-#else
-  fprintf(stderr, "\nSkipping JPEG tests as JPEG support is not enabled\n");
-#endif
 }
 END_TEST
 
@@ -428,7 +424,9 @@ Suite *pixbuf_suite(void)
   tcase_add_test(tc_core, pixbuf_new_from_x_drawable);
   tcase_add_test(tc_core, pixbuf_load_png);
   tcase_add_test(tc_core, pixbuf_load_xpm);
+#ifdef MB_HAVE_JPEG
   tcase_add_test(tc_core, pixbuf_load_jpeg);
+#endif
   tcase_add_test(tc_core, pixbuf_clone);
   tcase_add_test(tc_core, pixbuf_copy);
   tcase_add_test(tc_core, pixbuf_composite);
