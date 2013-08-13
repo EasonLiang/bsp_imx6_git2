@@ -1030,6 +1030,54 @@ mb_pixbuf_img_new_from_int_data(MBPixbuf            *pixbuf,
 }
 
 MBPixbufImage *
+mb_pixbuf_img_new_from_long_data(MBPixbuf            *pixbuf,
+				const unsigned long  *data,
+				int                  width,
+				int                  height)
+{
+  MBPixbufImage *img;
+  int            i=0,x,y;
+
+  img = mb_pixbuf_img_rgba_new(pixbuf, width, height);
+
+  if (pixbuf->internal_bytespp == 3)
+    {
+      unsigned char *p = img->rgba;
+
+      for (y=0; y<height; y++)
+	for (x=0; x<width; x++)
+	  {
+	    *p++ = (data[i] >> 16) & 0xff;
+	    *p++ = (data[i] >> 8) & 0xff;
+	    *p++ = data[i] & 0xff;
+	    *p++ = data[i] >> 24;
+	    i++;
+	  }
+    }
+  else
+    {
+      unsigned char *p = img->rgba, r,g,b,a;
+
+      for (y=0; y<height; y++)
+	for (x=0; x<width; x++)
+	  {
+	    r = ((data[i] >> 16) & 0xff);
+	    g = ((data[i] >> 8) & 0xff);
+	    b = (data[i] & 0xff);
+	    a = (data[i] >> 24);
+
+	    internal_rgb_to_16bpp_pixel(r,g,b,p);
+	    internal_16bpp_pixel_next(p);
+	    *p++ = a;
+
+	    i++;
+	  }
+    }
+
+  return img;
+}
+
+MBPixbufImage *
 mb_pixbuf_img_new_from_data(MBPixbuf            *pixbuf, 
 			    const unsigned char *data,
 			    int                  width,

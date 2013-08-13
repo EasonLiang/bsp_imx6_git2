@@ -389,6 +389,25 @@ mb_pixbuf_img_new_from_int_data(MBPixbuf            *pixbuf,
 				const int           *data,
 				int                  width,
 				int                  height);
+
+/**
+ * Creates an mbpixbuf image from arbituary supplied long ARGB data.
+ *
+ * Useful for example to parse _NET_WM_ICON image data, which XLib kindly
+ * returns in long arrays instead of int arrays.
+ *
+ * @param pixbuf mbpixbuf object
+ * @param data argb data
+ * @param width image width
+ * @param height image height
+ * @returns a MBPixbufImage object, NULL on faliure
+ */
+
+MBPixbufImage *
+mb_pixbuf_img_new_from_long_data(MBPixbuf            *pixbuf,
+				 const unsigned long *data,
+				 int                  width,
+				 int                  height);
  
 /**
  * Frees up  a mbpixbuf image.
