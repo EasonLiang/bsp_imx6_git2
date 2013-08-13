@@ -26,3 +26,5 @@ dump_image_SOURCES=dump-image.c
 
 EXTRA_DIST = oh-overlayed.png oh.png oh-scaled.png overlay.png oh.jpg oh.xpm \
              dot-desktop.c pixbuf.c oh.h
+
+-include $(top_srcdir)/git.mk

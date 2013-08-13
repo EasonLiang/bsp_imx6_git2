@@ -4,3 +4,5 @@ EXTRA_DIST = Games.directory \
 	     Root.order      \
 	     Settings.directory \
              Utilities.directory
+
+-include $(top_srcdir)/git.mk

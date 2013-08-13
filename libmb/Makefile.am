@@ -34,3 +34,5 @@ libmbheaders_DATA = $(source_h)
 
 clean-local:
 	/bin/rm *.bb *.bbg *.da *.gcov .libs/*.da .libs/*.bbg || true
+
+-include $(top_srcdir)/git.mk

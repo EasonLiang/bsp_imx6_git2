@@ -12,3 +12,4 @@ clean: clean-local
 clean-local:
 	-rm -Rf html
 	-rm -f stamp-doxygen
+-include $(top_srcdir)/git.mk
