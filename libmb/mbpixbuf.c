@@ -1454,8 +1454,7 @@ mb_pixbuf_img_fill(MBPixbuf *pb,
 	  {
 	    internal_rgb_to_16bpp_pixel(r,g,b,p);
 	    internal_16bpp_pixel_next(p);
-	    if (img->has_alpha) 
-	      { *p = a; *p++; }
+	    if (img->has_alpha) *p++ = a;
 	  }
     }
   else
