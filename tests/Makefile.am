@@ -5,15 +5,18 @@ AM_LDFLAGS = ../libmb/libmb.la
 
 if HAVE_CHECK
 
-TESTS = dot-desktop pixbuf
+TESTS = dot-desktop pixbuf unicode
 
-check_PROGRAMS=dot-desktop pixbuf
+check_PROGRAMS=dot-desktop pixbuf unicode
 
 dot_desktop_SOURCES=dot-desktop.c
 dot_desktop_LDADD= @CHECK_LIBS@
 
 pixbuf_SOURCES=pixbuf.c oh.h
 pixbuf_LDADD= @CHECK_LIBS@
+
+unicode_SOURCES=unicode.c
+unicode_LDADD= @CHECK_LIBS@
 
 else
 
