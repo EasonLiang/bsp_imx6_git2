@@ -32,6 +32,23 @@ service without an [Install] section. This service file cannot be enabled or
 disabled (a state called "static" by systemd) because it has no
 [Install] section. Therefore, running dh_systemd_enable does not make sense.
 
+=head1 FILES
+
+=over 4
+
+=item debian/I<package>.service
+
+If this exists, it is installed into lib/systemd/system/I<package>.service in
+the package build directory.
+
+=item debian/I<package>.tmpfile
+
+If this exists, it is installed into usr/lib/tmpfiles.d/I<package>.conf in the
+package build directory. (The tmpfiles.d mechanism is currently only used
+by systemd.)
+
+=back
+
 =head1 OPTIONS
 
 =over 4
