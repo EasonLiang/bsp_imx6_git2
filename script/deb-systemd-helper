@@ -152,6 +152,7 @@ sub record_in_statefile {
         DIR => dirname($dsh_state),
         SUFFIX => '.tmp',
         UNLINK => 0);
+    chmod(0644, $tmpname);
     if (-e $dsh_state) {
         open(my $infh, '<', $dsh_state) or error("unable to read from $dsh_state");
         while (<$infh>) {
@@ -264,6 +265,7 @@ sub update_state {
         DIR => dirname($dsh_state),
         SUFFIX => '.tmp',
         UNLINK => 0);
+    chmod(0644, $tmpname);
     for my $link (@links) {
         print $outfh $link->{src} . "\n";
     }
