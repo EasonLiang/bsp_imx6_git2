@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -e
+
+# See http://bugs.debian.org/722524
+if dpkg --compare-versions "$2" lt "1.9"; then
+    find /var/lib/systemd/deb-systemd-helper-enabled -type f -exec chmod 644 '{}' \;
+fi
+
+#DEBHELPER#
+
+exit 0
