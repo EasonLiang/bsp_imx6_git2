@@ -76,6 +76,21 @@ init(options => {
 	"no-enable" => \$dh{NO_ENABLE},
 });
 
+sub contains_install_section {
+	my ($unit_path) = @_;
+	my $fh;
+	if (!open($fh, '<', $unit_path)) {
+		warning("Cannot open($unit_path) for extracting the Also= line(s)");
+		return;
+	}
+	while (my $line = <$fh>) {
+		chomp($line);
+		return 1 if $line =~ /^\s*\[Install\]$/i;
+	}
+	close($fh);
+	return 0;
+}
+
 foreach my $package (@{$dh{DOPACKAGES}}) {
 	my $tmpdir = tmpdir($package);
 	my @installed_units;
@@ -169,6 +184,9 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 		if ($name =~ /\@/) {
 			next;
 		}
+
+		# Skip unit files that don’t have an [Install] section.
+		next unless contains_install_section($name);
 
 		push @units, $name;
 	}
