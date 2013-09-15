@@ -164,4 +164,39 @@ $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test _DEB_SYSTEMD_HELPER_PURGE=1 $dsh
 
 isnt_enabled($random_unit);
 
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ Verify “enable” after purging does re-create the symlinks.                ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+ok(! -l $symlink_path, 'symlink does not exist yet');
+isnt_enabled($random_unit);
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh enable $random_unit");
+
+is_enabled($random_unit);
+is_debian_installed($random_unit);
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ Verify “mask” (when enabled) results in the symlink pointing to /dev/null ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh mask $random_unit");
+is(readlink($symlink_path), '/dev/null', 'service masked');
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh unmask $random_unit");
+isnt(readlink($symlink_path), '/dev/null', 'service no longer masked');
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ Verify “mask” (when disabled) works the same way                          ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh disable $random_unit");
+ok(! -e $symlink_path, 'symlink no longer exists');
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh mask $random_unit");
+is(readlink($symlink_path), '/dev/null', 'service masked');
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh unmask $random_unit");
+ok(! -e $symlink_path, 'symlink no longer exists');
+
 done_testing;
