@@ -1,3 +1,6 @@
+# This will only remove masks created by d-s-h on package removal.
+deb-systemd-helper unmask #UNITFILE# >/dev/null || true
+
 # was-enabled defaults to true, so new installations run enable.
 if deb-systemd-helper --quiet was-enabled #UNITFILE#; then
 	# Enables the unit on first installation, creates new
