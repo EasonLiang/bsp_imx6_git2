@@ -372,10 +372,11 @@ sub rmdir_if_empty {
 sub mask_service {
     my ($scriptname, $service_path) = @_;
 
-    my @links = get_link_closure($scriptname, $service_path);
-    for my $link (@links) {
-        my $service_link = $link->{src};
+    my $dsh_state = dsh_state_path($service_path);
+    my @entries = state_file_entries($dsh_state);
+    debug "Contents: " . Dumper(\@entries);
 
+    for my $service_link (@entries) {
         my $statefile = $service_link;
         $statefile =~ s,^/etc/systemd/system/,$masked_state_dir/,;
         next if -e $statefile;
@@ -404,10 +405,11 @@ sub mask_service {
 sub unmask_service {
     my ($scriptname, $service_path) = @_;
 
-    my @links = get_link_closure($scriptname, $service_path);
-    for my $link (@links) {
-        my $service_link = $link->{src};
+    my $dsh_state = dsh_state_path($service_path);
+    my @entries = state_file_entries($dsh_state);
+    debug "Contents: " . Dumper(\@entries);
 
+    for my $service_link (@entries) {
         my $statefile = $service_link;
         $statefile =~ s,^/etc/systemd/system/,$masked_state_dir/,;
         next if ! -e $statefile;
