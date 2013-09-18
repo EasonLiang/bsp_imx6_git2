@@ -1,3 +1,15 @@
+init-system-helpers (1.9) unstable; urgency=low
+
+  * dh_systemd_enable: document debian/package.{service,tmpfile}
+  * Bugfix: create files with permission 0644 (Closes: #722524)
+  * dh_systemd_enable: skip unit files without an [Install] section
+    (Closes: #721241)
+  * d-s-h: implement mask and unmask commands
+  * update maintscripts to mask a service while removed (but not purged)
+    (Closes: #722521, #714903)
+
+ -- Michael Stapelberg <stapelberg@debian.org>  Wed, 18 Sep 2013 04:46:06 +0200
+
 init-system-helpers (1.8) unstable; urgency=low
 
   * Add test suite (development-time, not build-time)
