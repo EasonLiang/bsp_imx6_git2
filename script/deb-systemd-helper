@@ -416,7 +416,11 @@ sub unmask_service {
 
         my @entries = state_file_entries($statefile);
 
-        unlink($service_link) if -l $service_link;
+        if (! -l $service_link || readlink($service_link) ne '/dev/null') {
+            debug "Not unmasking $service_link because it is not a link to /dev/null";
+            next;
+        }
+        unlink($service_link);
 
         if (@entries > 0) {
             my $service_path = $entries[0];
