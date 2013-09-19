@@ -93,7 +93,6 @@ use Data::Dumper;
 
 my $quiet = 0;
 my $enabled_state_dir = '/var/lib/systemd/deb-systemd-helper-enabled';
-my $masked_state_dir = '/var/lib/systemd/deb-systemd-helper-masked';
 
 # Globals are bad, but in this specific case, it really makes things much
 # easier to write and understand.
@@ -372,67 +371,40 @@ sub rmdir_if_empty {
 sub mask_service {
     my ($scriptname, $service_path) = @_;
 
-    my $dsh_state = dsh_state_path($service_path);
-    my @entries = state_file_entries($dsh_state);
-    debug "Contents: " . Dumper(\@entries);
+    my $mask_link = '/etc/systemd/system/' . basename($service_path);
 
-    for my $service_link (@entries) {
-        my $statefile = $service_link;
-        $statefile =~ s,^/etc/systemd/system/,$masked_state_dir/,;
-        next if -e $statefile;
+    if (-e $mask_link) {
+        # If the link already exists, don’t do anything.
+        return if -l $mask_link && readlink($mask_link) eq '/dev/null';
 
-        my $old_dest;
-        if (-l $service_link) {
-            $old_dest = readlink($service_link);
-            unlink($service_link);
-        } else {
-            make_path(dirname($service_link));
-        }
-        print STDERR "ln -s '/dev/null' '$service_link'\n" unless $quiet;
-        symlink('/dev/null', $service_link) or
-            error("unable to link $service_link to /dev/null: $!");
-        $changed_sth = 1;
-
-        # Store the old destination of the symlink so that we can unmask
-        # properly later.
-        make_path(dirname($statefile));
-        open(my $fh, '>>', $statefile);
-        print $fh $old_dest if defined($old_dest);
-        close($fh);
+        # Otherwise, error out.
+        error("$mask_link already exists");
     }
+
+    make_path(dirname($mask_link));
+    print STDERR "ln -s '/dev/null' '$mask_link'\n" unless $quiet;
+    symlink('/dev/null', $mask_link) or
+        error("unable to link $mask_link to /dev/null: $!");
+    $changed_sth = 1;
 }
 
 sub unmask_service {
     my ($scriptname, $service_path) = @_;
 
-    my $dsh_state = dsh_state_path($service_path);
-    my @entries = state_file_entries($dsh_state);
-    debug "Contents: " . Dumper(\@entries);
+    my $mask_link = '/etc/systemd/system/' . basename($service_path);
 
-    for my $service_link (@entries) {
-        my $statefile = $service_link;
-        $statefile =~ s,^/etc/systemd/system/,$masked_state_dir/,;
-        next if ! -e $statefile;
+    # Not masked? Nothing to do.
+    return unless -e $mask_link;
 
-        my @entries = state_file_entries($statefile);
-
-        if (! -l $service_link || readlink($service_link) ne '/dev/null') {
-            debug "Not unmasking $service_link because it is not a link to /dev/null";
-            next;
-        }
-        unlink($service_link);
-
-        if (@entries > 0) {
-            my $service_path = $entries[0];
-            make_path(dirname($service_link));
-            print STDERR "ln -s '$service_path' '$service_link'\n" unless $quiet;
-            symlink($service_path, $service_link) or
-                error("unable to link $service_link to $service_path: $!");
-            $changed_sth = 1;
-        }
-
-        unlink($statefile);
+    if (! -l $mask_link || readlink($mask_link) ne '/dev/null') {
+        debug "Not unmasking $mask_link because it is not a link to /dev/null";
+        return;
     }
+
+    print STDERR "rm '$mask_link'\n" unless $quiet;
+    unlink($mask_link) or
+        error("unable to remove $mask_link: $!");
+    $changed_sth = 1;
 }
 
 my $result = GetOptions(

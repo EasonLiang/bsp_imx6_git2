@@ -180,11 +180,15 @@ is_debian_installed($random_unit);
 # ┃ Verify “mask” (when enabled) results in the symlink pointing to /dev/null ┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
+my $mask_path = "/etc/systemd/system/$random_unit";
+ok(! -l $mask_path, 'mask link does not exist yet');
+
 $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh mask $random_unit");
-is(readlink($symlink_path), '/dev/null', 'service masked');
+ok(-l $mask_path, 'mask link exists');
+is(readlink($mask_path), '/dev/null', 'service masked');
 
 $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh unmask $random_unit");
-isnt(readlink($symlink_path), '/dev/null', 'service no longer masked');
+ok(! -e $mask_path, 'mask link does not exist anymore');
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃ Verify “mask” (when disabled) works the same way                          ┃
@@ -194,9 +198,10 @@ $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh disable $random_unit");
 ok(! -e $symlink_path, 'symlink no longer exists');
 
 $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh mask $random_unit");
-is(readlink($symlink_path), '/dev/null', 'service masked');
+ok(-l $mask_path, 'mask link exists');
+is(readlink($mask_path), '/dev/null', 'service masked');
 
 $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh unmask $random_unit");
-ok(! -e $symlink_path, 'symlink no longer exists');
+ok(! -e $mask_path, 'symlink no longer exists');
 
 done_testing;
