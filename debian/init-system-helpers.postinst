@@ -9,6 +9,12 @@ if dpkg --compare-versions "$2" lt "1.9"; then
     fi
 fi
 
+if dpkg --compare-versions "$2" lt "1.10"; then
+    if [ -d /var/lib/systemd/deb-systemd-helper-masked ]; then
+        rm -rf /var/lib/systemd/deb-systemd-helper-masked
+    fi
+fi
+
 #DEBHELPER#
 
 exit 0
