@@ -1,3 +1,12 @@
+init-system-helpers (1.10) unstable; urgency=low
+
+  * Bugfix: check whether /var/lib/systemd/deb-systemd-helper-enabled exists
+    (Thanks Alf Gaida) (Closes: #723693)
+  * d-s-h: Fix mask/unmask implementation (Thanks Michael Biebl)
+    (Closes: #714903)
+
+ -- Michael Stapelberg <stapelberg@debian.org>  Thu, 19 Sep 2013 02:13:14 +0000
+
 init-system-helpers (1.9) unstable; urgency=low
 
   * dh_systemd_enable: document debian/package.{service,tmpfile}
