@@ -93,6 +93,7 @@ use Data::Dumper;
 
 my $quiet = 0;
 my $enabled_state_dir = '/var/lib/systemd/deb-systemd-helper-enabled';
+my $masked_state_dir = '/var/lib/systemd/deb-systemd-helper-masked';
 
 # Globals are bad, but in this specific case, it really makes things much
 # easier to write and understand.
@@ -386,6 +387,16 @@ sub mask_service {
     symlink('/dev/null', $mask_link) or
         error("unable to link $mask_link to /dev/null: $!");
     $changed_sth = 1;
+
+    my $statefile = $mask_link;
+    $statefile =~ s,^/etc/systemd/system/,$masked_state_dir/,;
+
+    # Store the fact that we masked this service, so that we can unmask it on
+    # installation time. We cannot unconditionally unmask because that would
+    # interfere with the user’s decision to mask a service.
+    make_path(dirname($statefile));
+    open(my $fh, '>>', $statefile);
+    close($fh);
 }
 
 sub unmask_service {
@@ -401,10 +412,19 @@ sub unmask_service {
         return;
     }
 
+    my $statefile = $mask_link;
+    $statefile =~ s,^/etc/systemd/system/,$masked_state_dir/,;
+
+    if (! -e $statefile) {
+        debug "Not unmasking $mask_link because the state file $statefile does not exist";
+        return;
+    }
+
     print STDERR "rm '$mask_link'\n" unless $quiet;
     unlink($mask_link) or
         error("unable to remove $mask_link: $!");
     $changed_sth = 1;
+    unlink($statefile);
 }
 
 my $result = GetOptions(

@@ -191,4 +191,21 @@ is(readlink($mask_path), '/dev/null', 'service masked');
 $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh unmask $random_unit");
 ok(! -e $mask_path, 'symlink no longer exists');
 
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ Verify “mask”/unmask don’t do anything when the user already masked.      ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+ok(! -l $mask_path, 'mask link does not exist yet');
+symlink('/dev/null', $mask_path);
+ok(-l $mask_path, 'mask link exists');
+is(readlink($mask_path), '/dev/null', 'service masked');
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh mask $random_unit");
+ok(-l $mask_path, 'mask link exists');
+is(readlink($mask_path), '/dev/null', 'service still masked');
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh unmask $random_unit");
+ok(-l $mask_path, 'mask link exists');
+is(readlink($mask_path), '/dev/null', 'service still masked');
+
 done_testing;
