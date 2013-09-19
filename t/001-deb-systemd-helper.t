@@ -119,19 +119,6 @@ $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh enable $random_unit");
 isnt_enabled($random_unit);
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-# ┃ Verify masking the service  and running “enable” again does not           ┃
-# ┃ re-create the symlinks.                                                   ┃
-# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-
-symlink('/dev/null', $symlink_path);
-is(readlink($symlink_path), '/dev/null', 'service masked');
-is_debian_installed($random_unit);
-
-$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh enable $random_unit");
-
-is(readlink($symlink_path), '/dev/null', 'service still masked');
-
-# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃ Verify “disable” when purging deletes the statefile.                      ┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
