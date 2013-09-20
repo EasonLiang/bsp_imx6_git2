@@ -1,3 +1,10 @@
+init-system-helpers (1.11) unstable; urgency=low
+
+  * dh_systemd_enable: unmask service on purge to not leave the mask sylink
+    behind (Closes: #723759)
+
+ -- Michael Stapelberg <stapelberg@debian.org>  Fri, 20 Sep 2013 16:27:46 +0200
+
 init-system-helpers (1.10) unstable; urgency=low
 
   * Bugfix: check whether /var/lib/systemd/deb-systemd-helper-enabled exists
