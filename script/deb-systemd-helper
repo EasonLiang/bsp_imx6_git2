@@ -230,7 +230,6 @@ sub make_systemd_links {
 
         if (! -l $service_link) {
             make_path(dirname($service_link));
-            print STDERR "ln -s '$service_path' '$service_link'\n" unless $quiet;
             symlink($service_path, $service_link) or
                 error("unable to link $service_link to $service_path: $!");
             $changed_sth = 1;
@@ -330,8 +329,8 @@ sub remove_links {
         }
 
         next unless -l $link;
-        print STDERR "rm '$link'\n" unless $quiet;
-        unlink($link);
+        unlink($link) or
+            print STDERR "$0: unable to remove '$link': $!\n";
 
         $changed_sth = 1;
     }
@@ -383,7 +382,6 @@ sub mask_service {
     }
 
     make_path(dirname($mask_link));
-    print STDERR "ln -s '/dev/null' '$mask_link'\n" unless $quiet;
     symlink('/dev/null', $mask_link) or
         error("unable to link $mask_link to /dev/null: $!");
     $changed_sth = 1;
@@ -420,7 +418,6 @@ sub unmask_service {
         return;
     }
 
-    print STDERR "rm '$mask_link'\n" unless $quiet;
     unlink($mask_link) or
         error("unable to remove $mask_link: $!");
     $changed_sth = 1;
