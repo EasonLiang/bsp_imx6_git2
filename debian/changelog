@@ -1,3 +1,11 @@
+init-system-helpers (1.12) unstable; urgency=low
+
+  * dh_systemd: lower generated dependency from 1.11 to 1.11~
+  * d-s-h: Don’t print action(s) to stderr, no news are good news
+    (Closes: #723727)
+
+ -- Michael Stapelberg <stapelberg@debian.org>  Mon, 04 Nov 2013 19:52:10 +0100
+
 init-system-helpers (1.11) unstable; urgency=low
 
   * dh_systemd_enable: unmask service on purge to not leave the mask sylink
