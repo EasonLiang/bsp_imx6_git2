@@ -135,6 +135,16 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 		doit("install","-p","-m644",$service,"$path/$script.service");
 	}
 
+	my $socket=pkgfile($package,"socket");
+	if ($socket ne '') {
+		my $path="$tmpdir/lib/systemd/system";
+		if (! -d "$path") {
+			doit("install","-d","$path");
+		}
+
+		doit("install","-p","-m644",$socket,"$path/$script.socket");
+	}
+
 	my $tmpfile=pkgfile($package,"tmpfile");
 	if ($tmpfile ne '') {
 		my $path="$tmpdir/usr/lib/tmpfiles.d";
