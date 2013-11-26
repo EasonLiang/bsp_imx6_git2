@@ -12,6 +12,7 @@ Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/init-system-helper
 
 Package: init-system-helpers
 Architecture: all
+Multi-Arch: foreign
 Depends: ${perl:Depends}, ${misc:Depends}
 Breaks: systemd (<< 44-12)
 Description: helper tools for all init systems
@@ -26,6 +27,7 @@ Description: helper tools for all init systems
 
 Package: dh-systemd
 Architecture: all
+Multi-Arch: foreign
 Depends: ${perl:Depends}, ${misc:Depends}, debhelper
 Description: debhelper add-on to handle systemd unit files
  dh-systemd provides a debhelper sequence addon named 'systemd' and the
