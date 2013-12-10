@@ -34,7 +34,7 @@ AC_ARG_ENABLE(jpeg,
   enable_jpeg=$enableval, enable_jpeg=no)
 
 AC_ARG_ENABLE(png,
-  [  --disable-png           disable png support [default=no]],
+  [  --disable-png           disable PNG support [default=enabled]],
      enable_png=$enableval, enable_png=yes )
 
 AC_ARG_ENABLE(doxygen-docs,     
@@ -156,29 +156,10 @@ fi
 dnl ------ Check for PNG ---------------------------------------------------
 
 if test x$enable_png != xno; then
-  AC_MSG_CHECKING(for libpng12)
-  if test x$PKG_CONFIG != xno && $PKG_CONFIG --exists libpng12; then 
-        AC_MSG_RESULT(yes)
-        PNG_LIBS=`$PKG_CONFIG --libs libpng12`
-	PNG_CFLAGS=`$PKG_CONFIG --cflags libpng12`
-        AC_DEFINE(USE_PNG, [1], [Use Png])
-	SUPPORTS_PNG=1
-	PNG_REQUIRED="libpng12"
-  else
-	AC_MSG_RESULT(no)
-        # AC_CHECK_HEADERS(png.h, [ have_png_h="yes" ], [ have_png_h="no" ] )
-        AC_CHECK_LIB([png], [png_create_read_struct], [have_png="yes"], [have_png="no"])
-
-        if test x$have_png=xyes && test x$have_png_h=xyes; then 
-            AC_DEFINE(USE_PNG, [1], [Use Png])
-	    SUPPORTS_PNG=1
-            PNG_LIBS="-lpng -lz"
-            MB_EXTRA_LIBS="$MB_EXTRA_LIBS $PNG_LIBS"
-        else
-	    AC_MSG_WARN([*** Cannot find PNG, disabling support])
-            enable_png=no
-	fi
-  fi
+  PKG_CHECK_MODULES(PNG, libpng)
+  AC_DEFINE(USE_PNG, [1], [Use PNG])
+  SUPPORTS_PNG=1
+  PNG_REQUIRED="libpng"
 fi
 
 
