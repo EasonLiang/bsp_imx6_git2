@@ -1,3 +1,9 @@
+init-system-helpers (1.14) unstable; urgency=low
+
+  * dh_systemd: treat symlinks like aliases (Closes: #731803)
+
+ -- Michael Stapelberg <stapelberg@debian.org>  Wed, 25 Dec 2013 14:35:55 +0100
+
 init-system-helpers (1.13) unstable; urgency=low
 
   * d-s-h: cleanup state directory on unmask (for piuparts)
