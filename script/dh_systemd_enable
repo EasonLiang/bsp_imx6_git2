@@ -159,6 +159,10 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 		wanted => sub {
 			my $name = $File::Find::name;
 			return unless -f $name;
+			# Skip symbolic links, their only legitimate use is for
+			# adding an alias, e.g. linking smartmontools.service
+			# -> smartd.service.
+			return if -l $name;
 			return unless $name =~ m,^$tmpdir/lib/systemd/system/[^/]+$,;
 			push @installed_units, $name;
 		},

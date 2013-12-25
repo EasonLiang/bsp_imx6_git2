@@ -116,11 +116,12 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 			my $name = $File::Find::name;
 			return unless -f;
 			return unless $name =~ m,^$tmpdir/lib/systemd/system/[^/]+$,;
-			push @installed_units, $name;
 			if (-l) {
 				my $target = abs_path(readlink());
 				$target =~ s,^$oldcwd/,,g;
 				$aliases{$target} = [ $_ ];
+			} else {
+				push @installed_units, $name;
 			}
 		},
 	}, $tmpdir);
