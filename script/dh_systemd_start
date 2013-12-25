@@ -10,6 +10,7 @@ use strict;
 use Debian::Debhelper::Dh_Lib;
 use File::Find;
 use Text::ParseWords qw(shellwords); # in core since Perl 5
+use Cwd qw(getcwd abs_path);
 
 =head1 SYNOPSIS
 
@@ -109,15 +110,21 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 	my @units;
 	my %aliases;
 
+	my $oldcwd = getcwd();
 	find({
 		wanted => sub {
 			my $name = $File::Find::name;
-			return unless -f $name;
+			return unless -f;
 			return unless $name =~ m,^$tmpdir/lib/systemd/system/[^/]+$,;
 			push @installed_units, $name;
+			if (-l) {
+				my $target = abs_path(readlink());
+				$target =~ s,^$oldcwd/,,g;
+				$aliases{$target} = [ $_ ];
+			}
 		},
-		no_chdir => 1,
 	}, $tmpdir);
+	chdir($oldcwd);
 
 	# Handle either only the unit files which were passed as arguments or
 	# all unit files that are installed in this package.
@@ -167,7 +174,7 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 		$seen{$_} = 1 for @also;
 		@args = (@args, @also);
 
-		$aliases{$name} = [ extract_key($name, 'Alias') ];
+		push @{$aliases{$name}}, $_ for extract_key($name, 'Alias');
 		my @sysv = grep {
 				my $base = $_;
 				$base =~ s/\.(?:service|socket)$//g;
