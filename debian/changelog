@@ -1,6 +1,7 @@
 init-system-helpers (1.15) unstable; urgency=low
 
   * ship /etc/systemd/system to avoid piuparts warnings
+  * d-s-h: add spaces to allow the manpage to break lines with MANWIDTH=80
 
  -- Michael Stapelberg <stapelberg@debian.org>  Fri, 07 Feb 2014 20:18:34 +0100
 

@@ -35,7 +35,7 @@ deb-systemd-helper - subset of systemctl for machines not running systemd
 
 =head1 SYNOPSIS
 
-B<deb-systemd-helper> enable|disable|mask|unmask|is-enabled|was-enabled|debian-installed|update-state|reenable S<I<unit file> ...>
+B<deb-systemd-helper> enable | disable | mask | unmask | is-enabled | was-enabled | debian-installed | update-state | reenable S<I<unit file> ...>
 
 =head1 DESCRIPTION
 
