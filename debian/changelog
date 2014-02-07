@@ -4,6 +4,7 @@ init-system-helpers (1.15) unstable; urgency=low
   * d-s-h: add spaces to allow the manpage to break lines with MANWIDTH=80
   * i-s-h: override lintian warning spelling-error-in-manpage, we cannot
     rename the upstream command “systemctl reenable” into “re-enable”
+  * bump standards-version to 3.9.5 (no changes necessary)
 
  -- Michael Stapelberg <stapelberg@debian.org>  Fri, 07 Feb 2014 20:18:34 +0100
 
