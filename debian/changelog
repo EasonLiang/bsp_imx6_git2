@@ -1,3 +1,11 @@
+init-system-helpers (1.16) unstable; urgency=low
+
+  * Don’t delete /etc/systemd/, only the hierarchy below /etc/systemd/system/.
+    This is necessary to fix piuparts warnings since we ship
+    /etc/systemd/system since i-s-h 1.15 (Thanks Andreas Beckmann).
+
+ -- Michael Stapelberg <stapelberg@debian.org>  Mon, 17 Feb 2014 20:32:54 +0100
+
 init-system-helpers (1.15) unstable; urgency=low
 
   * ship /etc/systemd/system to avoid piuparts warnings

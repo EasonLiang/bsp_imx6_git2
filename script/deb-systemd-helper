@@ -496,10 +496,10 @@ for my $scriptname (@ARGV) {
         # subdirectories. Necessary to cleanly pass a piuparts run.
         rmdir_if_empty('/var/lib/systemd/deb-systemd-helper-enabled');
 
-        # Same with /etc/systemd, where we create symlinks. If systemd is not
-        # installed (and no other package shipping service files), this would
-        # make piuparts fail, too.
-        rmdir_if_empty('/etc/systemd');
+        # Same with directories below /etc/systemd, where we create symlinks.
+        # If systemd is not installed (and no other package shipping service
+        # files), this would make piuparts fail, too.
+        rmdir_if_empty($_) for (grep { -d } </etc/systemd/system/*>);
     }
 
     if ($action eq 'enable') {
