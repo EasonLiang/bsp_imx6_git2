@@ -377,8 +377,12 @@ sub mask_service {
         # If the link already exists, don’t do anything.
         return if -l $mask_link && readlink($mask_link) eq '/dev/null';
 
-        # Otherwise, error out.
-        error("$mask_link already exists");
+        # If the file already exists, the user most likely copied the .service
+        # file to /etc/ to change it in some way. In this case we don’t need to
+        # mask the .service in the first place, since it will not be removed by
+        # dpkg.
+        debug "$mask_link already exists, not masking.";
+        return;
     }
 
     make_path(dirname($mask_link));

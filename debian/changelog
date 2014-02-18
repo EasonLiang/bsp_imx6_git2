@@ -1,3 +1,11 @@
+init-system-helpers (1.17) unstable; urgency=low
+
+  * d-s-h: don’t error out when masking a service is not possible because
+    /etc/systemd/system/<service> already exists (but is not a symlink).
+    (Closes: #739090)
+
+ -- Michael Stapelberg <stapelberg@debian.org>  Tue, 18 Feb 2014 20:52:20 +0100
+
 init-system-helpers (1.16) unstable; urgency=low
 
   * Don’t delete /etc/systemd/, only the hierarchy below /etc/systemd/system/.

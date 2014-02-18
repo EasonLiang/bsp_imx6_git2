@@ -208,4 +208,40 @@ $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh unmask $random_unit");
 ok(-l $mask_path, 'mask link exists');
 is(readlink($mask_path), '/dev/null', 'service still masked');
 
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ Verify “mask”/unmask don’t do anything when the user copied the .service. ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+unlink($mask_path);
+
+open($fh, '>', $mask_path);
+print $fh <<'EOT';
+[Unit]
+Description=test unit
+
+[Service]
+ExecStart=/bin/sleep 1
+
+[Install]
+WantedBy=multi-user.target
+EOT
+close($fh);
+
+ok(-e $mask_path, 'local service file exists');
+ok(! -l $mask_path, 'local service file is not a symlink');
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh mask $random_unit");
+isnt($retval, -1, 'deb-systemd-helper could be executed');
+ok(!($retval & 127), 'deb-systemd-helper did not exit due to a signal');
+is($retval >> 8, 0, 'deb-systemd-helper exited with exit code 0');
+ok(-e $mask_path, 'local service file still exists');
+ok(! -l $mask_path, 'local service file is still not a symlink');
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh unmask $random_unit");
+isnt($retval, -1, 'deb-systemd-helper could be executed');
+ok(!($retval & 127), 'deb-systemd-helper did not exit due to a signal');
+is($retval >> 8, 0, 'deb-systemd-helper exited with exit code 0');
+ok(-e $mask_path, 'local service file still exists');
+ok(! -l $mask_path, 'local service file is still not a symlink');
+
 done_testing;
