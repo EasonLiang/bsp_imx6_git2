@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 # vim:ts=4:sw=4:expandtab
-# © 2013 Michael Stapelberg <stapelberg@debian.org>
+# © 2013-2014 Michael Stapelberg <stapelberg@debian.org>
 #
 # All rights reserved.
 #
@@ -35,7 +35,7 @@ deb-systemd-helper - subset of systemctl for machines not running systemd
 
 =head1 SYNOPSIS
 
-B<deb-systemd-helper> enable | disable | mask | unmask | is-enabled | was-enabled | debian-installed | update-state | reenable S<I<unit file> ...>
+B<deb-systemd-helper> enable | disable | purge | mask | unmask | is-enabled | was-enabled | debian-installed | update-state | reenable S<I<unit file> ...>
 
 =head1 DESCRIPTION
 
@@ -44,8 +44,7 @@ the enable, disable, is-enabled and reenable commands from systemctl.
 
 The "enable" action will only be performed once (when first installing the
 package). On the first "enable", an state file is created which will be deleted
-upon "disable", but only when _DEB_SYSTEMD_HELPER_PURGE=1 to distinguish purge
-from remove.
+upon "purge".
 
 The "mask" action will keep state on whether the service was enabled/disabled
 before and will properly return to that state on "unmask".
@@ -443,6 +442,11 @@ if (!defined($action)) {
 if (!$ENV{DPKG_MAINTSCRIPT_PACKAGE}) {
     print STDERR "$0 was not called from dpkg. Exiting.\n";
     exit 1;
+}
+
+if ($action eq 'purge') {
+    $ENV{_DEB_SYSTEMD_HELPER_PURGE} = 1;
+    $action = 'disable';
 }
 
 debug "is purge = " . (is_purge() ? "yes" : "no");

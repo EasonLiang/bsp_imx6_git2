@@ -164,6 +164,26 @@ is_enabled($random_unit);
 is_debian_installed($random_unit);
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ Verify the “purge” verb works.                                            ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh purge $random_unit");
+
+isnt_enabled($random_unit);
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ Verify “enable” after purging does re-create the symlinks.                ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+ok(! -l $symlink_path, 'symlink does not exist yet');
+isnt_enabled($random_unit);
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh enable $random_unit");
+
+is_enabled($random_unit);
+is_debian_installed($random_unit);
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃ Verify “mask” (when enabled) results in the symlink pointing to /dev/null ┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
