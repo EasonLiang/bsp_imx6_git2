@@ -220,7 +220,7 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 
 	# init-system-helpers ships deb-systemd-helper which we use in our
 	# autoscripts
-	addsubstvar($package, "misc:Depends", "init-system-helpers (>= 1.13~)");
+	addsubstvar($package, "misc:Depends", "init-system-helpers (>= 1.18~)");
 }
 
 =head1 SEE ALSO
