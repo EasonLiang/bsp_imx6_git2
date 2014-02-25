@@ -1,3 +1,9 @@
+init-system-helpers (1.18) unstable; urgency=low
+
+  * d-s-h: add “purge” verb, use it in autoscripts. (Closes: #721244)
+
+ -- Michael Stapelberg <stapelberg@debian.org>  Tue, 25 Feb 2014 19:36:18 +0100
+
 init-system-helpers (1.17) unstable; urgency=low
 
   * d-s-h: don’t error out when masking a service is not possible because
