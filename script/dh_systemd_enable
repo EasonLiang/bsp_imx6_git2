@@ -13,7 +13,7 @@ use Text::ParseWords qw(shellwords); # in core since Perl 5
 
 =head1 SYNOPSIS
 
-B<dh_systemd_enable> [S<I<debhelper options>>] [B<--no-enable>] [S<I<unit file> ...>]
+B<dh_systemd_enable> [S<I<debhelper options>>] [B<--no-enable>] [B<--name=>I<name>] [S<I<unit file> ...>]
 
 =head1 DESCRIPTION
 
@@ -56,6 +56,13 @@ by systemd.)
 =item B<--no-enable>
 
 Just disable the service(s) on purge, but do not enable them by default.
+
+=item B<--name=>I<name>
+
+Install the service file as I<name> instead of the default filename, which is
+the package name. When this parameter is used, B<dh_systemd_enable> looks
+for and installs files named F<debian/package.name.service> instead of the
+usual F<debian/package.service>.
 
 =back
 
