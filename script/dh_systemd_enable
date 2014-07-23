@@ -32,6 +32,10 @@ service without an [Install] section. This service file cannot be enabled or
 disabled (a state called "static" by systemd) because it has no
 [Install] section. Therefore, running dh_systemd_enable does not make sense.
 
+For only generating blocks for specific service files, you need to pass them as
+arguments, e.g. B<dh_systemd_enable quota.service> and B<dh_systemd_enable
+--name=quotarpc quotarpc.service>.
+
 =head1 FILES
 
 =over 4
@@ -59,10 +63,10 @@ Just disable the service(s) on purge, but do not enable them by default.
 
 =item B<--name=>I<name>
 
-Install the service file as I<name> instead of the default filename, which is
-the package name. When this parameter is used, B<dh_systemd_enable> looks
-for and installs files named F<debian/package.name.service> instead of the
-usual F<debian/package.service>.
+Install the service file as I<name.service> instead of the default filename,
+which is the I<package.service>. When this parameter is used,
+B<dh_systemd_enable> looks for and installs files named
+F<debian/package.name.service> instead of the usual F<debian/package.service>.
 
 =back
 
