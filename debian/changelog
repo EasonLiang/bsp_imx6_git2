@@ -1,3 +1,12 @@
+init-system-helpers (1.19) unstable; urgency=medium
+
+  * Use try-restart only on upgrades, start after initial installation
+    (Closes: #750404)
+  * improve error message wording (Closes: #750986)
+  * dh_systemd_enable: document the --name option (Closes: #750992)
+
+ -- Michael Stapelberg <stapelberg@debian.org>  Sat, 14 Jun 2014 13:17:57 +0200
+
 init-system-helpers (1.18) unstable; urgency=low
 
   * d-s-h: add “purge” verb, use it in autoscripts. (Closes: #721244)
