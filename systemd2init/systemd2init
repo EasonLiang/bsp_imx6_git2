@@ -66,16 +66,20 @@ getenvironment() {
 [ -z "$1" ] && echo "usage: $0 <name>" && exit 1
 
 NAME=$1
+
 SYSTEMD_SERVICE="${NAME}.service"
 
 if [ -f /etc/redhat-release ]; then
 	WORKINGDIR="$(pwd)"
-	SKELETON=skeleton.redhat
+	SKELETON=/usr/share/dh-systemd/skeleton.redhat
 	OUTPUT=$WORKINGDIR/${NAME}.init
 	DEFAULT_PIDFILE="/var/run/\$NAME.pid"
 else
 	WORKINGDIR="$(pwd)/debian"
-	SKELETON=skeleton.debian
+	SKELETON=$WORKINGDIR/${NAME}.init.skeleton
+	if [ ! -f $SKELETON ]; then
+		SKELETON=/usr/share/dh-systemd/skeleton.debian
+	fi
 	OUTPUT=$WORKINGDIR/${NAME}.init
 	DEFAULT_PIDFILE="/run/\$NAME.pid"
 fi
