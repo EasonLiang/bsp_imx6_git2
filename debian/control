@@ -28,7 +28,7 @@ Description: helper tools for all init systems
 Package: dh-systemd
 Architecture: all
 Multi-Arch: foreign
-Depends: ${perl:Depends}, ${misc:Depends}, debhelper
+Depends: ${perl:Depends}, ${misc:Depends}, debhelper, augeas-tools
 Description: debhelper add-on to handle systemd unit files
  dh-systemd provides a debhelper sequence addon named 'systemd' and the
  dh_systemd_enable/dh_systemd_start commands.
