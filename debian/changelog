@@ -1,3 +1,19 @@
+init-system-helpers (1.20) unstable; urgency=medium
+
+  [ Michael Stapelberg ]
+  * Add systemd2init tool which can be used to generate SysV init scripts from
+    systemd .service files. The systemd2init tool requires Augeas, so add a
+    Depends on augeas-tools to dh-systemd. (Closes: #741252)
+    Maintained by Ondřej Surý <ondrej@debian.org>
+  * Clarify dh_systemd_enable documentation (Thanks Michael Meskes for the
+    patch).
+
+  [ Michael Biebl ]
+  * Add new "init" metapackage which ensures that an init system is installed
+    at all times. For now the default is still sysvinit-core.
+
+ -- Michael Biebl <biebl@debian.org>  Thu, 24 Jul 2014 23:49:57 +0200
+
 init-system-helpers (1.19) unstable; urgency=medium
 
   * Use try-restart only on upgrades, start after initial installation
