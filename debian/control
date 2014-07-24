@@ -37,3 +37,14 @@ Description: debhelper add-on to handle systemd unit files
  and postrm maint scripts to properly enable/disable systemd service files.
  The dh_systemd_start command deals with start/stop/restart on upgrades for
  systemd-only service files.
+
+Package: init
+Section: metapackages
+Architecture: any
+Essential: yes
+Priority: required
+Pre-Depends: sysvinit-core | systemd-sysv [linux-any] | upstart [linux-any]
+Description: System-V-like init utilities - metapackage
+ This package is an essential metapackage which allows you to select from
+ three available init systems in Debian (systemd, sysvinit, upstart) while
+ ensuring that one of these is available on the system at all times.
