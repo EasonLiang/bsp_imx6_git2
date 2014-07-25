@@ -29,6 +29,9 @@ init-system-helpers (1.23) UNRELEASED; urgency=medium
   * Make the package build reproducibly by using latest entry in
     debian/changelog to set the manpages date. (Closes: #782855)
 
+  [ Dimitri John Ledkov ]
+  * Mark "init" metapackage Multi-Arch: foreign. (Closes: #756026)
+
  -- Didier Roche <didrocks@ubuntu.com>  Fri, 07 Nov 2014 15:01:27 +0100
 
 init-system-helpers (1.22) unstable; urgency=medium

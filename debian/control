@@ -44,6 +44,7 @@ Section: metapackages
 Architecture: any
 Essential: yes
 Priority: required
+Multi-Arch: foreign
 Pre-Depends: systemd-sysv [linux-any] | sysvinit-core | upstart [linux-any]
 Depends: ${misc:Depends}
 Description: System-V-like init utilities - metapackage
