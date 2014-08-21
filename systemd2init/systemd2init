@@ -63,7 +63,15 @@ getenvironment() {
     [ -n "$RET" ] && echo $RET
 }
 
-[ -z "$1" ] && echo "usage: $0 <name>" && exit 1
+if [ -z "$1" ]; then
+    echo "usage: $0 <name>"
+    exit 1
+fi
+
+if ! [ -x /usr/bin/augtool ]; then
+    echo "augtool not found, please install augeas-tools"
+    exit 1
+fi
 
 NAME=$1
 

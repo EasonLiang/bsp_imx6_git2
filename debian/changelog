@@ -1,3 +1,10 @@
+init-system-helpers (1.21) UNRELEASED; urgency=medium
+
+  * Demote augeas-tools to Suggests and let the systemd2init tool error out
+    if /usr/bin/augtool is not installed.
+
+ -- Michael Biebl <biebl@debian.org>  Thu, 21 Aug 2014 07:22:51 +0200
+
 init-system-helpers (1.20) unstable; urgency=medium
 
   [ Michael Stapelberg ]
