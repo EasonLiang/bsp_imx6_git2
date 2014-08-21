@@ -1,7 +1,8 @@
 init-system-helpers (1.21) UNRELEASED; urgency=medium
 
   * Demote augeas-tools to Suggests and let the systemd2init tool error out
-    if /usr/bin/augtool is not installed.
+    if /usr/bin/augtool is not installed. Packages which want to make use of
+    systemd2init will have to depend on augeas-tools themselves.
   * Switch the default init system to systemd-sysv on Linux as per #727708.
 
  -- Michael Biebl <biebl@debian.org>  Thu, 21 Aug 2014 07:22:51 +0200
