@@ -184,6 +184,11 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 	# all unit files that are installed in this package.
 	my @args = @ARGV > 0 ? @ARGV : @installed_units;
 
+	# support excluding units via -X
+	foreach my $x (@{$dh{EXCLUDE}}) {
+		@args = grep !/(^|\/)$x$/, @args;
+	}
+
 	for my $name (@args) {
 		my $base = basename($name);
 

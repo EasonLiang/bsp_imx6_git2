@@ -131,6 +131,11 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 	# all unit files that are installed in this package.
 	my @args = @ARGV > 0 ? @ARGV : @installed_units;
 
+	# support excluding units via -X
+	foreach my $x (@{$dh{EXCLUDE}}) {
+		@args = grep !/(^|\/)$x$/, @args;
+	}
+
 	# This hash prevents us from looping forever in the following while loop.
 	# An actual real-world example of such a loop is systemd’s
 	# systemd-readahead-drop.service, which contains
