@@ -88,7 +88,9 @@ use File::Find; # in core since Perl 5
 use File::Temp qw(tempfile); # in core since Perl 5.6.1
 use Text::ParseWords qw(shellwords); # in core since Perl 5
 use Getopt::Long; # in core since Perl 5
-use Data::Dumper;
+# Make Data::Dumper::Dumper available if present (not present on systems that
+# only have perl-base, not perl).
+eval { require Data::Dumper; } or *Data::Dumper::Dumper = sub { "no Data::Dumper" };
 
 my $quiet = 0;
 my $enabled_state_dir = '/var/lib/systemd/deb-systemd-helper-enabled';
@@ -260,7 +262,7 @@ sub update_state {
     my @links = get_link_closure($scriptname, $service_path);
 
     debug "Old state file contents: " .
-        Dumper([ state_file_entries($dsh_state) ]);
+        Data::Dumper::Dumper([ state_file_entries($dsh_state) ]);
 
     make_path(dirname($dsh_state));
     my ($outfh, $tmpname) = tempfile('.stateXXXXX',
@@ -278,14 +280,14 @@ sub update_state {
         error("Unable to move $tmpname to $dsh_state");
 
     debug "New state file contents: " .
-        Dumper([ state_file_entries($dsh_state) ]);
+        Data::Dumper::Dumper([ state_file_entries($dsh_state) ]);
 }
 
 sub was_enabled {
     my ($scriptname) = @_;
 
     my @entries = state_file_entries(dsh_state_path($scriptname));
-    debug "Contents: " . Dumper(\@entries);
+    debug "Contents: " . Data::Dumper::Dumper(\@entries);
 
     for my $link (@entries) {
         if (! -l $link) {
@@ -308,7 +310,7 @@ sub remove_links {
 
     my $dsh_state = dsh_state_path($service_path);
     my @entries = state_file_entries($dsh_state);
-    debug "Contents: " . Dumper(\@entries);
+    debug "Contents: " . Data::Dumper::Dumper(\@entries);
 
     if (is_purge()) {
         unlink($dsh_state) if -e $dsh_state;
