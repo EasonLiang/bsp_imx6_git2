@@ -1,3 +1,9 @@
+init-system-helpers (1.22) unstable; urgency=medium
+
+  * Depend on perl-base instead of perl (Closes: #757891)
+
+ -- Michael Stapelberg <stapelberg@debian.org>  Mon, 17 Nov 2014 20:47:58 +0100
+
 init-system-helpers (1.21) unstable; urgency=medium
 
   * Demote augeas-tools to Suggests and let the systemd2init tool error out
