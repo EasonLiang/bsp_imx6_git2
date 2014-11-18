@@ -13,8 +13,7 @@ Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/init-system-helper
 Package: init-system-helpers
 Architecture: all
 Multi-Arch: foreign
-# Not using ${perl:Depends} is intentional. See http://bugs.debian.org/757891
-Depends: perl-base (>= 5.20.1-3), ${misc:Depends}
+Depends: perl-base (>= 5.20.1-3), ${perl:Depends}, ${misc:Depends}
 Breaks: systemd (<< 44-12)
 Description: helper tools for all init systems
  This package contains helper tools that are necessary for switching between
