@@ -1,3 +1,18 @@
+init-system-helpers (1.23) UNRELEASED; urgency=medium
+
+  * deb-system-invoke: don't start disabled systemd services (in case
+    of systemd only services), when there is no init script. (Closes: #768456)
+    Add some conditions to start the job on deb-system-invoke [restart|start],
+    during package upgrade:
+    - deb-system-invoke start <unit> doesn't do anything on systemd if the
+      unit is disabled or static.
+    - deb-system-invoke restart <unit> only restarts a disabled or static unit
+      if the daemon was already running (forced by the admin).
+    - in case of multiple units in error passed to deb-system-invoke, this one
+      will exit with last unit in errror exit code.
+
+ -- Didier Roche <didrocks@ubuntu.com>  Fri, 07 Nov 2014 15:01:27 +0100
+
 init-system-helpers (1.22) unstable; urgency=medium
 
   * Depend on perl-base instead of perl (Closes: #757891)

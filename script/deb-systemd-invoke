@@ -77,4 +77,36 @@ if (-x $policyhelper) {
     }
 }
 
-exec '/bin/systemctl', @ARGV;
+# If the job is disabled and is not currently running, the job is not started or restarted.
+# However, if the job is disabled but has been forced into the running state, we *do* stop
+# and restart it since this is expected behaviour for the admin who forced the start.
+# We don't autostart static units either.
+if ($action eq "start" || $action eq "restart") {
+    my $global_exit_code = 0;
+    for my $unit (@units) {
+        my $unit_installed = 0;
+        my $enabled_output = `/bin/systemctl is-enabled -- $unit`;
+        # matching enabled and enabled-runtime as an installed non static unit
+        if ($enabled_output =~ /enabled/) {
+            $unit_installed = 1;
+        }
+        system('/bin/systemctl', '--quiet', 'is-active', '--', $unit);
+        my $unit_active = $?>>8 == 0 ? 1 : 0;
+        if (!$unit_installed && $action eq "start") {
+            print STDERR "$unit is a disabled or a static unit, not starting it.\n";
+        } elsif (!$unit_installed && !$unit_active && $action eq "restart") {
+            print STDERR "$unit is a disabled or a static unit not running, not starting it.\n";
+        }
+        else {
+            system('/bin/systemctl', "$action", "$unit");
+            my $exit_code = $?>>8;
+            if ($exit_code != 0) {
+                print STDERR "$unit couldn't $action.\n";
+                $global_exit_code = $exit_code;
+            }
+        }
+    }
+    exit($global_exit_code);
+} else {
+    exec '/bin/systemctl', @ARGV;
+}
