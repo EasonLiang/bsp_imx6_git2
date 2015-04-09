@@ -278,4 +278,48 @@ is($retval >> 8, 0, 'deb-systemd-helper exited with exit code 0');
 ok(-e $mask_path, 'local service file still exists');
 ok(! -l $mask_path, 'local service file is still not a symlink');
 
+unlink($mask_path);
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ Verify Alias= handling.                                                   ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+open($fh, '>', $servicefile_path);
+print $fh <<'EOT';
+[Unit]
+Description=test unit
+
+[Service]
+ExecStart=/bin/sleep 1
+
+[Install]
+WantedBy=multi-user.target
+Alias=footest.service
+EOT
+close($fh);
+
+isnt_enabled($random_unit);
+isnt_enabled('footest.service');
+my $alias_path = "/etc/systemd/system/footest.service";
+ok(! -l $alias_path, 'alias link does not exist yet');
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh enable $random_unit");
+is($retval, 0, "enable command succeeded");
+is(readlink($alias_path), $servicefile_path, 'correct alias link');
+is_enabled($random_unit);
+ok(! -l $mask_path, 'mask link does not exist yet');
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh mask $random_unit");
+is($retval, 0, "mask command succeeded");
+is(readlink($alias_path), $servicefile_path, 'correct alias link');
+is(readlink($mask_path), '/dev/null', 'service masked');
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh unmask $random_unit");
+is($retval, 0, "unmask command succeeded");
+is(readlink($alias_path), $servicefile_path, 'correct alias link');
+ok(! -l $mask_path, 'mask link does not exist any more');
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh disable $random_unit");
+isnt_enabled($random_unit);
+ok(! -l $alias_path, 'alias link does not exist any more');
+
 done_testing;

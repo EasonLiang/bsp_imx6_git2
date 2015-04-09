@@ -14,6 +14,7 @@ init-system-helpers (1.23) UNRELEASED; urgency=medium
 
   [ Martin Pitt ]
   * t/001-deb-systemd-helper.t: Verify that the commands exit successfully.
+  * t/001-deb-systemd-helper.t: Add tests for Alias= handling.
 
  -- Didier Roche <didrocks@ubuntu.com>  Fri, 07 Nov 2014 15:01:27 +0100
 
