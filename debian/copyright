@@ -2,7 +2,7 @@ Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 
 Files: *
 Copyright: 2013 Michael Stapelberg
-License: BSD
+License: BSD-3-clause
 
 Files: systemd2init
 Copyright: 2014 Ondřej Surý <ondrej@sury.org>
@@ -11,14 +11,14 @@ License: GPL-3+
 
 Files: debian/*
 Copyright: 2013 Michael Stapelberg <stapelberg@debian.org>
-License: BSD
+License: BSD-3-clause
 
 License: GPL-3+
  On Debian systems the full text of the GNU General Public
  License can be found in the `/usr/share/common-licenses/GPL'
  file.
 
-License: BSD
+License: BSD-3-clause
  Copyright © 2013 Michael Stapelberg
  All rights reserved.
  .

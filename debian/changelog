@@ -23,6 +23,7 @@ init-system-helpers (1.23) UNRELEASED; urgency=medium
     001-deb-systemd-helper.t. (LP: #1439793)
   * init: Add ${misc:Depends} dependency to quiesce lintian.
   * Bump Standards-Version to 3.9.6 (no changes necessary).
+  * debian/copyright: Fix short license name for BSD-3-clause.
 
  -- Didier Roche <didrocks@ubuntu.com>  Fri, 07 Nov 2014 15:01:27 +0100
 
