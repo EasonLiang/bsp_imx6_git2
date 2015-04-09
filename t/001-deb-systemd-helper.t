@@ -346,4 +346,44 @@ $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh unmask $random_unit");
 is($retval, 0, "unmask command succeeded with uninstalled unit");
 ok(! -l $mask_path, 'mask link does not exist any more');
 
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ Verify Alias= to the same unit name                                       ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+open($fh, '>', $servicefile_path);
+print $fh <<"EOT";
+[Unit]
+Description=test unit
+
+[Service]
+ExecStart=/bin/sleep 1
+
+[Install]
+WantedBy=multi-user.target
+Alias=$random_unit
+EOT
+close($fh);
+
+isnt_enabled($random_unit);
+isnt_enabled('footest.service');
+# note that in this case $alias_path and $mask_path are identical
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh enable $random_unit");
+is($retval, 0, "enable command succeeded");
+is_enabled($random_unit);
+ok(! -l $mask_path, 'mask link does not exist yet');
+
+unlink($servicefile_path);
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh mask $random_unit");
+is($retval, 0, "mask command succeeded");
+is(readlink($mask_path), '/dev/null', 'service masked');
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh unmask $random_unit");
+is($retval, 0, "unmask command succeeded");
+ok(! -l $mask_path, 'mask link does not exist any more');
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh purge $random_unit");
+isnt_enabled($random_unit);
+ok(! -l $mask_path, 'mask link does not exist any more');
+
 done_testing;

@@ -181,6 +181,8 @@ sub get_link_closure {
 
     my @links;
 
+    my $unit_name = basename($service_path);
+
     open my $fh, '<', $service_path or error("unable to read $service_path");
     while (my $line = <$fh>) {
         chomp($line);
@@ -197,13 +199,17 @@ sub get_link_closure {
 
         if ($line =~ /^\s*Also=(.+)$/i) {
             for my $value (shellwords($1)) {
-                push @links, get_link_closure($value, find_unit($value));
+                if ($value ne $unit_name) {
+                    push @links, get_link_closure($value, find_unit($value));
+                }
             }
         }
 
         if ($line =~ /^\s*Alias=(.+)$/i) {
             for my $value (shellwords($1)) {
-                push @links, { dest => $service_path, src => "/etc/systemd/system/$1" };
+                if ($value ne $unit_name) {
+                    push @links, { dest => $service_path, src => "/etc/systemd/system/$1" };
+                }
             }
         }
     }
@@ -386,6 +392,8 @@ sub mask_service {
     }
 
     make_path(dirname($mask_link));
+    # clean up after possible leftovers from Alias= to self (LP#1439793)
+    unlink($mask_link);
     symlink('/dev/null', $mask_link) or
         error("unable to link $mask_link to /dev/null: $!");
     $changed_sth = 1;

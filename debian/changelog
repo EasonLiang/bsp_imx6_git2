@@ -17,6 +17,10 @@ init-system-helpers (1.23) UNRELEASED; urgency=medium
   * t/001-deb-systemd-helper.t: Add tests for Alias= handling.
   * t/001-deb-systemd-helper.t: Add tests for Alias and mask handling with
     uninstalled .service file (as in package postrm scripts).
+  * deb-systemd-helper: Ignore Also= and Alias= referring to itself, and avoid
+    mask symlink creation errors on systems where units with those have
+    already been installed. Add corresponding test to
+    001-deb-systemd-helper.t. (LP: #1439793)
 
  -- Didier Roche <didrocks@ubuntu.com>  Fri, 07 Nov 2014 15:01:27 +0100
 
