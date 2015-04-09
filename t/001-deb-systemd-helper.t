@@ -322,4 +322,28 @@ $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh disable $random_unit");
 isnt_enabled($random_unit);
 ok(! -l $alias_path, 'alias link does not exist any more');
 
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ Verify Alias/mask with removed package (as in postrm)                     ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh enable $random_unit");
+is($retval, 0, "enable command succeeded");
+is(readlink($alias_path), $servicefile_path, 'correct alias link');
+
+unlink($servicefile_path);
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh mask $random_unit");
+is($retval, 0, "mask command succeeded with uninstalled unit");
+is(readlink($alias_path), $servicefile_path, 'correct alias link');
+is(readlink($mask_path), '/dev/null', 'service masked');
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh purge $random_unit");
+is($retval, 0, "purge command succeeded with uninstalled unit");
+ok(! -l $alias_path, 'alias link does not exist any more');
+is(readlink($mask_path), '/dev/null', 'service masked');
+
+$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh unmask $random_unit");
+is($retval, 0, "unmask command succeeded with uninstalled unit");
+ok(! -l $mask_path, 'mask link does not exist any more');
+
 done_testing;
