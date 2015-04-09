@@ -1,5 +1,6 @@
 init-system-helpers (1.23) UNRELEASED; urgency=medium
 
+  [ Didier Roche ]
   * deb-system-invoke: don't start disabled systemd services (in case
     of systemd only services), when there is no init script. (Closes: #768456)
     Add some conditions to start the job on deb-system-invoke [restart|start],
@@ -10,6 +11,9 @@ init-system-helpers (1.23) UNRELEASED; urgency=medium
       if the daemon was already running (forced by the admin).
     - in case of multiple units in error passed to deb-system-invoke, this one
       will exit with last unit in errror exit code.
+
+  [ Martin Pitt ]
+  * t/001-deb-systemd-helper.t: Verify that the commands exit successfully.
 
  -- Didier Roche <didrocks@ubuntu.com>  Fri, 07 Nov 2014 15:01:27 +0100
 

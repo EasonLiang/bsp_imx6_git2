@@ -92,6 +92,7 @@ ok(! -d '/etc/systemd/system/multi-user.target.wants',
     'multi-user.target.wants does not exist yet');
 
 $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh enable $random_unit");
+is($retval, 0, "enable command succeeded");
 my $symlink_path = "/etc/systemd/system/multi-user.target.wants/$random_unit";
 ok(-l $symlink_path, "$random_unit was enabled");
 is(readlink($symlink_path), $servicefile_path,
@@ -115,6 +116,7 @@ isnt_enabled($random_unit);
 is_debian_installed($random_unit);
 
 $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh enable $random_unit");
+is($retval, 0, "enable command succeeded");
 
 isnt_enabled($random_unit);
 
@@ -127,7 +129,7 @@ my $statefile = "/var/lib/systemd/deb-systemd-helper-enabled/$random_unit.dsh-al
 ok(-f $statefile, 'state file exists');
 
 $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test _DEB_SYSTEMD_HELPER_PURGE=1 $dsh disable $random_unit");
-
+is($retval, 0, "disable command succeeded");
 ok(! -f $statefile, 'state file does not exist anymore after purging');
 isnt_debian_installed($random_unit);
 
@@ -139,6 +141,7 @@ ok(! -l $symlink_path, 'symlink does not exist yet');
 isnt_enabled($random_unit);
 
 $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh enable $random_unit");
+is($retval, 0, "enable command succeeded");
 
 is_enabled($random_unit);
 is_debian_installed($random_unit);
@@ -148,6 +151,7 @@ is_debian_installed($random_unit);
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
 $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test _DEB_SYSTEMD_HELPER_PURGE=1 $dsh disable $random_unit");
+is($retval, 0, "disable command succeeded");
 
 isnt_enabled($random_unit);
 
@@ -159,6 +163,7 @@ ok(! -l $symlink_path, 'symlink does not exist yet');
 isnt_enabled($random_unit);
 
 $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh enable $random_unit");
+is($retval, 0, "enable command succeeded");
 
 is_enabled($random_unit);
 is_debian_installed($random_unit);
@@ -168,6 +173,7 @@ is_debian_installed($random_unit);
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
 $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh purge $random_unit");
+is($retval, 0, "purge command succeeded");
 
 isnt_enabled($random_unit);
 
@@ -179,6 +185,7 @@ ok(! -l $symlink_path, 'symlink does not exist yet');
 isnt_enabled($random_unit);
 
 $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh enable $random_unit");
+is($retval, 0, "enable command succeeded");
 
 is_enabled($random_unit);
 is_debian_installed($random_unit);
@@ -191,10 +198,12 @@ my $mask_path = "/etc/systemd/system/$random_unit";
 ok(! -l $mask_path, 'mask link does not exist yet');
 
 $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh mask $random_unit");
+is($retval, 0, "mask command succeeded");
 ok(-l $mask_path, 'mask link exists');
 is(readlink($mask_path), '/dev/null', 'service masked');
 
 $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh unmask $random_unit");
+is($retval, 0, "unmask command succeeded");
 ok(! -e $mask_path, 'mask link does not exist anymore');
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -202,13 +211,16 @@ ok(! -e $mask_path, 'mask link does not exist anymore');
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
 $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh disable $random_unit");
+is($retval, 0, "disable command succeeded");
 ok(! -e $symlink_path, 'symlink no longer exists');
 
 $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh mask $random_unit");
+is($retval, 0, "mask command succeeded");
 ok(-l $mask_path, 'mask link exists');
 is(readlink($mask_path), '/dev/null', 'service masked');
 
 $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh unmask $random_unit");
+is($retval, 0, "unmask command succeeded");
 ok(! -e $mask_path, 'symlink no longer exists');
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -221,10 +233,12 @@ ok(-l $mask_path, 'mask link exists');
 is(readlink($mask_path), '/dev/null', 'service masked');
 
 $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh mask $random_unit");
+is($retval, 0, "mask command succeeded");
 ok(-l $mask_path, 'mask link exists');
 is(readlink($mask_path), '/dev/null', 'service still masked');
 
 $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh unmask $random_unit");
+is($retval, 0, "unmask command succeeded");
 ok(-l $mask_path, 'mask link exists');
 is(readlink($mask_path), '/dev/null', 'service still masked');
 
