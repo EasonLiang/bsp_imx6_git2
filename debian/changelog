@@ -21,6 +21,7 @@ init-system-helpers (1.23) UNRELEASED; urgency=medium
     mask symlink creation errors on systems where units with those have
     already been installed. Add corresponding test to
     001-deb-systemd-helper.t. (LP: #1439793)
+  * init: Add ${misc:Depends} dependency to quiesce lintian.
 
  -- Didier Roche <didrocks@ubuntu.com>  Fri, 07 Nov 2014 15:01:27 +0100
 
