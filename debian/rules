@@ -9,6 +9,10 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
+BUILD_DATE = $(shell dpkg-parsechangelog -S Date)
+POD_MAN_DATE = $(shell date -u +"%Y-%m-%d" --date="$(BUILD_DATE)")
+export POD_MAN_DATE
+
 override_dh_perl:
 	dh_perl -d --package=init-system-helpers
 	dh_perl --no-package=init-system-helpers
