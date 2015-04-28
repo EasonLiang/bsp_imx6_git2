@@ -1,4 +1,4 @@
-init-system-helpers (1.23) UNRELEASED; urgency=medium
+init-system-helpers (1.23) unstable; urgency=medium
 
   [ Didier Roche ]
   * deb-system-invoke: don't start disabled systemd services (in case
@@ -33,7 +33,7 @@ init-system-helpers (1.23) UNRELEASED; urgency=medium
   [ Dimitri John Ledkov ]
   * Mark "init" metapackage Multi-Arch: foreign. (Closes: #756026)
 
- -- Didier Roche <didrocks@ubuntu.com>  Fri, 07 Nov 2014 15:01:27 +0100
+ -- Martin Pitt <mpitt@debian.org>  Tue, 28 Apr 2015 15:05:44 +0200
 
 init-system-helpers (1.22) unstable; urgency=medium
 
