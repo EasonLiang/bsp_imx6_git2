@@ -25,7 +25,7 @@ init-system-helpers (1.23) UNRELEASED; urgency=medium
   * Bump Standards-Version to 3.9.6 (no changes necessary).
   * debian/copyright: Fix short license name for BSD-3-clause.
 
-  [ Jérémy Bobbio ]
+  [ JÃ©rÃ©my Bobbio ]
   * Make the package build reproducibly by using latest entry in
     debian/changelog to set the manpages date. (Closes: #782855)
 
