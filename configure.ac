@@ -1,18 +1,20 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_PREREQ([2.68])
+AC_PREREQ([2.69])
 AC_CONFIG_MACRO_DIR([m4])
-AC_INIT([psmisc],[22.21])
+AC_INIT([psmisc],
+	m4_esyscmd([misc/git-version-gen .tarball-version]),
+	,,,[https://www.gitlab.com/psmisc/psmisc])
+AM_INIT_AUTOMAKE([foreign 1.11 dejagnu subdir-objects -Wall -Wno-portability tar-pax no-dist-gzip dist-xz])
+AM_SILENT_RULES([no])
 AC_CONFIG_SRCDIR([src/comm.h])
-AC_CONFIG_HEADER([config.h])
-AC_CONFIG_AUX_DIR([config])
-AC_CANONICAL_HOST
-AM_INIT_AUTOMAKE([1.10])
-AC_LANG([C])
+AC_CONFIG_HEADERS([config.h])
 
 dnl Checks for programs.
-AC_PROG_CC
-AC_PROG_MAKE_SET
+AC_USE_SYSTEM_EXTENSIONS(_GNU_SOURCE)
+AC_PROG_CXX
 AC_PROG_LN_S
+AC_PROG_CC
+AC_PROG_CC_STDC
 
 dnl checks for options
 # SELinux support - off by default
@@ -92,9 +94,10 @@ AC_TYPE_SIZE_T
 AC_CHECK_MEMBERS([struct stat.st_rdev])
 AC_TYPE_UID_T
 
-# Check that harden CFLAGS will compile
+# Check that harden CFLAGS and LDFLAGS will compile
 AS_IF([test "$enable_harden_flags" = "yes"],
-  HARDEN_CFLAGS="-fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -Werror=format-security"
+  HARDEN_CFLAGS="-g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security"
+  [HARDEN_LDFLAGS="-fPIE -pie -Wl,-z,relro -Wl,-z,now"]
   [ AC_MSG_CHECKING([compiler supports harden flags])
   save_harden_cflags="$CFLAGS"
   CFLAGS="$CFLAGS $HARDEN_CFLAGS"
@@ -103,11 +106,13 @@ AS_IF([test "$enable_harden_flags" = "yes"],
      [AC_MSG_RESULT([no]); HARDEN_CFLAGS='']
     )
   CFLAGS="$save_harden_cflags"],
-  [HARDEN_CFLAGS=""])
+  [HARDEN_CFLAGS=""
+   HARDEN_LDFLAGS=""])
 AC_SUBST([HARDEN_CFLAGS])
+AC_SUBST([HARDEN_LDFLAGS])
 
 dnl Check for language stuff
-AM_GNU_GETTEXT_VERSION([0.16.1])
+AM_GNU_GETTEXT_VERSION([0.19.4])
 AM_GNU_GETTEXT([external])
 
 dnl Must be after the gettext stuff as it sets build_cpu
@@ -189,7 +194,6 @@ AC_SUBST(DEJAGNU)
 	
 AC_CONFIG_FILES([Makefile
 		 doc/Makefile
-		 src/Makefile
 		 icons/Makefile
 		 po/Makefile.in
 		 testsuite/Makefile])
