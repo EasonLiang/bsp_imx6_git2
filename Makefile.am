@@ -2,6 +2,7 @@
 AM_CPPFLAGS = \
 	      -Wall \
 	      -DLOCALEDIR=\"$(localedir)\" \
+	      -I$(top_builddir)/src \
 	      @HARDEN_CFLAGS@
 
 AM_LDFLAGS = @HARDEN_LDFLAGS@
@@ -57,7 +58,7 @@ src_fuser_SOURCES = \
 		    src/lists.h
 
 if WANT_TIMEOUT_STAT
-src_fuser_SOURCES += timeout.c timeout.h
+src_fuser_SOURCES += src/timeout.c src/timeout.h
 endif
 src_fuser_LDADD = @LIBINTL@
 src_killall_SOURCES = src/killall.c src/comm.h src/signals.c src/signals.h src/i18n.h
@@ -67,6 +68,7 @@ src_pstree_SOURCES = src/pstree.c src/comm.h src/i18n.h
 src_pstree_LDADD = @LIBINTL@ @TERMCAP_LIB@ @SELINUX_LIB@
 src_prtstat_SOURCES = src/prtstat.c src/prtstat.h
 src_prtstat_LDADD = @LIBINTL@
+nodist_src_killall_SOURCES = signames.h
 
 BUILT_SOURCES = src/signames.h
 

@@ -1,6 +1,8 @@
 *.lo
+*.log
 *.o
 *.so
+*.sum
 *.swp
 autom4te.cache/
 config/
@@ -32,8 +34,9 @@ missing
 po/Makefile
 po/Makefile.in
 po/stamp-po
-psmisc-*.tar.gz
+psmisc-*.tar.xz
 src/.deps/
 src/.dirstamp
 signames.h
 stamp-h1
+site.exp

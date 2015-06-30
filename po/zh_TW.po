@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: psmisc 22.20rc1\n"
-"Report-Msgid-Bugs-To: csmall@small.dropbear.id.au\n"
-"POT-Creation-Date: 2014-05-19 22:31+1000\n"
+"Report-Msgid-Bugs-To: csmall@enc.com.au\n"
+"POT-Creation-Date: 2015-06-30 23:01+1000\n"
 "PO-Revision-Date: 2013-05-31 23:39+0800\n"
 "Last-Translator: Wei-Lun Chao <bluebat@member.fsf.org>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/fuser.c:133
-#, c-format
+#: src/fuser.c:123
+#, fuzzy, c-format
 msgid ""
 "Usage: fuser [-fMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE] [-k [-i] [-SIGNAL]] "
 "NAME...\n"
@@ -28,6 +28,7 @@ msgid ""
 "\n"
 "  -a,--all              display unused files too\n"
 "  -i,--interactive      ask before killing (ignored without -k)\n"
+"  -I,--inode            use always inodes to compare files\n"
 "  -k,--kill             kill processes accessing the named file\n"
 "  -l,--list-signals     list available signal names\n"
 "  -m,--mount            show all processes using the named filesystems or "
@@ -61,7 +62,7 @@ msgstr ""
 "  -w,--writeonly        只砍除有寫入權限的行程\n"
 "  -V,--version          顯示版本資訊\n"
 
-#: src/fuser.c:150
+#: src/fuser.c:141
 #, c-format
 msgid ""
 "  -4,--ipv4             search IPv4 sockets only\n"
@@ -70,7 +71,7 @@ msgstr ""
 "  -4,--ipv4             只搜尋 IPv4 通訊端\n"
 "  -6,--ipv6             只搜尋 IPv6 通訊端\n"
 
-#: src/fuser.c:153
+#: src/fuser.c:144
 #, c-format
 msgid ""
 "  -                     reset options\n"
@@ -83,12 +84,12 @@ msgstr ""
 "  udp/tcp 名稱：[本地埠號][,[遠端主機][,[遠端埠號]]]\n"
 "\n"
 
-#: src/fuser.c:160
+#: src/fuser.c:151
 #, c-format
 msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
-#: src/fuser.c:163
+#: src/fuser.c:154
 #, c-format
 msgid ""
 "Copyright (C) 1993-2010 Werner Almesberger and Craig Small\n"
@@ -97,8 +98,8 @@ msgstr ""
 "著作權©1993-2010 Werner Almesberger 和 Craig Small\n"
 "\n"
 
-#: src/fuser.c:165 src/killall.c:657 src/peekfd.c:114 src/prtstat.c:68
-#: src/pstree.c:1039
+#: src/fuser.c:156 src/killall.c:702 src/peekfd.c:114 src/prtstat.c:68
+#: src/pstree.c:1054
 #, c-format
 msgid ""
 "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
@@ -111,162 +112,162 @@ msgstr ""
 "來再次散布它。\n"
 "請參看名為 COPYING 的檔案，以獲得更多關於這些問題的資訊。\n"
 
-#: src/fuser.c:184
+#: src/fuser.c:175
 #, c-format
 msgid "Cannot open /proc directory: %s\n"
 msgstr "無法開啟 /proc 目錄：%s\n"
 
-#: src/fuser.c:397 src/fuser.c:450 src/fuser.c:1961
+#: src/fuser.c:366 src/fuser.c:419 src/fuser.c:1874
 #, c-format
 msgid "Cannot allocate memory for matched proc: %s\n"
 msgstr "無法為符合的行程配置記憶體：%s\n"
 
-#: src/fuser.c:478
+#: src/fuser.c:446
 #, c-format
 msgid "Specified filename %s does not exist.\n"
 msgstr "指定的檔名 %s 不存在。\n"
 
-#: src/fuser.c:481
+#: src/fuser.c:449
 #, c-format
 msgid "Cannot stat %s: %s\n"
 msgstr "無法顯示 %s:%s\n"
 
-#: src/fuser.c:618
+#: src/fuser.c:586
 #, c-format
 msgid "Cannot resolve local port %s: %s\n"
 msgstr "無法解析本機通訊埠 %s:%s\n"
 
-#: src/fuser.c:636
+#: src/fuser.c:604
 #, c-format
 msgid "Unknown local port AF %d\n"
 msgstr "不明的本機通訊埠 AF %d\n"
 
-#: src/fuser.c:724
+#: src/fuser.c:692
 #, c-format
 msgid "Cannot open protocol file \"%s\": %s\n"
 msgstr "無法開啟協定檔案「%s」：%s\n"
 
-#: src/fuser.c:910
+#: src/fuser.c:878
 #, fuzzy, c-format
 msgid "Specified filename %s is not a mountpoint.\n"
 msgstr "指定的檔名 %s 不存在。\n"
 
-#: src/fuser.c:1009
+#: src/fuser.c:978
 #, c-format
 msgid "%s: Invalid option %s\n"
 msgstr "%s：無效的選項 %s\n"
 
-#: src/fuser.c:1060
+#: src/fuser.c:1035
 msgid "Namespace option requires an argument."
 msgstr "名稱空間選項需要一個引數。"
 
-#: src/fuser.c:1078
+#: src/fuser.c:1053
 msgid "Invalid namespace name"
 msgstr "無效的名稱空間名稱"
 
-#: src/fuser.c:1139
+#: src/fuser.c:1118
 msgid "You can only use files with mountpoint options"
 msgstr "您只能使用具備掛載點選項的檔案"
 
-#: src/fuser.c:1188
+#: src/fuser.c:1167
 msgid "No process specification given"
 msgstr "沒有給定任何行程規格"
 
-#: src/fuser.c:1200
+#: src/fuser.c:1179
 msgid "all option cannot be used with silent option."
 msgstr "所有選項無法與安靜選項一起使用。"
 
-#: src/fuser.c:1205
+#: src/fuser.c:1184
 msgid "You cannot search for only IPv4 and only IPv6 sockets at the same time"
 msgstr "您無法同時只搜尋 IPv4 又只搜尋 IPv6 通訊端"
 
-#: src/fuser.c:1284
+#: src/fuser.c:1263
 #, c-format
 msgid "%*s USER        PID ACCESS COMMAND\n"
 msgstr "%*s 使用者      PID 存取命令\n"
 
-#: src/fuser.c:1317 src/fuser.c:1374
+#: src/fuser.c:1296 src/fuser.c:1353
 msgid "(unknown)"
 msgstr "(不明)"
 
-#: src/fuser.c:1453 src/fuser.c:1492
+#: src/fuser.c:1432 src/fuser.c:1471
 #, c-format
 msgid "Cannot stat file %s: %s\n"
 msgstr "無法顯示檔案 %s：%s\n"
 
-#: src/fuser.c:1578
+#: src/fuser.c:1557
 #, c-format
 msgid "Cannot open /proc/net/unix: %s\n"
 msgstr "無法開啟 /proc/net/unix：%s\n"
 
-#: src/fuser.c:1654
+#: src/fuser.c:1633
 #, c-format
 msgid "Kill process %d ? (y/N) "
 msgstr "砍除行程 %d？(y/N) "
 
-#: src/fuser.c:1690
+#: src/fuser.c:1669
 #, c-format
 msgid "Could not kill process %d: %s\n"
 msgstr "無法砍除行程 %d：%s\n"
 
-#: src/fuser.c:1705
+#: src/fuser.c:1684
 #, c-format
 msgid "Cannot open a network socket.\n"
 msgstr "無法開啟網路通訊端。\n"
 
-#: src/fuser.c:1709
+#: src/fuser.c:1688
 #, c-format
 msgid "Cannot find socket's device number.\n"
 msgstr "找不到通訊端裝置編號。\n"
 
-#: src/killall.c:100
+#: src/killall.c:106
 #, c-format
 msgid "Kill %s(%s%d) ? (y/N) "
 msgstr "砍除 %s(%s%d)？(y/N) "
 
-#: src/killall.c:103
+#: src/killall.c:109
 #, c-format
 msgid "Signal %s(%s%d) ? (y/N) "
 msgstr "信號 %s(%s%d)？(y/N) "
 
-#: src/killall.c:211
+#: src/killall.c:216
 #, c-format
 msgid "killall: Cannot get UID from process status\n"
 msgstr "killall：無法從程序狀態提取 UID\n"
 
-#: src/killall.c:237
+#: src/killall.c:242
 #, c-format
 msgid "killall: Bad regular expression: %s\n"
 msgstr "killall：不當的正規表示式：%s\n"
 
-#: src/killall.c:446
+#: src/killall.c:376
 #, c-format
 msgid "killall: skipping partial match %s(%d)\n"
 msgstr "killall：跳過部分匹配 %s(%d)\n"
 
-#: src/killall.c:563
+#: src/killall.c:603
 #, c-format
 msgid "Killed %s(%s%d) with signal %d\n"
 msgstr "藉由信號 %4$d 砍除 %1$s(%2$s%3$d)\n"
 
-#: src/killall.c:578
+#: src/killall.c:623
 #, c-format
 msgid "%s: no process found\n"
 msgstr "%s：找不到任何行程\n"
 
-#: src/killall.c:619
+#: src/killall.c:664
 #, c-format
 msgid ""
 "Usage: killall [-Z CONTEXT] [-u USER] [ -eIgiqrvw ] [ -SIGNAL ] NAME...\n"
 msgstr ""
 "用法：killall [-Z 上下文] [-u 使用者] [ -eIgiqrvw ] [ -SIGNAL ] 名稱…\n"
 
-#: src/killall.c:622
+#: src/killall.c:667
 #, c-format
 msgid "Usage: killall [OPTION]... [--] NAME...\n"
 msgstr "用法：killall [選項]… [--] 名稱…\n"
 
-#: src/killall.c:625
+#: src/killall.c:670
 #, c-format
 msgid ""
 "       killall -l, --list\n"
@@ -305,7 +306,7 @@ msgstr ""
 "  -V,--version        顯示版本資訊\n"
 "  -w,--wait           等待行程的消滅\n"
 
-#: src/killall.c:643
+#: src/killall.c:688
 #, c-format
 msgid ""
 "  -Z,--context REGEXP kill only process(es) having context\n"
@@ -314,35 +315,35 @@ msgstr ""
 "  -Z,--context REGEXP 只砍除有此上下文的行程\n"
 "                     (必須位於其他引數之前)\n"
 
-#: src/killall.c:655
-#, c-format
+#: src/killall.c:700
+#, fuzzy, c-format
 msgid ""
-"Copyright (C) 1993-2012 Werner Almesberger and Craig Small\n"
+"Copyright (C) 1993-2014 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"著作權©1993-2012 Werner Almesberger 和 Craig Small\n"
+"著作權©1993-2010 Werner Almesberger 和 Craig Small\n"
 "\n"
 
-#: src/killall.c:745 src/killall.c:751
+#: src/killall.c:790 src/killall.c:796
 msgid "Invalid time format"
 msgstr "無效的時間格式"
 
-#: src/killall.c:771
+#: src/killall.c:816
 #, c-format
 msgid "Cannot find user %s\n"
 msgstr "找不到使用者 %s\n"
 
-#: src/killall.c:802
+#: src/killall.c:847
 #, c-format
 msgid "Bad regular expression: %s\n"
 msgstr "不當的正規表示式：%s\n"
 
-#: src/killall.c:834
+#: src/killall.c:879
 #, c-format
 msgid "killall: Maximum number of names is %d\n"
 msgstr "killall：名稱數量最大值是 %d\n"
 
-#: src/killall.c:839
+#: src/killall.c:884
 #, c-format
 msgid "killall: %s lacks process entries (not mounted ?)\n"
 msgstr "killall：%s 缺乏行程條目 (未掛載？)\n"
@@ -547,12 +548,12 @@ msgstr "您必須提供至少一個 PID。"
 msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
 msgstr "/proc 未被掛載，無法取得 /proc/self/stat 的狀態。\n"
 
-#: src/pstree.c:969
+#: src/pstree.c:984
 #, c-format
 msgid "%s is empty (not mounted ?)\n"
 msgstr "%s 是空的 (尚未掛載？)\n"
 
-#: src/pstree.c:1001
+#: src/pstree.c:1016
 #, fuzzy, c-format
 msgid ""
 "Usage: pstree [ -a ] [ -c ] [ -h | -H PID ] [ -l ] [ -n ] [ -p ] [ -g ] [ -"
@@ -603,12 +604,12 @@ msgstr ""
 "  -U, --unicode       使用 UTF-8 (萬國碼) 線條繪製字元\n"
 "  -V, --version       顯示版本資訊\n"
 
-#: src/pstree.c:1025
+#: src/pstree.c:1040
 #, c-format
 msgid "  -Z     show         SELinux security contexts\n"
 msgstr "  -Z     顯示         SELinux 安全語境\n"
 
-#: src/pstree.c:1027
+#: src/pstree.c:1042
 #, c-format
 msgid ""
 "  PID    start at this PID; default is 1 (init)\n"
@@ -619,12 +620,12 @@ msgstr ""
 "  使用者  只顯示源自此使用者行程的樹狀結構\n"
 "\n"
 
-#: src/pstree.c:1034
+#: src/pstree.c:1049
 #, c-format
 msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
-#: src/pstree.c:1037
+#: src/pstree.c:1052
 #, c-format
 msgid ""
 "Copyright (C) 1993-2009 Werner Almesberger and Craig Small\n"
@@ -633,32 +634,32 @@ msgstr ""
 "著作權©1993-2009 Werner Almesberger 和 Craig Small\n"
 "\n"
 
-#: src/pstree.c:1152
+#: src/pstree.c:1167
 #, c-format
 msgid "TERM is not set\n"
 msgstr "TERM 尚未設定\n"
 
-#: src/pstree.c:1156
+#: src/pstree.c:1171
 #, c-format
 msgid "Can't get terminal capabilities\n"
 msgstr "無法取得終端機功能\n"
 
-#: src/pstree.c:1174
+#: src/pstree.c:1189
 #, c-format
 msgid "procfs file for %s namespace not available\n"
 msgstr ""
 
-#: src/pstree.c:1224
+#: src/pstree.c:1239
 #, c-format
 msgid "No such user name: %s\n"
 msgstr "無此類使用者名稱：%s\n"
 
-#: src/pstree.c:1250
+#: src/pstree.c:1265
 #, c-format
 msgid "No processes found.\n"
 msgstr "找不到任何行程。\n"
 
-#: src/pstree.c:1256
+#: src/pstree.c:1271
 #, c-format
 msgid "Press return to close\n"
 msgstr "按下輸入鍵以關閉\n"
@@ -667,3 +668,10 @@ msgstr "按下輸入鍵以關閉\n"
 #, c-format
 msgid "%s: unknown signal; %s -l lists signals.\n"
 msgstr "%s: 不明的信號；%s -l 列出信號。\n"
+
+#~ msgid ""
+#~ "Copyright (C) 1993-2012 Werner Almesberger and Craig Small\n"
+#~ "\n"
+#~ msgstr ""
+#~ "著作權©1993-2012 Werner Almesberger 和 Craig Small\n"
+#~ "\n"
