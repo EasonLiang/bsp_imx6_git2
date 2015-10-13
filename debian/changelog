@@ -1,6 +1,11 @@
 init-system-helpers (1.24) UNRELEASED; urgency=medium
 
+  [ Helmut Grohne ]
   * Fix FTCBFS: Annotate perl dependency with :any. (Closes: #794339)
+
+  [ Reiner Herrmann ]
+  * dh_systemd_{enable,start}: Sort list of unit files, to make generated
+    maintainer scripts reproducible. (Closes: #801470)
 
  -- Helmut Grohne <helmut@subdivi.de>  Sat, 01 Aug 2015 17:29:35 +0200
 

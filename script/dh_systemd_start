@@ -192,7 +192,7 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 	# This wrapper function makes the following logic easier to read.
 	my $sd_autoscript = sub {
 		my ($script, $filename) = @_;
-		my $unitargs = join(" ", map { basename($_) } @units);
+		my $unitargs = join(" ", sort map { basename($_) } @units);
 		autoscript($package, $script, $filename, "s/#UNITFILES#/$unitargs/");
 	};
 

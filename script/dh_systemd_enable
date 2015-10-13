@@ -218,8 +218,8 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 
 	next if @units == 0;
 
-	my $unitargs = join(" ", map { basename($_) } @units);
-	for my $unit (@units) {
+	my $unitargs = join(" ", sort map { basename($_) } @units);
+	for my $unit (sort @units) {
 		my $base = basename($unit);
 		if ($dh{NO_ENABLE}) {
 			autoscript($package, "postinst", "postinst-systemd-dont-enable", "s/#UNITFILE#/$base/");
