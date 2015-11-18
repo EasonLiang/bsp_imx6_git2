@@ -15,7 +15,12 @@ Package: init-system-helpers
 Architecture: all
 Multi-Arch: foreign
 Depends: perl-base (>= 5.20.1-3), ${perl:Depends}, ${misc:Depends}
-Breaks: systemd (<< 44-12)
+Replaces: sysv-rc (<< 2.88dsf-59.3~), sysvinit-utils (<< 2.88dsf-59.3)
+# sysv-rc now pre-depends on us and if we break them we get:
+# E: This installation run will require temporarily removing the essential package sysvinit-utils:amd64 due to a Conflicts/Pre-Depends loop. This is often bad, but if you really want to do it, activate the APT::Force-LoopBreak option.
+#Breaks: sysv-rc (<< 2.88dsf-59.3~)
+Breaks: systemd (<< 44-12), sysvinit-utils (<< 2.88dsf-59.3~)
+Conflicts: file-rc
 Description: helper tools for all init systems
  This package contains helper tools that are necessary for switching between
  the various init systems that Debian contains (e.g. sysvinit, upstart,
