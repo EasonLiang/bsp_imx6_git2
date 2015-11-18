@@ -1,3 +1,15 @@
+init-system-helpers (1.25) UNRELEASED; urgency=medium
+
+  * Import invoke-rc.d + update-rc.d from sysvinit 2.88dsf-59.2
+  * Import service from sysvinit 2.88dsf-59.2
+  * Move service files into non-specific subdirectory
+  * init-system-helpers: Ship invoke-rc.d, update-rc.d and service
+  * Only pod2man init-system-helpers script for now
+  * update-rc.d: drop old fallback path for insserv
+  * update-rc.d: only use insserv if available
+
+ -- Andreas Henriksson <andreas@fatal.se>  Wed, 18 Nov 2015 18:43:47 +0100
+
 init-system-helpers (1.24) unstable; urgency=medium
 
   [ Helmut Grohne ]
