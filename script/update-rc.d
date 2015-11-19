@@ -170,9 +170,7 @@ sub insserv_updatercd {
 
     $scriptname = shift @args;
     $action = shift @args;
-    my $insserv = "/usr/lib/insserv/insserv";
-    # Fallback for older insserv package versions [2014-04-16]
-    $insserv = "/sbin/insserv" if ( -x "/sbin/insserv");
+    my $insserv = "/sbin/insserv";
     if ("remove" eq $action) {
         if ( -f "/etc/init.d/$scriptname" ) {
             my $rc = system($insserv, @opts, "-r", $scriptname) >> 8;
