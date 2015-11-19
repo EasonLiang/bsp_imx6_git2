@@ -171,7 +171,9 @@ sub insserv_updatercd {
     $scriptname = shift @args;
     $action = shift @args;
     my $insserv = "/sbin/insserv";
+    #print STDERR "Warning: rc.d symlinks not being kept up to date because insserv is missing!\n" if ( ! -x $insserv);
     if ("remove" eq $action) {
+        exit 0 if ( ! -x $insserv);
         if ( -f "/etc/init.d/$scriptname" ) {
             my $rc = system($insserv, @opts, "-r", $scriptname) >> 8;
             if (0 == $rc && !$notreally) {
@@ -193,6 +195,7 @@ sub insserv_updatercd {
         }
     } elsif ("defaults" eq $action || "start" eq $action ||
              "stop" eq $action) {
+        exit 0 if ( ! -x $insserv);
         # All start/stop/defaults arguments are discarded so emit a
         # message if arguments have been given and are in conflict
         # with Default-Start/Default-Stop values of LSB comment.
@@ -215,6 +218,8 @@ sub insserv_updatercd {
         make_systemd_links($scriptname, $action);
 
         upstart_toggle($scriptname, $action);
+
+        exit 0 if ( ! -x $insserv);
 
         insserv_toggle($notreally, $action, $scriptname, @args);
         # Call insserv to resequence modified links
