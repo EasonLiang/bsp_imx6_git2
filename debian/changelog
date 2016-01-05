@@ -7,6 +7,7 @@ init-system-helpers (1.25) UNRELEASED; urgency=medium
   * Only pod2man init-system-helpers script for now
   * update-rc.d: drop old fallback path for insserv
   * update-rc.d: only use insserv if available
+  * Raise init-system-helpers Priority to required
 
  -- Andreas Henriksson <andreas@fatal.se>  Wed, 18 Nov 2015 18:43:47 +0100
 

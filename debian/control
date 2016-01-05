@@ -13,6 +13,7 @@ Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/init-system-helper
 
 Package: init-system-helpers
 Architecture: all
+Priority: required
 Multi-Arch: foreign
 Depends: perl-base (>= 5.20.1-3), ${perl:Depends}, ${misc:Depends}
 Replaces: sysv-rc (<< 2.88dsf-59.3~), sysvinit-utils (<< 2.88dsf-59.3)
