@@ -57,7 +57,7 @@ Essential: yes
 Priority: required
 Multi-Arch: foreign
 Pre-Depends: systemd-sysv [linux-any] | sysvinit-core | upstart [linux-any]
-Depends: ${misc:Depends}
+Depends: ${misc:Depends}, init-system-helpers
 Description: System-V-like init utilities - metapackage
  This package is an essential metapackage which allows you to select from
  three available init systems in Debian (systemd, sysvinit, upstart) while

@@ -12,6 +12,8 @@ init-system-helpers (1.25) UNRELEASED; urgency=medium
 
   [ Martin Pitt ]
   * Update i-s-h package description to describe the newly moved tools.
+  * Make init depend on init-system-helpers, to ensure the availability of
+    invoke-rc.d and update-rc.d if/once sysvinit-utils becomes non-essential.
 
  -- Andreas Henriksson <andreas@fatal.se>  Wed, 18 Nov 2015 18:43:47 +0100
 
