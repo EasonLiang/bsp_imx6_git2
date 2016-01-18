@@ -24,7 +24,7 @@ Breaks: systemd (<< 44-12), sysvinit-utils (<< 2.88dsf-59.3~)
 Conflicts: file-rc
 Description: helper tools for all init systems
  This package contains helper tools that are necessary for switching between
- the various init systems that Debian contains (e.g. sysvinit, upstart,
+ the various init systems that Debian contains (e. g. sysvinit or
  systemd). An example is deb-systemd-helper, a script that enables systemd unit
  files without depending on a running systemd.
  .
@@ -56,9 +56,9 @@ Architecture: any
 Essential: yes
 Priority: required
 Multi-Arch: foreign
-Pre-Depends: systemd-sysv [linux-any] | sysvinit-core | upstart [linux-any]
+Pre-Depends: systemd-sysv [linux-any] | sysvinit-core
 Depends: ${misc:Depends}, init-system-helpers
 Description: System-V-like init utilities - metapackage
  This package is an essential metapackage which allows you to select from
- three available init systems in Debian (systemd, sysvinit, upstart) while
+ the available init systems in Debian (systemd, sysvinit) while
  ensuring that one of these is available on the system at all times.
