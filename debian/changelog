@@ -2,6 +2,7 @@ init-system-helpers (1.25) UNRELEASED; urgency=medium
 
   [ Andreas Henriksson ]
   * Import invoke-rc.d + update-rc.d from sysvinit 2.88dsf-59.2
+    (see #805487)
   * Import service from sysvinit 2.88dsf-59.2
   * Move service files into non-specific subdirectory
   * init-system-helpers: Ship invoke-rc.d, update-rc.d and service
