@@ -1,4 +1,4 @@
-init-system-helpers (1.25) UNRELEASED; urgency=medium
+init-system-helpers (1.25) unstable; urgency=medium
 
   [ Andreas Henriksson ]
   * Import invoke-rc.d + update-rc.d from sysvinit 2.88dsf-59.2
@@ -16,7 +16,7 @@ init-system-helpers (1.25) UNRELEASED; urgency=medium
   * Make init depend on init-system-helpers, to ensure the availability of
     invoke-rc.d and update-rc.d if/once sysvinit-utils becomes non-essential.
 
- -- Andreas Henriksson <andreas@fatal.se>  Wed, 18 Nov 2015 18:43:47 +0100
+ -- Martin Pitt <mpitt@debian.org>  Mon, 18 Jan 2016 15:13:20 +0100
 
 init-system-helpers (1.24) unstable; urgency=medium
 
