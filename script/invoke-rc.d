@@ -383,6 +383,8 @@ case ${ACTION} in
 	RC=101
     elif testexec ${SSLINK} ; then
 	RC=104
+    else
+        RC=101
     fi
   ;;
 esac
