@@ -1,4 +1,4 @@
-init-system-helpers (1.26) UNRELEASED; urgency=medium
+init-system-helpers (1.26) unstable; urgency=medium
 
   * Drop upstart as an alternative init dependency, as the package got
     removed.
@@ -7,7 +7,7 @@ init-system-helpers (1.26) UNRELEASED; urgency=medium
     This assumes that the next openrc upload diverts update-rc.d
     (see #811708).
 
- -- Martin Pitt <mpitt@debian.org>  Mon, 18 Jan 2016 15:32:29 +0100
+ -- Martin Pitt <mpitt@debian.org>  Fri, 22 Jan 2016 16:02:24 +0100
 
 init-system-helpers (1.25) unstable; urgency=medium
 
