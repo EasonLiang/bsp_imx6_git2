@@ -2,6 +2,10 @@ init-system-helpers (1.26) UNRELEASED; urgency=medium
 
   * Drop upstart as an alternative init dependency, as the package got
     removed.
+  * Conflict to current openrc version <= 0.18.3-1, to stop the upgrade before
+    running into the update-rc.d file conflict. (Closes: #811662)
+    This assumes that the next openrc upload diverts update-rc.d
+    (see #811708).
 
  -- Martin Pitt <mpitt@debian.org>  Mon, 18 Jan 2016 15:32:29 +0100
 
