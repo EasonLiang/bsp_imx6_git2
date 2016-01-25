@@ -9,6 +9,10 @@ init-system-helpers (1.28) UNRELEASED; urgency=medium
   [ Andreas Henriksson ]
   * Add support for -X option. (Closes: #760168)
 
+  [ Michael Biebl ]
+  * invoke-rc.d: Allow stop and status requests for masked systemd services.
+    (Closes: #717109)
+
  -- Martin Pitt <mpitt@debian.org>  Tue, 26 Jan 2016 11:38:28 +0100
 
 init-system-helpers (1.27) unstable; urgency=high

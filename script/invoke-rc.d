@@ -392,12 +392,9 @@ _executable=
 if [ -n "$is_upstart" ]; then
     _executable=1
 elif [ -n "$is_systemd" ]; then
-    _state=$(systemctl -p LoadState show "${UNIT}" 2>/dev/null)
-    if [ "$_state" != "LoadState=masked" ]; then
-        _executable=1
-    fi
+    _executable=1
 elif testexec "${INITDPREFIX}${INITSCRIPTID}"; then
-   _executable=1
+    _executable=1
 fi
 if [ "$_executable" = "1" ]; then
     if test x${RC} = x && test x${MODE} = xquery ; then
@@ -519,6 +516,8 @@ if test x${FORCE} != x || test ${RC} -eq 104 ; then
                     # pick up any changes.
                     systemctl daemon-reload
                 fi
+                _state=$(systemctl -p LoadState show "${UNIT}" 2>/dev/null)
+
                 # avoid deadlocks during bootup and shutdown from units/hooks
                 # which call "invoke-rc.d service reload" and similar, since
                 # the synchronous wait plus systemd's normal behaviour of
@@ -529,6 +528,8 @@ if test x${FORCE} != x || test ${RC} -eq 104 ; then
                 fi
                 case $saction in
                     start|restart)
+                        [ "$_state" != "LoadState=masked" ] || exit 0
+
                         # We never start disabled jobs; we only restart them if they are
                         # already running (got started manually).
                         # More rationale on https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=768450
@@ -551,6 +552,7 @@ if test x${FORCE} != x || test ${RC} -eq 104 ; then
                         systemctl $sctl_args "${saction}" "${UNIT}" && exit 0
                         ;;
                     reload)
+                        [ "$_state" != "LoadState=masked" ] || exit 0
                         _canreload="$(systemctl -p CanReload show ${UNIT} 2>/dev/null)"
                         if [ "$_canreload" = "CanReload=no" ]; then
                             "${INITDPREFIX}${INITSCRIPTID}" "${saction}" "$@" && exit 0
@@ -562,6 +564,7 @@ if test x${FORCE} != x || test ${RC} -eq 104 ; then
                         systemctl --signal=KILL kill "${UNIT}" && exit 0
                         ;;
                     force-reload)
+                        [ "$_state" != "LoadState=masked" ] || exit 0
                         _canreload="$(systemctl -p CanReload show ${UNIT} 2>/dev/null)"
                         if [ "$_canreload" = "CanReload=no" ]; then
                            systemctl $sctl_args restart "${UNIT}" && exit 0
