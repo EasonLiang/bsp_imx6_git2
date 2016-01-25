@@ -1,3 +1,9 @@
+init-system-helpers (1.27) UNRELEASED; urgency=medium
+
+  * Add debian/clean to remove script/*1.p. (Closes: #812586)
+
+ -- Martin Pitt <mpitt@debian.org>  Mon, 25 Jan 2016 22:40:49 +0100
+
 init-system-helpers (1.26) unstable; urgency=medium
 
   * Drop upstart as an alternative init dependency, as the package got
