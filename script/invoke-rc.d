@@ -464,7 +464,7 @@ fi
 ## note that $ACTION is a space-separated list of actions
 ## to be attempted in order until one suceeds.
 if test x${FORCE} != x || test ${RC} -eq 104 ; then
-    if [ -n "$is_upstart" ] || testexec "${INITDPREFIX}${INITSCRIPTID}" ; then
+    if [ -n "$is_upstart" ] || [ -n "$is_systemd" ] || testexec "${INITDPREFIX}${INITSCRIPTID}" ; then
 	RC=102
 	setechoactions ${ACTION}
 	while test ! -z "${ACTION}" ; do
