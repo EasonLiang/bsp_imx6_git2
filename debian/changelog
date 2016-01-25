@@ -2,6 +2,9 @@ init-system-helpers (1.28) UNRELEASED; urgency=medium
 
   * invoke-rc.d: Fix actions to run under systemd if there is no init.d
     script. (Closes: #747851)
+  * invoke-rc.d: Don't start systemd units which are disabled. Restart them
+    only if they were already running (i. e. started manually by the admin).
+    (Closes: #768450)
 
  -- Martin Pitt <mpitt@debian.org>  Tue, 26 Jan 2016 11:38:28 +0100
 

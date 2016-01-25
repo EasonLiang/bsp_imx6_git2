@@ -528,7 +528,26 @@ if test x${FORCE} != x || test ${RC} -eq 104 ; then
                     sctl_args="--job-mode=ignore-dependencies"
                 fi
                 case $saction in
-                    start|stop|restart|status)
+                    start|restart)
+                        # We never start disabled jobs; we only restart them if they are
+                        # already running (got started manually).
+                        # More rationale on https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=768450
+                        # and https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=768456
+                        #
+                        # Note that due to querypolicy() in case of a disabled init script installed,
+                        # restart won't be executed.
+                        # is-enabled can fail either because the unit is disabled, or it does not exist
+                        # (e. g. it might be from a generator)
+                        if ! ERR=$(systemctl --quiet is-enabled "${UNIT}" 2>&1) && [ -z "$ERR" ]; then
+                            if [ "$saction" = "start" ]; then
+                                exit 0
+                            elif [ "$saction" = "restart" ] && ! systemctl --quiet is-active "${UNIT}" 2>/dev/null; then
+                                exit 0
+                            fi
+                        fi
+                        systemctl $sctl_args "${saction}" "${UNIT}" && exit 0
+                        ;;
+                    stop|status)
                         systemctl $sctl_args "${saction}" "${UNIT}" && exit 0
                         ;;
                     reload)
