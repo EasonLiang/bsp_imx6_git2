@@ -1,6 +1,8 @@
 init-system-helpers (1.27) UNRELEASED; urgency=medium
 
   * Add debian/clean to remove script/*1.p. (Closes: #812586)
+  * Version the conflict to file-rc, 0.8.17 now works fine with the moved
+    update-rc.d and invoke-rc.d.
 
  -- Martin Pitt <mpitt@debian.org>  Mon, 25 Jan 2016 22:40:49 +0100
 

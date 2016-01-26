@@ -21,7 +21,7 @@ Replaces: sysv-rc (<< 2.88dsf-59.3~), sysvinit-utils (<< 2.88dsf-59.3)
 # E: This installation run will require temporarily removing the essential package sysvinit-utils:amd64 due to a Conflicts/Pre-Depends loop. This is often bad, but if you really want to do it, activate the APT::Force-LoopBreak option.
 #Breaks: sysv-rc (<< 2.88dsf-59.3~)
 Breaks: systemd (<< 44-12), sysvinit-utils (<< 2.88dsf-59.3~)
-Conflicts: file-rc, openrc (<= 0.18.3-1)
+Conflicts: file-rc (<< 0.8.17~), openrc (<= 0.18.3-1)
 Description: helper tools for all init systems
  This package contains helper tools that are necessary for switching between
  the various init systems that Debian contains (e. g. sysvinit or
