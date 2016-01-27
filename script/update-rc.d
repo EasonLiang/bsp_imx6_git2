@@ -170,7 +170,9 @@ sub insserv_updatercd {
 
     $scriptname = shift @args;
     $action = shift @args;
-    my $insserv = "/sbin/insserv";
+    my $insserv = "/usr/lib/insserv/insserv";
+    # Fallback for older insserv package versions [2014-04-16]
+    $insserv = "/sbin/insserv" if ( -x "/sbin/insserv");
     #print STDERR "Warning: rc.d symlinks not being kept up to date because insserv is missing!\n" if ( ! -x $insserv);
     if ("remove" eq $action) {
         exit 0 if ( ! -x $insserv);
