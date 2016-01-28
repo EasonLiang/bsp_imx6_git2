@@ -9,6 +9,8 @@ init-system-helpers (1.28) UNRELEASED; urgency=medium
   * update-rc.d: Support /usr/lib/insserv/insserv location too, as with
     newer sysvinit versions.
   * Add autopkgtest which runs the tests in t/.
+  * Drop Michael Stapelberg and Tollef Fog Heen from Uploaders:, they stopped
+    systemd work long ago. Thanks for your great work in the past!
 
   [ Andreas Henriksson ]
   * Add support for -X option. (Closes: #760168)

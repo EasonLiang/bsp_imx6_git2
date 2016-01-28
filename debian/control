@@ -2,9 +2,7 @@ Source: init-system-helpers
 Section: admin
 Priority: extra
 Maintainer: pkg-systemd-maintainers <pkg-systemd-maintainers@lists.alioth.debian.org>
-Uploaders: Michael Stapelberg <stapelberg@debian.org>,
- Tollef Fog Heen <tfheen@debian.org>,
- Michael Biebl <biebl@debian.org>,
+Uploaders: Michael Biebl <biebl@debian.org>,
  Martin Pitt <mpitt@debian.org>
 Build-Depends: debhelper (>= 8.0.0), perl:any
 Standards-Version: 3.9.6
