@@ -15,6 +15,10 @@ init-system-helpers (1.29) UNRELEASED; urgency=medium
     with an upstart script and systemd unit, but no SysV script in a chroot.
     (LP: #1543051)
 
+  [ Felipe Sateler ]
+  * update-rc.d: Ensure insserv doesn't fail if initscripts is not installed
+    (Closes: #806438)
+
  -- Martin Pitt <mpitt@debian.org>  Fri, 05 Feb 2016 12:41:40 +0100
 
 init-system-helpers (1.28) unstable; urgency=medium

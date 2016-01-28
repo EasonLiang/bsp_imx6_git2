@@ -168,6 +168,10 @@ sub insserv_updatercd {
 
     usage("not enough arguments") if ($#args < 1);
 
+    # Add force flag if initscripts is not installed
+    # This enables inistcripts-less systems to not fail when a facility is missing
+    unshift(@opts, '-f') unless is_initscripts_installed();
+
     $scriptname = shift @args;
     $action = shift @args;
     my $insserv = "/usr/lib/insserv/insserv";
@@ -384,4 +388,12 @@ sub insserv_toggle {
 
         rename($cur_lnk, join('', @new_lnk)) or error($!);
     }
+}
+
+# Try to determine if initscripts is installed
+sub is_initscripts_installed {
+    # Check if mountkernfs is available. We cannot make inferences
+    # using the running init system because we may be running in a
+    # chroot
+    return  -f '/etc/init.d/mountkernfs.sh';
 }
