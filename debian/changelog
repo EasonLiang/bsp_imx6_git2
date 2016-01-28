@@ -1,10 +1,14 @@
 init-system-helpers (1.28) UNRELEASED; urgency=medium
 
+  [ Martin Pitt ]
   * invoke-rc.d: Fix actions to run under systemd if there is no init.d
     script. (Closes: #747851)
   * invoke-rc.d: Don't start systemd units which are disabled. Restart them
     only if they were already running (i. e. started manually by the admin).
     (Closes: #768450)
+  * update-rc.d: Support /usr/lib/insserv/insserv location too, as with
+    newer sysvinit versions.
+  * Add autopkgtest which runs the tests in t/.
 
   [ Andreas Henriksson ]
   * Add support for -X option. (Closes: #760168)
@@ -12,11 +16,6 @@ init-system-helpers (1.28) UNRELEASED; urgency=medium
   [ Michael Biebl ]
   * invoke-rc.d: Allow stop and status requests for masked systemd services.
     (Closes: #717109)
-
-  [ Martin Pitt ]
-  * update-rc.d: Support /usr/lib/insserv/insserv location too, as with
-    newer sysvinit versions.
-  * Add autopkgtest which runs the tests in t/.
 
  -- Martin Pitt <mpitt@debian.org>  Tue, 26 Jan 2016 11:38:28 +0100
 
