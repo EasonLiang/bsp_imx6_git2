@@ -3,8 +3,9 @@ Section: admin
 Priority: extra
 Maintainer: pkg-systemd-maintainers <pkg-systemd-maintainers@lists.alioth.debian.org>
 Uploaders: Michael Biebl <biebl@debian.org>,
- Martin Pitt <mpitt@debian.org>
-Build-Depends: debhelper (>= 8.0.0), perl:any
+           Martin Pitt <mpitt@debian.org>,
+Build-Depends: debhelper (>= 8.0.0),
+               perl:any,
 Standards-Version: 3.9.6
 Vcs-Git: git://anonscm.debian.org/collab-maint/init-system-helpers.git
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/init-system-helpers.git;a=summary
@@ -13,13 +14,18 @@ Package: init-system-helpers
 Architecture: all
 Priority: required
 Multi-Arch: foreign
-Depends: perl-base (>= 5.20.1-3), ${perl:Depends}, ${misc:Depends}
-Replaces: sysv-rc (<< 2.88dsf-59.3~), sysvinit-utils (<< 2.88dsf-59.3)
+Depends: perl-base (>= 5.20.1-3),
+         ${misc:Depends},
+         ${perl:Depends},
+Replaces: sysv-rc (<< 2.88dsf-59.3~),
+          sysvinit-utils (<< 2.88dsf-59.3),
 # sysv-rc now pre-depends on us and if we break them we get:
 # E: This installation run will require temporarily removing the essential package sysvinit-utils:amd64 due to a Conflicts/Pre-Depends loop. This is often bad, but if you really want to do it, activate the APT::Force-LoopBreak option.
 #Breaks: sysv-rc (<< 2.88dsf-59.3~)
-Breaks: systemd (<< 44-12), sysvinit-utils (<< 2.88dsf-59.3~)
-Conflicts: file-rc (<< 0.8.17~), openrc (<= 0.18.3-1)
+Breaks: systemd (<< 44-12),
+        sysvinit-utils (<< 2.88dsf-59.3~),
+Conflicts: file-rc (<< 0.8.17~),
+           openrc (<= 0.18.3-1),
 Description: helper tools for all init systems
  This package contains helper tools that are necessary for switching between
  the various init systems that Debian contains (e. g. sysvinit or
@@ -37,8 +43,10 @@ Description: helper tools for all init systems
 Package: dh-systemd
 Architecture: all
 Multi-Arch: foreign
-Depends: ${perl:Depends}, ${misc:Depends}, debhelper
-Suggests: augeas-tools
+Depends: debhelper,
+         ${misc:Depends},
+         ${perl:Depends},
+Suggests: augeas-tools,
 Description: debhelper add-on to handle systemd unit files
  dh-systemd provides a debhelper sequence addon named 'systemd' and the
  dh_systemd_enable/dh_systemd_start commands.
@@ -54,8 +62,9 @@ Architecture: any
 Essential: yes
 Priority: required
 Multi-Arch: foreign
-Pre-Depends: systemd-sysv [linux-any] | sysvinit-core
-Depends: ${misc:Depends}, init-system-helpers
+Pre-Depends: systemd-sysv [linux-any] | sysvinit-core,
+Depends: init-system-helpers,
+         ${misc:Depends},
 Description: System-V-like init utilities - metapackage
  This package is an essential metapackage which allows you to select from
  the available init systems in Debian (systemd, sysvinit) while

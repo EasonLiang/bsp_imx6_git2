@@ -1,2 +1,2 @@
-/var/lib/systemd
 /etc/systemd/system
+/var/lib/systemd

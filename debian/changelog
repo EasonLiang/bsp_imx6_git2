@@ -11,6 +11,7 @@ init-system-helpers (1.28) UNRELEASED; urgency=medium
   * Add autopkgtest which runs the tests in t/.
   * Drop Michael Stapelberg and Tollef Fog Heen from Uploaders:, they stopped
     systemd work long ago. Thanks for your great work in the past!
+  * Run wrap-and-sort -at over our debian control files.
 
   [ Andreas Henriksson ]
   * Add support for -X option. (Closes: #760168)
