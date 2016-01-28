@@ -16,6 +16,7 @@ init-system-helpers (1.28) UNRELEASED; urgency=medium
   [ Martin Pitt ]
   * update-rc.d: Support /usr/lib/insserv/insserv location too, as with
     newer sysvinit versions.
+  * Add autopkgtest which runs the tests in t/.
 
  -- Martin Pitt <mpitt@debian.org>  Tue, 26 Jan 2016 11:38:28 +0100
 
