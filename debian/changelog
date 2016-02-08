@@ -10,6 +10,11 @@ init-system-helpers (1.29) UNRELEASED; urgency=medium
     the default behaviour of invoke-rc.d in that case is not sensible, and
     leads to the init script being executed. (Closes: #546532)
 
+  [ Martin Pitt ]
+  * invoke-rc.d: Fix package installation failure when installing a package
+    with an upstart script and systemd unit, but no SysV script in a chroot.
+    (LP: #1543051)
+
  -- Martin Pitt <mpitt@debian.org>  Fri, 05 Feb 2016 12:41:40 +0100
 
 init-system-helpers (1.28) unstable; urgency=medium
