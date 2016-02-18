@@ -38,6 +38,7 @@ RETURNFAILURE=
 RC=
 is_upstart=
 is_systemd=
+is_openrc=
 
 # Shell options
 set +e
@@ -278,6 +279,8 @@ then
 elif test -d /run/systemd/system ; then
     is_systemd=1
     UNIT="${INITSCRIPTID%.sh}.service"
+elif test -f /run/openrc/softlevel ; then
+    is_openrc=1
 elif test ! -f "${INITDPREFIX}${INITSCRIPTID}" ; then
     ## Verifies if the given initscript ID is known
     ## For sysvinit, this error is critical
@@ -586,6 +589,8 @@ if test x${FORCE} != x || test ${RC} -eq 104 ; then
                         "${INITDPREFIX}${INITSCRIPTID}" "${saction}" "$@" && exit 0
                         ;;
                 esac
+	    elif [ -n "$is_openrc" ]; then
+		rc-service "${INITSCRIPTID}" "${saction}" && exit 0
 	    else
 		"${INITDPREFIX}${INITSCRIPTID}" "${saction}" "$@" && exit 0
 	    fi

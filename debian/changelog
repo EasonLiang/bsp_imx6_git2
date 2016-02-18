@@ -19,6 +19,9 @@ init-system-helpers (1.29) UNRELEASED; urgency=medium
   * update-rc.d: Ensure insserv doesn't fail if initscripts is not installed
     (Closes: #806438)
 
+  [ Benda Xu ]
+  * script/invoke-rc.d: Add OpenRC support.
+
  -- Martin Pitt <mpitt@debian.org>  Fri, 05 Feb 2016 12:41:40 +0100
 
 init-system-helpers (1.28) unstable; urgency=medium
