@@ -63,6 +63,38 @@ sub make_path {
     map { push @dirs, $_; mkdir join('/', @dirs), 0755; } @path;
 }
 
+# Given a script name, return any runlevels except 0 or 6 in which the
+# script is enabled.  If that gives nothing and the script is not
+# explicitly disabled, return 6 if the script is disabled in runlevel
+# 0 or 6.
+sub script_runlevels {
+    my ($scriptname) = @_;
+    my @links=<"/etc/rc[S12345].d/S[0-9][0-9]$scriptname">;
+    if (@links) {
+        return map(substr($_, 7, 1), @links);
+    } elsif (! <"/etc/rc[S12345].d/K[0-9][0-9]$scriptname">) {
+        @links=<"/etc/rc[06].d/K[0-9][0-9]$scriptname">;
+        return ("6") if (@links);
+    } else {
+	return ;
+    }
+}
+
+# Map the sysvinit runlevel to that of openrc.
+sub openrc_rlconv {
+    my %rl_table = (
+        "S" => "sysinit",
+        "1" => "recovery",
+        "2" => "default",
+        "3" => "default",
+        "4" => "default",
+        "5" => "default",
+        "6" => "off" );
+
+    my %seen; # return unique runlevels
+    return grep !$seen{$_}++, map($rl_table{$_}, @_);
+}
+
 sub systemd_reload {
     if (-d "/run/systemd/system") {
         system("systemctl", "daemon-reload");
@@ -179,6 +211,7 @@ sub insserv_updatercd {
     $insserv = "/sbin/insserv" if ( -x "/sbin/insserv");
     #print STDERR "Warning: rc.d symlinks not being kept up to date because insserv is missing!\n" if ( ! -x $insserv);
     if ("remove" eq $action) {
+        system("rc-update", "-qqa", "delete", $scriptname) if ( -x "/sbin/openrc" );
         exit 0 if ( ! -x $insserv);
         if ( -f "/etc/init.d/$scriptname" ) {
             my $rc = system($insserv, @opts, "-r", $scriptname) >> 8;
@@ -216,6 +249,17 @@ sub insserv_updatercd {
             }
             error_code($rc, "insserv rejected the script header") if $rc;
             systemd_reload;
+
+	    # OpenRC does not distinguish halt and reboot.  They are handled
+	    # by /etc/init.d/transit instead.
+            if ( -x "/sbin/openrc" && "halt" ne $scriptname
+                 && "reboot" ne $scriptname ) {
+                # no need to consider default disabled runlevels
+                # because everything is disabled by openrc by default
+		my @rls=script_runlevels($scriptname);
+                system("rc-update", "add", $scriptname, openrc_rlconv(@rls))
+		    if ( @rls );
+            }
             exit $rc;
         } else {
             error("initscript does not exist: /etc/init.d/$scriptname");
@@ -350,6 +394,12 @@ sub insserv_toggle {
         if ($#toggle_lvls < 0) {
             error("$name Default-Start contains no runlevels, aborting.");
         }
+    }
+
+    if ( -x "/sbin/openrc" ) {
+        my %openrc_act = ( "disable" => "del", "enable" => "add" );
+        system("rc-update", $openrc_act{$act}, $name,
+               openrc_rlconv(@toggle_lvls))
     }
 
     # Find symlinks in rc.d directories. Refuse to modify links in runlevels

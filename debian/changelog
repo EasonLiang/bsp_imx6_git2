@@ -21,6 +21,7 @@ init-system-helpers (1.29) UNRELEASED; urgency=medium
 
   [ Benda Xu ]
   * script/invoke-rc.d: Add OpenRC support.
+  * script/update-rc.d: Add OpenRC support.
 
  -- Martin Pitt <mpitt@debian.org>  Fri, 05 Feb 2016 12:41:40 +0100
 
