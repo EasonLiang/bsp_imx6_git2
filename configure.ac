@@ -14,7 +14,7 @@ AC_PROG_CC
 
 
 dnl TODO: make gconf optional
-PKG_CHECK_MODULES(APP, [gconf-2.0 gdk-x11-2.0 x11])
+PKG_CHECK_MODULES(APP, [gconf-2.0 gdk-x11-3.0 x11])
 
 
 AC_SUBST(APP_CFLAGS)
