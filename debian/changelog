@@ -1,4 +1,4 @@
-init-system-helpers (1.29) UNRELEASED; urgency=medium
+init-system-helpers (1.29) unstable; urgency=medium
 
   [ Michael Biebl ]
   * Bump debhelper compatibility level to 9.
@@ -23,7 +23,7 @@ init-system-helpers (1.29) UNRELEASED; urgency=medium
   * script/invoke-rc.d: Add OpenRC support.
   * script/update-rc.d: Add OpenRC support.
 
- -- Martin Pitt <mpitt@debian.org>  Fri, 05 Feb 2016 12:41:40 +0100
+ -- Martin Pitt <mpitt@debian.org>  Mon, 29 Feb 2016 13:24:34 +0100
 
 init-system-helpers (1.28) unstable; urgency=medium
 
