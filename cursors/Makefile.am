@@ -79,7 +79,7 @@ CURSOR_NAMES = \
 	ul_angle \
 	ur_angle \
 	v_double_arrow \
-	watcha \
+	watch \
 	xterm  
 
 CURSOR_DIR = $(datadir)/icons/xcursor-transparent/cursors
