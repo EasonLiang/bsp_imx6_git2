@@ -26,10 +26,17 @@ CURSOR_NAMES = \
 	bottom_tee \
 	center_ptr \
 	circle \
+	closedhand \
+	color-picker \
+	copy \
 	cross \
 	cross_reverse \
 	crossed_circle \
 	crosshair \
+	dnd-copy \
+	dnd-move \
+	dnd-no-drop \
+	dnd-none \
 	dot \
 	dot_box_mask \
 	dotbox \
@@ -40,21 +47,27 @@ CURSOR_NAMES = \
 	exchange     \
 	fd_double_arrow \
 	fleur \
+	forbidden \
 	gumby \
 	h_double_arrow \
 	hand \
 	hand1 \
 	hand2 \
+	ibeam \
 	left_ptr \
 	left_ptr_watch \
 	left_side \
 	left_tee  \
+	link \
 	ll_angle  \
 	lr_angle  \
 	move      \
+	openhand \
 	pencil    \
 	pirate    \
 	plus      \
+	pointing_hand \
+	progress \
 	question_arrow \
 	right_ptr      \
 	right_side     \
@@ -67,9 +80,17 @@ CURSOR_NAMES = \
 	sb_up_arrow \
 	sb_v_double_arrow \
 	shuttle \
+	size_all \
+	size_bdiag \
+	size_fdiag \
+	size_hor \
+	size_ver \
 	sizing  \
+	split_h \
+	split_v \
 	target  \
 	tcross  \
+	text \
 	top_left_arrow  \
 	top_left_corner \
 	top_right_corner \
@@ -77,9 +98,12 @@ CURSOR_NAMES = \
 	top_tee \
 	trek \
 	ul_angle \
+	up_arrow \
 	ur_angle \
 	v_double_arrow \
+	wait \
 	watch \
+	whats_this \
 	xterm  
 
 CURSOR_DIR = $(datadir)/icons/xcursor-transparent/cursors
