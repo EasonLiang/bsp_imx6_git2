@@ -104,15 +104,15 @@ CURSOR_NAMES = \
 	wait \
 	watch \
 	whats_this \
-	xterm  
+	xterm
 
 CURSOR_DIR = $(datadir)/icons/xcursor-transparent/cursors
 CURSOR_REAL = transp
 EXTRA_DIST = $(CURSOR_REAL)
 
 install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(CURSOR_DIR); 
-	$(INSTALL_DATA) $(CURSOR_REAL) $(DESTDIR)$(CURSOR_DIR)/ 
+	$(mkinstalldirs) $(DESTDIR)$(CURSOR_DIR);
+	$(INSTALL_DATA) $(srcdir)/$(CURSOR_REAL) $(DESTDIR)$(CURSOR_DIR)/
 	for CURSOR in $(CURSOR_NAMES); do \
 		echo '-- Installing cursor '$$CURSOR; \
 		ln -s $(DESTDIR)$(CURSOR_DIR)/transp $(DESTDIR)$(CURSOR_DIR)/$$CURSOR; \
