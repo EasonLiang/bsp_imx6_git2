@@ -1,5 +1,0 @@
-ARCH=all
-MAINTAINER=mallum@handhelds.org
-SOURCE=http://www.butterfeet.org:8080/xcursor-transparent-theme
-DEPS='libxcursor'
-DESC="A fully transparent ( invisible ) X Cursor theme"
