@@ -115,6 +115,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/$(CURSOR_REAL) $(DESTDIR)$(CURSOR_DIR)/
 	for CURSOR in $(CURSOR_NAMES); do \
 		echo '-- Installing cursor '$$CURSOR; \
-		ln -s $(DESTDIR)$(CURSOR_DIR)/transp $(DESTDIR)$(CURSOR_DIR)/$$CURSOR; \
+		ln -s transp $(DESTDIR)$(CURSOR_DIR)/$$CURSOR; \
 	done
 
