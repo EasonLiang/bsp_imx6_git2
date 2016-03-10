@@ -7,8 +7,8 @@ Uploaders: Michael Biebl <biebl@debian.org>,
 Build-Depends: debhelper (>= 9),
                perl:any,
 Standards-Version: 3.9.6
-Vcs-Git: git://anonscm.debian.org/collab-maint/init-system-helpers.git
-Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/init-system-helpers.git;a=summary
+Vcs-Git: https://anonscm.debian.org/git/collab-maint/init-system-helpers.git
+Vcs-Browser: https://anonscm.debian.org/git/collab-maint/init-system-helpers.git
 
 Package: init-system-helpers
 Architecture: all
