@@ -1,7 +1,12 @@
 init-system-helpers (1.30) UNRELEASED; urgency=medium
 
+  [ Felipe Sateler ]
   * update-rc.d: Add 'defaults' action to usage message. (Closes: #814666)
   * update-rc.d: Do not print 'error:' when passing --help
+
+  [ Niels Thykier ]
+  * dh_systemd_start: Default to -R in compat 10, for consistency with
+    dh_installinit.
 
  -- Felipe Sateler <fsateler@debian.org>  Fri, 11 Mar 2016 18:48:39 -0300
 
