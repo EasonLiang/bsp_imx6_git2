@@ -7,6 +7,7 @@ init-system-helpers (1.30) UNRELEASED; urgency=medium
   [ Niels Thykier ]
   * dh_systemd_start: Default to -R in compat 10, for consistency with
     dh_installinit.
+  * dh_systemd_*: Do not needlessly traverse the entire package tree.
 
  -- Felipe Sateler <fsateler@debian.org>  Fri, 11 Mar 2016 18:48:39 -0300
 

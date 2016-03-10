@@ -178,7 +178,7 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 			push @installed_units, $name;
 		},
 		no_chdir => 1,
-	}, $tmpdir);
+	}, "${tmpdir}/lib/systemd/system");
 
 	# Handle either only the unit files which were passed as arguments or
 	# all unit files that are installed in this package.
