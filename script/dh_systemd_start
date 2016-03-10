@@ -115,6 +115,9 @@ sub extract_key {
 	return @values;
 }
 
+
+# PROMISE: DH NOOP WITHOUT tmp(lib/systemd/system)
+
 foreach my $package (@{$dh{DOPACKAGES}}) {
 	my $tmpdir = tmpdir($package);
 	my @installed_units;

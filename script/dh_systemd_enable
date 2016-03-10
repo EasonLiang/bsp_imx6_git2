@@ -102,6 +102,8 @@ sub contains_install_section {
 	return 0;
 }
 
+# PROMISE: DH NOOP WITHOUT tmp(lib/systemd/system) service socket tmpfile
+
 foreach my $package (@{$dh{DOPACKAGES}}) {
 	my $tmpdir = tmpdir($package);
 	my @installed_units;
