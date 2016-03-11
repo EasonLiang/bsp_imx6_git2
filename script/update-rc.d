@@ -195,7 +195,7 @@ sub insserv_updatercd {
         shift @args;
         if (/^-n$/) { push(@opts, $_); $notreally++; next }
         if (/^-f$/) { push(@opts, $_); next }
-        if (/^-h|--help$/) { &usage; }
+        if (/^-h|--help$/) { usage(); }
         usage("unknown option");
     }
 
