@@ -18,6 +18,7 @@ sub usage {
 	print STDERR "update-rc.d: error: @_\n" if ($#_ >= 0);
 	print STDERR <<EOF;
 usage: update-rc.d [-n] [-f] <basename> remove
+       update-rc.d [-n] [-f] <basename> defaults
        update-rc.d [-n] <basename> disable|enable [S|2|3|4|5]
 		-n: not really
 		-f: force
