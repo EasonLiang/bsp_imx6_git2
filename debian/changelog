@@ -11,6 +11,12 @@ init-system-helpers (1.30) UNRELEASED; urgency=medium
   * dh_systemd_*: Add DH promise to avoid being called for no reason.
   * Update Vcs-* fields to use https.
 
+  [ Raphaël Hertzog ]
+  * tests: Support $TEST_ON_REAL_SYSTEM which skips the tmpfs bind mounts, and
+    use that in the autopkgtest. This provides a more realistic test and
+    unbreaks operations which communicate with pid1. Also purge metadata in
+    between tests.
+
  -- Felipe Sateler <fsateler@debian.org>  Fri, 11 Mar 2016 18:48:39 -0300
 
 init-system-helpers (1.29) unstable; urgency=medium
