@@ -28,6 +28,9 @@ init-system-helpers (1.30) UNRELEASED; urgency=medium
   * dh-systemd: Support enabling of debian/<package>.mount files.
     (Closes: #803774)
 
+  [ Luca Boccassi ]
+  * dh-systemd: Support installing .target files. (Closes: #793153)
+
  -- Felipe Sateler <fsateler@debian.org>  Fri, 11 Mar 2016 18:48:39 -0300
 
 init-system-helpers (1.29) unstable; urgency=medium
