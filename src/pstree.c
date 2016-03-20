@@ -1013,7 +1013,12 @@ static void usage(void)
 {
     fprintf(stderr,
             _
-            ("Usage: pstree [ -a ] [ -c ] [ -h | -H PID ] [ -l ] [ -n ] [ -p ] [ -g ] [ -u ]\n"
+            (
+#ifdef WITH_SELINUX
+             "Usage: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N type ]\n"
+#else                                 /*WITH_SELINUX */
+             "Usage: pstree [-acglpsStu] [ -h | -H PID ] [ -n | -N type ]\n"
+#endif                                /*WITH_SELINUX */
              "              [ -A | -G | -U ] [ PID | USER ]\n"
              "       pstree -V\n" "Display a tree of processes.\n\n"
              "  -a, --arguments     show command line arguments\n"
@@ -1037,7 +1042,8 @@ static void usage(void)
              "  -V, --version       display version information\n"));
 #ifdef WITH_SELINUX
     fprintf(stderr,
-            _("  -Z     show         SELinux security contexts\n"));
+            _("  -Z, --security-context\n"
+              "                      show SELinux security contexts\n"));
 #endif                                /*WITH_SELINUX */
     fprintf(stderr, _("  PID    start at this PID; default is 1 (init)\n"
                       "  USER   show only trees rooted at processes of this user\n\n"));

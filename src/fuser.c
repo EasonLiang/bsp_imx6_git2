@@ -121,15 +121,18 @@ static void usage(const char *errormsg)
 
 	fprintf(stderr,
 		_
-		("Usage: fuser [-fMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE] [-k [-i] [-SIGNAL]] NAME...\n"
-		 "       fuser -l\n" "       fuser -V\n"
+		("Usage: fuser [-fIMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE]\n"
+		 "             [-k [-i] [-SIGNAL]] NAME...\n"
+		 "       fuser -l\n"
+		 "       fuser -V\n"
 		 "Show which processes use the named files, sockets, or filesystems.\n\n"
 		 "  -a,--all              display unused files too\n"
 		 "  -i,--interactive      ask before killing (ignored without -k)\n"
 		 "  -I,--inode            use always inodes to compare files\n"
 		 "  -k,--kill             kill processes accessing the named file\n"
 		 "  -l,--list-signals     list available signal names\n"
-		 "  -m,--mount            show all processes using the named filesystems or block device\n"
+		 "  -m,--mount            show all processes using the named filesystems or\n"
+		 "                        block device\n"
 		 "  -M,--ismountpoint     fulfill request only if NAME is a mount point\n"
 		 "  -n,--namespace SPACE  search in this name space (file, udp, or tcp)\n"
 		 "  -s,--silent           silent operation\n"

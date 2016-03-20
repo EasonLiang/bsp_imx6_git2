@@ -661,7 +661,8 @@ usage (const char *msg)
     fprintf(stderr, "%s\n", msg);
 #ifdef WITH_SELINUX
    fprintf(stderr, _(
-     "Usage: killall [-Z CONTEXT] [-u USER] [ -eIgiqrvw ] [ -SIGNAL ] NAME...\n"));
+    "Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -eIgiqrvw ]\n"
+    "               [ -s SIGNAL | -SIGNAL ] NAME...\n"));
 #else  /*WITH_SELINUX*/
   fprintf(stderr, _(
     "Usage: killall [OPTION]... [--] NAME...\n"));
@@ -673,7 +674,7 @@ usage (const char *msg)
     "  -I,--ignore-case    case insensitive process name match\n"
     "  -g,--process-group  kill process group instead of process\n"
     "  -y,--younger-than   kill processes younger than TIME\n"
-    "  -o,--older-than     kill processes older than TIME\n"		    
+    "  -o,--older-than     kill processes older than TIME\n"
     "  -i,--interactive    ask for confirmation before killing\n"
     "  -l,--list           list all known signal names\n"
     "  -q,--quiet          don't print complaints\n"
