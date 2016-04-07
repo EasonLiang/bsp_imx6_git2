@@ -1,10 +1,18 @@
 init-system-helpers (1.34) UNRELEASED; urgency=medium
 
+  [ Martin Pitt ]
   * Make "init" not essential any more and lower priority from "required" to
     "important", so that we can drop it from minimal chroots and docker
     containers at some point. Explicitly mark init-system-helpers as essential
     now (before it was only transitively essential due to  init depending on
     it). (Closes: #756023)
+
+  [ Dan Nicholson ]
+  * deb-systemd-helper, dh_systemd_start: Use split rather than
+    Text::ParseWords::shellwords since the latter will strip valid \
+    escapes from unit names. The values then need to have leading and
+    trailing quotes stripped. (Closes: #820359)
+  * dh_systemd_enable: Drop unused Text::ParseWords use.
 
  -- Martin Pitt <mpitt@debian.org>  Thu, 19 May 2016 18:05:15 +0200
 

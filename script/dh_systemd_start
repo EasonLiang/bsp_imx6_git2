@@ -9,7 +9,6 @@ dh_systemd_start - start/stop/restart systemd unit files
 use strict;
 use Debian::Debhelper::Dh_Lib;
 use File::Find;
-use Text::ParseWords qw(shellwords); # in core since Perl 5
 use Cwd qw(getcwd abs_path);
 
 =head1 SYNOPSIS
@@ -107,8 +106,16 @@ sub extract_key {
 	while (my $line = <$fh>) {
 		chomp($line);
 
+		# The keys parsed from the unit file below can only have
+		# unit names as values. Since unit names can't have
+		# whitespace in systemd, simply use split and strip any
+		# leading/trailing quotes. See systemd-escape(1) for
+		# examples of valid unit names.
 		if ($line =~ /^\s*$key=(.+)$/i) {
-			@values = (@values, shellwords($1));
+			for my $value (split(/\s+/, $1)) {
+				$value =~ s/^(["'])(.*)\g1$/$2/;
+				push @values, $value;
+			}
 		}
 	}
 	close($fh);
