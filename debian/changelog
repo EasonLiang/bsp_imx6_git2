@@ -16,6 +16,8 @@ init-system-helpers (1.30) UNRELEASED; urgency=medium
     use that in the autopkgtest. This provides a more realistic test and
     unbreaks operations which communicate with pid1. Also purge metadata in
     between tests.
+  * Prefer calling "systemctl preset" instead of "enable" when available, so
+    that systemd.preset(5) files are respected by packages. (Closes: #772555)
 
  -- Felipe Sateler <fsateler@debian.org>  Fri, 11 Mar 2016 18:48:39 -0300
 
