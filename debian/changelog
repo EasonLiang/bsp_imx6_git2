@@ -19,6 +19,9 @@ init-system-helpers (1.30) UNRELEASED; urgency=medium
   * Prefer calling "systemctl preset" instead of "enable" when available, so
     that systemd.preset(5) files are respected by packages. (Closes: #772555)
 
+  [ Martin Pitt ]
+  * Bump Standards-Version to 3.9.8 (no changes necessary).
+
  -- Felipe Sateler <fsateler@debian.org>  Fri, 11 Mar 2016 18:48:39 -0300
 
 init-system-helpers (1.29) unstable; urgency=medium
