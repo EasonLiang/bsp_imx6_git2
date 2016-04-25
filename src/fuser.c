@@ -1565,7 +1565,7 @@ void fill_unix_cache(struct unixsocket_list **unixsocket_head)
 	while (fgets(line, BUFSIZ, fp) != NULL) {
 		char *path;
 		char *scanned_path = NULL;
-		if (sscanf(line, "%*x: %*x %*x %*x %*x %*d %d %as",
+		if (sscanf(line, "%*x: %*x %*x %*x %*x %*d %d %ms",
 			   &scanned_inode, &scanned_path) != 2) {
 			if (scanned_path)
 				free(scanned_path);

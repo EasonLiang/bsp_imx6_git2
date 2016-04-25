@@ -241,7 +241,7 @@ static void print_stat(const int pid, const opt_type options)
   bptr++;
   pr = malloc(sizeof(struct proc_info));
   sscanf(bptr,
-	  "%a[^)]) "
+	  "%m[^)]) "
 	  "%c "
 	  "%d %d %d %d %d %d"
 	  "%lu %lu %lu %lu " /*flts*/
