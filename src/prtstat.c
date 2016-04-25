@@ -239,8 +239,11 @@ static void print_stat(const int pid, const opt_type options)
   bptr = strchr(buf, '(');
   if (bptr == NULL) return;
   bptr++;
-  pr = malloc(sizeof(struct proc_info));
-  sscanf(bptr,
+  if ((pr = malloc(sizeof(struct proc_info))) == NULL) {
+      fprintf(stderr, _("Unable to allocate memory for proc_info\n"));
+      return;
+  }
+  if (sscanf(bptr,
 	  "%m[^)]) "
 	  "%c "
 	  "%d %d %d %d %d %d"
@@ -270,11 +273,13 @@ static void print_stat(const int pid, const opt_type options)
 	   &pr->exit_signal, &pr->processor, &pr->rt_priority,
 	   &pr->policy, &pr->blkio, 
 	   &pr->guest_time, &pr->cguest_time
-		 );
-  if (options & OPT_RAW)
-      print_raw_stat(pid, pr);
-  else
-      print_formated_stat(pid, pr);
+		 ) == 39) {
+    if (options & OPT_RAW)
+        print_raw_stat(pid, pr);
+    else
+        print_formated_stat(pid, pr);
+         } else 
+             fprintf(stderr, _("Unable to scan stat file"));
   free(pr);
 }
 

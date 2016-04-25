@@ -608,6 +608,7 @@ int parse_inet(struct names *this_name, struct ip_connections **ip_list)
 			fprintf(stderr, _("Unknown local port AF %d\n"),
 				res->ai_family);
 			freeaddrinfo(res);
+            free(lcl_port_str);
 			return -1;
 		}
 		freeaddrinfo(res);
@@ -671,6 +672,7 @@ int parse_inet(struct names *this_name, struct ip_connections **ip_list)
 #endif
 				}
 			}	/*while */
+		    freeaddrinfo(res);
 			return 0;
 		}
 	}

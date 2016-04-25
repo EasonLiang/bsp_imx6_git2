@@ -369,6 +369,8 @@ load_proc_cmdline(const pid_t pid, const char *comm, char **command, int *got_lo
 	}
     }
     (void) fclose(file);
+    free(command_buf);
+    command_buf = NULL;
     
     if (exact && !okay)
     {
@@ -650,6 +652,7 @@ kill_all (int signal, int name_count, char **namelist, struct passwd *pwent)
     }
     free(pid_killed);
     free(pid_table);
+    free(command);
     return error;
 }
 
@@ -894,5 +897,4 @@ main (int argc, char **argv)
 #else  /*WITH_SELINUX*/
   return kill_all(sig_num,argc - myoptind, argv, pwent);
 #endif /*WITH_SELINUX*/
-  printf("done\n");
 }
