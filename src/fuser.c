@@ -1852,7 +1852,7 @@ static void clear_mntinfo(void)
 
 static void init_mntinfo(void)
 {
-	char mpoint[PATH_MAX + 1];
+	char mpoint[PATH_MAX*4 + 1]; // octal escaping takes 4 chars per 1 char
 	int mid, parid, max = 0;
 	uint maj, min;
 	list_t sort;

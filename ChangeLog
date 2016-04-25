@@ -1,5 +1,6 @@
 Changes in 22.22
 ================
+	* fuser: increase path length for octal escaping SF [#37]
 	* Make usage of linked lists of devices found in
 	  /proc/self/mountinfo optional
 	* Make timeout() in timeout.c work with shared mmap to
