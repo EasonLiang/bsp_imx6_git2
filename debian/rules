@@ -10,6 +10,7 @@
 #export DH_VERBOSE=1
 
 BUILD_DATE = $(shell dpkg-parsechangelog -S Date)
+VERSION = $(shell dpkg-parsechangelog -S Version)
 POD_MAN_DATE = $(shell date -u +"%Y-%m-%d" --date="$(BUILD_DATE)")
 export POD_MAN_DATE
 
@@ -22,6 +23,10 @@ override_dh_auto_build:
 	for file in $$(ls script/deb-* script/dh_*); do \
 		pod2man --section=1p --utf8 $$file $$file.1p; \
 	done
+
+override_dh_install:
+	dh_install
+	sed -i 's/__VERSION__/$(VERSION)/' debian/init-system-helpers/usr/sbin/service
 
 %:
 	dh $@ 

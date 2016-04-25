@@ -21,6 +21,8 @@ init-system-helpers (1.30) UNRELEASED; urgency=medium
 
   [ Martin Pitt ]
   * Bump Standards-Version to 3.9.8 (no changes necessary).
+  * Fix "service --version" to show the currrent instead some old hardcoded
+    version. (Closes: #819984)
 
  -- Felipe Sateler <fsateler@debian.org>  Fri, 11 Mar 2016 18:48:39 -0300
 
