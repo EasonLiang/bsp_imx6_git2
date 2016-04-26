@@ -1,8 +1,8 @@
-init-system-helpers (1.31) UNRELEASED; urgency=medium
+init-system-helpers (1.31) unstable; urgency=medium
 
   * Fix FTBFS when building arch specific binaries only.
 
- -- Martin Pitt <mpitt@debian.org>  Tue, 26 Apr 2016 16:50:07 +0200
+ -- Martin Pitt <mpitt@debian.org>  Tue, 26 Apr 2016 17:37:46 +0200
 
 init-system-helpers (1.30) unstable; urgency=medium
 
