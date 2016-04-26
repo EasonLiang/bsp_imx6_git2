@@ -26,7 +26,7 @@ override_dh_auto_build:
 
 override_dh_install:
 	dh_install
-	sed -i 's/__VERSION__/$(VERSION)/' debian/init-system-helpers/usr/sbin/service
+	[ ! -d debian/init-system-helpers ] || sed -i 's/__VERSION__/$(VERSION)/' debian/init-system-helpers/usr/sbin/service
 
 %:
 	dh $@ 
