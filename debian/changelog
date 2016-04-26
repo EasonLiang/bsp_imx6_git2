@@ -1,4 +1,4 @@
-init-system-helpers (1.30) UNRELEASED; urgency=medium
+init-system-helpers (1.30) unstable; urgency=medium
 
   [ Felipe Sateler ]
   * update-rc.d: Add 'defaults' action to usage message. (Closes: #814666)
@@ -33,7 +33,7 @@ init-system-helpers (1.30) UNRELEASED; urgency=medium
   [ Luca Boccassi ]
   * dh-systemd: Support installing .target files. (Closes: #793153)
 
- -- Felipe Sateler <fsateler@debian.org>  Fri, 11 Mar 2016 18:48:39 -0300
+ -- Martin Pitt <mpitt@debian.org>  Tue, 26 Apr 2016 10:01:46 +0200
 
 init-system-helpers (1.29) unstable; urgency=medium
 
