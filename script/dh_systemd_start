@@ -138,7 +138,7 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 				push @installed_units, $name;
 			}
 		},
-	}, "${tmpdir}/lib/systemd/system");
+	}, "${tmpdir}/lib/systemd/system") if -d "${tmpdir}/lib/systemd/system";
 	chdir($oldcwd);
 
 	# Handle either only the unit files which were passed as arguments or
