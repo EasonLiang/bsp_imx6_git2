@@ -23,6 +23,8 @@ init-system-helpers (1.30) UNRELEASED; urgency=medium
   * Bump Standards-Version to 3.9.8 (no changes necessary).
   * Fix "service --version" to show the currrent instead some old hardcoded
     version. (Closes: #819984)
+  * service.8: Document that $PATH is passed to the init script.
+    (Closes: #619464)
 
   [ Erik Ziegenbalg ]
   * dh-systemd: Support enabling of debian/<package>.mount files.
