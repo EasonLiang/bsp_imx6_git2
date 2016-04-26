@@ -381,14 +381,14 @@ main (int argc, char **argv) {
   gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (theme_store), COL_NAME, GTK_SORT_ASCENDING);
 
   dialog = gtk_dialog_new_with_buttons (_("Appearance"), NULL, 
-                                        GTK_DIALOG_NO_SEPARATOR,
+                                        0,
                                         GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
                                         NULL);
   g_signal_connect (dialog, "response", G_CALLBACK (gtk_main_quit), NULL);
 
   gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
 
-  box = GTK_BOX (GTK_DIALOG (dialog)->vbox);
+  box = GTK_BOX (gtk_dialog_get_content_area (GTK_DIALOG (dialog)));
   gtk_box_set_spacing (box, 6);
   gtk_container_set_border_width (GTK_CONTAINER (dialog), 6);
 
