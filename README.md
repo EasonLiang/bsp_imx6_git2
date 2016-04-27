@@ -1,3 +1,5 @@
+
+[<img alt="Coverity Scan Build Status" src="https://scan.coverity.com/projects/2048/badge.svg"/>](https://scan.coverity.com/projects/psmisc)
 # psmisc
 
 A package of small utilities that use the proc file-system.
