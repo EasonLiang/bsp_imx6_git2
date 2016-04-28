@@ -6,7 +6,8 @@ A package of small utilities that use the proc file-system.
 
 * *fuser* - Identifies processes using files or sockets
 * *killall* - kills processes by name, e.g. killall -HUP named
-* *prtstat* - print statistics of a process
+* *prtstat* - prints statistics of a process
+* *pslog* - prints log path(s) of a process
 * *pstree* - shows the currently running processes as a tree
 * *peekfd* - shows the data travelling over a file descriptor
 
@@ -25,7 +26,7 @@ fuser doesn't hang, but it is much slower.
 ### Translations
 My thanks for the various translators who have cheerfully given me the po
 files to make psmisc speak different languages.  If your language is not
-supported then let me know, all it takes is translating one file in 
+supported then let me know, all it takes is translating one file in
 a certain manner.
 
 ### Icons

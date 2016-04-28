@@ -17,6 +17,7 @@ SUBDIRS = \
 
 bin_PROGRAMS = \
 	       src/killall \
+	       src/pslog \
 	       src/prtstat \
 	       src/pstree
 
@@ -64,6 +65,7 @@ src_fuser_LDADD = @LIBINTL@
 src_killall_SOURCES = src/killall.c src/comm.h src/signals.c src/signals.h src/i18n.h
 src_killall_LDADD = @LIBINTL@ @SELINUX_LIB@
 src_peekfd_SOURCES = src/peekfd.c
+src_pslog_SOURCES = src/pslog.c
 src_pstree_SOURCES = src/pstree.c src/comm.h src/i18n.h
 src_pstree_LDADD = @LIBINTL@ @TERMCAP_LIB@ @SELINUX_LIB@
 src_prtstat_SOURCES = src/prtstat.c src/prtstat.h
@@ -72,7 +74,7 @@ nodist_src_killall_SOURCES = signames.h
 
 BUILT_SOURCES = src/signames.h
 
-EXTRA_DIST = src/signames.c 
+EXTRA_DIST = src/signames.c
 
 CLEANFILES = src/signames.h
 
