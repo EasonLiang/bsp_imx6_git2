@@ -463,7 +463,7 @@ kill_all (int signal, int name_count, char **namelist, struct passwd *pwent)
       perror ("malloc");
       exit (1);
     }
-  if (!process_group)
+  if (process_group)
   {
       pgids = calloc (pids, sizeof (pid_t));
       if (!pgids)
@@ -653,6 +653,7 @@ kill_all (int signal, int name_count, char **namelist, struct passwd *pwent)
     free(pid_killed);
     free(pid_table);
     free(command);
+    free(name_info);
     return error;
 }
 
