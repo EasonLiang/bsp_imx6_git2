@@ -295,14 +295,15 @@ elif test ! -f "${INITDPREFIX}${INITSCRIPTID}" ; then
 fi
 
 ## Queries sysvinit for the current runlevel
-RL=`${RUNLEVELHELPER} | sed 's/.*\ //'`
-if test ! $? ; then
+if ! RL=`${RUNLEVELHELPER}`; then
     printerror "could not determine current runlevel"
     if test x${RETRY} = x ; then
 	exit 102
     fi
     RL=
 fi
+# strip off previous runlevel
+RL=${RL#* }
 
 ## Running ${RUNLEVELHELPER} to get current runlevel do not work in
 ## the boot runlevel (scripts in /etc/rcS.d/), as /var/run/utmp
