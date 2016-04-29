@@ -4,6 +4,13 @@ init-system-helpers (1.32) UNRELEASED; urgency=medium
     messages when calling on a package without /lib/systemd/system/.
     (Closes: #822710)
   * invoke-rc.d: Fix check for failing "runlevel" command.
+  * invoke-rc.d: Under systemd, "runlevel" only switches to 3 or 5 when
+    multi-user.target/graphical.target have been reached, not before.
+    Adjust the runlevel check accordingly. This is only relevant for the check
+    for wrong/dangling rcN.d/ symlinks, so just pin it to "5" (the precise
+    value does not matter much). Fixing this in systemd requires bigger
+    architectural changes, so use this tiny (and backportable) bandaid for the
+    time being. (LP: #1575572)
 
  -- Martin Pitt <mpitt@debian.org>  Tue, 26 Apr 2016 22:13:12 +0200
 

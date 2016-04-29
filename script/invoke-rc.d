@@ -296,11 +296,19 @@ fi
 
 ## Queries sysvinit for the current runlevel
 if ! RL=`${RUNLEVELHELPER}`; then
-    printerror "could not determine current runlevel"
-    if test x${RETRY} = x ; then
-	exit 102
+    if [ -n "$is_systemd" ] && systemctl is-active --quiet sysinit.target; then
+        # under systemd, the [2345] runlevels are only set upon reaching them;
+        # if we are past sysinit.target (roughly equivalent to rcS), consider
+        # this as runlevel 5 (this is only being used for validating rcN.d
+        # symlinks, so the precise value does not matter much)
+        RL=5
+    else
+        printerror "could not determine current runlevel"
+        if test x${RETRY} = x ; then
+            exit 102
+        fi
+        RL=
     fi
-    RL=
 fi
 # strip off previous runlevel
 RL=${RL#* }
