@@ -36,8 +36,6 @@ po/Makefile
 po/Makefile.in
 po/stamp-po
 psmisc-*.tar.xz
-src/.deps/
-src/.dirstamp
 signames.h
 stamp-h1
 site.exp
