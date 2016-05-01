@@ -35,7 +35,7 @@
 static int
 usage ()
 {
-   fprintf(stderr,
+  fprintf(stderr,
     "Usage: pslog PID...\n"
     "       pslog -V, --version\n\n"
 
@@ -112,6 +112,7 @@ main(int argc, char const *argv[])
     return 1;
   }
 
+  ssize_t linkname_size;
   char buf[PATH_MAX+1];
   DIR *pid_dir;
 
@@ -135,7 +136,8 @@ main(int argc, char const *argv[])
   while((namelist = readdir(pid_dir))) {
     strncpy(linkpath, fullpath, PATH_MAX);
     strncat(linkpath, namelist->d_name, PATH_MAX - strlen(linkpath));
-    readlink(linkpath, buf, PATH_MAX -1);
+    linkname_size = readlink(linkpath, buf, PATH_MAX -1);
+    buf[linkname_size+1] = '\0';
 
     if (regexec(&re_log, buf, 0, NULL, 0) == 0) {
       fprintf(stdout, "Log path: %s\n", buf);
@@ -147,5 +149,11 @@ main(int argc, char const *argv[])
   free(linkpath);
   free(fullpath);
   regfree(&re_log);
+
+  if (closedir(pid_dir)) {
+    perror ("closedir");
+    return 1;
+  }
+
   return 0;
 }
