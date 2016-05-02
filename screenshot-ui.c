@@ -46,8 +46,8 @@ screenshot (const char *filename)
   /* Otherwise, open a file chooser to get a filename */
   filechooser = gtk_file_chooser_dialog_new ("Save Screenshot", NULL,
                                              GTK_FILE_CHOOSER_ACTION_SAVE,
-                                             GTK_STOCK_CANCEL, GTK_RESPONSE_REJECT,
-                                             GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
+                                             "Cancel", GTK_RESPONSE_REJECT,
+                                             "Save", GTK_RESPONSE_ACCEPT,
                                              NULL);
   gtk_dialog_set_default_response (GTK_DIALOG (filechooser), GTK_RESPONSE_ACCEPT);
 #if GTK_CHECK_VERSION(2,7,3)
