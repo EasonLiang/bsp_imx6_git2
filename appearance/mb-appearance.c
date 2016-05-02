@@ -329,13 +329,12 @@ on_gconf_value_changed (GConfClient* client, const gchar* key, GConfValue* value
  * Utility function to make a nice looking frame.
  */
 static GtkWidget *
-new_frame (const char *title, GtkWidget **align)
+new_frame (const char *title, GtkWidget *child)
 {
   GtkWidget *frame, *label;
   char *markup;
 
   g_assert (title);
-  g_assert (align);
 
   markup = g_markup_printf_escaped ("<b>%s</b>", title);
 
@@ -349,19 +348,16 @@ new_frame (const char *title, GtkWidget **align)
   label = gtk_frame_get_label_widget (GTK_FRAME (frame));
   gtk_label_set_use_markup (GTK_LABEL (label), TRUE);
 
-  *align = g_object_new (GTK_TYPE_ALIGNMENT,
-                        "top-padding", 6, "bottom-padding", 0,
-                        "left-padding", 12, "right-padding", 0,
-                        NULL);
-  
-  gtk_container_add (GTK_CONTAINER (frame), *align);
+  gtk_widget_set_margin_start (child, 12);
+  gtk_widget_set_margin_top (child, 6);
+  gtk_container_add (GTK_CONTAINER (frame), child);
 
   return frame;
 }
 
 int
 main (int argc, char **argv) {
-  GtkWidget *dialog, *frame, *align;
+  GtkWidget *dialog, *frame;
   GtkCellRenderer *renderer;
   GtkBox *box;
 
@@ -382,7 +378,7 @@ main (int argc, char **argv) {
 
   dialog = gtk_dialog_new_with_buttons (_("Appearance"), NULL, 
                                         0,
-                                        GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+                                        _("Close"), GTK_RESPONSE_CLOSE,
                                         NULL);
   g_signal_connect (dialog, "response", G_CALLBACK (gtk_main_quit), NULL);
 
@@ -394,10 +390,9 @@ main (int argc, char **argv) {
 
   /* Theme */
 
-  frame = new_frame (_("Appearance"), &align);
-  gtk_box_pack_start (GTK_BOX (box), frame, TRUE, TRUE, 0);
   theme_combo = gtk_combo_box_new_with_model (GTK_TREE_MODEL (theme_store));
-  gtk_container_add (GTK_CONTAINER (align), theme_combo);
+  frame = new_frame (_("Appearance"), theme_combo);
+  gtk_box_pack_start (GTK_BOX (box), frame, TRUE, TRUE, 0);
   g_signal_connect (theme_combo, "changed", G_CALLBACK (on_theme_set), NULL);
   renderer = gtk_cell_renderer_text_new ();
   gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (theme_combo), renderer, TRUE);
@@ -406,19 +401,17 @@ main (int argc, char **argv) {
 
   /* Font */
   
-  frame = new_frame (_("Font"), &align);
-  gtk_box_pack_start (GTK_BOX (box), frame, TRUE, TRUE, 0);
   font_button = gtk_font_button_new ();
+  frame = new_frame (_("Font"), font_button);
+  gtk_box_pack_start (GTK_BOX (box), frame, TRUE, TRUE, 0);
   g_signal_connect (font_button, "font-set", G_CALLBACK (on_font_set), NULL);
-  gtk_container_add (GTK_CONTAINER (align), font_button);
 
   /* Left/Right Handed */
   
-  frame = new_frame (_("Orientation"), &align);
-  gtk_box_pack_start (GTK_BOX (box), frame, TRUE, TRUE, 0);
   handed_check = gtk_check_button_new_with_mnemonic (_("_Left-handed"));
+  frame = new_frame (_("Orientation"),handed_check);
+  gtk_box_pack_start (GTK_BOX (box), frame, TRUE, TRUE, 0);
   g_signal_connect (handed_check, "toggled", G_CALLBACK (on_handed_set), NULL);
-  gtk_container_add (GTK_CONTAINER (align), handed_check);
 
   gconf_client_add_dir (gconf, INTERFACE_DIR, GCONF_CLIENT_PRELOAD_ONELEVEL, NULL);
   g_signal_connect (gconf, "value-changed", G_CALLBACK (on_gconf_value_changed), NULL);
