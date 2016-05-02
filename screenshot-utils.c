@@ -10,11 +10,6 @@
 #include <X11/extensions/shape.h>
 #endif
 
-static GtkWidget *selection_window;
-
-#define SELECTION_NAME "_GNOME_PANEL_SCREENSHOT"
-
-
 /* Functions to deal with properties from libwnck */
 static char    * text_property_to_utf8 (const XTextProperty *prop);
 static Window    get_window_property   (Window               xwindow,
@@ -118,7 +113,7 @@ get_text_property (Window  xwindow,
       retval = NULL;
     }
   
-  gdk_error_trap_pop ();
+  gdk_error_trap_pop_ignored ();
 
   return retval;
 }
@@ -217,61 +212,6 @@ get_atom_property (Window  xwindow,
 
   return TRUE;
 }
-
-/* To make sure there is only one screenshot taken at a time,
- * (Imagine key repeat for the print screen key) we hold a selection
- * until we are done taking the screenshot
- */
-gboolean
-screenshot_grab_lock (void)
-{
-  Atom selection_atom;
-  GdkCursor *cursor;
-  gboolean result = FALSE;
-  Display *display = gdk_x11_get_default_xdisplay ();
-
-  selection_atom = gdk_x11_get_xatom_by_name (SELECTION_NAME);
-  XGrabServer (display);
-  if (XGetSelectionOwner (display, selection_atom) != None)
-    goto out;
-
-  selection_window = gtk_invisible_new ();
-  gtk_widget_show (selection_window);
-
-  if (!gtk_selection_owner_set (selection_window,
-				gdk_atom_intern (SELECTION_NAME, FALSE),
-				GDK_CURRENT_TIME))
-    {
-      gtk_widget_destroy (selection_window);
-      selection_window = NULL;
-      goto out;
-    }
-
-  cursor = gdk_cursor_new_for_display (gdk_display_get_default(), GDK_WATCH);
-  gdk_pointer_grab (gtk_widget_get_window (selection_window), FALSE, 0, NULL,
-		    cursor, GDK_CURRENT_TIME);
-  gdk_cursor_unref (cursor);
-
-  result = TRUE;
-
- out:
-  XUngrabServer (display);
-  gdk_flush ();
-
-  return result;
-}
-
-void
-screenshot_release_lock (void)
-{
-  if (selection_window)
-    {
-      gtk_widget_destroy (selection_window);
-      selection_window = NULL;
-    }
-  gdk_flush ();
-}
-
 
 static Window
 find_toplevel_window (Window xid)

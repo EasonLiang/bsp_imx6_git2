@@ -6,8 +6,6 @@
 
 G_BEGIN_DECLS
 
-gboolean   screenshot_grab_lock           (void);
-void       screenshot_release_lock        (void);
 gchar     *screenshot_get_window_title    (Window   w);
 Window     screenshot_find_current_window (gboolean include_decoration);
 GdkPixbuf *screenshot_get_pixbuf          (Window   w);
