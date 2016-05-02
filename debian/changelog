@@ -10,7 +10,7 @@ init-system-helpers (1.32) UNRELEASED; urgency=medium
     for wrong/dangling rcN.d/ symlinks, so just pin it to "5" (the precise
     value does not matter much). Fixing this in systemd requires bigger
     architectural changes, so use this tiny (and backportable) bandaid for the
-    time being. (LP: #1575572)
+    time being. (LP: #1575572, see #608456)
 
  -- Martin Pitt <mpitt@debian.org>  Tue, 26 Apr 2016 22:13:12 +0200
 
