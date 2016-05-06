@@ -1,3 +1,10 @@
+init-system-helpers (1.33) UNRELEASED; urgency=medium
+
+  * Drop SysV reference from init's short package description, as it's not
+    specific to SysV init at all.
+
+ -- Martin Pitt <mpitt@debian.org>  Thu, 05 May 2016 22:33:35 -0500
+
 init-system-helpers (1.32) unstable; urgency=medium
 
   * dh_systemd_{enable,start}: Quiesce "No such file or directory" error
