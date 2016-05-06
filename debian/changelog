@@ -1,4 +1,4 @@
-init-system-helpers (1.33) UNRELEASED; urgency=medium
+init-system-helpers (1.33) unstable; urgency=medium
 
   * Drop SysV reference from init's short package description, as it's not
     specific to SysV init at all.
@@ -6,7 +6,7 @@ init-system-helpers (1.33) UNRELEASED; urgency=medium
     failing, so just print out the warning and otherwise ignore the failure as
     we've done for many years with the broken check. (Closes: #823611)
 
- -- Martin Pitt <mpitt@debian.org>  Thu, 05 May 2016 22:33:35 -0500
+ -- Martin Pitt <mpitt@debian.org>  Fri, 06 May 2016 09:44:05 -0500
 
 init-system-helpers (1.32) unstable; urgency=medium
 
