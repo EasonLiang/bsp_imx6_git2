@@ -1,4 +1,4 @@
-init-system-helpers (1.32) UNRELEASED; urgency=medium
+init-system-helpers (1.32) unstable; urgency=medium
 
   * dh_systemd_{enable,start}: Quiesce "No such file or directory" error
     messages when calling on a package without /lib/systemd/system/.
@@ -12,7 +12,7 @@ init-system-helpers (1.32) UNRELEASED; urgency=medium
     architectural changes, so use this tiny (and backportable) bandaid for the
     time being. (LP: #1575572, see #608456)
 
- -- Martin Pitt <mpitt@debian.org>  Tue, 26 Apr 2016 22:13:12 +0200
+ -- Martin Pitt <mpitt@debian.org>  Thu, 05 May 2016 22:11:26 -0500
 
 init-system-helpers (1.31) unstable; urgency=medium
 
