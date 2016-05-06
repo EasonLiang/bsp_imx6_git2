@@ -304,9 +304,7 @@ if ! RL=`${RUNLEVELHELPER}`; then
         RL=5
     else
         printerror "could not determine current runlevel"
-        if test x${RETRY} = x ; then
-            exit 102
-        fi
+        # this usually fails in schroots etc., ignore failure (#823611)
         RL=
     fi
 fi

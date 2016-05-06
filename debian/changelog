@@ -2,6 +2,9 @@ init-system-helpers (1.33) UNRELEASED; urgency=medium
 
   * Drop SysV reference from init's short package description, as it's not
     specific to SysV init at all.
+  * Revert the check for failing "runlevel" command. In chroots it is always
+    failing, so just print out the warning and otherwise ignore the failure as
+    we've done for many years with the broken check. (Closes: #823611)
 
  -- Martin Pitt <mpitt@debian.org>  Thu, 05 May 2016 22:33:35 -0500
 
