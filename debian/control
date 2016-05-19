@@ -13,6 +13,7 @@ Vcs-Browser: https://anonscm.debian.org/git/collab-maint/init-system-helpers.git
 Package: init-system-helpers
 Architecture: all
 Priority: required
+Essential: yes
 Multi-Arch: foreign
 Depends: perl-base (>= 5.20.1-3),
          ${misc:Depends},
@@ -59,8 +60,7 @@ Description: debhelper add-on to handle systemd unit files
 Package: init
 Section: metapackages
 Architecture: any
-Essential: yes
-Priority: required
+Priority: important
 Multi-Arch: foreign
 Pre-Depends: systemd-sysv [linux-any] | sysvinit-core,
 Depends: init-system-helpers,
