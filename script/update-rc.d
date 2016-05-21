@@ -446,5 +446,6 @@ sub is_initscripts_installed {
     # Check if mountkernfs is available. We cannot make inferences
     # using the running init system because we may be running in a
     # chroot
-    return  -f '/etc/init.d/mountkernfs.sh';
+    my @links = glob '/etc/rcS.d/S??mountkernfs.sh';
+    return @links != 0;
 }
