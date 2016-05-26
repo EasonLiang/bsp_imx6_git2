@@ -1,5 +1,6 @@
 init-system-helpers (1.36) UNRELEASED; urgency=medium
 
+  [ Martin Pitt ]
   * init: Don't depend on sysvinit-core when building on/for Ubuntu and
     derivatives.
   * init: Drop "essential" from the package description as it is not essential
@@ -14,6 +15,10 @@ init-system-helpers (1.36) UNRELEASED; urgency=medium
   * init-system-helpers: Ship README.invoke-rc.d and README.policy-rc.d.
   * invoke-rc.d.8: Update the SEE ALSO link to README.policy-rc.d.
     (Closes: #358496)
+
+  [ Luca Boccassi ]
+  * dh_systemd_enable: Add support for installing templated service units.
+    (Closes: #770344)
 
  -- Martin Pitt <mpitt@debian.org>  Tue, 28 Jun 2016 10:28:34 +0200
 
