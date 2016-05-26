@@ -101,7 +101,7 @@ sub contains_install_section {
 	return 0;
 }
 
-# PROMISE: DH NOOP WITHOUT tmp(lib/systemd/system) mount service socket target tmpfile
+# PROMISE: DH NOOP WITHOUT tmp(lib/systemd/system) mount path service socket target tmpfile
 
 foreach my $package (@{$dh{DOPACKAGES}}) {
 	my $tmpdir = tmpdir($package);
@@ -195,6 +195,16 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 		}
 
 		doit("install","-p","-m644",$mount,"$path/$script.mount");
+	}
+
+	my $pathunit=pkgfile($package,"path");
+	if ($pathunit ne '') {
+		my $path="$tmpdir/lib/systemd/system";
+		if (! -d "$path") {
+			doit("install","-d","$path");
+		}
+
+		doit("install","-p","-m644",$pathunit,"$path/$script.path");
 	}
 
 	find({

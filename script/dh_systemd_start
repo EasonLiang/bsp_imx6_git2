@@ -204,7 +204,7 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 		push @{$aliases{$name}}, $_ for extract_key($name, 'Alias');
 		my @sysv = grep {
 				my $base = $_;
-				$base =~ s/\.(?:mount|service|socket|target)$//g;
+				$base =~ s/\.(?:mount|service|socket|target|path)$//g;
 				-f "$tmpdir/etc/init.d/$base"
 			} ($base, @{$aliases{$name}});
 		if (@sysv == 0 && !grep { $_ eq $name } @units) {

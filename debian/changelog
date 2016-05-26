@@ -21,6 +21,8 @@ init-system-helpers (1.36) UNRELEASED; urgency=medium
   [ Luca Boccassi ]
   * dh_systemd_enable: Add support for installing templated service units.
     (Closes: #770344)
+  * dh_systemd_enable: Add support for installing path units.
+    (Closes: #768609)
 
  -- Martin Pitt <mpitt@debian.org>  Tue, 28 Jun 2016 10:28:34 +0200
 
