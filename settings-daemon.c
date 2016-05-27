@@ -171,6 +171,8 @@ static const TranslationEntry translations [] = {
     GCONF_VALUE_INT, translate_int_int },
   { "/desktop/poky/interface/theme", "Net/ThemeName",
     GCONF_VALUE_STRING, translate_string_string },
+  { "/desktop/poky/interface/matchbox_theme", "MATCHBOX/THEME",
+    GCONF_VALUE_STRING, translate_string_string },
   { "/desktop/poky/interface/gtk-im-preedit-style", "Gtk/IMPreeditStyle",
     GCONF_VALUE_STRING, translate_string_string },
   { "/desktop/poky/interface/gtk-im-status-style", "Gtk/IMStatusStyle",

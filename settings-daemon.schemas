@@ -3,14 +3,26 @@
 <schemalist>
 
   <schema>
+    <key>/schemas/desktop/poky/interface/matchbox_theme</key>
+    <applyto>/desktop/poky/interface/matchbox_theme</applyto>
+    <type>string</type>
+    <owner>settings-daemon</owner>
+    <default>Sato</default>
+    <locale name="C">
+      <short>WM theme</short>
+      <long>Matchbox Window manager theme name.</long>
+    </locale>
+  </schema>
+
+  <schema>
     <key>/schemas/desktop/poky/interface/theme</key>
     <applyto>/desktop/poky/interface/theme</applyto>
     <type>string</type>
     <owner>settings-daemon</owner>
     <default>Clearlooks</default>
     <locale name="C">
-      <short>Desktop theme</short>
-      <long>The theme name for Matchbox and GTK+ to use.</long>
+      <short>GTK+ theme</short>
+      <long>GTK+ theme name.</long>
     </locale>
   </schema>
 
