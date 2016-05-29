@@ -61,6 +61,7 @@ Package: init
 Section: metapackages
 Architecture: any
 Priority: important
+XB-Important: yes
 Multi-Arch: foreign
 Pre-Depends: systemd-sysv [linux-any] | sysvinit-core,
 Depends: init-system-helpers,
