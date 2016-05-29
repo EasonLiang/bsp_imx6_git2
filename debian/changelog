@@ -8,6 +8,8 @@ init-system-helpers (1.34) UNRELEASED; urgency=medium
     it). (Closes: #756023)
   * Mark init "Important: yes" instead, so that one does not accidentally
     uninstall it.
+  * deb-systemd-invoke: Accept policy-rc.d exit code 0 as "allowed" in
+    addition to code 104, like invoke-rc.d. (Closes: #825075)
 
   [ Dan Nicholson ]
   * deb-systemd-helper, dh_systemd_start: Use split rather than
