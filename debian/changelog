@@ -1,4 +1,4 @@
-init-system-helpers (1.34) UNRELEASED; urgency=medium
+init-system-helpers (1.34) unstable; urgency=medium
 
   [ Martin Pitt ]
   * Make "init" not essential any more and lower priority from "required" to
@@ -18,7 +18,7 @@ init-system-helpers (1.34) UNRELEASED; urgency=medium
     trailing quotes stripped. (Closes: #820359)
   * dh_systemd_enable: Drop unused Text::ParseWords use.
 
- -- Martin Pitt <mpitt@debian.org>  Thu, 19 May 2016 18:05:15 +0200
+ -- Martin Pitt <mpitt@debian.org>  Mon, 30 May 2016 15:52:48 +0200
 
 init-system-helpers (1.33) unstable; urgency=medium
 
