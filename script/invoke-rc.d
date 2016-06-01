@@ -360,16 +360,6 @@ verifyrclink () {
   return 0
 }
 
-# we do handle multiple links per runlevel
-# but we don't handle embedded blanks in link names :-(
-if test x${RL} != x ; then
-    SLINK=`ls -d -Q ${RCDPREFIX}${RL}.d/S[0-9][0-9]${INITSCRIPTID} 2>/dev/null | xargs`
-    KLINK=`ls -d -Q ${RCDPREFIX}${RL}.d/K[0-9][0-9]${INITSCRIPTID} 2>/dev/null | xargs`
-    SSLINK=`ls -d -Q ${RCDPREFIX}S.d/S[0-9][0-9]${INITSCRIPTID} 2>/dev/null | xargs`
-
-    verifyrclink ${SLINK} ${KLINK} ${SSLINK}
-fi
-
 testexec () {
   #
   # returns true if any of the parameters is
@@ -387,23 +377,40 @@ testexec () {
 RC=
 
 ###
-### LOCAL INITSCRIPT POLICY: Enforce need of a start entry
-### in either runlevel S or current runlevel to allow start
-### or restart.
-###
-case ${ACTION} in
-  start|restart)
-    if testexec ${SLINK} ; then
-	RC=104
-    elif testexec ${KLINK} ; then
-	RC=101
-    elif testexec ${SSLINK} ; then
-	RC=104
+### LOCAL POLICY: Enforce that the script/unit is enabled. For SysV init
+### scripts, this needs a start entry in either runlevel S or current runlevel
+### to allow start or restart.
+if [ -n "$is_systemd" ]; then
+    if systemctl --quiet is-enabled "${UNIT}" 2>/dev/null; then
+        RC=104
     else
         RC=101
     fi
-  ;;
-esac
+else
+    # we do handle multiple links per runlevel
+    # but we don't handle embedded blanks in link names :-(
+    if test x${RL} != x ; then
+	SLINK=`ls -d -Q ${RCDPREFIX}${RL}.d/S[0-9][0-9]${INITSCRIPTID} 2>/dev/null | xargs`
+	KLINK=`ls -d -Q ${RCDPREFIX}${RL}.d/K[0-9][0-9]${INITSCRIPTID} 2>/dev/null | xargs`
+	SSLINK=`ls -d -Q ${RCDPREFIX}S.d/S[0-9][0-9]${INITSCRIPTID} 2>/dev/null | xargs`
+
+	verifyrclink ${SLINK} ${KLINK} ${SSLINK}
+    fi
+
+    case ${ACTION} in
+      start|restart)
+	if testexec ${SLINK} ; then
+	    RC=104
+	elif testexec ${KLINK} ; then
+	    RC=101
+	elif testexec ${SSLINK} ; then
+	    RC=104
+	else
+	    RC=101
+	fi
+      ;;
+    esac
+fi
 
 # test if /etc/init.d/initscript is actually executable
 _executable=

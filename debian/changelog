@@ -1,3 +1,13 @@
+init-system-helpers (1.35) UNRELEASED; urgency=medium
+
+  * invoke-rc.d: When running under systemd, query systemctl is-enabled
+    instead of checking for rc?.d/ links. This allows operation without
+    sysv-rc with packages that ship native systemd units. Packages which only
+    ship an init.d script continue to need sysv-rc and runlevels, of course.
+    (LP: #1587903)
+
+ -- Martin Pitt <mpitt@debian.org>  Wed, 01 Jun 2016 16:26:35 +0200
+
 init-system-helpers (1.34) unstable; urgency=medium
 
   [ Martin Pitt ]
