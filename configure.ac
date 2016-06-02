@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.53)
-AC_INIT([settings-daemon], 0.0.1, [mallum@o-hand.com])
+AC_INIT([settings-daemon], 0.0.2, [yocto@yoctoproject.org])
 AC_CONFIG_SRCDIR([settings-daemon.c])
 
 AM_INIT_AUTOMAKE()
