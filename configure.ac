@@ -1,5 +1,5 @@
 AC_PREREQq(2.53)
-AC_INIT(screenshot, 0.1, http://www.openedhand.com/)
+AC_INIT(screenshot, 0.2, [yocto@yoctoproject.org])
 AM_INIT_AUTOMAKE()
 AC_CONFIG_SRCDIR(screenshot-utils.c)
 AM_CONFIG_HEADER(config.h)
