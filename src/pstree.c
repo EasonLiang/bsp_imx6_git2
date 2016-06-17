@@ -141,7 +141,7 @@ static int *more = NULL;
 
 static int print_args = 0, compact = 1, user_change = 0, pids = 0, pgids = 0,
     show_parents = 0, by_pid = 0, trunc = 1, wait_end = 0, ns_change = 0,
-    thread_names = 0;
+    thread_names = 0, hide_threads = 0;
 static int show_scontext = 0;
 static int output_width = 132;
 static int cur_x = 1;
@@ -913,30 +913,35 @@ static void read_proc(void)
               char *taskpath;
               int thread;
 
-              if (! (taskpath = malloc(strlen(path) + 10)))
-                exit(2);
-              sprintf(taskpath, "%s/task", path);
+              /* handle process threads */
+              if (! hide_threads) {
+                if (! (taskpath = malloc(strlen(path) + 10)))
+                  exit(2);
+                sprintf(taskpath, "%s/task", path);
 
-              if ((taskdir = opendir(taskpath)) != 0) {
-                /* if we have this dir, we're on 2.6 */
-                while ((dt = readdir(taskdir)) != NULL) {
-                  if ((thread = atoi(dt->d_name)) != 0) {
-                    if (thread != pid) {
-		      char *threadname;
-		      threadname = get_threadname(pid, thread, comm);
-                      if (print_args)
-                        add_proc(threadname, thread, pid, pgid, st.st_uid, 
-                            threadname, strlen (threadname) + 1, 1,scontext);
-                      else
-                        add_proc(threadname, thread, pid, pgid, st.st_uid, 
-                            NULL, 0, 1, scontext);
-                      free(threadname);
+                if ((taskdir = opendir(taskpath)) != 0) {
+                  /* if we have this dir, we're on 2.6 */
+                  while ((dt = readdir(taskdir)) != NULL) {
+                    if ((thread = atoi(dt->d_name)) != 0) {
+                      if (thread != pid) {
+                        char *threadname;
+                        threadname = get_threadname(pid, thread, comm);
+                        if (print_args)
+                          add_proc(threadname, thread, pid, pgid, st.st_uid,
+                              threadname, strlen (threadname) + 1, 1,scontext);
+                        else
+                          add_proc(threadname, thread, pid, pgid, st.st_uid,
+                              NULL, 0, 1, scontext);
+                        free(threadname);
                       }
                     }
                   }
                   (void) closedir(taskdir);
                 }
-              free(taskpath);
+                free(taskpath);
+              }
+
+              /* handle process */
               if (!print_args)
                 add_proc(comm, pid, ppid, pgid, st.st_uid, NULL, 0, 0, scontext);
               else {
@@ -1037,6 +1042,7 @@ static void usage(void)
              "  -s, --show-parents  show parents of the selected process\n"
              "  -S, --ns-changes    show namespace transitions\n"
              "  -t, --thread-names  show full thread names\n"
+             "  -T, --hide-threads  hide threads, show only processes\n"
              "  -u, --uid-changes   show uid transitions\n"
              "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
              "  -V, --version       display version information\n"));
@@ -1090,6 +1096,7 @@ int main(int argc, char **argv)
         {"show-parents", 0, NULL, 's'},
         {"ns-changes", 0, NULL, 'S' },
         {"thread-names", 0, NULL, 't'},
+        {"hide-threads", 0, NULL, 'T'},
         {"uid-changes", 0, NULL, 'u'},
         {"unicode", 0, NULL, 'U'},
         {"version", 0, NULL, 'V'},
@@ -1140,11 +1147,11 @@ int main(int argc, char **argv)
 
 #ifdef WITH_SELINUX
     while ((c =
-            getopt_long(argc, argv, "aAcGhH:nN:pglsStuUVZ", options,
+            getopt_long(argc, argv, "aAcGhH:nN:pglsStTuUVZ", options,
                         NULL)) != -1)
 #else                                /*WITH_SELINUX */
     while ((c =
-            getopt_long(argc, argv, "aAcGhH:nN:pglsStuUV", options, NULL)) != -1)
+            getopt_long(argc, argv, "aAcGhH:nN:pglsStTuUV", options, NULL)) != -1)
 #endif                                /*WITH_SELINUX */
         switch (c) {
         case 'a':
@@ -1213,6 +1220,9 @@ int main(int argc, char **argv)
             break;
         case 't':
             thread_names = 1;
+            break;
+        case 'T':
+            hide_threads = 1;
             break;
         case 'u':
             user_change = 1;
