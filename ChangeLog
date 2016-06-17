@@ -1,5 +1,6 @@
 Changes in 22.22
 ================
+	* prtat: Remove duplicate options in man page !3
 	* pslog: New program to check what logs are open merge !1
 	* fuser: increase path length for octal escaping SF [#37]
 	* Make usage of linked lists of devices found in
