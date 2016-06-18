@@ -4,7 +4,7 @@ init-system-helpers (1.35) UNRELEASED; urgency=medium
     instead of checking for rc?.d/ links. This allows operation without
     sysv-rc with packages that ship native systemd units. Packages which only
     ship an init.d script continue to need sysv-rc and runlevels, of course.
-    (LP: #1587903)
+    (Closes: #827191, LP: #1587903)
 
  -- Martin Pitt <mpitt@debian.org>  Wed, 01 Jun 2016 16:26:35 +0200
 
