@@ -7,6 +7,10 @@ init-system-helpers (1.36) UNRELEASED; urgency=medium
   * invoke-rc.d: Quiesce error message if "runlevel" does not exist, which is
     now the case in chroots since init stopped being essential.
     (Closes: #827376)
+  * update-rc.d: Testing for /etc/init.d/mountkernfs.sh is not sufficient as
+    initscripts might only be unpacked but not configured yet (during
+    debootstrap). Thus test if /etc/rcS.d/S??mountkernfs.sh exists. Thanks to
+    Felipe Sateler for the idea! (Closes: #824804)
 
  -- Martin Pitt <mpitt@debian.org>  Tue, 28 Jun 2016 10:28:34 +0200
 
