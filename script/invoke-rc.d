@@ -295,7 +295,7 @@ elif test ! -f "${INITDPREFIX}${INITSCRIPTID}" ; then
 fi
 
 ## Queries sysvinit for the current runlevel
-if ! RL=`${RUNLEVELHELPER}`; then
+if [ ! -x ${RUNLEVELHELPER} ] || ! RL=`${RUNLEVELHELPER}`; then
     if [ -n "$is_systemd" ] && systemctl is-active --quiet sysinit.target; then
         # under systemd, the [2345] runlevels are only set upon reaching them;
         # if we are past sysinit.target (roughly equivalent to rcS), consider
