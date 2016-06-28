@@ -17,6 +17,10 @@ init-system-helpers (1.36) UNRELEASED; urgency=medium
     (Closes: #358496)
   * service.8: Document that this starts systemd units as well.
     (Closes: #758139)
+  * invoke-rc.d: Show "systemctl status" on a failed (re)start if running
+    under systemd. This makes logs with failed package installations much more
+    useful, and human users will most likely do exactly that anyway.
+    (LP: #1596056)
 
   [ Luca Boccassi ]
   * dh_systemd_enable: Add support for installing templated service units.
