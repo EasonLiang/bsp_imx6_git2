@@ -11,6 +11,7 @@ init-system-helpers (1.36) UNRELEASED; urgency=medium
     initscripts might only be unpacked but not configured yet (during
     debootstrap). Thus test if /etc/rcS.d/S??mountkernfs.sh exists. Thanks to
     Felipe Sateler for the idea! (Closes: #824804)
+  * init-system-helpers: Ship README.invoke-rc.d and README.policy-rc.d.
 
  -- Martin Pitt <mpitt@debian.org>  Tue, 28 Jun 2016 10:28:34 +0200
 
