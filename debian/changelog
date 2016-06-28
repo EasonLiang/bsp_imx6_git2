@@ -2,6 +2,8 @@ init-system-helpers (1.36) UNRELEASED; urgency=medium
 
   * init: Don't depend on sysvinit-core when building on/for Ubuntu and
     derivatives.
+  * init: Drop "essential" from the package description as it is not essential
+    any more.
 
  -- Martin Pitt <mpitt@debian.org>  Tue, 28 Jun 2016 10:28:34 +0200
 
