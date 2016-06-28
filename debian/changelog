@@ -1,4 +1,4 @@
-init-system-helpers (1.36) UNRELEASED; urgency=medium
+init-system-helpers (1.36) unstable; urgency=medium
 
   [ Martin Pitt ]
   * init: Don't depend on sysvinit-core when building on/for Ubuntu and
@@ -28,7 +28,7 @@ init-system-helpers (1.36) UNRELEASED; urgency=medium
   * dh_systemd_enable: Add support for installing path units.
     (Closes: #768609)
 
- -- Martin Pitt <mpitt@debian.org>  Tue, 28 Jun 2016 10:28:34 +0200
+ -- Martin Pitt <mpitt@debian.org>  Tue, 28 Jun 2016 22:10:37 +0200
 
 init-system-helpers (1.35) unstable; urgency=medium
 
