@@ -15,6 +15,8 @@ init-system-helpers (1.36) UNRELEASED; urgency=medium
   * init-system-helpers: Ship README.invoke-rc.d and README.policy-rc.d.
   * invoke-rc.d.8: Update the SEE ALSO link to README.policy-rc.d.
     (Closes: #358496)
+  * service.8: Document that this starts systemd units as well.
+    (Closes: #758139)
 
   [ Luca Boccassi ]
   * dh_systemd_enable: Add support for installing templated service units.
