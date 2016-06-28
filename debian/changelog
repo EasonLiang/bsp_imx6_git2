@@ -1,3 +1,10 @@
+init-system-helpers (1.36) UNRELEASED; urgency=medium
+
+  * init: Don't depend on sysvinit-core when building on/for Ubuntu and
+    derivatives.
+
+ -- Martin Pitt <mpitt@debian.org>  Tue, 28 Jun 2016 10:28:34 +0200
+
 init-system-helpers (1.35) unstable; urgency=medium
 
   * invoke-rc.d: When running under systemd, query systemctl is-enabled

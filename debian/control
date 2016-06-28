@@ -63,10 +63,10 @@ Architecture: any
 Priority: important
 XB-Important: yes
 Multi-Arch: foreign
-Pre-Depends: systemd-sysv [linux-any] | sysvinit-core,
+Pre-Depends: systemd-sysv [linux-any] ${alt:sysvinit},
 Depends: init-system-helpers,
          ${misc:Depends},
 Description: init metapackage
  This package is an essential metapackage which allows you to select from
- the available init systems in Debian (systemd, sysvinit) while
- ensuring that one of these is available on the system at all times.
+ the available init systems while ensuring that one of these is available on
+ the system at all times.

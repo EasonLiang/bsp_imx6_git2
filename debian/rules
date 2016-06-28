@@ -28,5 +28,13 @@ override_dh_install:
 	dh_install
 	[ ! -d debian/init-system-helpers ] || sed -i 's/__VERSION__/$(VERSION)/' debian/init-system-helpers/usr/sbin/service
 
+
+override_dh_gencontrol:
+	if dpkg-vendor --derives-from ubuntu; then \
+		dh_gencontrol -- -Valt:sysvinit=""; \
+	else \
+		dh_gencontrol -- -Valt:sysvinit="| sysvinit-core"; \
+	fi
+
 %:
-	dh $@ 
+	dh $@
