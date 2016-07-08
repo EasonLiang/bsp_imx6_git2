@@ -1065,7 +1065,7 @@ static MBMenuMenu *
 new_menu(MBMenu *mb, char *title, int depth)
 {
   MBMenuMenu *menu = (MBMenuMenu *)malloc(sizeof(MBMenuMenu));
-   memset(menu, 0, sizeof(menu));
+   memset(menu, 0, sizeof(*menu));
    menu->items = NULL;
 
    MENUDBG("adding menu -> %s, (%i) \n", title, depth);

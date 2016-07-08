@@ -75,7 +75,7 @@ struct nlist *hash_add(struct hash *h, char *key, char *val)
 
 void hash_empty(struct hash *h)
 {
-   memset(h->hashtab, 0, sizeof(h->hashtab));
+   memset(h->hashtab, 0, sizeof(*h->hashtab));
 }
 
 void 
