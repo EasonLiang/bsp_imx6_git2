@@ -1,5 +1,5 @@
 AC_PREREQ(2.53)
-AC_INIT([libmatchbox], 1.11, [mallum@handhelds.org])
+AC_INIT([libmatchbox], 1.12, [yocto@yoctoproject.org])
 AC_CONFIG_SRCDIR([libmb/mbtray.c])
 
 AC_CONFIG_AUX_DIR(.)
