@@ -1369,7 +1369,7 @@ mb_layout_get_geometry (MBLayout *layout, int *width, int *height)
 	 }
        else
 	 { 
-	   nbytes++; *txt++; 
+	   nbytes++; txt++;
 	 }
       
      line_width = mb_font_get_txt_width(layout->font, start, 
@@ -1703,14 +1703,14 @@ mb_util_next_utf8_char(unsigned char **string)
     return -1;
   }
 	    
-  *s++;
+  s++;
   tmp = length;
   while(tmp-- > 0) {
     if((*s & 0xc0) != 0x80) { /* trailer must be 10xxxxxx */
       /* ERROR */ 
       return -1;
     }
-    *s++;
+    s++;
   } 
   
   *string = s; 
