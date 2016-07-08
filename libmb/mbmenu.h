@@ -42,10 +42,7 @@
 #include <X11/keysym.h>
 #include <X11/Xmd.h>
 
-#ifdef USE_XSETTINGS
-#include <xsettings-client.h>
-#endif 
-
+#include <libmb/xsettings-client.h>
 #include <libmb/mbpixbuf.h>
 #include <libmb/mbexp.h>
 
@@ -261,9 +258,7 @@ typedef struct _mbmemu
 
   struct _menu *keyboard_focus_menu;
 
-#ifdef USE_XSETTINGS
   XSettingsClient *xsettings_client;
-#endif 
 
 } MBMenu;
 

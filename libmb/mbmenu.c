@@ -71,7 +71,6 @@ static void remove_xmenus(MBMenu *mb,MBMenuMenu *active[]);
 
 static void menu_set_theme_from_root_prop(MBMenu *mb);
 
-#ifdef USE_XSETTINGS
 /*
  Gtk/FontName
 */
@@ -130,8 +129,6 @@ mbmenu_xsettings_notify_cb (const char       *name,
       break;
     }
 }
-
-#endif
 
 MBMenu *
 mb_menu_new(Display *dpy, int screen) 
@@ -195,16 +192,12 @@ mb_menu_new(Display *dpy, int screen)
 
   menu_set_theme_from_root_prop(mbmenu);
 
-#ifdef USE_XSETTINGS
-
   /* This will trigger callbacks instantly so called last */
 
   mbmenu->xsettings_client = xsettings_client_new(mbmenu->dpy, mbmenu->screen,
 						  mbmenu_xsettings_notify_cb,
 						  NULL,
 						  (void *)mbmenu );
-#endif
-
   return mbmenu;
 }
 
@@ -786,10 +779,8 @@ mb_menu_handle_xevent(MBMenu *mb, XEvent *an_event)
       return;
     }
 
-#ifdef USE_XSETTINGS
   if (mb->xsettings_client != NULL)
     xsettings_client_process_event(mb->xsettings_client, an_event);
-#endif
 
   if (an_event->type == PropertyNotify 
       && an_event->xproperty.atom == mb->atom_mbtheme) 

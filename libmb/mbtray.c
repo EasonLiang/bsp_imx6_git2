@@ -35,11 +35,9 @@
 #endif
 
 #include "mbtray.h"
+#include "xsettings-client.h"
 
 #include <strings.h>
-#ifdef USE_XSETTINGS
-#include <xsettings-client.h>
-#endif 
 
 #define SYSTEM_TRAY_REQUEST_DOCK    0
 #define SYSTEM_TRAY_BEGIN_MESSAGE   1
@@ -146,9 +144,7 @@ struct MBTrayApp
 
   int tray_id;
 
-#ifdef USE_XSETTINGS
   XSettingsClient *xsettings_client;
-#endif 
   
   char *theme_name;
 
@@ -161,14 +157,11 @@ struct MBTrayApp
   MBPixbuf *pb_ext_ref; 	/* XXX should be considered unsafe */
 };
 
-#ifdef USE_XSETTINGS
-
 static void 
 _xsettings_notify_cb (const char       *name,
 		      XSettingsAction   action,
 		      XSettingsSetting *setting,
 		      void             *data);
-#endif
 
 static int trapped_error_code = 0;
 static int (*old_error_handler) (Display *d, XErrorEvent *e);
@@ -222,8 +215,6 @@ _get_server_time(Display* dpy)
   }
 }
 
-#ifdef USE_XSETTINGS
-
 static void 
 _xsettings_notify_cb (const char       *name,
 		      XSettingsAction   action,
@@ -256,8 +247,6 @@ _xsettings_notify_cb (const char       *name,
     }
 
 }
-
-#endif
 
 static Bool
 get_xevent_timed( MBTrayApp* mb, XEvent* event_return )
@@ -749,43 +738,6 @@ tray_is_vertical_via_hint(MBTrayApp *mb)
 }
 
 static void
-set_theme_via_root_prop(MBTrayApp *mb)
-{
-#ifndef USE_XSETTINGS
-  Atom realType;
-  unsigned long n;
-  unsigned long extra;
-  int format;
-  int status;
-  char * value;
-  
-  status = XGetWindowProperty(mb->dpy, mb->win_root,
-			      mb->atoms[ATOM_MB_THEME], 
-			      0L, 512L, False,
-			      AnyPropertyType, &realType,
-			      &format, &n, &extra,
-			      (unsigned char **) &value);
-  
-  if (status != Success || value == 0 || *value == 0 || n == 0)
-    {
-      if (value) XFree(value);
-      return;
-    }
-  
-  if (mb->theme_name == NULL || strcmp(mb->theme_name, value))
-    {
-      if (mb->theme_name) free(mb->theme_name);
-      mb->theme_name = strdup(value);
-      
-      if (mb->theme_cb)
-	mb->theme_cb(mb, mb->theme_name); 
-      
-      XFree(value);
-    }
-#endif // USE_XSETTINGS
-}
-
-static void
 handle_property(MBTrayApp       *mb, 
 		XPropertyEvent *event )
 {
@@ -804,10 +756,6 @@ handle_property(MBTrayApp       *mb,
     {
       mb->have_cached_bg = False;
       handle_expose( mb, NULL );
-    }
-  else if (event->atom == mb->atoms[ATOM_MB_THEME])
-    {
-      set_theme_via_root_prop(mb);
     }
 }
 
@@ -1322,12 +1270,9 @@ mb_tray_app_main_init ( MBTrayApp *mb ) /* XXX Figure out better name */
      }
 #endif
 
-#ifdef USE_XSETTINGS
-
   mb->xsettings_client = xsettings_client_new(mb->dpy, mb->screen,
 					      _xsettings_notify_cb,
 					      NULL, (void *)mb );
-#endif
 
    /* Set up standard hints */
    
@@ -1337,8 +1282,6 @@ mb_tray_app_main_init ( MBTrayApp *mb ) /* XXX Figure out better name */
    XFlush (mb->dpy);
 
    if (mb->win_tray) _init_docking (mb);
-
-   set_theme_via_root_prop(mb);
 }
 
 void 
@@ -1363,10 +1306,8 @@ mb_tray_handle_xevent(MBTrayApp *mb, XEvent *xevent)
       if (mb->xevent_cb) 
 	mb->xevent_cb (mb, xevent);
 
-#ifdef USE_XSETTINGS
 	  if (mb->xsettings_client != NULL)
 	    xsettings_client_process_event(mb->xsettings_client, xevent);
-#endif
 
       switch (xevent->type) 
 	{

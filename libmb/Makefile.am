@@ -6,6 +6,8 @@ source_h = mb.h           \
            mbutil.h       \
            mbexp.h        \
            mbconfig.h     \
+           xsettings-client.h \
+           xsettings-common.h \
            hash.h 
 
 source_c = mbmenu.c       \
@@ -14,6 +16,8 @@ source_c = mbmenu.c       \
            mbpixbuf.c     \
            mbutil.c       \
 	   mbexp.c        \
+           xsettings-client.c \
+           xsettings-common.c \
            hash.c
 
 DATADIR=$(datadir)
@@ -21,8 +25,8 @@ DATADIR=$(datadir)
 
 lib_LTLIBRARIES      = libmb.la
 libmb_la_SOURCES     = $(source_c) $(source_h)
-libmb_la_CPPFLAGS    = -I$(top_srcdir) @GCC_WARNINGS@ @XLIBS_CFLAGS@ @PANGO_CFLAGS@ @PNG_CFLAGS@ @XSET_CFLAGS@ -DDATADIR=\"$(datadir)\"
-libmb_la_LIBADD      = @XLIBS_LIBS@ @PANGO_LIBS@ @JPEG_LIBS@ @PNG_LIBS@ @XSET_LIBS@
+libmb_la_CPPFLAGS    = -I$(top_srcdir) @GCC_WARNINGS@ @XLIBS_CFLAGS@ @PANGO_CFLAGS@ @PNG_CFLAGS@ -DDATADIR=\"$(datadir)\"
+libmb_la_LIBADD      = @XLIBS_LIBS@ @PANGO_LIBS@ @JPEG_LIBS@ @PNG_LIBS@
 
 # http://sources.redhat.com/autobook/autobook/autobook_91.html#SEC91
 # current : revision : age

@@ -17,7 +17,6 @@ SUPPORTS_PNG=0
 SUPPORTS_JPEG=0
 SUPPORTS_XFT=0
 SUPPORTS_PANGO=0
-SUPPORTS_XSETTINGS=0
 
 dnl ----- Args -------------------------------------------------------------
 
@@ -40,19 +39,6 @@ AC_ARG_ENABLE(png,
 AC_ARG_ENABLE(doxygen-docs,     
   [  --enable-doxygen-docs   build DOXYGEN API documentation (requires Doxygen)], 
      enable_doxygen_docs=$enableval,enable_doxygen_docs=no)
-
-AC_ARG_ENABLE(xsettings,
-  [  --enable-xsettings      enable xsettings client support],
-     enable_xsettings=$enableval, enable_xsettings=no )
-
-AC_ARG_WITH(xsettings-includes,    
-  [  --with-xsettings-includes=DIR Use xsettings-client includes in DIR],
- 
-	   xsettings_includes=$withval, xsettings_includes=yes)
-
-AC_ARG_WITH(xsettings-lib,         
-  [  --with-xsettings-lib=DIR      Use xsettings-client library in DIR], 
-	   xsettings_lib=$withval, xsettings_lib=yes)
 
 AC_ARG_ENABLE(debug,
   [  --enable-debug          enable debug ( verbose ) build],
@@ -180,56 +166,6 @@ if test x$enable_jpeg != xno; then
   fi
 fi
 
-
-dnl ------ Check for XSettings ----------------------------------------------
-
-if test x$enable_xsettings != xno; then
-  case "$xsettings_includes" in
-    yes|no)
-	XSET_CFLAGS=""
-	;;
-    *)
-	XSET_CFLAGS="-I$xsettings_includes"
-	;;
-  esac
-	
-  case "$xsettings_lib" in
-    yes)
-	XSET_LIBS="-lXsettings-client"
-	;;
-    *)
-	XSET_LIBS="-L$xsettings_lib -lXsettings-client"
-	;;
-   esac
-
-   xsetsaved_CPPFLAGS="$CPPFLAGS"
-   CPPFLAGS="$CPPFLAGS $XSET_CFLAGS $XLIBS_CFLAGS"
-   xsetsaved_LIBS="$LIBS"
-   LIBS="$LIBS $XSET_LIBS $XLIBS_LIBS"
-
-   AC_CHECK_HEADER(xsettings-client.h, [ have_xset_h="yes" ], [ have_xset_h="no" ] )
-
-   if test x$have_xset_h = xno; then
-      AC_MSG_ERROR([cannot find Xsettings-client headers])
-   fi
-
-   AC_CHECK_LIB([Xsettings-client], [xsettings_client_new], 
-                [have_xset_libs="yes"], [ have_xset_libs="no"])
-
-   if test x$have_xset_libs = x"no"; then	
-      AC_MSG_ERROR([cannot find Xsettings-client headers])
-   fi
-   	
-   CPPFLAGS="$xsetsaved_CPPFLAGS"
-   LIBS="$xsetsaved_LIBS"
-
-   MB_EXTRA_LIBS="$MB_EXTRA_LIBS $XSET_LIBS"	
-   MB_EXTRA_CFLAGS="$MB_EXTRA_CFLAGS $XSET_CFLAGS"	
-
-   AC_DEFINE(USE_XSETTINGS, [1], [Use XSettings Client])
-fi
-
-
 dnl ------ Debug -----------------------------------------------------------
 
 if test x$enable_debug != xno; then
@@ -310,9 +246,6 @@ AC_SUBST(JPEG_LIBS)
 AC_SUBST(GCC_WARNINGS)
 AC_SUBST(CHECK_CFLAGS)
 
-AC_SUBST(XSET_LIBS)
-AC_SUBST(XSET_CFLAGS)
-
 AC_SUBST(MB_EXTRA_LIBS)
 AC_SUBST(MB_EXTRA_CFLAGS)
 AC_SUBST(XLIBS_REQUIRED)
@@ -380,7 +313,6 @@ echo "
         Building with Pango:                ${enable_pango}
         Building with PNG:                  ${enable_png}
         Building with JPG:                  ${enable_jpeg}
-        Building with XSettings:            ${enable_xsettings}
         Building with API Documentation:    ${enable_doxygen_docs}
 
 "
