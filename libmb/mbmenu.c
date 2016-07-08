@@ -23,6 +23,8 @@
 #include "config.h"
 #endif
 
+#include <X11/XKBlib.h>
+
 #include "mbmenu.h"
 
 #define MBMAX(x,y) ((x>y)?(x):(y))
@@ -802,7 +804,7 @@ mb_menu_handle_xevent(MBMenu *mb, XEvent *an_event)
     {
     case KeyPress:
       MENUDBG("%s() Keyevent recieved\n", __func__ );
-      switch (key = XKeycodeToKeysym (mb->dpy, an_event->xkey.keycode, 0))
+      switch (key = XkbKeycodeToKeysym (mb->dpy, an_event->xkey.keycode, 0, 0))
 	{
 	case XK_Left:
 	  if (mb->active_depth > 0)
