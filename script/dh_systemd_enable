@@ -147,14 +147,14 @@ foreach my $package (@{$dh{DOPACKAGES}}) {
 		doit("install","-p","-m644",$service,"$path/$script.service");
 	}
 
-	my $service=pkgfile("$package@","service");
-	if ($service ne '') {
+	my $template=pkgfile("$package@","service");
+	if ($template ne '') {
 		my $path="$tmpdir/lib/systemd/system";
 		if (! -d "$path") {
 			doit("install","-d","$path");
 		}
 
-		doit("install","-p","-m644",$service,"$path/$script@.service");
+		doit("install","-p","-m644",$template,"$path/$script@.service");
 	}
 
 	my $target=pkgfile($package,"target");
