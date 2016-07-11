@@ -1,3 +1,14 @@
+init-system-helpers (1.38) unstable; urgency=medium
+
+  * Remove dh_systemd_enable and dh_systemd_start. Those helpers will be
+    shipped by debhelper (>= 9.20160709) from now on. (Closes: #822670)
+  * Remove systemd2init and related files as we want to make dh-systemd an
+    empty, transitional package which we can drop eventually.
+  * Turn dh-systemd into a transitional package pulling in a recent enough
+    version of debhelper.
+
+ -- Michael Biebl <biebl@debian.org>  Mon, 11 Jul 2016 18:05:58 +0200
+
 init-system-helpers (1.37) unstable; urgency=medium
 
   * Stop setting POD_MAN_DATE. It was added to support reproducible builds
