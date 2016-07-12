@@ -1,3 +1,12 @@
+init-system-helpers (1.39) UNRELEASED; urgency=medium
+
+  * Add an explicit dependency on insserv. For now we still need insserv in
+    update-rc.d to properly enable SysV init scripts but we can't rely on
+    other packages, like sysv-rc, anymore to pull in insserv for us, because
+    they might not be installed anymore by default.
+
+ -- Michael Biebl <biebl@debian.org>  Tue, 12 Jul 2016 21:51:04 +0200
+
 init-system-helpers (1.38) unstable; urgency=medium
 
   * Remove dh_systemd_enable and dh_systemd_start. Those helpers will be
