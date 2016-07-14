@@ -380,8 +380,12 @@ RC=
 ### LOCAL POLICY: Enforce that the script/unit is enabled. For SysV init
 ### scripts, this needs a start entry in either runlevel S or current runlevel
 ### to allow start or restart.
+### Note that systemd 215 does not yet support is-enabled for SysV scripts,
+### this works only with systemd >= 220-1 (systemd-sysv-install). This can be
+### dropped after releasing stretch.
 if [ -n "$is_systemd" ]; then
-    if systemctl --quiet is-enabled "${UNIT}" 2>/dev/null; then
+    if systemctl --quiet is-enabled "${UNIT}" 2>/dev/null || \
+       ls ${RCDPREFIX}[S2345].d/S[0-9][0-9]${INITSCRIPTID} >/dev/null 2>&1; then
         RC=104
     else
         RC=101
