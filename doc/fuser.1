@@ -244,6 +244,15 @@ privileges.  As a consequence, files opened by processes belonging to
 other users may not be listed and executables may be classified as
 mapped only.
 .PP
+.B fuser
+cannot report on any processes that it doesn't have permission to look
+at the file descriptor table for.  The most common time this problem
+occurs is when looking for TCP or UDP sockets when running
+.B fuser
+as a non-root user.  In this case
+.B fuser
+will report no access.
+.PP
 Installing
 .B fuser
 SUID root will avoid problems associated with partial information, but
@@ -269,15 +278,6 @@ will print an advice, but take no action beyond that.
 fuser \-m /dev/sgX will show (or kill with the \-k flag) all processes,
 even if you don't have that device configured.  There may be other
 devices it does this for too.
-.PP
-.B fuser
-cannot report on any processes that it doesn't have permission to look
-at the file descriptor table for.  The most common time this problem
-occurs is when looking for TCP or UDP sockets when running
-.B fuser
-as a non-root user.  In this case
-.B fuser
-will report no access
 .PP
 The mount \-m option will match any file within the same device as the
 specified file, use the \-M option as well if you mean to specify only
