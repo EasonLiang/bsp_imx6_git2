@@ -1,3 +1,40 @@
+init-system-helpers (1.40) unstable; urgency=medium
+
+  [ Martin Pitt ]
+  * update-rc.d: Add fallback if insserv is not available.
+    If insserv is not available, we are either under systemd or a chroot,
+    where the rc?.d/ link priorities don't matter, so create the
+    /etc/rc?.d/[SK]01<name> links with a hardcoded "01" priority.
+    Drop insserv dependency again.
+  * invoke-rc.d: Add SysV fallback for "systemctl is-enabled".
+    Version 1.35 switched to "systemctl is-enabled" to determine if a service
+    is enabled. This also has worked for SysV init scripts since systemd 220-1
+    (via the systemd-sysv-install wrapper), but does not yet work under
+    Jessie's systemd 215. Add a fallback to checking runlevel symlinks (for
+    any runlevel) to fix upgrades where init-system-helpers gets upgraded
+    before systemd, and to make i-s-h backportable to Jessie.
+    (Closes: #830982)
+
+  [ Michael Biebl ]
+  * invoke-rc.d: Drop fallback code for ancient upstart versions.
+    Even wheezy ships a version >= 0.9.7.
+  * invoke-rc.d: Only consider the enabled-state for start and restart.
+    We should not deny other actions, like status, stop or reload on
+    disabled services.
+  * invoke-rc.d: Don't check the enabled state twice.
+    On start|restart we already enforce the local policy and RC will be set
+    to 101, if the service was disabled.
+    Also, checking for the output of "systemctl --quiet is-enabled" is
+    problematic, as it is currently broken for non-native services [1].
+    So drop it completely.
+    [1] https://github.com/systemd/systemd/issues/3813
+  * invoke-rc.d: Allow restarting disabled-but-running services.
+    Restart services that are disabled but have been started manually.
+    A start request for a running service is a nop under systemd, so we
+    don't need to handle start and restart separately.
+
+ -- Michael Biebl <biebl@debian.org>  Tue, 26 Jul 2016 22:44:01 +0200
+
 init-system-helpers (1.39) unstable; urgency=medium
 
   * Add an explicit dependency on insserv. For now we still need insserv in
