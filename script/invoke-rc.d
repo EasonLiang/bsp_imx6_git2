@@ -384,12 +384,16 @@ RC=
 ### this works only with systemd >= 220-1 (systemd-sysv-install). This can be
 ### dropped after releasing stretch.
 if [ -n "$is_systemd" ]; then
-    if systemctl --quiet is-enabled "${UNIT}" 2>/dev/null || \
-       ls ${RCDPREFIX}[S2345].d/S[0-9][0-9]${INITSCRIPTID} >/dev/null 2>&1; then
-        RC=104
-    else
-        RC=101
-    fi
+    case ${ACTION} in
+        start|restart)
+            if systemctl --quiet is-enabled "${UNIT}" 2>/dev/null || \
+               ls ${RCDPREFIX}[S2345].d/S[0-9][0-9]${INITSCRIPTID} >/dev/null 2>&1; then
+                RC=104
+            else
+                RC=101
+            fi
+            ;;
+    esac
 else
     # we do handle multiple links per runlevel
     # but we don't handle embedded blanks in link names :-(
