@@ -476,13 +476,10 @@ if [ -n "$is_upstart" ]; then
     RUNNING=
     DISABLED=
     if status "$INITSCRIPTID" 2>/dev/null | grep -q ' start/'; then
-	RUNNING=1
+        RUNNING=1
     fi
-    UPSTART_VERSION_RUNNING=$(initctl version|awk '{print $3}'|tr -d ')')
-
-    if dpkg --compare-versions "$UPSTART_VERSION_RUNNING" ge 0.9.7
-    then
-	initctl show-config -e "$INITSCRIPTID"|grep -q '^  start on' || DISABLED=1
+    if ! initctl show-config -e "$INITSCRIPTID" | grep -q '^  start on'; then
+        DISABLED=1
     fi
 fi
 
