@@ -107,12 +107,12 @@ sub systemd_reload {
 sub make_sysv_links {
     my ($scriptname, $action) = @_;
 
-    # for "disable" we cannot rely on the init script still being present, as
+    # for "remove" we cannot rely on the init script still being present, as
     # this gets called in postrm for purging. Just remove all symlinks.
-    if ("disable" eq $action) { unlink($_) for
+    if ("remove" eq $action) { unlink($_) for
         glob("/etc/rc?.d/[SK][0-9][0-9]$scriptname"); return; }
 
-    # for "enable", parse Default-{Start,Stop} and create these links
+    # for "defaults", parse Default-{Start,Stop} and create these links
     my ($lsb_start_ref, $lsb_stop_ref) = parse_def_start_stop("/etc/init.d/$scriptname");
     foreach my $lvl (@$lsb_start_ref) {
         make_path("/etc/rc$lvl.d");
@@ -241,7 +241,7 @@ sub insserv_updatercd {
         system("rc-update", "-qqa", "delete", $scriptname) if ( -x "/sbin/openrc" );
         if ( ! -x $insserv) {
             # We are either under systemd or in a chroot where the link priorities don't matter
-            make_sysv_links($scriptname, "disable");
+            make_sysv_links($scriptname, "remove");
             systemd_reload;
             exit 0;
         }
@@ -275,7 +275,7 @@ sub insserv_updatercd {
 
         if ( ! -x $insserv) {
             # We are either under systemd or in a chroot where the link priorities don't matter
-            make_sysv_links($scriptname, "enable");
+            make_sysv_links($scriptname, "defaults");
             systemd_reload;
             exit 0;
         }
@@ -307,14 +307,14 @@ sub insserv_updatercd {
 
         upstart_toggle($scriptname, $action);
 
+        sysv_toggle($notreally, $action, $scriptname, @args);
+
         if ( ! -x $insserv) {
             # We are either under systemd or in a chroot where the link priorities don't matter
-            make_sysv_links($scriptname, $action);
             systemd_reload;
             exit 0;
         }
 
-        insserv_toggle($notreally, $action, $scriptname, @args);
         # Call insserv to resequence modified links
         my $rc = system($insserv, @opts, $scriptname) >> 8;
         if (0 == $rc && !$notreally) {
@@ -422,7 +422,7 @@ sub cmp_args_with_defaults {
     }
 }
 
-sub insserv_toggle {
+sub sysv_toggle {
     my ($dryrun, $act, $name) = (shift, shift, shift);
     my (@toggle_lvls, $start_lvls, $stop_lvls, @symlinks);
     my $lsb_header = lsb_header_for_script($name);
