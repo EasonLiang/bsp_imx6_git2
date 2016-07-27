@@ -1,3 +1,10 @@
+init-system-helpers (1.41) unstable; urgency=medium
+
+  * update-rc.d: Properly handle enable|disable for SysV init scripts if
+    insserv is not available. (Closes: #832582)
+
+ -- Michael Biebl <biebl@debian.org>  Wed, 27 Jul 2016 11:42:54 +0200
+
 init-system-helpers (1.40) unstable; urgency=medium
 
   [ Martin Pitt ]
