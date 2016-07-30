@@ -112,19 +112,21 @@ sub make_sysv_links {
     if ("remove" eq $action) { unlink($_) for
         glob("/etc/rc?.d/[SK][0-9][0-9]$scriptname"); return; }
 
+    # if the service already has any links, do not touch them
+    # numbers we don't care about, but enabled/disabled state we do
+    return if glob("/etc/rc?.d/[SK][0-9][0-9]$scriptname");
+
     # for "defaults", parse Default-{Start,Stop} and create these links
     my ($lsb_start_ref, $lsb_stop_ref) = parse_def_start_stop("/etc/init.d/$scriptname");
     foreach my $lvl (@$lsb_start_ref) {
         make_path("/etc/rc$lvl.d");
         my $l = "/etc/rc$lvl.d/S01$scriptname";
-        unlink($l);
         symlink("../init.d/$scriptname", $l);
     }
 
     foreach my $lvl (@$lsb_stop_ref) {
         make_path("/etc/rc$lvl.d");
         my $l = "/etc/rc$lvl.d/K01$scriptname";
-        unlink($l);
         symlink("../init.d/$scriptname", $l);
     }
 }
