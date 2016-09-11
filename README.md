@@ -1,4 +1,3 @@
-
 [<img alt="Coverity Scan Build Status" src="https://scan.coverity.com/projects/2048/badge.svg"/>](https://scan.coverity.com/projects/psmisc)
 # psmisc
 
@@ -14,6 +13,11 @@ A package of small utilities that use the proc file-system.
 psmisc is now hosted on gitlab at https://gitlab.com/psmisc/psmisc
 for bugs or issues please use the issue tracker at
 https://gitlab.com/psmisc/psmisc/issues
+
+## Email List
+No email list as such, but there is a Gitter room found at https://gitter.im/psmisc/Lobby
+This is an experimental trial of how Gitter works with a Gitlab project such as psmisc but
+its better than no email list.
 
 ## fuser on network fs
 On network file-systems, fuser can hang because its trying to stat files
