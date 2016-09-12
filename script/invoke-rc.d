@@ -555,7 +555,7 @@ if test x${FORCE} != x || test ${RC} -eq 104 ; then
                 # the synchronous wait plus systemd's normal behaviour of
                 # transactionally processing all dependencies first easily
                 # causes dependency loops
-                if ! systemctl --quiet is-active default.target; then
+                if ! systemctl --quiet is-active multi-user.target; then
                     sctl_args="--job-mode=ignore-dependencies"
                 fi
                 case $saction in
