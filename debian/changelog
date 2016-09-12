@@ -1,3 +1,14 @@
+init-system-helpers (1.44) unstable; urgency=medium
+
+  * invoke-rc.d, service: Check for multi-user.target instead of graphical.target.
+    There is a curious bug which sometimes causes "systemctl is-active
+    default.target" to say inactive until "show" or "status" gets called on
+    the unit. This needs to be investigated.  Until then, check for
+    multi-user.target which by and large does the same job, but seems to work
+    reliably.
+
+ -- Martin Pitt <mpitt@debian.org>  Mon, 12 Sep 2016 22:52:23 +0200
+
 init-system-helpers (1.43) unstable; urgency=medium
 
   [ Felipe Sateler ]
