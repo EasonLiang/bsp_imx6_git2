@@ -1,3 +1,13 @@
+init-system-helpers (1.45) unstable; urgency=medium
+
+  * Revert "invoke-rc.d, service: Asynchronously reload systemd units"
+    This caused fallout at least in the autopkgtests of two packages, possibly many
+    more, thus could also break assumptions in more important environments, and was
+    just a defensive move, not a bug fix.
+    This reverts commit 9cfb6dfed4a38b7c3d8b7fd04a7681690049e424.
+
+ -- Martin Pitt <mpitt@debian.org>  Tue, 20 Sep 2016 16:27:43 +0200
+
 init-system-helpers (1.44) unstable; urgency=medium
 
   * invoke-rc.d, service: Check for multi-user.target instead of
