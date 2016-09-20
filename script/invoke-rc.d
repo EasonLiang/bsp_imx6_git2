@@ -572,7 +572,7 @@ if test x${FORCE} != x || test ${RC} -eq 104 ; then
                         if [ "$_canreload" = "CanReload=no" ]; then
                             "${INITDPREFIX}${INITSCRIPTID}" "${saction}" "$@" && exit 0
                         else
-                            systemctl --no-block reload "${UNIT}" && exit 0
+                            systemctl $sctl_args reload "${UNIT}" && exit 0
                         fi
                         ;;
                     force-stop)
@@ -584,7 +584,7 @@ if test x${FORCE} != x || test ${RC} -eq 104 ; then
                         if [ "$_canreload" = "CanReload=no" ]; then
                            systemctl $sctl_args restart "${UNIT}" && exit 0
                         else
-                           systemctl --no-block reload "${UNIT}" && exit 0
+                           systemctl $sctl_args reload "${UNIT}" && exit 0
                         fi
                         ;;
                     *)

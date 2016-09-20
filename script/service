@@ -217,7 +217,7 @@ then
             # specific service.
             run_via_sysvinit
          else
-            exec systemctl --no-block reload "${UNIT}"
+            exec systemctl $sctl_args reload "${UNIT}"
          fi
          ;;
       force-stop)
@@ -228,7 +228,7 @@ then
          if [ "$_canreload" = "CanReload=no" ]; then
             exec systemctl $sctl_args restart "${UNIT}"
          else
-            exec systemctl --no-block reload "${UNIT}"
+            exec systemctl $sctl_args reload "${UNIT}"
          fi
          ;;
       *)
