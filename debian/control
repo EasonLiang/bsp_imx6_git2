@@ -42,15 +42,6 @@ Description: helper tools for all init systems
  specific to systemd at all. Maintainers of other init systems are welcome to
  include their helpers in this package.
 
-Package: dh-systemd
-Section: oldlibs
-Architecture: all
-Multi-Arch: foreign
-Depends: debhelper (>= 9.20160709),
-         ${misc:Depends},
-Description: debhelper add-on to handle systemd unit files - transitional package
- This package is for transitional purposes and can be removed safely.
-
 Package: init
 Section: metapackages
 Architecture: any
