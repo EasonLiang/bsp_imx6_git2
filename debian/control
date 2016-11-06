@@ -51,7 +51,7 @@ Multi-Arch: foreign
 Pre-Depends: systemd-sysv [linux-any] ${alt:sysvinit},
 Depends: init-system-helpers,
          ${misc:Depends},
-Description: init metapackage
+Description: metapackage ensuring an init system is installed
  This package is a metapackage which allows you to select from the available
  init systems while ensuring that one of these is available on the system at
  all times.
