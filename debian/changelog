@@ -1,3 +1,13 @@
+init-system-helpers (1.46) unstable; urgency=medium
+
+  * Drop dh-systemd transitional package.
+    It is now provided by debhelper (Closes: #841914)
+  * Add a meaningful short description to init metapackage
+  * Document copyright of things lifted from pkg:sysvinit (Closes: #839545)
+  * Use https url for copyright format
+
+ -- Felipe Sateler <fsateler@debian.org>  Sun, 06 Nov 2016 17:02:00 -0300
+
 init-system-helpers (1.45) unstable; urgency=medium
 
   * Revert "invoke-rc.d, service: Asynchronously reload systemd units"
