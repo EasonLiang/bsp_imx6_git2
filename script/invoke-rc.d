@@ -176,6 +176,15 @@ if test "x${POLICYHELPER}" != x && test -x "${POLICYHELPER}" ; then
 	 ;;
     esac
 else
+    if test ! -e "/sbin/init" ; then
+        if test x${FORCE} != x ; then
+            printerror "WARNING: No init system and policy-rc.d missing, but force specified so proceeding."
+        else
+            printerror "WARNING: No init system and policy-rc.d missing! Defaulting to block."
+            RC=101
+        fi
+    fi
+
     if test x${RC} = x ; then 
 	RC=104
     fi
