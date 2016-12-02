@@ -1,6 +1,6 @@
 Changes in 22.22
 ================
-	* prtat: Remove duplicate options in man page !3
+	* prtat: Remove duplicate options in man page !3 Debian #846387
 	* pslog: New program to check what logs are open merge !1
 	* fuser: increase path length for octal escaping SF [#37]
 	* Make usage of linked lists of devices found in
@@ -10,7 +10,7 @@ Changes in 22.22
 	* Add list_sort() to lists.h to be able to sort lists
 	* fuser: Fixed typo for  -M flag. Debian #740275
 	* pstree: by default doesn't show threadnames, use -t to show
-	  as it disables compaction. SF [#33]
+	  as it disables compaction. SF [#33] Debian #815902
 	* pstree: PATH_MAX defined for FreeBSD. Debian #750405
 	* pstree: ignores disappeared processes. SF [#34]
 	* killall: -o and -y work with -r flags. SF [#64]
