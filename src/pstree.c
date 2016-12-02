@@ -2,7 +2,7 @@
  * pstree.c - display process tree
  *
  * Copyright (C) 1993-2002 Werner Almesberger
- * Copyright (C) 2002-2014 Craig Small
+ * Copyright (C) 2002-2016 Craig Small
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -298,10 +298,10 @@ static int get_output_width(void)
 
     env_columns = getenv("COLUMNS");
     if (env_columns && *env_columns) {
-	long t;
-	t = strtol(env_columns, &ep, 0);
-	if (!*ep && (t > 0) && (t < 0x7fffffffL))
-	    return (int)t;
+        long t;
+        t = strtol(env_columns, &ep, 0);
+        if (!*ep && (t > 0) && (t < 0x7fffffffL))
+            return (int)t;
     }
     if (ioctl(1, TIOCGWINSZ, &winsz) >= 0)
         if (winsz.ws_col)
@@ -419,10 +419,11 @@ static PROC *find_proc(pid_t pid)
 {
     PROC *walk;
 
-    for (walk = list; walk; walk = walk->next)
+    for (walk = list; walk; walk = walk->next) {
         if (walk->pid == pid)
-		  return walk;
-	return NULL;
+            return walk;
+    }
+    return NULL;
 }
 
 static PROC *new_proc(const char *comm, pid_t pid, uid_t uid,
@@ -507,24 +508,27 @@ static void
 rename_proc(PROC *this, const char *comm, uid_t uid)
 {
     PROC *tmp_child, *parent;
-	CHILD **walk;
+    CHILD **walk;
 
     strncpy(this->comm, comm, COMM_LEN+2);
     this->comm[COMM_LEN+1] = '\0';
     this->uid = uid;
 
-	/* Re-sort children in parent, now we have a name */
-	if (!by_pid && this->parent) {
-	    parent = this->parent;
+    /* Re-sort children in parent, now we have a name */
+    if (!by_pid && this->parent) {
+        parent = this->parent;
         for (walk = &parent->children; *walk; walk = &(*walk)->next) {
-		  if ( ((*walk)->next != NULL) && strcmp((*walk)->child->comm, (*walk)->next->child->comm) > 0 ) {
-			tmp_child = (*walk)->child;
-			(*walk)->child = (*walk)->next->child;
-			(*walk)->next->child = tmp_child;
-		  }
-		}
-	}
+            if (
+                ((*walk)->next != NULL) &&
+                strcmp((*walk)->child->comm, (*walk)->next->child->comm) > 0 ) {
+                tmp_child = (*walk)->child;
+                (*walk)->child = (*walk)->next->child;
+                (*walk)->next->child = tmp_child;
+            }
+        }
+    }
 }
+
 static void
 add_proc(const char *comm, pid_t pid, pid_t ppid, pid_t pgid, uid_t uid,
          const char *args, int size, char isthread, security_context_t scontext)
@@ -534,7 +538,7 @@ add_proc(const char *comm, pid_t pid, pid_t ppid, pid_t pgid, uid_t uid,
     if (!(this = find_proc(pid)))
         this = new_proc(comm, pid, uid, scontext);
     else {
-	    rename_proc(this, comm, uid);
+        rename_proc(this, comm, uid);
     }
     if (args)
         set_args(this, args, size);
@@ -806,28 +810,28 @@ static char* get_threadname(const pid_t pid, const int tid, const char *comm)
     FILE *file;
     char *thread_comm, *endcomm, *threadname;
     char path[PATH_MAX + 1];
-    char readbuf[BUFSIZ + 1]; 
+    char readbuf[BUFSIZ + 1];
 
     if (! (threadname = malloc(COMM_LEN + 2 + 1))) {
-	exit(2);
+        exit(2);
     }
     if (!thread_names) {
         sprintf(threadname, THREAD_FORMAT, COMM_LEN, comm);
         return threadname;
     }
     if (snprintf(path, PATH_MAX, "%s/%d/task/%d/stat", PROC_BASE, pid, tid) < 0)
-	perror("get_threadname: asprintf");
+        perror("get_threadname: asprintf");
     if ( (file = fopen(path, "r")) != NULL) {
-	if (fgets(readbuf, BUFSIZ, file) != NULL) {
-	    if ((thread_comm = strchr(readbuf, '('))
-		    && (endcomm = strrchr(thread_comm, ')'))) {
-		++thread_comm;
-		*endcomm = '\0';
-		sprintf(threadname, THREAD_FORMAT, COMM_LEN, thread_comm);
-		(void) fclose(file);
-		return threadname;
-	    }
-	}
+        if (fgets(readbuf, BUFSIZ, file) != NULL) {
+            if ((thread_comm = strchr(readbuf, '('))
+                && (endcomm = strrchr(thread_comm, ')'))) {
+                ++thread_comm;
+                *endcomm = '\0';
+                sprintf(threadname, THREAD_FORMAT, COMM_LEN, thread_comm);
+                (void) fclose(file);
+                return threadname;
+            }
+        }
         fclose(file);
     }
 
@@ -947,25 +951,26 @@ static void read_proc(void)
               else {
                 sprintf(path, "%s/%d/cmdline", PROC_BASE, pid);
                 if ((fd = open(path, O_RDONLY)) < 0) {
-		  /* If this fails then the process is gone.  If a PID
+          /* If this fails then the process is gone.  If a PID
 		   * was specified on the command-line then we might
 		   * not even be interested in the current process.
 		   * There's no sensible way of dealing with this race
 		   * so we might as well behave as if the current
 		   * process did not exist.  */
-		  (void) fclose(file);
-		  free(path);
-		  continue;
-		}
+                    (void) fclose(file);
+                    free(path);
+                    continue;
+                }
                 if ((size = read(fd, buffer, buffer_size)) < 0) {
-			/* As above. */
-		  close(fd);
-		  (void) fclose(file);
-		  free(path);
-		  continue;
+                    /* As above. */
+                    close(fd);
+                    (void) fclose(file);
+                    free(path);
+                    continue;
                 }
                 (void) close(fd);
-                /* If we have read the maximum screen length of args, bring it back by one to stop overflow */
+                /* If we have read the maximum screen length of args,
+                 * bring it back by one to stop overflow */
                 if (size >= buffer_size)
                   size--;
                 if (size)
@@ -991,28 +996,30 @@ static void read_proc(void)
   }
 }
 
+
+/* When using kernel 3.3 with hidepid feature enabled on /proc
+ * then we need fake root pid and gather all the orphan processes
+ * that is, processes with no known parent
+ * As we cannot be sure if it is just the root pid or others missing
+ * we gather the lot
+ */
 static void fix_orphans(security_context_t scontext)
 {
-  /* When using kernel 3.3 with hidepid feature enabled on /proc
-   * then we need fake root pid and gather all the orphan processes
-   * that is, processes with no known parent
-   * As we cannot be sure if it is just the root pid or others missing
-   * we gather the lot
-   */
-  PROC *root, *walk;
+    PROC *root, *walk;
 
-  if (!(root = find_proc(ROOT_PID))) {
-    root = new_proc("?", ROOT_PID, 0, scontext);
-  }
-  for (walk = list; walk; walk = walk->next) {
-	if (walk->pid == 1 || walk->pid == 0)
-	  continue;
-	if (walk->parent == NULL) { 
-	  add_child(root, walk);
-      walk->parent = root;
-	}
-  }
+    if (!(root = find_proc(ROOT_PID))) {
+        root = new_proc("?", ROOT_PID, 0, scontext);
+    }
+    for (walk = list; walk; walk = walk->next) {
+        if (walk->pid == 1 || walk->pid == 0)
+            continue;
+        if (walk->parent == NULL) {
+            add_child(root, walk);
+            walk->parent = root;
+        }
+    }
 }
+
 
 static void usage(void)
 {
