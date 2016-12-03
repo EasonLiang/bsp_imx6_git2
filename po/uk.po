@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc-22.21-pre2\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2015-06-30 23:01+1000\n"
+"POT-Creation-Date: 2016-12-03 20:28+1100\n"
 "PO-Revision-Date: 2014-02-02 12:33+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation-team-uk@lists.sourceforge.net>\n"
@@ -15,15 +15,16 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 1.5\n"
 
-#: src/fuser.c:123
+#: src/fuser.c:124
 #, fuzzy, c-format
 msgid ""
-"Usage: fuser [-fMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE] [-k [-i] [-SIGNAL]] "
-"NAME...\n"
+"Usage: fuser [-fIMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE]\n"
+"             [-k [-i] [-SIGNAL]] NAME...\n"
 "       fuser -l\n"
 "       fuser -V\n"
 "Show which processes use the named files, sockets, or filesystems.\n"
@@ -33,8 +34,8 @@ msgid ""
 "  -I,--inode            use always inodes to compare files\n"
 "  -k,--kill             kill processes accessing the named file\n"
 "  -l,--list-signals     list available signal names\n"
-"  -m,--mount            show all processes using the named filesystems or "
-"block device\n"
+"  -m,--mount            show all processes using the named filesystems or\n"
+"                        block device\n"
 "  -M,--ismountpoint     fulfill request only if NAME is a mount point\n"
 "  -n,--namespace SPACE  search in this name space (file, udp, or tcp)\n"
 "  -s,--silent           silent operation\n"
@@ -70,7 +71,7 @@ msgstr ""
 "  -w,--writeonly         завершити роботу лише процесів з доступом на запис\n"
 "  -V,--version           показати дані щодо версії\n"
 
-#: src/fuser.c:141
+#: src/fuser.c:145
 #, c-format
 msgid ""
 "  -4,--ipv4             search IPv4 sockets only\n"
@@ -79,7 +80,7 @@ msgstr ""
 "  -4,--ipv4             шукати лише серед сокетів IPv4\n"
 "  -6,--ipv6             шукати лише серед сокетів IPv6\n"
 
-#: src/fuser.c:144
+#: src/fuser.c:148
 #, c-format
 msgid ""
 "  -                     reset options\n"
@@ -92,12 +93,12 @@ msgstr ""
 "  назви udp/tcp: [локлаьний_порт][,[вузол_rmt][,[порт_rmt]]]\n"
 "\n"
 
-#: src/fuser.c:151
+#: src/fuser.c:155
 #, c-format
 msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
-#: src/fuser.c:154
+#: src/fuser.c:158
 #, c-format
 msgid ""
 "Copyright (C) 1993-2010 Werner Almesberger and Craig Small\n"
@@ -106,8 +107,8 @@ msgstr ""
 "© Werner Almesberger та Craig Small, 1993–2010\n"
 "\n"
 
-#: src/fuser.c:156 src/killall.c:702 src/peekfd.c:114 src/prtstat.c:68
-#: src/pstree.c:1054
+#: src/fuser.c:160 src/killall.c:708 src/peekfd.c:114 src/prtstat.c:68
+#: src/pstree.c:1073
 #, c-format
 msgid ""
 "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
@@ -120,111 +121,111 @@ msgstr ""
 "його відповідно до умов Загальної громадської ліцензії GNU (GPL).\n"
 "Щоб дізнатися більше про це, ознайомтеся з файлом з назвою COPYING.\n"
 
-#: src/fuser.c:175
+#: src/fuser.c:179
 #, c-format
 msgid "Cannot open /proc directory: %s\n"
 msgstr "Не вдалося відкрити каталог /proc: %s\n"
 
-#: src/fuser.c:366 src/fuser.c:419 src/fuser.c:1874
+#: src/fuser.c:370 src/fuser.c:423 src/fuser.c:1880
 #, c-format
 msgid "Cannot allocate memory for matched proc: %s\n"
 msgstr "Не вдалося отримати область пам’яті для відповідного процесу: %s\n"
 
-#: src/fuser.c:446
+#: src/fuser.c:450
 #, c-format
 msgid "Specified filename %s does not exist.\n"
 msgstr "Файл з вказаною назвою, %s, не існує.\n"
 
-#: src/fuser.c:449
+#: src/fuser.c:453
 #, c-format
 msgid "Cannot stat %s: %s\n"
 msgstr "Не вдалося отримати дані за допомогою stat %s: %s\n"
 
-#: src/fuser.c:586
+#: src/fuser.c:590
 #, c-format
 msgid "Cannot resolve local port %s: %s\n"
 msgstr "Не вдалося визначити локальний порт %s: %s\n"
 
-#: src/fuser.c:604
+#: src/fuser.c:608
 #, c-format
 msgid "Unknown local port AF %d\n"
 msgstr "Невідомий локальний порт AF %d\n"
 
-#: src/fuser.c:692
+#: src/fuser.c:698
 #, c-format
 msgid "Cannot open protocol file \"%s\": %s\n"
 msgstr "Не вдалося відкрити файл протоколу «%s»: %s\n"
 
-#: src/fuser.c:878
+#: src/fuser.c:884
 #, c-format
 msgid "Specified filename %s is not a mountpoint.\n"
 msgstr "Вказана назва файла, %s, не є точкою монтування.\n"
 
-#: src/fuser.c:978
+#: src/fuser.c:984
 #, c-format
 msgid "%s: Invalid option %s\n"
 msgstr "%s: некоректний параметр, %s\n"
 
-#: src/fuser.c:1035
+#: src/fuser.c:1041
 msgid "Namespace option requires an argument."
 msgstr "Параметр простору назв слід вказувати з аргументом."
 
-#: src/fuser.c:1053
+#: src/fuser.c:1059
 msgid "Invalid namespace name"
 msgstr "Некоректна назва простору назв"
 
-#: src/fuser.c:1118
+#: src/fuser.c:1124
 msgid "You can only use files with mountpoint options"
 msgstr "Файли можна використовувати лише разом з параметрами точки монтування"
 
-#: src/fuser.c:1167
+#: src/fuser.c:1173
 msgid "No process specification given"
 msgstr "Не вказано специфікації процесу"
 
-#: src/fuser.c:1179
+#: src/fuser.c:1185
 msgid "all option cannot be used with silent option."
 msgstr "параметр «all» не можна використовувати разом з параметром «silent»."
 
-#: src/fuser.c:1184
+#: src/fuser.c:1190
 msgid "You cannot search for only IPv4 and only IPv6 sockets at the same time"
 msgstr ""
 "Одночасно можна виконувати пошук лише для сокетів IPv4 або сокетів IPv6"
 
-#: src/fuser.c:1263
+#: src/fuser.c:1269
 #, c-format
 msgid "%*s USER        PID ACCESS COMMAND\n"
 msgstr "%*s КОРИСТУВАЧ  PID ДОСТУП КОМАНДА\n"
 
-#: src/fuser.c:1296 src/fuser.c:1353
+#: src/fuser.c:1302 src/fuser.c:1359
 msgid "(unknown)"
 msgstr "(невідомий)"
 
-#: src/fuser.c:1432 src/fuser.c:1471
+#: src/fuser.c:1438 src/fuser.c:1477
 #, c-format
 msgid "Cannot stat file %s: %s\n"
 msgstr "Не вдалося обробити файл за допомогою stat %s: %s\n"
 
-#: src/fuser.c:1557
+#: src/fuser.c:1563
 #, c-format
 msgid "Cannot open /proc/net/unix: %s\n"
 msgstr "Не вдалося відкрити /proc/net/unix: %s\n"
 
-#: src/fuser.c:1633
+#: src/fuser.c:1639
 #, c-format
 msgid "Kill process %d ? (y/N) "
 msgstr "Завершити процес %d? (y (так) або N (ні)) "
 
-#: src/fuser.c:1669
+#: src/fuser.c:1675
 #, c-format
 msgid "Could not kill process %d: %s\n"
 msgstr "Не вдалося завершити роботу процесу %d: %s\n"
 
-#: src/fuser.c:1684
+#: src/fuser.c:1690
 #, c-format
 msgid "Cannot open a network socket.\n"
 msgstr "Не вдалося відкрити сокет мережі.\n"
 
-#: src/fuser.c:1688
+#: src/fuser.c:1694
 #, c-format
 msgid "Cannot find socket's device number.\n"
 msgstr "Не вдалося визначити номер пристрою сокета.\n"
@@ -249,35 +250,37 @@ msgstr "killall: не вдалося отримати UID з даних щодо
 msgid "killall: Bad regular expression: %s\n"
 msgstr "killall: помилковий формальний вираз: %s\n"
 
-#: src/killall.c:376
+#: src/killall.c:379
 #, c-format
 msgid "killall: skipping partial match %s(%d)\n"
 msgstr "killall: пропускаємо частковий відповідник %s(%d)\n"
 
-#: src/killall.c:603
+#: src/killall.c:606
 #, c-format
 msgid "Killed %s(%s%d) with signal %d\n"
 msgstr "Завершено роботу %s(%s%d) за допомогою сигналу %d\n"
 
-#: src/killall.c:623
+#: src/killall.c:626
 #, c-format
 msgid "%s: no process found\n"
 msgstr "%s: процес не знайдено\n"
 
-#: src/killall.c:664
-#, c-format
+#: src/killall.c:669
+#, fuzzy, c-format
 msgid ""
-"Usage: killall [-Z CONTEXT] [-u USER] [ -eIgiqrvw ] [ -SIGNAL ] NAME...\n"
+"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
+"eIgiqrvw ]\n"
+"               [ -s SIGNAL | -SIGNAL ] NAME...\n"
 msgstr ""
 "Використання: killall [-Z КОНТЕКСТ] [-u КОРИСТУВАЧ] [ -eIgiqrvw ] [ -"
 "СИГНАЛ ] НАЗВА...\n"
 
-#: src/killall.c:667
+#: src/killall.c:673
 #, c-format
 msgid "Usage: killall [OPTION]... [--] NAME...\n"
 msgstr "Використання: killall [ПАРАМЕТР]... [--] НАЗВА...\n"
 
-#: src/killall.c:670
+#: src/killall.c:676
 #, c-format
 msgid ""
 "       killall -l, --list\n"
@@ -320,7 +323,7 @@ msgstr ""
 "  -V,--version         показати дані щодо версії\n"
 "  -w,--wait            чекати на завершення процесів\n"
 
-#: src/killall.c:688
+#: src/killall.c:694
 #, c-format
 msgid ""
 "  -Z,--context REGEXP kill only process(es) having context\n"
@@ -330,7 +333,7 @@ msgstr ""
 "контекстом\n"
 "                      (слід вказувати перед іншими аргументами)\n"
 
-#: src/killall.c:700
+#: src/killall.c:706
 #, fuzzy, c-format
 msgid ""
 "Copyright (C) 1993-2014 Werner Almesberger and Craig Small\n"
@@ -339,26 +342,26 @@ msgstr ""
 "© Werner Almesberger та Craig Small, 1993–2010\n"
 "\n"
 
-#: src/killall.c:790 src/killall.c:796
+#: src/killall.c:796 src/killall.c:802
 msgid "Invalid time format"
 msgstr "Некоректний формат визначення часу"
 
-#: src/killall.c:816
+#: src/killall.c:822
 #, c-format
 msgid "Cannot find user %s\n"
 msgstr "Не вдалося знайти користувача %s\n"
 
-#: src/killall.c:847
+#: src/killall.c:853
 #, c-format
 msgid "Bad regular expression: %s\n"
 msgstr "Помилковий формальний вираз: %s\n"
 
-#: src/killall.c:879
+#: src/killall.c:885
 #, c-format
 msgid "killall: Maximum number of names is %d\n"
 msgstr "killall: максимальною кількістю назв є %d\n"
 
-#: src/killall.c:884
+#: src/killall.c:890
 #, c-format
 msgid "killall: %s lacks process entries (not mounted ?)\n"
 msgstr "killall: %s не містить записів процесів (не змонтовано?)\n"
@@ -550,29 +553,39 @@ msgstr "Процесу з pid %d не існує.\n"
 msgid "Unable to open stat file for pid %d (%s)\n"
 msgstr "Не вдалося відкрити файл stat для процесу з pid %d (%s)\n"
 
-#: src/prtstat.c:311
+#: src/prtstat.c:243
+#, fuzzy, c-format
+msgid "Unable to allocate memory for proc_info\n"
+msgstr "Не вдалося отримати область пам’яті для відповідного процесу: %s\n"
+
+#: src/prtstat.c:282
+#, fuzzy, c-format
+msgid "Unable to scan stat file"
+msgstr "Не вдалося відкрити файл stat для процесу з pid %d (%s)\n"
+
+#: src/prtstat.c:316
 msgid "Invalid option"
 msgstr "Некоректний параметр"
 
-#: src/prtstat.c:316
+#: src/prtstat.c:321
 msgid "You must provide at least one PID."
 msgstr "Вам слід вказати принаймні одне значення PID."
 
-#: src/prtstat.c:320
+#: src/prtstat.c:325
 #, c-format
 msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
 msgstr "/proc не змонтовано, виконання обробки /proc/self/stat неможливе.\n"
 
-#: src/pstree.c:984
+#: src/pstree.c:994
 #, c-format
 msgid "%s is empty (not mounted ?)\n"
 msgstr "%s є порожнім (не змонтовано?)\n"
 
-#: src/pstree.c:1016
+#: src/pstree.c:1030
 #, fuzzy, c-format
 msgid ""
-"Usage: pstree [ -a ] [ -c ] [ -h | -H PID ] [ -l ] [ -n ] [ -p ] [ -g ] [ -"
-"u ]\n"
+"Usage: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N type ]\n"
+"Usage: pstree [-acglpsStu] [ -h | -H PID ] [ -n | -N type ]\n"
 "              [ -A | -G | -U ] [ PID | USER ]\n"
 "       pstree -V\n"
 "Display a tree of processes.\n"
@@ -594,6 +607,7 @@ msgid ""
 "  -s, --show-parents  show parents of the selected process\n"
 "  -S, --ns-changes    show namespace transitions\n"
 "  -t, --thread-names  show full thread names\n"
+"  -T, --hide-threads  hide threads, show only processes\n"
 "  -u, --uid-changes   show uid transitions\n"
 "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
 "  -V, --version       display version information\n"
@@ -625,12 +639,14 @@ msgstr ""
 "(Unicode)\n"
 "  -V, --version       показати дані щодо версії програми\n"
 
-#: src/pstree.c:1040
-#, c-format
-msgid "  -Z     show         SELinux security contexts\n"
+#: src/pstree.c:1058
+#, fuzzy, c-format
+msgid ""
+"  -Z, --security-context\n"
+"                      show SELinux security contexts\n"
 msgstr "  -Z     показати       контексти захисту SELinux\n"
 
-#: src/pstree.c:1042
+#: src/pstree.c:1061
 #, c-format
 msgid ""
 "  PID    start at this PID; default is 1 (init)\n"
@@ -643,12 +659,12 @@ msgstr ""
 "користувача\n"
 "\n"
 
-#: src/pstree.c:1049
+#: src/pstree.c:1068
 #, c-format
 msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
-#: src/pstree.c:1052
+#: src/pstree.c:1071
 #, c-format
 msgid ""
 "Copyright (C) 1993-2009 Werner Almesberger and Craig Small\n"
@@ -657,32 +673,32 @@ msgstr ""
 "© Werner Almesberger та Craig Small, 1993–2009\n"
 "\n"
 
-#: src/pstree.c:1167
+#: src/pstree.c:1187
 #, c-format
 msgid "TERM is not set\n"
 msgstr "Не встановлено змінної TERM\n"
 
-#: src/pstree.c:1171
+#: src/pstree.c:1191
 #, c-format
 msgid "Can't get terminal capabilities\n"
 msgstr "Не вдалося отримати дані щодо можливостей термінала\n"
 
-#: src/pstree.c:1189
+#: src/pstree.c:1209
 #, c-format
 msgid "procfs file for %s namespace not available\n"
 msgstr "файл procfs для простору назв %s недоступний\n"
 
-#: src/pstree.c:1239
+#: src/pstree.c:1262
 #, c-format
 msgid "No such user name: %s\n"
 msgstr "Користувача з таким іменем не існує: %s\n"
 
-#: src/pstree.c:1265
+#: src/pstree.c:1288
 #, c-format
 msgid "No processes found.\n"
 msgstr "Не знайдено жодного процесу.\n"
 
-#: src/pstree.c:1271
+#: src/pstree.c:1294
 #, c-format
 msgid "Press return to close\n"
 msgstr "Натисніть Enter, щоб закрити.\n"
