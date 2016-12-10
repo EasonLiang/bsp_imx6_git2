@@ -257,17 +257,6 @@ fi
 #NOTE: It may not be obvious, but "$@" from this point on must expand
 #to the extra initscript parameters, except inside functions.
 
-## sanity checks and just-in-case warnings.
-case ${ACTION} in
-    start|stop|force-stop|restart|reload|force-reload|status)
-	;;
-    *)
-	if test "x${POLICYHELPER}" != x && test -x "${POLICYHELPER}" ; then
-	    printerror action ${ACTION} is unknown, but proceeding anyway.
-	fi
-	;;
-esac
-
 # Operate against system upstart, not session
 unset UPSTART_SESSION
 # If we're running on upstart and there's an upstart job of this name, do
