@@ -57,7 +57,7 @@ Usage:
 
   basename - Initscript ID, as per update-rc.d(8)
   action   - Initscript action. Known actions are:
-                start, [force-]stop, restart,
+                start, [force-]stop, [try-]restart,
                 [force-]reload, status
   WARNING: not all initscripts implement all of the above actions.
 
@@ -124,7 +124,7 @@ querypolicy () {
 
 policyaction="${ACTION}"
 if test x${RC} = "x101" ; then
-    if test "${ACTION}" = "start" || test "${ACTION}" = "restart" ; then
+    if test "${ACTION}" = "start" || test "${ACTION}" = "restart" || test "${ACTION}" = "try-restart"; then
 	policyaction="(${ACTION})"
     fi
 fi
@@ -380,7 +380,7 @@ RC=
 ### to allow start or restart.
 if [ -n "$is_systemd" ]; then
     case ${ACTION} in
-        start|restart)
+        start|restart|try-restart)
             # Note that systemd 215 does not yet support is-enabled for SysV scripts,
             # this works only with systemd >= 220-1 (systemd-sysv-install). Add a
             # simple fallback check which can be dropped after releasing stretch.
@@ -406,7 +406,7 @@ else
     fi
 
     case ${ACTION} in
-      start|restart)
+      start|restart|try-restart)
 	if testexec ${SLINK} ; then
 	    RC=104
 	elif testexec ${KLINK} ; then
@@ -557,7 +557,7 @@ if test x${FORCE} != x || test ${RC} -eq 104 ; then
                     sctl_args="--job-mode=ignore-dependencies"
                 fi
                 case $saction in
-                    start|restart)
+                    start|restart|try-restart)
                         [ "$_state" != "LoadState=masked" ] || exit 0
                         systemctl $sctl_args "${saction}" "${UNIT}" && exit 0
                         ;;
@@ -603,7 +603,7 @@ if test x${FORCE} != x || test ${RC} -eq 104 ; then
 	    fi
 	done
 	printerror initscript ${INITSCRIPTID}, action \"${saction}\" failed.
-	if [ -n "$is_systemd" ] && [ "$saction" = start -o "$saction" = restart ]; then
+	if [ -n "$is_systemd" ] && [ "$saction" = start -o "$saction" = restart -o "$saction" = "try-restart" ]; then
 	    systemctl status --no-pager "${UNIT}" || true
 	fi
 	exit ${RC}
