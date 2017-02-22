@@ -80,6 +80,8 @@
 #define ER_UNKWN   -3
 #define ER_OOFRA   -4
 
+static pid_t opt_ns_pid = 0;
+
 static int verbose = 0, exact = 0, interactive = 0, reg = 0,
            quiet = 0, wait_until_dead = 0, process_group = 0,
            ignore_case = 0;
@@ -190,6 +192,42 @@ parse_time_units(const char* age)
    return -1;
 }
 
+enum ns_type {
+    IPCNS = 0,
+    MNTNS,
+    NETNS,
+    PIDNS,
+    USERNS,
+    UTSNS
+};
+
+static const char *ns_names[] = {
+    [IPCNS] = "ipc",
+    [MNTNS] = "mnt",
+    [NETNS] = "net",
+    [PIDNS] = "pid",
+    [USERNS] = "user",
+    [UTSNS] = "uts",
+};
+
+#define NUM_NS 6
+
+const char *get_ns_name(int id) {
+    if (id >= NUM_NS)
+        return NULL;
+    return ns_names[id];
+}
+
+static int get_ns(pid_t pid, int id) {
+	struct stat st;
+	char buff[50];
+	snprintf(buff, sizeof(buff), "/proc/%i/ns/%s", pid, get_ns_name(id));
+	if (stat(buff, &st))
+		return 0;
+	else
+		return st.st_ino;
+}
+
 static int
 match_process_uid(pid_t pid, uid_t uid)
 {
@@ -197,7 +235,7 @@ match_process_uid(pid_t pid, uid_t uid)
 	uid_t puid;
 	FILE *f;
 	int re = -1;
-	
+
 	snprintf (buf, sizeof buf, PROC_BASE "/%d/status", pid);
 	if (!(f = fopen (buf, "r")))
 		return 0;
@@ -317,7 +355,7 @@ load_proc_cmdline(const pid_t pid, const char *comm, char **command, int *got_lo
     char *path, *p, *command_buf;
     int cmd_size = 128;
     int okay;
-    
+
     if (asprintf (&path, PROC_BASE "/%d/cmdline", pid) < 0)
 	return -1;
     if (!(file = fopen (path, "r")))
@@ -444,10 +482,14 @@ kill_all (int signal, int name_count, char **namelist, struct passwd *pwent)
     int i, j, length, got_long, error;
     int pids, max_pids, pids_killed;
     unsigned long found;
-    regex_t *reglist = NULL;;
+    regex_t *reglist = NULL;
+    long ns_ino = 0;
 #ifdef WITH_SELINUX
     security_context_t lcontext=NULL;
 #endif /*WITH_SELINUX*/
+
+    if (opt_ns_pid)
+	ns_ino = get_ns(opt_ns_pid, PIDNS);
 
     if (name_count && reg)
 	reglist = build_regexp_list(name_count, namelist);
@@ -481,6 +523,8 @@ kill_all (int signal, int name_count, char **namelist, struct passwd *pwent)
 	double process_age_sec = 0;
 	/* match by UID */
         if (pwent && match_process_uid(pid_table[i], pwent->pw_uid)==0)
+	    continue;
+	if (opt_ns_pid && ns_ino && ns_ino != get_ns(pid_table[i], PIDNS))
 	    continue;
 
 #ifdef WITH_SELINUX
@@ -688,7 +732,10 @@ usage (const char *msg)
     "  -u,--user USER      kill only process(es) running as USER\n"
     "  -v,--verbose        report if the signal was successfully sent\n"
     "  -V,--version        display version information\n"
-    "  -w,--wait           wait for processes to die\n"));
+    "  -w,--wait           wait for processes to die\n"
+    "  -n,--ns PID         match processes that belong to the same namespaces\n"
+    "                      as PID or 0 for all namespaces\n"));
+
 #ifdef WITH_SELINUX
   fprintf(stderr, _(
     "  -Z,--context REGEXP kill only process(es) having context\n"
@@ -749,11 +796,14 @@ main (int argc, char **argv)
     {"user", 1, NULL, 'u'},
     {"verbose", 0, NULL, 'v'},
     {"wait", 0, NULL, 'w'},
+    {"ns", 1, NULL, 'n' },
 #ifdef WITH_SELINUX
     {"context", 1, NULL, 'Z'},
 #endif /*WITH_SELINUX*/
     {"version", 0, NULL, 'V'},
     {0,0,0,0 }};
+
+  opt_ns_pid = getpid();
 
   /* Setup the i18n */
 #ifdef ENABLE_NLS
@@ -778,9 +828,9 @@ main (int argc, char **argv)
 
   opterr = 0;
 #ifdef WITH_SELINUX
-  while ( (optc = getopt_long_only(argc,argv,"egy:o:ilqrs:u:vwZ:VI",options,NULL)) != -1) {
+  while ( (optc = getopt_long_only(argc,argv,"egy:o:ilqrs:u:vwZ:VIn:",options,NULL)) != -1) {
 #else
-  while ( (optc = getopt_long_only(argc,argv,"egy:o:ilqrs:u:vwVI",options,NULL)) != -1) {
+  while ( (optc = getopt_long_only(argc,argv,"egy:o:ilqrs:u:vwVIn:",options,NULL)) != -1) {
 #endif
     switch (optc) {
     case 'e':
@@ -844,6 +894,9 @@ main (int argc, char **argv)
         return 0;
       }
 	    sig_num = get_signal (argv[optind]+1, "killall");
+      break;
+    case 'n':
+      opt_ns_pid = atoi(optarg);
       break;
 #ifdef WITH_SELINUX
     case 'Z': 
