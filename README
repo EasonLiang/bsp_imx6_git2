@@ -1,1 +1,11 @@
-This is the Matchbox Library source, see http://matchbox.handhelds.org.
+This is the Matchbox Library source.
+
+Homepage:
+https://www.yoctoproject.org/tools-resources/projects/matchbox
+
+Source control:
+http://git.yoctoproject.org/cgit/cgit.cgi/libmatchbox/
+git://git.yoctoproject.org/libmatchbox
+
+Issues can be files at:
+https://bugzilla.yoctoproject.org/enter_bug.cgi?product=Matchbox
