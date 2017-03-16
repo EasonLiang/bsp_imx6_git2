@@ -81,9 +81,26 @@ extern const char *__progname;
 #define VT_UR        "m"
 #define        VT_HD        "w"
 
-#define NUM_NS 6
-
 #define THREAD_FORMAT        "{%.*s}"        /* Format for thread names */
+
+enum ns_type {
+    IPCNS = 0,
+    MNTNS,
+    NETNS,
+    PIDNS,
+    USERNS,
+    UTSNS,
+    NUM_NS
+};
+
+static const char *ns_names[] = {
+    [IPCNS] = "ipc",
+    [MNTNS] = "mnt",
+    [NETNS] = "net",
+    [PIDNS] = "pid",
+    [USERNS] = "user",
+    [UTSNS] = "uts",
+};
 
 typedef struct _proc {
     char comm[COMM_LEN + 2 + 1]; /* add another 2 for thread brackets */
@@ -108,6 +125,12 @@ typedef struct _child {
     PROC *child;
     struct _child *next;
 } CHILD;
+
+struct ns_entry {
+    ino_t number;
+    CHILD *children;
+    struct ns_entry *next;
+};
 
 static struct {
     const char *empty_2;        /*    */
@@ -149,46 +172,22 @@ static char last_char = 0;
 static int dumped = 0;                /* used by dump_by_user */
 static int charlen = 0;                /* length of character */
 
-enum ns_type {
-    IPCNS = 0,
-    MNTNS,
-    NETNS,
-    PIDNS,
-    USERNS,
-    UTSNS
-};
-struct ns_entry;
-struct ns_entry {
-    ino_t number;
-    CHILD *children;
-    struct ns_entry *next;
-};
-
-static const char *ns_names[] = {
-    [IPCNS] = "ipc",
-    [MNTNS] = "mnt",
-    [NETNS] = "net",
-    [PIDNS] = "pid",
-    [USERNS] = "user",
-    [UTSNS] = "uts",
-};
-
-const char *get_ns_name(int id) {
+const char *get_ns_name(enum ns_type id) {
     if (id >= NUM_NS)
         return NULL;
     return ns_names[id];
 }
 
-static int get_ns_id(const char *name) {
+static enum ns_type get_ns_id(const char *name) {
     int i;
 
     for (i = 0; i < NUM_NS; i++)
         if (!strcmp(ns_names[i], name))
             return i;
-    return -1;
+    return NUM_NS;
 }
 
-static int verify_ns(int id)
+static int verify_ns(enum ns_type id)
 {
     char filename[50];
     struct stat s;
@@ -971,7 +970,7 @@ static void read_proc(void)
                 (void) close(fd);
                 /* If we have read the maximum screen length of args,
                  * bring it back by one to stop overflow */
-                if (size >= buffer_size)
+                if (size >= (int)buffer_size)
                   size--;
                 if (size)
                   buffer[size++] = 0;
@@ -1086,7 +1085,7 @@ int main(int argc, char **argv)
     char termcap_area[1024];
     char *termname, *endptr;
     int c, pid_set;
-    enum ns_type nsid = -1;
+    enum ns_type nsid = NUM_NS;
 
     struct option options[] = {
         {"arguments", 0, NULL, 'a'},
@@ -1138,7 +1137,7 @@ int main(int argc, char **argv)
     } else if (isatty(1) && (termname = getenv("TERM")) &&
                (strlen(termname) > 0) &&
                (setupterm(NULL, 1 /* stdout */ , NULL) == OK) &&
-               (tigetstr("acsc") > 0)) {
+               (tigetstr("acsc") != NULL) && (tigetstr("acsc") != (char *)-1)) {
         /*
          * Failing that, if TERM is defined, a non-null value, and the terminal
          * has the VT100 graphics charset, use it.
@@ -1202,7 +1201,7 @@ int main(int argc, char **argv)
             break;
         case 'N':
             nsid = get_ns_id(optarg);
-            if (nsid == -1)
+            if (nsid == NUM_NS)
                  usage();
             if (verify_ns(nsid)) {
                  fprintf(stderr,
@@ -1277,7 +1276,7 @@ int main(int argc, char **argv)
       pid = ROOT_PID;
     }
 
-    if (nsid != -1) {
+    if (nsid != NUM_NS) {
         sort_by_namespace(NULL, nsid, &nsroot);
         dump_by_namespace(nsroot);
     } else if (!pw)
