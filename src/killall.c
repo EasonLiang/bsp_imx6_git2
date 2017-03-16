@@ -562,7 +562,7 @@ kill_all (int signal, int name_count, char **namelist, struct passwd *pwent)
 		        char *linkbuf = malloc(len + 1);
 
 		        if (!linkbuf ||
-			  readlink(path, linkbuf, len + 1) != len ||
+			  readlink(path, linkbuf, len + 1) != (ssize_t)len ||
 			  memcmp(namelist[j], linkbuf, len))
 			    ok = 0;
 			free(linkbuf);
