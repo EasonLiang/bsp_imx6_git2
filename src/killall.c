@@ -340,11 +340,16 @@ load_proc_cmdline(const pid_t pid, const char *comm, char **command, int *got_lo
 	    int c;
 	    if (p == (command_buf + cmd_size))
 	    {
+		char *new_command_buf;
 		int cur_size = cmd_size;
 		cmd_size *= 2;
-		command_buf = (char *)realloc(command_buf, cmd_size);
-		if (!command_buf)
+		new_command_buf = (char *)realloc(command_buf, cmd_size);
+		if (!new_command_buf) {
+		    if (command_buf)
+			free(command_buf);
 		    exit (1);
+		}
+		command_buf = new_command_buf;
 		p = command_buf + cur_size;
 	    }
 	    c = fgetc(file);
@@ -364,8 +369,10 @@ load_proc_cmdline(const pid_t pid, const char *comm, char **command, int *got_lo
 	p = p ? p+1 : command_buf;
 	if (strncmp(p, comm, COMM_LEN-1) == 0) {
 	    okay = 1;
-	    if (!(*command = strdup(p)))
+	    if (!(*command = strdup(p))) {
+		free(command_buf);
 		exit(1);
+	    }
 	    break;
 	}
     }
@@ -507,7 +514,10 @@ kill_all (int signal, int name_count, char **namelist, struct passwd *pwent)
 	    continue;
 
         got_long = 0;
-        command = NULL;		/* make gcc happy */
+        if (command) {
+            free(command);
+            command = NULL;
+        }
         if (length == COMM_LEN - 1)
 	    if (load_proc_cmdline(pid_table[i], comm, &command, &got_long) < 0)
 	        continue;
@@ -613,11 +623,9 @@ kill_all (int signal, int name_count, char **namelist, struct passwd *pwent)
 	else if (errno != ESRCH || interactive)
 	    fprintf (stderr, "%s(%d): %s\n", got_long ? command :
 		    comm, id, strerror (errno));
-        if (command) {
-            free(command);
-	    command = NULL;
-	}
     }
+    if (command)
+	free(command);
     free(reglist);
     free(pgids);
     if (!quiet)
@@ -653,7 +661,6 @@ kill_all (int signal, int name_count, char **namelist, struct passwd *pwent)
     }
     free(pid_killed);
     free(pid_table);
-    free(command);
     free(name_info);
     return error;
 }
