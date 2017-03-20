@@ -219,6 +219,15 @@ match_process_uid(pid_t pid, uid_t uid)
 	return re;
 }
 
+static void
+free_regexp_list(regex_t *reglist, int names)
+{
+	int i;
+	for (i = 0; i < names; i++)
+		regfree(&reglist[i]);
+	free(reglist);
+}
+
 static regex_t *
 build_regexp_list(int names, char **namelist)
 {
@@ -240,6 +249,7 @@ build_regexp_list(int names, char **namelist)
 		if (regcomp(&reglist[i], namelist[i], flag) != 0) 
 		{
 			fprintf(stderr, _("killall: Bad regular expression: %s\n"), namelist[i]);
+			free_regexp_list(reglist, i);
 			exit (1);
 		}
 	}
@@ -626,7 +636,8 @@ kill_all (int signal, int name_count, char **namelist, struct passwd *pwent)
     }
     if (command)
 	free(command);
-    free(reglist);
+    if (reglist)
+	free_regexp_list(reglist, name_count);
     free(pgids);
     if (!quiet)
 	for (i = 0; i < name_count; i++)
