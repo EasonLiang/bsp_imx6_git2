@@ -84,7 +84,8 @@ extern const char *__progname;
 #define THREAD_FORMAT        "{%.*s}"        /* Format for thread names */
 
 enum ns_type {
-    IPCNS = 0,
+    CGROUPNS = 0,
+    IPCNS,
     MNTNS,
     NETNS,
     PIDNS,
@@ -94,6 +95,7 @@ enum ns_type {
 };
 
 static const char *ns_names[] = {
+    [CGROUPNS] = "cgroup",
     [IPCNS] = "ipc",
     [MNTNS] = "mnt",
     [NETNS] = "net",
@@ -1096,7 +1098,8 @@ static void usage(void)
              "  -l, --long          don't truncate long lines\n"
              "  -n, --numeric-sort  sort output by PID\n"
              "  -N type,\n"
-             "  --ns-sort=type      sort by namespace type (ipc, mnt, net, pid, user, uts)\n"
+             "  --ns-sort=type      sort by namespace type (cgroup, ipc, mnt, net, pid,\n"
+             "                                              user, uts)\n"
              "  -p, --show-pids     show PIDs; implies -c\n"
              "  -s, --show-parents  show parents of the selected process\n"
              "  -S, --ns-changes    show namespace transitions\n"
