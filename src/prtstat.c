@@ -243,6 +243,7 @@ static void print_stat(const int pid, const opt_type options)
       fprintf(stderr, _("Unable to allocate memory for proc_info\n"));
       return;
   }
+  pr->comm = NULL;
   if (sscanf(bptr,
 	  "%m[^)]) "
 	  "%c "
@@ -280,6 +281,7 @@ static void print_stat(const int pid, const opt_type options)
         print_formated_stat(pid, pr);
          } else 
              fprintf(stderr, _("Unable to scan stat file"));
+  free(pr->comm);
   free(pr);
 }
 

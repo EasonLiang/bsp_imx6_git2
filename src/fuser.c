@@ -89,6 +89,8 @@ static int kill_matched_proc(struct procs *pptr, const opt_type opts,
 static void add_device(struct device_list **dev_list,
 		       struct names *this_name, dev_t device);
 void fill_unix_cache(struct unixsocket_list **unixsocket_head);
+void clear_unix_cache(struct unixsocket_list **unixsocket_head);
+static void atexit_clear_unix_cache();
 static dev_t find_net_dev(void);
 static void scan_procs(struct names *names_head, struct inode_list *ino_head,
 		       struct device_list *dev_head,
@@ -113,6 +115,16 @@ static int mntstat(const char *path, struct stat *buf);
 #endif
 static stat_t thestat = stat;
 static char *expandpath(const char *path);
+static struct unixsocket_list *unixsockets = NULL;
+static struct names *names_head = NULL, *names_tail = NULL;
+static struct ip_connections *tcp_connection_list = NULL;
+static struct ip_connections *udp_connection_list = NULL;
+#ifdef WITH_IPV6
+static struct ip6_connections *tcp6_connection_list = NULL;
+static struct ip6_connections *udp6_connection_list = NULL;
+#endif
+static struct device_list *match_devices = NULL;
+static struct inode_list *match_inodes = NULL;
 
 static void usage(const char *errormsg)
 {
@@ -832,8 +844,10 @@ static void read_proc_mounts(struct mount_list **mnt_list)
 		*find_space = '\0';
 		if ((mnt_tmp = malloc(sizeof(struct mount_list))) == NULL)
 			continue;
-		if ((mnt_tmp->mountpoint = strdup(find_mountp)) == NULL)
+		if ((mnt_tmp->mountpoint = strdup(find_mountp)) == NULL) {
+			free(mnt_tmp);
 			continue;
+		}
 		mnt_tmp->next = *mnt_list;
 		*mnt_list = mnt_tmp;
 	}
@@ -853,6 +867,121 @@ free_proc_mounts(struct mount_list *mnt_list)
 	mnt_tmp = mnt_next;
     }
 }
+
+/*
+ * Free up structures allocated in add_matched_proc and add_special_proc
+ */
+static void
+free_matched_procs(struct procs *matched_procs)
+{
+	struct procs *procs_tmp, *procs_next;
+
+	procs_tmp = matched_procs;
+	while(procs_tmp != NULL) {
+		procs_next = procs_tmp->next;
+		if (procs_tmp->command)
+			free(procs_tmp->command);
+		free(procs_tmp);
+		procs_tmp = procs_next;
+	}
+}
+
+static void
+free_names()
+{
+	while(names_head != NULL) {
+		struct names *this_name = names_head;
+		names_head = this_name->next;
+		free_matched_procs(this_name->matched_procs);
+		free(this_name->filename);
+		free(this_name);
+	}
+	names_tail = NULL;
+}
+
+/*
+ * Free up structures allocated in add_ip_conn and add_ip6_conn
+ */
+static void
+free_connection(struct ip_connections **conn)
+{
+	struct ip_connections *conn_tmp, *conn_next;
+
+	conn_tmp = *conn;
+	while(conn_tmp != NULL) {
+		conn_next = conn_tmp->next;
+		free(conn_tmp);
+		conn_tmp = conn_next;
+	}
+	*conn = NULL;
+}
+
+#ifdef WITH_IPV6
+static void
+free_connection6(struct ip6_connections **conn)
+{
+	struct ip6_connections *conn_tmp, *conn_next;
+
+	conn_tmp = *conn;
+	while(conn_tmp != NULL) {
+		conn_next = conn_tmp->next;
+		free(conn_tmp);
+		conn_tmp = conn_next;
+	}
+	*conn = NULL;
+}
+#endif
+
+/*
+ * Free up structures allocated in add_inode
+ */
+static void
+free_inodes(struct inode_list **match_inodes)
+{
+	struct inode_list *inode_tmp, *inode_next;
+
+	inode_tmp = *match_inodes;
+	while(inode_tmp != NULL) {
+		inode_next = inode_tmp->next;
+		free(inode_tmp);
+		inode_tmp = inode_next;
+	}
+	*match_inodes = NULL;
+}
+
+/*
+ * Free up structures allocated in add_device
+ */
+static void
+free_devices(struct device_list **match_devices)
+{
+	struct device_list *device_tmp, *device_next;
+
+	device_tmp = *match_devices;
+	while(device_tmp != NULL) {
+		device_next = device_tmp->next;
+		free(device_tmp);
+		device_tmp = device_next;
+	}
+	*match_devices = NULL;
+}
+
+static void
+atexit_free_lists()
+{
+	free_connection(&tcp_connection_list);
+	free_connection(&udp_connection_list);
+#ifdef WITH_IPV6
+	free_connection6(&tcp6_connection_list);
+	free_connection6(&udp6_connection_list);
+#endif
+
+	free_inodes(&match_inodes);
+	free_devices(&match_devices);
+
+	free_names();
+}
+
 
 static int is_mountpoint(struct mount_list **mnt_list, char *arg)
 {
@@ -903,19 +1032,9 @@ int main(int argc, char *argv[])
 	int ipv4_only, ipv6_only;
 #endif
 	unsigned char default_namespace = NAMESPACE_FILE;
-	struct device_list *match_devices = NULL;
-	struct unixsocket_list *unixsockets = NULL;
-	struct mount_list *mounts = NULL;
 
 	dev_t netdev;
-	struct ip_connections *tcp_connection_list = NULL;
-	struct ip_connections *udp_connection_list = NULL;
-#ifdef WITH_IPV6
-	struct ip6_connections *tcp6_connection_list = NULL;
-	struct ip6_connections *udp6_connection_list = NULL;
-#endif
-	struct inode_list *match_inodes = NULL;
-	struct names *names_head, *this_name, *names_tail;
+	struct names *this_name;
 	int argc_cnt;
 	char *current_argv, *option;
 	char option_buf[3];
@@ -947,7 +1066,7 @@ int main(int argc, char *argv[])
 #ifdef WITH_IPV6
 	ipv4_only = ipv6_only = 0;
 #endif
-	names_head = this_name = names_tail = NULL;
+	this_name = NULL;
 	opts = 0;
 	sig_number = SIGKILL;
 
@@ -961,7 +1080,9 @@ int main(int argc, char *argv[])
 	netdev = find_net_dev();
 #ifndef __CYGWIN__		/* Cygwin doesn't support /proc/net/unix */
 	fill_unix_cache(&unixsockets);
+	atexit(atexit_clear_unix_cache);
 #endif
+	atexit(atexit_free_lists);
 
 	for (argc_cnt = 1; argc_cnt < argc; argc_cnt++) {
 		current_argv = argv[argc_cnt];
@@ -1004,7 +1125,6 @@ int main(int argc, char *argv[])
 					break;
 				case 'c':
 					opts |= OPT_MOUNTS;
-					read_proc_mounts(&mounts);
 					break;
 				case 'f':
 					/* ignored */
@@ -1028,18 +1148,15 @@ int main(int argc, char *argv[])
 					return 0;
 				case 'm':
 					opts |= OPT_MOUNTS;
-					read_proc_mounts(&mounts);
 					break;
 				case 'M':
 					opts |= OPT_ISMOUNTPOINT;
-					read_proc_mounts(&mounts);
 					break;
 				case 'n':
 					argc_cnt++;
 					if (argc_cnt >= argc) {
 						usage(_
 						      ("Namespace option requires an argument."));
-						exit(1);;
 					}
 					skip_argv = 1;
 					//while(option != '\0') option++;
@@ -1086,7 +1203,6 @@ int main(int argc, char *argv[])
 						"%s: Invalid option %c\n",
 						argv[0], *option);
 					usage(NULL);
-					exit(1);
 					break;
 				}	/* switch */
 			}	/* while option */
@@ -1119,9 +1235,11 @@ int main(int argc, char *argv[])
 		}
 		this_name->matched_procs = NULL;
 		if (opts & (OPT_MOUNTS | OPT_ISMOUNTPOINT)
-		    && this_name->name_space != NAMESPACE_FILE)
+		    && this_name->name_space != NAMESPACE_FILE) {
+			free(this_name);
 			usage(_
 			      ("You can only use files with mountpoint options"));
+		}
 		switch (this_name->name_space) {
 		case NAMESPACE_TCP:
 			if (asprintf
@@ -1174,7 +1292,10 @@ int main(int argc, char *argv[])
 
 	/* Check if -M flag was used and if so check mounts */
 	if (opts & OPT_ISMOUNTPOINT) {
-	    check_mountpoints(&mounts, &names_head, &names_tail);
+		struct mount_list *mounts = NULL;
+		read_proc_mounts(&mounts);
+		check_mountpoints(&mounts, &names_head, &names_tail);
+		free_proc_mounts(mounts);
 	}
 
 	if (opts & OPT_SILENT) {
@@ -1207,15 +1328,25 @@ int main(int argc, char *argv[])
 					  "udp", netdev);
 	}
 #endif
+	free_connection(&tcp_connection_list);
+	free_connection(&udp_connection_list);
+#ifdef WITH_IPV6
+	free_connection6(&tcp6_connection_list);
+	free_connection6(&udp6_connection_list);
+#endif
 #ifdef DEBUG
 	debug_match_lists(names_head, match_inodes, match_devices);
 #endif
 	scan_procs(names_head, match_inodes, match_devices, unixsockets,
 		   netdev);
+#ifndef __CYGWIN__		/* Cygwin doesn't support /proc/net/unix */
+	clear_unix_cache(&unixsockets);
+#endif
 	scan_knfsd(names_head, match_inodes, match_devices);
 	scan_mounts(names_head, match_inodes, match_devices);
 	scan_swaps(names_head, match_inodes, match_devices);
-	free_proc_mounts(mounts);
+	free_inodes(&match_inodes);
+	free_devices(&match_devices);
 	return print_matches(names_head, opts, sig_number);
 }
 
@@ -1597,6 +1728,25 @@ void fill_unix_cache(struct unixsocket_list **unixsocket_head)
 	}			/* while */
 
 	fclose(fp);
+}
+
+/*
+ * Free up the list of Unix sockets
+ */
+void clear_unix_cache(struct unixsocket_list **unixsocket_head)
+{
+	while(*unixsocket_head != NULL) {
+		struct unixsocket_list *oldsocket = *unixsocket_head;
+		*unixsocket_head = oldsocket->next;
+		free(oldsocket->sun_name);
+		free(oldsocket);
+	}
+}
+
+static void
+atexit_clear_unix_cache()
+{
+	clear_unix_cache(&unixsockets);
 }
 
 #ifdef DEBUG
