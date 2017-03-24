@@ -87,11 +87,16 @@
 #define MAX_ATTACHED_PIDS 1024
 int num_attached_pids = 0;
 pid_t attached_pids[MAX_ATTACHED_PIDS];
+int *fds = NULL;
 
-void detach(void) {
+void detach(int signum) {
 	int i;
 	for (i = 0; i < num_attached_pids; i++)	
 		ptrace(PTRACE_DETACH, attached_pids[i], 0, 0);
+	if (fds)
+		free(fds);
+	signal(SIGINT, SIG_DFL);
+	raise(SIGINT);
 }
 
 void attach(pid_t pid) {
@@ -147,7 +152,6 @@ int main(int argc, char **argv)
 	int optc;
     int target_pid = 0;
     int numfds = 0;
-    int *fds = NULL;
     int i;
     unsigned long j;
 
@@ -213,7 +217,7 @@ int main(int argc, char **argv)
 	if (num_attached_pids == 0)
 		return 1;
 
-	atexit(detach);
+	signal(SIGINT, detach);
 
 	ptrace(PTRACE_SYSCALL, attached_pids[0], 0, 0);
 

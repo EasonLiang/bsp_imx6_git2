@@ -218,7 +218,7 @@ static inline void new_proc_ns(PROC *ns_task)
 static void find_ns_and_add(struct ns_entry **root, PROC *r, enum ns_type id)
 {
     struct ns_entry *ptr, *last = NULL;
-    CHILD **c;
+    CHILD *tmp_child, **c;
 
     for (ptr = *root; ptr; ptr = ptr->next) {
         if (ptr->number == r->ns[id])
@@ -257,7 +257,9 @@ static void find_ns_and_add(struct ns_entry **root, PROC *r, enum ns_type id)
     if (r->parent) {
         for (c = &r->parent->children; *c; c = &(*c)->next) {
             if ((*c)->child == r) {
-                *c = (*c)->next;
+                tmp_child = (*c)->next;
+                free(*c);
+                *c = tmp_child;
                 break;
             }
         }
@@ -269,7 +271,7 @@ static void find_ns_and_add(struct ns_entry **root, PROC *r, enum ns_type id)
 static PROC *find_proc(pid_t pid);
 static void sort_by_namespace(PROC *r, enum ns_type id, struct ns_entry **root)
 {
-    CHILD *walk;
+    CHILD *walk, *next;
 
     /* first run, find the first process */
     if (!r) {
@@ -281,8 +283,12 @@ static void sort_by_namespace(PROC *r, enum ns_type id, struct ns_entry **root)
     if (r->parent == NULL || r->parent->ns[id] != r->ns[id])
         find_ns_and_add(root, r, id);
 
-    for (walk = r->children; walk; walk = walk->next)
+    walk = r->children;
+    while (walk) {
+        next = walk->next;
         sort_by_namespace(walk->child, id, root);
+        walk = next;
+    }
 }
 
 static void fix_orphans(security_context_t scontext);
@@ -348,6 +354,48 @@ static void free_buffers()
         more = NULL;
     }
     capacity = 0;
+}
+
+static void free_children(CHILD *children)
+{
+    CHILD *walk, *next;
+
+    walk = children;
+    while (walk != NULL) {
+        next = walk->next;
+        free(walk);
+        walk = next;
+    }
+}
+
+static void free_proc()
+{
+    PROC *walk, *next;
+    walk = list;
+    while (walk != NULL) {
+        next = walk->next;
+        free_children(walk->children);
+        if (walk->argv) {
+            free(walk->argv[0]);
+            free(walk->argv);
+        }
+        free(walk);
+        walk = next;
+    }
+    list = NULL;
+}
+
+static void free_namespace(struct ns_entry **nsroot)
+{
+    struct ns_entry *walk, *next;
+    walk = *nsroot;
+    while (walk != NULL) {
+        next = walk->next;
+        free_children(walk->children);
+        free(walk);
+        walk = next;
+    }
+    *nsroot = NULL;
 }
 
 static void out_char(char c)
@@ -604,7 +652,7 @@ static void
 dump_tree(PROC * current, int level, int rep, int leaf, int last,
           uid_t prev_uid, int closing)
 {
-    CHILD *walk, *next, **scan;
+    CHILD *walk, *next, *tmp_child, **scan;
     const struct passwd *pw;
     int lvl, i, add, offset, len, swapped, info, count, comm_len, first;
     const char *tmp, *here;
@@ -710,7 +758,9 @@ dump_tree(PROC * current, int level, int rep, int leaf, int last,
                 if (next == *scan)
                   next = (*scan)->next;
                 count++;
-                *scan = (*scan)->next;
+                tmp_child = (*scan)->next;
+                free(*scan);
+                *scan = tmp_child;
               }
             }
             dump_tree(walk->child, level + 1, count + 1,
@@ -743,7 +793,9 @@ dump_tree(PROC * current, int level, int rep, int leaf, int last,
                     if (next == *scan)
                         next = (*scan)->next;
                     count++;
-                    *scan = (*scan)->next;
+                    tmp_child = (*scan)->next;
+                    free(*scan);
+                    *scan = tmp_child;
                 }
         }
         if (first) {
@@ -799,6 +851,7 @@ static void trim_tree_by_parent(PROC * current)
   if (!parent)
     return;
 
+  free_children(parent->children);
   parent->children = NULL;
   add_child(parent, current);
   trim_tree_by_parent(parent);
@@ -1289,6 +1342,8 @@ int main(int argc, char **argv)
         }
     }
     free_buffers();
+    free_proc();
+    free_namespace(&nsroot);
     if (wait_end == 1) {
         fprintf(stderr, _("Press return to close\n"));
         (void) getchar();
