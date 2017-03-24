@@ -120,12 +120,12 @@ void print_version()
 void usage() {
 	fprintf(stderr, _(
       "Usage: peekfd [-8] [-n] [-c] [-d] [-V] [-h] <pid> [<fd> ..]\n"
-	  "    -8 output 8 bit clean streams.\n"
-	  "    -n don't display read/write from fd headers.\n"
-	  "    -c peek at any new child processes too.\n"
-	  "    -d remove duplicate read/writes from the output.\n"
-	  "    -V prints version info.\n"
-	  "    -h prints this help.\n"
+	  "    -8, --eight-bit-clean        output 8 bit clean streams.\n"
+	  "    -n, --no-headers             don't display read/write from fd headers.\n"
+	  "    -c, --follow                 peek at any new child processes too.\n"
+	  "    -d, --duplicates-removed     remove duplicate read/writes from the output.\n"
+	  "    -V, --version                prints version info.\n"
+	  "    -h, --help                   prints this help.\n"
 	  "\n"
 	  "  Press CTRL-C to end output.\n"));
 }
