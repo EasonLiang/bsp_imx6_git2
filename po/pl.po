@@ -1,14 +1,14 @@
 # Polish translations for psmisc.
-# Copyright (C) 2004, 2005, 2007, 2009, 2010, 2012, 2013, 2014 Free Software Foundation, Inc.
+# Copyright (C) 2004, 2005, 2007, 2009, 2010, 2012, 2013, 2014, 2016 Free Software Foundation, Inc.
 # This file is distributed under the same license as the psmisc package.
-# Jakub Bogusz <qboosh@pld-linux.org>, 2003-2014.
+# Jakub Bogusz <qboosh@pld-linux.org>, 2003-2016.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc 22.21-pre2\n"
+"Project-Id-Version: psmisc 23.0-rc1\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
 "POT-Creation-Date: 2016-12-03 20:28+1100\n"
-"PO-Revision-Date: 2014-02-02 14:52+0100\n"
+"PO-Revision-Date: 2016-12-06 20:45+0100\n"
 "Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "Language: pl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 
 #: src/fuser.c:124
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: fuser [-fIMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE]\n"
 "             [-k [-i] [-SIGNAL]] NAME...\n"
@@ -42,8 +42,8 @@ msgid ""
 "  -w,--writeonly        kill only processes with write access\n"
 "  -V,--version          display version information\n"
 msgstr ""
-"Składnia: fuser [-fMuvw] [-a|-s] [-4|-6] [-c|-m|-n PRZESTRZEŃ] [-k [-i] [-"
-"SYGNAŁ]] NAZWA...\n"
+"Składnia: fuser [-fIMuvw] [-a|-s] [-4|-6] [-c|-m|-n PRZESTRZEŃ]\n"
+"          [-k [-i] [-SYGNAŁ]] NAZWA...\n"
 "          fuser -l\n"
 "          fuser -V\n"
 "Pokazywanie, które procesy używają plików, gniazd lub systemów plików\n"
@@ -51,14 +51,14 @@ msgstr ""
 "\n"
 "  -a,--all              wyświetlenie także nie używanych plików\n"
 "  -i,--interactive      pytanie przed zabiciem (ignorowane bez -k)\n"
+"  -I,--inode            używanie zawsze i-węzłów przy porównywaniu plików\n"
 "  -k,--kill             zabicie procesów używających podanego pliku\n"
 "  -l,--list-signals     lista nazw sygnałów\n"
-"  -m,--mount            pokazanie procesów używających podanych systemów "
-"plików lub urządzeń\n"
-"  -M,--ismountpoint     wykonywanie poleceń tylko jeśli NAZWA jest punktem "
-"montowania\n"
-"  -n,--namespace PRZ    szukanie w podanej przestrzeni nazw (file, udp lub "
-"tcp)\n"
+"  -m,--mount            pokazanie procesów używających podanych systemów\n"
+"                        plików lub urządzeń\n"
+"  -M,--ismountpoint     wykonywanie poleceń tylko jeśli NAZWA jest punktem\n"
+"                        montowania\n"
+"  -n,--namespace PRZ    szukanie w podanej przestrzeni nazw (file, udp lub tcp)\n"
 "  -s,--silent           działanie po cichu\n"
 "  -SYGNAŁ               wysłanie podanego sygnału zamiast SIGKILL\n"
 "  -u,--user             wyświetlenie identyfikatorów użytkowników\n"
@@ -260,14 +260,13 @@ msgid "%s: no process found\n"
 msgstr "%s: nie znaleziono żadnego procesu\n"
 
 #: src/killall.c:669
-#, fuzzy, c-format
+#, c-format
 msgid ""
-"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
-"eIgiqrvw ]\n"
+"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -eIgiqrvw ]\n"
 "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
 msgstr ""
-"Składnia: killall [-Z KONTEKST] [-u UŻYTKOWNIK] [ -eIgiqrvw ] [ -SYGNAŁ ] "
-"NAZWA...\n"
+"Składnia: killall [-Z KONTEKST] [-u UŻYTKOWNIK] [-y CZAS] [-o CZAS] [-eIgiqrvw]\n"
+"               [ -s SYGNAŁ | -SYGNAŁ ] NAZWA...\n"
 
 #: src/killall.c:673
 #, c-format
@@ -298,10 +297,8 @@ msgstr ""
 "          killall -l, --list\n"
 "          killall -V --version\n"
 "\n"
-"  -e,--exact          wymaganie dokładnego dopasowania dla bardzo długich "
-"nazw\n"
-"  -I,--ignore-case    dopasowywanie nazw procesów niewrażliwe na wielkość "
-"liter\n"
+"  -e,--exact          wymaganie dokładnego dopasowania dla bardzo długich nazw\n"
+"  -I,--ignore-case    dopasowywanie nazw procesów niewrażliwe na wielkość liter\n"
 "  -g,--process-group  zabicie grupy procesów zamiast procesu\n"
 "  -y,--younger-than   zabicie procesów młodszych niż CZAS\n"
 "  -o,--other-than     zabicie procesów starszych niż CZAS\n"
@@ -310,8 +307,7 @@ msgstr ""
 "  -q,--quiet          nie wyświetlanie narzekań\n"
 "  -r,--regexp         użycie NAZWY jako rozszerzonego wyrażenia regularnego\n"
 "  -s,--signal SYGNAŁ  wysłanie podanego sygnału zamiast SIGTERM\n"
-"  -u, --user UŻYTK    zabicie tylko procesów działających jako podany "
-"użytkownik\n"
+"  -u, --user UŻYTK    zabicie tylko procesów działających jako podany użytkownik\n"
 "  -v,--verbose        informowanie czy wysłanie sygnału się powiodło\n"
 "  -V,--version        wyświetlenie informacji o wersji\n"
 "  -w,--wait           zaczekanie na śmierć procesów\n"
@@ -322,17 +318,16 @@ msgid ""
 "  -Z,--context REGEXP kill only process(es) having context\n"
 "                      (must precede other arguments)\n"
 msgstr ""
-"  -Z,--context REGEXP zabicie tylko procesu(ów) mających dany kontekst "
-"bezp.\n"
+"  -Z,--context REGEXP zabicie tylko procesu(ów) mających dany kontekst bezp.\n"
 "                        (musi poprzedzać inne argumenty)\n"
 
 #: src/killall.c:706
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2014 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Copyright (C) 1993-2010 Werner Almesberger i Craig Small\n"
+"Copyright (C) 1993-2014 Werner Almesberger i Craig Small\n"
 "\n"
 
 #: src/killall.c:796 src/killall.c:802
@@ -501,8 +496,7 @@ msgid ""
 "  Child processes (user system guest):       %6.2f %6.2f %6.2f\n"
 msgstr ""
 "Czasy procesora\n"
-"  Ten proces      (użytkownika systemowy gościnny blkio): %6.2f %6.2f %6.2f "
-"%6.2f\n"
+"  Ten proces      (użytkownika systemowy gościnny blkio): %6.2f %6.2f %6.2f %6.2f\n"
 "  Procesy potomne (użytkownika systemowy gościnny:        %6.2f %6.2f %6.2f\n"
 
 #: src/prtstat.c:189
@@ -548,14 +542,14 @@ msgid "Unable to open stat file for pid %d (%s)\n"
 msgstr "Nie udało się otworzyć pliku stat dla pidu %d (%s)\n"
 
 #: src/prtstat.c:243
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to allocate memory for proc_info\n"
-msgstr "Nie można przydzielić pamięci dla dopasowanego procesu: %s\n"
+msgstr "Nie można przydzielić pamięci dla proc_info\n"
 
 #: src/prtstat.c:282
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to scan stat file"
-msgstr "Nie udało się otworzyć pliku stat dla pidu %d (%s)\n"
+msgstr "Nie udało się przejrzeć pliku stat"
 
 #: src/prtstat.c:316
 msgid "Invalid option"
@@ -568,8 +562,7 @@ msgstr "Trzeba podać przynajmniej jeden PID."
 #: src/prtstat.c:325
 #, c-format
 msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
-msgstr ""
-"/proc nie jest zamontowany, nie można wykonać stat na /proc/self/stat.\n"
+msgstr "/proc nie jest zamontowany, nie można wykonać stat na /proc/self/stat.\n"
 
 #: src/pstree.c:994
 #, c-format
@@ -577,7 +570,7 @@ msgid "%s is empty (not mounted ?)\n"
 msgstr "%s jest pusty (nie podmontowany?)\n"
 
 #: src/pstree.c:1030
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N type ]\n"
 "Usage: pstree [-acglpsStu] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -596,8 +589,7 @@ msgid ""
 "  -l, --long          don't truncate long lines\n"
 "  -n, --numeric-sort  sort output by PID\n"
 "  -N type,\n"
-"  --ns-sort=type      sort by namespace type (ipc, mnt, net, pid, user, "
-"uts)\n"
+"  --ns-sort=type      sort by namespace type (ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 "  -s, --show-parents  show parents of the selected process\n"
 "  -S, --ns-changes    show namespace transitions\n"
@@ -607,8 +599,8 @@ msgid ""
 "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
 "  -V, --version       display version information\n"
 msgstr ""
-"Składnia: pstree [ -a ] [ -c ] [ -h | -H PID ] [ -l ] [ -n ] [ -p ] [ -g ] "
-"[ -u ]\n"
+"Składnia: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N typ ]\n"
+"Składnia: pstree [-acglpsStu] [-h | -HPID ] [ -n | -N typ]\n"
 "                 [ -A | -G | -U ] [ PID | UŻYTKOWNIK ]\n"
 "          pstree -V\n"
 "Wyświetlanie drzewa procesów.\n"
@@ -624,20 +616,24 @@ msgstr ""
 "  -l, --long          nie obcinanie długich linii\n"
 "  -n, --numeric-sort  sortowanie wyjścia wg PID-u\n"
 "  -N typ,\n"
-"  --ns-sort=typ       sortowanie wg przestrzeni (ipc, mnt, net, pid, user, "
-"uts)\n"
+"  --ns-sort=typ       sortowanie wg przestrzeni (ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     wyświetlanie PID-ów; włącza także -c\n"
+"  -s, --show-parents  wyświetlanie rodziców wybranego procesu\n"
+"  -S, --ns-changes    wyświetlanie zmian przestrzeni nazw\n"
+"  -t, --thread-names  wyświetlanie pełnych nazw wątków\n"
+"  -T, --hide-threads  ukrycie wątków, wyświetlanie jedynie procesów\n"
 "  -u, --uid-changes   wyświetlanie zmian uidów\n"
 "  -U, --unicode       użycie znaków ramek UTF-8 (Unicode)\n"
 "  -V, --version       wyświetlenie informacji o wersji\n"
 
 #: src/pstree.c:1058
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -Z, --security-context\n"
 "                      show SELinux security contexts\n"
 msgstr ""
-"  -Z                  wyświetlanie kontekstów bezpieczeństwa SELinuksa\n"
+"  -Z, --security-context\n"
+"                      wyświetlanie kontekstów bezpieczeństwa SELinuksa\n"
 
 #: src/pstree.c:1061
 #, c-format
@@ -698,10 +694,3 @@ msgstr "Naciśnięcie return zamknie program\n"
 #, c-format
 msgid "%s: unknown signal; %s -l lists signals.\n"
 msgstr "%s: nieznany sygnał; %s -l wypisuje sygnały.\n"
-
-#~ msgid ""
-#~ "Copyright (C) 1993-2012 Werner Almesberger and Craig Small\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Copyright (C) 1993-2012 Werner Almesberger i Craig Small\n"
-#~ "\n"

@@ -6,10 +6,10 @@
 # Božidar Putanec <bozidarp@yahoo.com>, 2016.
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc 22.21-pre2\n"
+"Project-Id-Version: psmisc-23.0-rc1\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
 "POT-Creation-Date: 2016-12-03 20:28+1100\n"
-"PO-Revision-Date: 2016-05-28 16:21-0700\n"
+"PO-Revision-Date: 2016-12-15 16:53-0800\n"
 "Last-Translator: Božidar Putanec <bozidarp@yahoo.com>\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
 "Language: hr\n"
@@ -17,14 +17,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 2.0\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
 # 1. https://en.wikipedia.org/wiki/Namespace
 # 2. In essence, a namespace defines a scope.
 #: src/fuser.c:124
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: fuser [-fIMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE]\n"
 "             [-k [-i] [-SIGNAL]] NAME...\n"
@@ -48,19 +48,19 @@ msgid ""
 "  -w,--writeonly        kill only processes with write access\n"
 "  -V,--version          display version information\n"
 msgstr ""
-"Uporaba: fuser [-fMuvw] [-a|-s] [-4|-6] [-c|-m|-n PROSTOR] [-k [-i] [-"
-"SIGNAL]] IME...\n"
+"Uporaba: fuser [-fMuvw] [-a|-s] [-4|-6] [-c|-m|-n PROSTOR]\n"
+"               [-k [-i] [-SIGNAL]] IME...\n"
 "         fuser -l\n"
 "         fuser -V\n"
-"Prikaži koji procesi koriste navedene datoteke, utičnice ili datotečne "
-"sustave.\n"
+"Prikaži koji procesi koriste navedene datoteke, utičnice ili datotečne sustave.\n"
 "\n"
 "  -a,--all              prikaži i nekorištene datoteke\n"
 "  -i,--interactive      pitaj prije prekidanja (zanemareno bez -k)\n"
+"  -I,--inode            uvijek rabi inodes za usporedbu datoteka\n"
 "  -k,--kill             prekini procese koji pristupaju navedenoj datoteci\n"
 "  -l,--list-signals     ispiši imena dostupnih signala\n"
-"  -m,--mount            prikaži sve procese koji koriste navedene datotečne "
-"sustave ili blokovske uređaje\n"
+"  -m,--mount            prikaži sve procese koji koriste navedene\n"
+"                        datotečne sustave ili blokovske uređaje\n"
 "  -M,--ismountpoint     izvrši zahtjev samo ako je IME točka montiranja\n"
 "  -n,--namespace=PROSTOR  traži u ovom prostoru imena (file, udp ili tcp)\n"
 "  -s,--silent           tihi rad (bez ispisa)\n"
@@ -178,8 +178,7 @@ msgstr "Neispravno ime prostora imena (namespace)"
 
 #: src/fuser.c:1124
 msgid "You can only use files with mountpoint options"
-msgstr ""
-"Smijete koristiti samo datoteke uz opcije točke montiranja (mountpoint)"
+msgstr "Smijete koristiti samo datoteke uz opcije točke montiranja (mountpoint)"
 
 #: src/fuser.c:1173
 msgid "No process specification given"
@@ -271,14 +270,13 @@ msgid "%s: no process found\n"
 msgstr "%s: proces nije pronađen\n"
 
 #: src/killall.c:669
-#, fuzzy, c-format
+#, c-format
 msgid ""
-"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
-"eIgiqrvw ]\n"
+"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -eIgiqrvw ]\n"
 "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
 msgstr ""
-"Uporaba: killall [-Z KONTEKST] [-u KORISNIK] [ -eIgiqrvw ] [ -SIGNAL ] "
-"IME...\n"
+"Uporaba: killall [-Z KONTEKST] [-u KORISNIK] [ -y TIME ] [ -o TIME ] [ -eIgiqrvw ]\n"
+"               [ -s -SIGNAL | -SIGNAL] IME...\n"
 
 #: src/killall.c:673
 #, c-format
@@ -334,14 +332,12 @@ msgstr ""
 "                      (mora prethoditi ostalim argumentima)\n"
 
 #: src/killall.c:706
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2014 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Copyright © 1993-2005 Werner Almesberger i Craig Small\n"
-"Completely re-written by Craig Small\n"
-"Copyright © 2005-2014 Craig Small\n"
+"Copyright © 1993-2014 Werner Almesberger i Craig Small\n"
 "\n"
 
 #: src/killall.c:796 src/killall.c:802
@@ -557,14 +553,14 @@ msgid "Unable to open stat file for pid %d (%s)\n"
 msgstr "Nije moguće otvoriti ‘stat’ datoteku za pid %d (%s)\n"
 
 #: src/prtstat.c:243
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to allocate memory for proc_info\n"
-msgstr "Ne mogu alocirati memoriju za odgovarajući proces: %s\n"
+msgstr "Ne mogu alocirati memoriju za proc_info\n"
 
 #: src/prtstat.c:282
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to scan stat file"
-msgstr "Nije moguće otvoriti ‘stat’ datoteku za pid %d (%s)\n"
+msgstr "Nije moguće otvoriti ‘stat’ datoteku"
 
 #: src/prtstat.c:316
 msgid "Invalid option"
@@ -585,7 +581,7 @@ msgid "%s is empty (not mounted ?)\n"
 msgstr "%s je prazan (nije montiran?)\n"
 
 #: src/pstree.c:1030
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N type ]\n"
 "Usage: pstree [-acglpsStu] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -604,8 +600,7 @@ msgid ""
 "  -l, --long          don't truncate long lines\n"
 "  -n, --numeric-sort  sort output by PID\n"
 "  -N type,\n"
-"  --ns-sort=type      sort by namespace type (ipc, mnt, net, pid, user, "
-"uts)\n"
+"  --ns-sort=type      sort by namespace type (ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 "  -s, --show-parents  show parents of the selected process\n"
 "  -S, --ns-changes    show namespace transitions\n"
@@ -615,10 +610,10 @@ msgid ""
 "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
 "  -V, --version       display version information\n"
 msgstr ""
-"Uporaba: pstree [ -a ] [ -c ] [ -h | -H PID ] [ -l ] [ -n ] [ -p ] [ -g ] [ -"
-"u ]\n"
-"              [ -A | -G | -U ] [ PID | KORISNIK ]\n"
-"       pstree -V\n"
+"Uporaba: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N vrsta ]\n"
+"Uporaba: pstree [-acglpsStu] [ -h | -H PID ] [ -n | -N vrsta ]\n"
+"                [ -A | -G | -U ] [ PID | KORISNIK ]\n"
+"         pstree -V\n"
 "Prikaži stablo procesa.\n"
 "\n"
 "  -a, --arguments     prikaži argumente naredbenog retka\n"
@@ -642,11 +637,13 @@ msgstr ""
 "  -V, --version       prikaži obavijesti o inačici\n"
 
 #: src/pstree.c:1058
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -Z, --security-context\n"
 "                      show SELinux security contexts\n"
-msgstr "  -Z     pokaži         SELinux sigurnosni kontekst\n"
+msgstr ""
+"  -Z, --security-context\n"
+"                      pokaži SELinux sigurnosni kontekst\n"
 
 #: src/pstree.c:1061
 #, c-format

@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the psmisc package.
 #
 # Lefteris Dimitroulakis <edimitro@tee.gr>, 2008, 2013, 2014.
-# Lefteris Dimitroulakis <ledimitro@gmail.com>, 2014.
+# Lefteris Dimitroulakis <ledimitro@gmail.com>, 2014, 2017.
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc-22.21-pre2\n"
+"Project-Id-Version: psmisc-23.0-rc1\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
 "POT-Creation-Date: 2016-12-03 20:28+1100\n"
-"PO-Revision-Date: 2014-11-28 01:24+0200\n"
+"PO-Revision-Date: 2017-02-28 18:47+0200\n"
 "Last-Translator: Lefteris Dimitroulakis <ledimitro@gmail.com>\n"
 "Language-Team: Greek <team@lists.gnome.gr>\n"
 "Language: el\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/fuser.c:124
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: fuser [-fIMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE]\n"
 "             [-k [-i] [-SIGNAL]] NAME...\n"
@@ -45,24 +45,18 @@ msgid ""
 "  -w,--writeonly        kill only processes with write access\n"
 "  -V,--version          display version information\n"
 msgstr ""
-"Χρήση: fuser [-fMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE] [-k [-i] [-SIGNAL]]  "
-"NAME...\n"
+"Χρήση: fuser [-fMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE] [-k [-i] [-SIGNAL]]  NAME...\n"
 "       fuser -l\n"
 "       fuser -V\n"
-"Οι διεργασίες που χρησιμοποιούν τα δεδομένα αρχεία, sockets, ή συστήματα "
-"αρχείων.\n"
+"Οι διεργασίες που χρησιμοποιούν τα δεδομένα αρχεία, sockets, ή συστήματα αρχείων.\n"
 "\n"
 "    -a,--all        εμφάνιση επίσης των μη χρησιμοποιουμένων αρχείων \n"
-"    -i,--interactive        ερώτηση πριν τον τερματισμό (ignored without -"
-"k)\n"
-"    -k,--kill        τερματισμός διεργασιών που χρησιμοποιούν το δεδομένο "
-"αρχείο\n"
+"    -i,--interactive        ερώτηση πριν τον τερματισμό (ignored without -k)\n"
+"    -k,--kill        τερματισμός διεργασιών που χρησιμοποιούν το δεδομένο αρχείο\n"
 "    -l        λίστα διαθεσίμων σημάτων\n"
-"    -m,--mount        οι διεργασίες που χρησιμοποιούν τα δεδομένα συστήματα "
-"αρχείων ή συσκευές μπλοκ\n"
+"    -m,--mount        οι διεργασίες που χρησιμοποιούν τα δεδομένα συστήματα αρχείων ή συσκευές μπλοκ\n"
 "    -M,--ismountpoint απάντηση μόνο αν ΟΝΟΜΑ αποτελεί σημείο προσάρτησης\n"
-"    -n,--namespace SPACE  αναζήτηση σε αυτήν την ομάδα ονομάτων (file, udp, "
-"ή tcp)\n"
+"    -n,--namespace SPACE  αναζήτηση σε αυτήν την ομάδα ονομάτων (file, udp, ή tcp)\n"
 "    -s,--silent        σιωπηλή λειτουργία\n"
 "    -SIGNAL   αποστολή αυτού του σήματος αντί του SIGKILL\n"
 "    -u,--user        εμφάνιση ID χρήστη\n"
@@ -175,9 +169,7 @@ msgstr "Λάθος όνομα"
 
 #: src/fuser.c:1124
 msgid "You can only use files with mountpoint options"
-msgstr ""
-"Δεν μπορείτε να χρησιμοποιήσετε παρά τα αρχεία με την επιλογή σημείου "
-"προσάρτησης"
+msgstr "Δεν μπορείτε να χρησιμοποιήσετε παρά τα αρχεία με την επιλογή σημείου προσάρτησης"
 
 #: src/fuser.c:1173
 msgid "No process specification given"
@@ -189,9 +181,7 @@ msgstr "Η επιλογή all δεν μπορεί να χρησιμοποιηθ�
 
 #: src/fuser.c:1190
 msgid "You cannot search for only IPv4 and only IPv6 sockets at the same time"
-msgstr ""
-"Δεν μπορείτε να ψάξετε συγχρόνως μόνο για sockets IPv4 και μόνο για sockets "
-"IPv6."
+msgstr "Δεν μπορείτε να ψάξετε συγχρόνως μόνο για sockets IPv4 και μόνο για sockets IPv6."
 
 #: src/fuser.c:1269
 #, c-format
@@ -268,13 +258,13 @@ msgid "%s: no process found\n"
 msgstr "%s: δεν βρέθηκε διεργασία\n"
 
 #: src/killall.c:669
-#, fuzzy, c-format
+#, c-format
 msgid ""
-"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
-"eIgiqrvw ]\n"
+"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -eIgiqrvw ]\n"
 "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
 msgstr ""
-"Χρήση: killall [-Z CONTEXT] [-u ΧΡΗΣΤΗΣ] [ -eIgiqrvw ] [ -ΣΗΜΑ ] ΟΝΟΜΑ...\n"
+"Χρήση: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -eIgiqrvw ]\n"
+"               [ -s SIGNAL | -SIGNAL ] NAME...\n"
 
 #: src/killall.c:673
 #, c-format
@@ -330,12 +320,12 @@ msgstr ""
 "                      (πρέπει να προηγείται των άλλων ορισμάτων)\n"
 
 #: src/killall.c:706
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2014 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Copyright (C) 1993-2005 Werner Almesberger και Craig Small\n"
+"Copyright (C) 1993-2014 Werner Almesberger and Craig Small\n"
 "\n"
 
 #: src/killall.c:796 src/killall.c:802
@@ -550,14 +540,14 @@ msgid "Unable to open stat file for pid %d (%s)\n"
 msgstr "Αδύνατον να αανοίξω το αρχείο stat του pid %d (%s)\n"
 
 #: src/prtstat.c:243
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to allocate memory for proc_info\n"
-msgstr "Αδύνατη η εκχώρηση μνήμης στην αντίστοιχη διεργασία: %s\n"
+msgstr "Αδυναμία εκχώρησης για proc_info\n"
 
 #: src/prtstat.c:282
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to scan stat file"
-msgstr "Αδύνατον να αανοίξω το αρχείο stat του pid %d (%s)\n"
+msgstr "Unable to scan stat file"
 
 #: src/prtstat.c:316
 msgid "Invalid option"
@@ -570,9 +560,7 @@ msgstr "Πρέπει να δώσεις τουλάχιστον ένα PID."
 #: src/prtstat.c:325
 #, c-format
 msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
-msgstr ""
-"/proc δεν είναι προσαρτημένο, αδύνατον να πάρω τα στατιστικά από το /proc/"
-"self/stat.\n"
+msgstr "/proc δεν είναι προσαρτημένο, αδύνατον να πάρω τα στατιστικά από το /proc/self/stat.\n"
 
 #: src/pstree.c:994
 #, c-format
@@ -580,7 +568,7 @@ msgid "%s is empty (not mounted ?)\n"
 msgstr "%s είναι άδειο (μή προσαρτημένο ;)\n"
 
 #: src/pstree.c:1030
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N type ]\n"
 "Usage: pstree [-acglpsStu] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -599,8 +587,7 @@ msgid ""
 "  -l, --long          don't truncate long lines\n"
 "  -n, --numeric-sort  sort output by PID\n"
 "  -N type,\n"
-"  --ns-sort=type      sort by namespace type (ipc, mnt, net, pid, user, "
-"uts)\n"
+"  --ns-sort=type      sort by namespace type (ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 "  -s, --show-parents  show parents of the selected process\n"
 "  -S, --ns-changes    show namespace transitions\n"
@@ -610,8 +597,7 @@ msgid ""
 "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
 "  -V, --version       display version information\n"
 msgstr ""
-"Χρήση: pstree [ -a ] [ -c ] [ -h | -H PID ] [ -l ] [ -n ] [ -p ] [ -g ] [ -"
-"u ]\n"
+"Χρήση: pstree [-acglpsStuZ] [ -hΧρήση: pstree [ -a ] [ -c ] [ -h | -H PID ] [ -l ] [ -n ] [ -p ] [ -g ] [ -u ]\n"
 "              [ -A | -G | -U ] [ PID | USER ]\n"
 "       pstree -V\n"
 "Εμφάνιση δέντρου διεργασιών.\n"
@@ -627,8 +613,7 @@ msgstr ""
 "  -l, --long          don't truncate long lines\n"
 "  -n, --numeric-sort  sort output by PID\n"
 "  -N type,\n"
-"  --ns-sort=type      sort by namespace type (ipc, mnt, net, pid, user, "
-"uts)\n"
+"  --ns-sort=type      sort by namespace type (ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 "  -s, --show-parents  show parents of the selected process\n"
 "  -S, --ns-changes    show namespace transitions\n"
@@ -637,11 +622,13 @@ msgstr ""
 "  -V, --version       εμφάνιση πληροφοριών έκδοσης\n"
 
 #: src/pstree.c:1058
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -Z, --security-context\n"
 "                      show SELinux security contexts\n"
-msgstr "    -Z     εμφάνιση SELinux security contexts\n"
+msgstr ""
+"  -Z, --security-context\n"
+"                      show SELinux security contexts\n"
 
 #: src/pstree.c:1061
 #, c-format
@@ -700,10 +687,3 @@ msgstr "Πάτησε return για κλείσιμο\n"
 #, c-format
 msgid "%s: unknown signal; %s -l lists signals.\n"
 msgstr "%s: άγνωστο σήμα, %s -l εμφανίζει όλα τα σήματα.\n"
-
-#~ msgid ""
-#~ "Copyright (C) 1993-2012 Werner Almesberger and Craig Small\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Copyright (C) 1993-2005 Werner Almesberger και Craig Small\n"
-#~ "\n"

@@ -1,25 +1,24 @@
 # Serbian translation of psmisc.
-# Copyright (C) 2014 Free Software Foundation, Inc.
+# Copyright © 2017 Free Software Foundation, Inc.
 # This file is distributed under the same license as the psmisc package.
-# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2012—2014.
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2012—2017.
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc-22.21-pre2\n"
+"Project-Id-Version: psmisc-23.0-rc1\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
 "POT-Creation-Date: 2016-12-03 20:28+1100\n"
-"PO-Revision-Date: 2014-02-24 06:30+0200\n"
+"PO-Revision-Date: 2017-01-27 07:01+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <(nothing)>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: src/fuser.c:124
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: fuser [-fIMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE]\n"
 "             [-k [-i] [-SIGNAL]] NAME...\n"
@@ -43,22 +42,20 @@ msgid ""
 "  -w,--writeonly        kill only processes with write access\n"
 "  -V,--version          display version information\n"
 msgstr ""
-"Употреба: fuser [-fMuv] [-a|-s] [-4|-6] [-c|-m|-n РАЗМАК] [-k [-i] [-"
-"СИГНАЛ]] НАЗИВ...\n"
+"Употреба: fuser [-fMuv] [-a|-s] [-4|-6] [-c|-m|-n РАЗМАК] [-k [-i] [-СИГНАЛ]] НАЗИВ...\n"
 "          fuser -l\n"
 "          fuser -V\n"
-"Приказује који процеси користе именоване датотеке, прикључнице, или системе "
-"датотека.\n"
+"Приказује који процеси користе именоване датотеке, прикључнице, или системе датотека.\n"
 "\n"
 "  -a,--all                такође приказује неупотребљене датотеке\n"
 "  -i,--interactive        пита пре него што убије (занемарено без -k)\n"
+"  -I,--inode              користи увек и-чворове за поређење датотека\n"
 "  -k,--kill               убија процесе приступајући именованој датотеци\n"
 "  -l,--list-signals       наводи називе доступног сигнала\n"
-"  -m,--mount              приказује све процесе користећи именоване системе "
-"датотека или блок уређај\n"
+"  -m,--mount              приказује све процесе користећи именоване системе\n"
+"                          датотека или блок уређај\n"
 "  -M,--ismountpoint       испуњава захтев само ако је НАЗИВ тачка качења\n"
-"  -n,--namespace ПРОСТОР  тражи у овим просторима назива (датотека, удп, или "
-"тцп)\n"
+"  -n,--namespace ПРОСТОР  тражи у овим просторима назива (датотека, удп, или тцп)\n"
 "  -s,--silent             нечујна радња\n"
 "  -SIGNAL                 шаље овај сигнал уместо СИГУБИЈ\n"
 "  -u,--user               приказује ИБ корисника\n"
@@ -72,8 +69,8 @@ msgid ""
 "  -4,--ipv4             search IPv4 sockets only\n"
 "  -6,--ipv6             search IPv6 sockets only\n"
 msgstr ""
-"  -4,--ipv4             тражи само ИПв4 прикључнице\n"
-"  -6,--ipv6             тражи само ИПв6 прикључнице\n"
+"  -4,--ipv4               тражи само ИПв4 прикључнице\n"
+"  -6,--ipv6               тражи само ИПв6 прикључнице\n"
 
 #: src/fuser.c:148
 #, c-format
@@ -83,7 +80,7 @@ msgid ""
 "  udp/tcp names: [local_port][,[rmt_host][,[rmt_port]]]\n"
 "\n"
 msgstr ""
-"  -                     поново подешава опције\n"
+"  -                       поново подешава опције\n"
 "\n"
 "  удп/тцп називе: [local_port][,[rmt_host][,[rmt_port]]]\n"
 "\n"
@@ -260,14 +257,13 @@ msgid "%s: no process found\n"
 msgstr "%s: нисам пронашао процес\n"
 
 #: src/killall.c:669
-#, fuzzy, c-format
+#, c-format
 msgid ""
-"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
-"eIgiqrvw ]\n"
+"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -eIgiqrvw ]\n"
 "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
 msgstr ""
-"Употреба: killall [-Z КОНТЕКСТ] [-u КОРИСНИК] [ -eIgiqrvw ] [ -СИГНАЛ ] "
-"НАЗИВ...\n"
+"Употреба: killall [ -Z КОНТЕКСТ ] [ -u КОРИСНИК ] [ -y ВРЕМЕ ] [ -o ВРЕМЕ ] [ -eIgiqrvw ]\n"
+"               [ -s СИГНАЛ | -SIGNAL ] НАЗИВ...\n"
 
 #: src/killall.c:673
 #, c-format
@@ -319,16 +315,16 @@ msgid ""
 "  -Z,--context REGEXP kill only process(es) having context\n"
 "                      (must precede other arguments)\n"
 msgstr ""
-"  -Z,--context РЕГИЗР убија само процес(е) који има(ју) контекст\n"
-"                      (мора да претходи другим аргументима)\n"
+"  -Z,--context РЕГИЗР  убија само процес(е) који има(ју) контекст\n"
+"                       (мора да претходи другим аргументима)\n"
 
 #: src/killall.c:706
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2014 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Ауторска права © 1993-2010 Вернер Алмесбергер и Крег Смол\n"
+"Ауторска права © 1993-2014 Вернер Алмесбергер и Крег Смол\n"
 "\n"
 
 #: src/killall.c:796 src/killall.c:802
@@ -371,7 +367,7 @@ msgid ""
 "Copyright (C) 2007 Trent Waddington\n"
 "\n"
 msgstr ""
-"Ауторска права (C) 2007 Трент Вадингтон\n"
+"Ауторска права © 2007 Трент Вадингтон\n"
 "\n"
 
 #: src/peekfd.c:122
@@ -423,7 +419,7 @@ msgid ""
 "Copyright (C) 2009 Craig Small\n"
 "\n"
 msgstr ""
-"Ауторска права (C) 2009 Крег Смол\n"
+"Ауторска права © 2009 Крег Смол\n"
 "\n"
 
 #: src/prtstat.c:78
@@ -497,8 +493,7 @@ msgid ""
 "  Child processes (user system guest):       %6.2f %6.2f %6.2f\n"
 msgstr ""
 "Времена процесора\n"
-"  Овај процес       (блкио гост корисничког система): %6.2f %6.2f %6.2f "
-"%6.2f\n"
+"  Овај процес       (блкио гост корисничког система): %6.2f %6.2f %6.2f %6.2f\n"
 "  Подређени процеси (гост корисничког система):       %6.2f %6.2f %6.2f\n"
 
 #: src/prtstat.c:189
@@ -544,14 +539,14 @@ msgid "Unable to open stat file for pid %d (%s)\n"
 msgstr "Не могу да отворим датотеку статистике за пиб %d (%s)\n"
 
 #: src/prtstat.c:243
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to allocate memory for proc_info\n"
-msgstr "Не могу да доделим меморију одговарајућем проку: %s\n"
+msgstr "Не могу да доделим меморију за „proc_info“\n"
 
 #: src/prtstat.c:282
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to scan stat file"
-msgstr "Не могу да отворим датотеку статистике за пиб %d (%s)\n"
+msgstr "Не могу да прегледам датотеку са подацима"
 
 #: src/prtstat.c:316
 msgid "Invalid option"
@@ -564,8 +559,7 @@ msgstr "Морате да обезбедите барем један ПИБ."
 #: src/prtstat.c:325
 #, c-format
 msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
-msgstr ""
-"„/proc“ није прикачен, не могу да добавим стање за „/proc/self/stat“.\n"
+msgstr "„/proc“ није прикачен, не могу да добавим стање за „/proc/self/stat“.\n"
 
 #: src/pstree.c:994
 #, c-format
@@ -573,7 +567,7 @@ msgid "%s is empty (not mounted ?)\n"
 msgstr "%s је празно (није прикачено ?)\n"
 
 #: src/pstree.c:1030
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N type ]\n"
 "Usage: pstree [-acglpsStu] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -592,8 +586,7 @@ msgid ""
 "  -l, --long          don't truncate long lines\n"
 "  -n, --numeric-sort  sort output by PID\n"
 "  -N type,\n"
-"  --ns-sort=type      sort by namespace type (ipc, mnt, net, pid, user, "
-"uts)\n"
+"  --ns-sort=type      sort by namespace type (ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 "  -s, --show-parents  show parents of the selected process\n"
 "  -S, --ns-changes    show namespace transitions\n"
@@ -603,9 +596,8 @@ msgid ""
 "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
 "  -V, --version       display version information\n"
 msgstr ""
-"Употреба: pstree [ -a ] [ -c ] [ -h | -H ПИБ ] [ -l ] [ -n ] [ -p ] [ -g ] "
-"[ -u ]\n"
-"              [ -A | -G | -U ] [ ПИБ | КОРИСНИК ]\n"
+"Употреба: pstree [-acglpsStuZ] [ -h | -H ПИД ] [ -n | -N врста ]\n"
+"Употреба: pstree [-acglpsStu] [ -h | -H ПИД ] [ -n | -N врста ]\n"
 "       pstree -V\n"
 "Приказује стабло процеса.\n"
 "\n"
@@ -613,28 +605,31 @@ msgstr ""
 "  -A, --ascii          користи знаке за исцртавање АСКРИ реда\n"
 "  -c, --compact        не сабија истоветна подстабла\n"
 "  -h, --highlight-all  истиче текући процес и његовог претходника\n"
-"  -H ПИБ,\n"
-"  --highlight-pid=ПИБ  истиче овај процес и његовог претходника\n"
+"  -H ПИД,\n"
+"  --highlight-pid=ПИД  истиче овај процес и његовог претходника\n"
 "  -g, --show-pgids     приказује ибове процесне групе; подразумева „-c“\n"
 "  -G, --vt100          користи знаке за исцртавање ВТ100 реда\n"
 "  -l, --long           не крати дуге редове\n"
 "  -n, --numeric-sort   ређа излаз према ПИБ-у\n"
-"  -N type,\n"
-"  --ns-sort=врста      ређа према врсти називног простора (ipc, mnt, net, "
-"pid, user, uts)\n"
+"  -N врста,\n"
+"  --ns-sort=врста      ређа према врсти називног простора (ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids      приказује ПИБ-ове; подразумева -c\n"
 "  -s, --show-parents   приакзује родитеље изабраног процеса\n"
 "  -S, --ns-changes     приказује преводе називног простора\n"
+"  -t, --thread-names   приказује пуне називе нити\n"
+"  -T, --hide-threads   скрива нити, приказује само процесе\n"
 "  -u, --uid-changes    приказује прелазе уиба\n"
 "  -U, --unicode        користи знакове за исцртавање УТФ-8 (Уникод) реда\n"
 "  -V, --version        приказује податке о издању\n"
 
 #: src/pstree.c:1058
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -Z, --security-context\n"
 "                      show SELinux security contexts\n"
-msgstr "  -Z     приказује         СЕЛинукс безбедносни контекст\n"
+msgstr ""
+"  -Z, --security-context\n"
+"                       приказује СЕЛинукс безбедносни контекст\n"
 
 #: src/pstree.c:1061
 #, c-format
@@ -658,7 +653,7 @@ msgid ""
 "Copyright (C) 1993-2009 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Ауторска права (C) 1993-2009 Вернер Алмесбергер и Крег Смол\n"
+"Ауторска права © 1993-2009 Вернер Алмесбергер и Крег Смол\n"
 "\n"
 
 #: src/pstree.c:1187

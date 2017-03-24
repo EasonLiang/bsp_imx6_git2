@@ -1,14 +1,14 @@
 # Esperanto translation.
-# Copyright (C) 2011, 2012, 2014 Free Software Foundation, Inc.
+# Copyright (C) 2011, 2012, 2014, 2017 Free Software Foundation, Inc.
 # This file is distributed under the same license as the psmisc package.
-# Felipe Castro <fefcas@gmail.com>, 2011, 2012, 2014.
+# Felipe Castro <fefcas@gmail.com>, 2011, 2012, 2014, 2017.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc 22.21-pre2\n"
+"Project-Id-Version: psmisc 23.0-rc1\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
 "POT-Creation-Date: 2016-12-03 20:28+1100\n"
-"PO-Revision-Date: 2014-02-04 10:33-0300\n"
+"PO-Revision-Date: 2017-01-27 22:56-0300\n"
 "Last-Translator: Felipe Castro <fefcas@gmail.com>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
 "Language: eo\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 
 #: src/fuser.c:124
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: fuser [-fIMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE]\n"
 "             [-k [-i] [-SIGNAL]] NAME...\n"
@@ -43,19 +43,20 @@ msgid ""
 "  -w,--writeonly        kill only processes with write access\n"
 "  -V,--version          display version information\n"
 msgstr ""
-"Uzmaniero: fuser [-fMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACO] [-k [-i] [-"
-"SIGNALO]] NOMO...\n"
-"       fuser -l\n"
-"       fuser -V\n"
-"Montras kiujn procezojn uzas la nomitajn dosierojn, ingojn, aŭ "
-"dosiersistemojn.\n"
+"Uzmaniero: fuser [-fMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACO]\n"
+"                 [-k [-i] [-SIGNALO]] NOMO...\n"
+"           fuser -l\n"
+"           fuser -V\n"
+"Montras kiujn procezojn uzas la nomitajn dosierojn, ingojn,\n"
+"aŭ dosiersistemojn.\n"
 "\n"
 "  -a,--all              montri ankaŭ neuzatajn dosierojn\n"
 "  -i,--interactive      demandi antaŭ ol mortigi (ne efika sen -k)\n"
+"  -I,--inode            ĉiam uzi inode por kompari dosierojn\n"
 "  -k,--kill             mortigi procezon, kiu aliras la nomitan dosieron\n"
 "  -l,--list-signals     listigi disponeblajn signalo-nomojn\n"
-"  -m,--mount            montri ĉiujn procezojn, kiuj uzas la nomitajn "
-"dosiersistemojn aŭ blok-aparaton\n"
+"  -m,--mount            montri ĉiujn procezojn, kiuj uzas la nomitajn\n"
+"                        dosiersistemojn aŭ blok-aparaton\n"
 "  -M,--ismountpoint     plenumigi peton nur se NOMO estas munt-punkto\n"
 "  -n,--namespace SPACO  serĉi en tiu ĉi nom-spaco(file, udp, aŭ tcp)\n"
 "  -s,--silent           silenta funkciado\n"
@@ -113,8 +114,7 @@ msgstr ""
 "PSmisc venas kun ABSOLUTE NENIUN GARANTION.\n"
 "Tio ĉi estas libera programaro, kaj vi estas invitata redisdoni ĝin sub\n"
 "la kondiĉoj de la Ĝenerala Publika Permesilo GNU.\n"
-"Por pli da informoj pri tiuj ĉi aferoj, vidu la dosierojn nomitajn COPYING "
-"(angle).\n"
+"Por pli da informoj pri tiuj ĉi aferoj, vidu la dosierojn nomitajn COPYING (angle).\n"
 
 #: src/fuser.c:179
 #, c-format
@@ -260,14 +260,13 @@ msgid "%s: no process found\n"
 msgstr "%s: neniu procezo trovite\n"
 
 #: src/killall.c:669
-#, fuzzy, c-format
+#, c-format
 msgid ""
-"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
-"eIgiqrvw ]\n"
+"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -eIgiqrvw ]\n"
 "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
 msgstr ""
-"Uzmaniero: killall [-Z KUNTEKSTO] [-u UZANTO] [ -eIgiqrvw ] [ -SIGNALO ] "
-"NOMO...\n"
+"Uzmaniero: killall [-Z KUNTEKSTO] [-u UZANTO] [ -y TEMPO ] [ -o TEMPO ]\n"
+"                   [ -eIgiqrvw ][ -s SIGNALO | -SIGNALO ] NOMO...\n"
 
 #: src/killall.c:673
 #, c-format
@@ -323,12 +322,12 @@ msgstr ""
 "                      (devas veni antaŭ aliaj argumentoj)\n"
 
 #: src/killall.c:706
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2014 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Kopirajto (C) 1993-2010 Werner Almesberger kaj Craig Small\n"
+"Kopirajto (C) 1993-2014 Werner Almesberger kaj Craig Small\n"
 "\n"
 
 #: src/killall.c:796 src/killall.c:802
@@ -543,14 +542,14 @@ msgid "Unable to open stat file for pid %d (%s)\n"
 msgstr "Ne eblas malfermi stat-dosiero por pid %d (%s)\n"
 
 #: src/prtstat.c:243
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to allocate memory for proc_info\n"
-msgstr "Ne eblas rezervi memoron por kongruinta proc: %s\n"
+msgstr "Ne eblas rezervi memoron por proc_info\n"
 
 #: src/prtstat.c:282
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to scan stat file"
-msgstr "Ne eblas malfermi stat-dosiero por pid %d (%s)\n"
+msgstr "Ne eblas skani stat-dosieron"
 
 #: src/prtstat.c:316
 msgid "Invalid option"
@@ -571,7 +570,7 @@ msgid "%s is empty (not mounted ?)\n"
 msgstr "%s estas malplena (ĉu ne muntita ?)\n"
 
 #: src/pstree.c:1030
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N type ]\n"
 "Usage: pstree [-acglpsStu] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -590,8 +589,7 @@ msgid ""
 "  -l, --long          don't truncate long lines\n"
 "  -n, --numeric-sort  sort output by PID\n"
 "  -N type,\n"
-"  --ns-sort=type      sort by namespace type (ipc, mnt, net, pid, user, "
-"uts)\n"
+"  --ns-sort=type      sort by namespace type (ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 "  -s, --show-parents  show parents of the selected process\n"
 "  -S, --ns-changes    show namespace transitions\n"
@@ -601,10 +599,9 @@ msgid ""
 "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
 "  -V, --version       display version information\n"
 msgstr ""
-"Uzmaniero: pstree [ -a ] [ -c ] [ -h | -H PID ] [ -l ] [ -n ] [ -p ] [ -g ] "
-"[ -u ]\n"
-"              [ -A | -G | -U ] [ PID | UZANTO ]\n"
-"       pstree -V\n"
+"Uzmaniero: pstree [-acglpsStu] [ -h | -H PID ] [ -n | -N type ]\n"
+"                  [ -A | -G | -U ] [ PID | UZANTO ]\n"
+"           pstree -V\n"
 "Montri arbon de procezoj.\n"
 "\n"
 "  -a, --arguments     montri komand-liniajn argumentojn\n"
@@ -613,25 +610,29 @@ msgstr ""
 "  -h, --highlight-all reliefigi nunajn procezojn kaj ties praulojn\n"
 "  -H PID,\n"
 "  --highlight-pid=PID reliefigi tiun ĉi procezon kaj ties praulojn\n"
+"  -g, --show-pgids    montri procez-grupajn id; implicas -c\n"
 "  -G, --vt100         uzi VT100-ajn lini-desegnajn signojn\n"
 "  -l, --long          ne tranĉi longajn liniojn\n"
 "  -n, --numeric-sort  ordigi eligon laŭ PID\n"
 "  -N tipo,\n"
-"  --ns-sort=tipo      ordigi laŭ nomspaca tipo (ipc, mnt, net, pid, user, "
-"uts)\n"
+"  --ns-sort=tipo      ordigi laŭ nomspaca tipo (ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     montri PID-ojn; implicas -c\n"
 "  -s, --show-parents  montri praulojn de la elektita procezo\n"
 "  -S, --ns-changes    montri nomspacajn transiĝojn\n"
+"  -t, --thread-names  montri kompletajn fadenajn nomojn\n"
+"  -T, --hide-threads  kaŝi fadenojn, montri nur procezojn\n"
 "  -u, --uid-changes   montri transigojn de uid\n"
 "  -U, --unicode       uzi UTF-8 (Unikodan) lini-desegnajn signojn\n"
 "  -V, --version       montri informon pri versio\n"
 
 #: src/pstree.c:1058
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -Z, --security-context\n"
 "                      show SELinux security contexts\n"
-msgstr "  -Z     montri         sekurecajn kuntekstojn SELinux\n"
+msgstr ""
+"  -Z, --security-context\n"
+"                      montri sekurecajn kuntekstojn SELinux\n"
 
 #: src/pstree.c:1061
 #, c-format
