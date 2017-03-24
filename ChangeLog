@@ -1,5 +1,7 @@
 Changes in 23.0
 ===============
+	* peekfd: Help give long options too !5
+	* killall: correctly report when 32+ procs match !8
 	* prtat: Remove duplicate options in man page !3 Debian #846387
 	* pslog: New program to check what logs are open merge !1
 	* fuser: increase path length for octal escaping SF [#37]
