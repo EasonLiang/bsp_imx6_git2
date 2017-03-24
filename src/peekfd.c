@@ -120,18 +120,18 @@ void print_version()
 void usage() {
 	fprintf(stderr, _(
       "Usage: peekfd [-8] [-n] [-c] [-d] [-V] [-h] <pid> [<fd> ..]\n"
-	  "    -8 output 8 bit clean streams.\n"
-	  "    -n don't display read/write from fd headers.\n"
-	  "    -c peek at any new child processes too.\n"
-	  "    -d remove duplicate read/writes from the output.\n"
-	  "    -V prints version info.\n"
-	  "    -h prints this help.\n"
+	  "    -8, --eight-bit-clean        output 8 bit clean streams.\n"
+	  "    -n, --no-headers             don't display read/write from fd headers.\n"
+	  "    -c, --follow                 peek at any new child processes too.\n"
+	  "    -d, --duplicates-removed     remove duplicate read/writes from the output.\n"
+	  "    -V, --version                prints version info.\n"
+	  "    -h, --help                   prints this help.\n"
 	  "\n"
 	  "  Press CTRL-C to end output.\n"));
 }
 
-int bufdiff(pid_t pid, unsigned char *lastbuf, unsigned int addr, unsigned int len) {
-	int i;
+int bufdiff(pid_t pid, unsigned char *lastbuf, unsigned long addr, unsigned long len) {
+	unsigned long i;
 	for (i = 0; i < len; i++)
 		if (lastbuf[i] != (ptrace(PTRACE_PEEKTEXT, pid, addr + i, 0) & 0xff))
 			return 1;
@@ -149,6 +149,7 @@ int main(int argc, char **argv)
     int numfds = 0;
     int *fds = NULL;
     int i;
+    unsigned long j;
 
     struct option options[] = {
       {"eight-bit-clean", 0, NULL, '8'},
@@ -220,7 +221,7 @@ int main(int argc, char **argv)
 	int lastfd = numfds > 0 ? fds[0] : 0;
 	int lastdir = 3;
 	unsigned char *lastbuf = NULL;
-	int last_buf_size=-1;
+	unsigned long last_buf_size = -1;
 
 	for(;;) {
 		int status;
@@ -255,10 +256,10 @@ int main(int argc, char **argv)
 			}
 			if ((regs.REG_ORIG_ACCUM == SYS_read || regs.REG_ORIG_ACCUM == SYS_write) && (regs.REG_PARAM3 == regs.REG_ACCUM)) {
 				for (i = 0; i < numfds; i++)
-					if (fds[i] == regs.REG_PARAM1)
+					if (fds[i] == (int)regs.REG_PARAM1)
 						break;
 				if (i != numfds || numfds == 0) {
-					if (regs.REG_PARAM1 != lastfd || regs.REG_ORIG_ACCUM != lastdir) {
+					if ((int)regs.REG_PARAM1 != lastfd || (int)regs.REG_ORIG_ACCUM != lastdir) {
 						lastfd = regs.REG_PARAM1;
 						lastdir = regs.REG_ORIG_ACCUM;
 						if (!no_headers)
@@ -275,18 +276,18 @@ int main(int argc, char **argv)
 							last_buf_size = regs.REG_PARAM3;
 						}
 
-						for (i = 0; i < regs.REG_PARAM3; i++) {
+						for (j = 0; j < regs.REG_PARAM3; j++) {
 #if BYTE_ORDER == BIG_ENDIAN
 #if __WORDSIZE == 64
-							unsigned int a = bswap_64(ptrace(PTRACE_PEEKTEXT, pid, regs.REG_PARAM2 + i, 0));
+							unsigned int a = bswap_64(ptrace(PTRACE_PEEKTEXT, pid, regs.REG_PARAM2 + j, 0));
 #else
-							unsigned int a = bswap_32(ptrace(PTRACE_PEEKTEXT, pid, regs.REG_PARAM2 + i, 0));
+							unsigned int a = bswap_32(ptrace(PTRACE_PEEKTEXT, pid, regs.REG_PARAM2 + j, 0));
 #endif
 #else
-							unsigned int a = ptrace(PTRACE_PEEKTEXT, pid, regs.REG_PARAM2 + i, 0);
+							unsigned int a = ptrace(PTRACE_PEEKTEXT, pid, regs.REG_PARAM2 + j, 0);
 #endif
 							if (remove_duplicates)
-								lastbuf[i] = a & 0xff;
+								lastbuf[j] = a & 0xff;
 
 							if (eight_bit_clean)
 								putchar(a & 0xff);

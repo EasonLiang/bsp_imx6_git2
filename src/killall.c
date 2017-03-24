@@ -562,7 +562,7 @@ kill_all (int signal, int name_count, char **namelist, struct passwd *pwent)
 		        char *linkbuf = malloc(len + 1);
 
 		        if (!linkbuf ||
-			  readlink(path, linkbuf, len + 1) != len ||
+			  readlink(path, linkbuf, len + 1) != (ssize_t)len ||
 			  memcmp(namelist[j], linkbuf, len))
 			    ok = 0;
 			free(linkbuf);
@@ -607,7 +607,7 @@ kill_all (int signal, int name_count, char **namelist, struct passwd *pwent)
 			comm, process_group ? "pgid " : "", id, signal);
 	    if (found_name >= 0)
 		    /* mark item of namelist */
-		    found |= 1 << found_name;
+		    found |= 1UL << found_name;
 	    pid_killed[pids_killed++] = id;
 	}
 	else if (errno != ESRCH || interactive)
@@ -622,12 +622,12 @@ kill_all (int signal, int name_count, char **namelist, struct passwd *pwent)
     free(pgids);
     if (!quiet)
 	for (i = 0; i < name_count; i++)
-	    if (!(found & (1 << i)))
+	    if (!(found & (1UL << i)))
 		fprintf (stderr, _("%s: no process found\n"), namelist[i]);
     if (name_count)
         /* killall returns a zero return code if at least one process has 
          * been killed for each listed command. */
-        error = found == ((1 << (name_count - 1)) | ((1 << (name_count - 1)) - 1)) ? 0 : 1;
+        error = found == ((1UL << (name_count - 1)) | ((1UL << (name_count - 1)) - 1)) ? 0 : 1;
     else
         /* in nameless mode killall returns a zero return code if at least 
          * one process has killed */
