@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc-23.0-rc1\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2016-12-03 20:28+1100\n"
+"POT-Creation-Date: 2017-03-25 10:15+1100\n"
 "PO-Revision-Date: 2016-12-15 16:53-0800\n"
 "Last-Translator: Božidar Putanec <bozidarp@yahoo.com>\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
@@ -17,13 +17,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 # 1. https://en.wikipedia.org/wiki/Namespace
 # 2. In essence, a namespace defines a scope.
-#: src/fuser.c:124
+#: src/fuser.c:136
 #, c-format
 msgid ""
 "Usage: fuser [-fIMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE]\n"
@@ -52,7 +53,8 @@ msgstr ""
 "               [-k [-i] [-SIGNAL]] IME...\n"
 "         fuser -l\n"
 "         fuser -V\n"
-"Prikaži koji procesi koriste navedene datoteke, utičnice ili datotečne sustave.\n"
+"Prikaži koji procesi koriste navedene datoteke, utičnice ili datotečne "
+"sustave.\n"
 "\n"
 "  -a,--all              prikaži i nekorištene datoteke\n"
 "  -i,--interactive      pitaj prije prekidanja (zanemareno bez -k)\n"
@@ -70,7 +72,7 @@ msgstr ""
 "  -w,--writeonly        prekini samo procese s dozvolom pisanja\n"
 "  -V,--version          prikaži informacije o inačici\n"
 
-#: src/fuser.c:145
+#: src/fuser.c:157
 #, c-format
 msgid ""
 "  -4,--ipv4             search IPv4 sockets only\n"
@@ -79,7 +81,7 @@ msgstr ""
 "  -4,--ipv4             pretraži samo IPv4 utičnice\n"
 "  -6,--ipv6             pretraži samo IPv6 utičnice\n"
 
-#: src/fuser.c:148
+#: src/fuser.c:160
 #, c-format
 msgid ""
 "  -                     reset options\n"
@@ -92,12 +94,12 @@ msgstr ""
 "  udp/tcp imena: [lokalni_port][,[udaljeno_računalo][,[udaljeni_port]]]\n"
 "\n"
 
-#: src/fuser.c:155
+#: src/fuser.c:167
 #, c-format
 msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
-#: src/fuser.c:158
+#: src/fuser.c:170
 #, c-format
 msgid ""
 "Copyright (C) 1993-2010 Werner Almesberger and Craig Small\n"
@@ -108,8 +110,8 @@ msgstr ""
 "Copyright © 2005-2014 Craig Small\n"
 "\n"
 
-#: src/fuser.c:160 src/killall.c:708 src/peekfd.c:114 src/prtstat.c:68
-#: src/pstree.c:1073
+#: src/fuser.c:172 src/killall.c:726 src/peekfd.c:119 src/prtstat.c:68
+#: src/pstree.c:1125
 #, c-format
 msgid ""
 "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
@@ -122,112 +124,113 @@ msgstr ""
 "pod uvjetima opisanim u GNU General Public License.\n"
 "Dodatne obavijesti o licenciji potražite u datoteci COPYING.\n"
 
-#: src/fuser.c:179
+#: src/fuser.c:191
 #, c-format
 msgid "Cannot open /proc directory: %s\n"
 msgstr "Ne mogu otvoriti direktorij /proc: %s\n"
 
-#: src/fuser.c:370 src/fuser.c:423 src/fuser.c:1880
+#: src/fuser.c:382 src/fuser.c:435 src/fuser.c:2030
 #, c-format
 msgid "Cannot allocate memory for matched proc: %s\n"
 msgstr "Ne mogu alocirati memoriju za odgovarajući proces: %s\n"
 
-#: src/fuser.c:450
+#: src/fuser.c:462
 #, c-format
 msgid "Specified filename %s does not exist.\n"
 msgstr "Navedena datoteka %s ne postoji.\n"
 
-#: src/fuser.c:453
+#: src/fuser.c:465
 #, c-format
 msgid "Cannot stat %s: %s\n"
 msgstr "Ne mogu izvršiti ‘stat’ %s: %s\n"
 
-#: src/fuser.c:590
+#: src/fuser.c:602
 #, c-format
 msgid "Cannot resolve local port %s: %s\n"
 msgstr "Ne mogu odrediti lokalni port %s: %s\n"
 
-#: src/fuser.c:608
+#: src/fuser.c:620
 #, c-format
 msgid "Unknown local port AF %d\n"
 msgstr "Nepoznati lokalni port AF %d\n"
 
-#: src/fuser.c:698
+#: src/fuser.c:710
 #, c-format
 msgid "Cannot open protocol file \"%s\": %s\n"
 msgstr "Ne mogu otvoriti datoteku protokola „%s“: %s\n"
 
 # http://www.linfo.org/mount_point.html
-#: src/fuser.c:884
+#: src/fuser.c:1013
 #, c-format
 msgid "Specified filename %s is not a mountpoint.\n"
 msgstr "Navedeni naziv (datoteke) %s nije točka za montiranje (mountpoint)\n"
 
-#: src/fuser.c:984
+#: src/fuser.c:1105
 #, c-format
 msgid "%s: Invalid option %s\n"
 msgstr "%s: Neispravna opcija %s\n"
 
-#: src/fuser.c:1041
+#: src/fuser.c:1159
 msgid "Namespace option requires an argument."
 msgstr "Opcija prostora imena (namespace) zahtijeva argument."
 
-#: src/fuser.c:1059
+#: src/fuser.c:1176
 msgid "Invalid namespace name"
 msgstr "Neispravno ime prostora imena (namespace)"
 
-#: src/fuser.c:1124
+#: src/fuser.c:1241
 msgid "You can only use files with mountpoint options"
-msgstr "Smijete koristiti samo datoteke uz opcije točke montiranja (mountpoint)"
+msgstr ""
+"Smijete koristiti samo datoteke uz opcije točke montiranja (mountpoint)"
 
-#: src/fuser.c:1173
+#: src/fuser.c:1291
 msgid "No process specification given"
 msgstr "Nije navedena specifikacija procesa"
 
-#: src/fuser.c:1185
+#: src/fuser.c:1306
 msgid "all option cannot be used with silent option."
 msgstr "opcija ‘all’ ne može se koristiti uz opciju ‘silent’."
 
-#: src/fuser.c:1190
+#: src/fuser.c:1311
 msgid "You cannot search for only IPv4 and only IPv6 sockets at the same time"
 msgstr "Ne možete istovremeno pretraživati samo IPv4 i samo IPv6 utičnice"
 
-#: src/fuser.c:1269
+#: src/fuser.c:1400
 #, c-format
 msgid "%*s USER        PID ACCESS COMMAND\n"
 msgstr "%*s KORISNIK    PID PRISTUP NAREDBA\n"
 
-#: src/fuser.c:1302 src/fuser.c:1359
+#: src/fuser.c:1433 src/fuser.c:1490
 msgid "(unknown)"
 msgstr "(nepoznato)"
 
-#: src/fuser.c:1438 src/fuser.c:1477
+#: src/fuser.c:1569 src/fuser.c:1608
 #, c-format
 msgid "Cannot stat file %s: %s\n"
 msgstr "Ne mogu izvršiti ‘stat’ na datoteci %s: %s\n"
 
-#: src/fuser.c:1563
+#: src/fuser.c:1694
 #, c-format
 msgid "Cannot open /proc/net/unix: %s\n"
 msgstr "Ne mogu otvoriti /proc/net/unix: %s\n"
 
 # y umjesto d?
-#: src/fuser.c:1639
+#: src/fuser.c:1789
 #, c-format
 msgid "Kill process %d ? (y/N) "
 msgstr "Prekinuti proces %d ? (d/N) "
 
-#: src/fuser.c:1675
+#: src/fuser.c:1825
 #, c-format
 msgid "Could not kill process %d: %s\n"
 msgstr "Ne mogu prekinuti proces %d: %s\n"
 
-#: src/fuser.c:1690
+#: src/fuser.c:1840
 #, c-format
 msgid "Cannot open a network socket.\n"
 msgstr "Ne mogu otvoriti mrežnu utičnicu.\n"
 
-#: src/fuser.c:1694
+#: src/fuser.c:1844
 #, c-format
 msgid "Cannot find socket's device number.\n"
 msgstr "Ne mogu pronaći broj uređaja utičnice.\n"
@@ -249,41 +252,43 @@ msgstr "Signal %s(%s%d) ? (d/N) "
 msgid "killall: Cannot get UID from process status\n"
 msgstr "killall: Ne mogu dobiti UID iz stanja procesa\n"
 
-#: src/killall.c:242
+#: src/killall.c:251
 #, c-format
 msgid "killall: Bad regular expression: %s\n"
 msgstr "killall: Neispravan regularni izraz: %s\n"
 
-#: src/killall.c:379
+#: src/killall.c:396
 #, c-format
 msgid "killall: skipping partial match %s(%d)\n"
 msgstr "killall: preskačem djelomično podudaranje %s(%d)\n"
 
-#: src/killall.c:606
+#: src/killall.c:626
 #, c-format
 msgid "Killed %s(%s%d) with signal %d\n"
 msgstr "Prekinut %s(%s%d) signalom %d\n"
 
-#: src/killall.c:626
+#: src/killall.c:645
 #, c-format
 msgid "%s: no process found\n"
 msgstr "%s: proces nije pronađen\n"
 
-#: src/killall.c:669
+#: src/killall.c:687
 #, c-format
 msgid ""
-"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -eIgiqrvw ]\n"
+"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
+"eIgiqrvw ]\n"
 "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
 msgstr ""
-"Uporaba: killall [-Z KONTEKST] [-u KORISNIK] [ -y TIME ] [ -o TIME ] [ -eIgiqrvw ]\n"
+"Uporaba: killall [-Z KONTEKST] [-u KORISNIK] [ -y TIME ] [ -o TIME ] [ -"
+"eIgiqrvw ]\n"
 "               [ -s -SIGNAL | -SIGNAL] IME...\n"
 
-#: src/killall.c:673
+#: src/killall.c:691
 #, c-format
 msgid "Usage: killall [OPTION]... [--] NAME...\n"
 msgstr "Uporaba: killall [OPCIJA]... [--] IME...\n"
 
-#: src/killall.c:676
+#: src/killall.c:694
 #, c-format
 msgid ""
 "       killall -l, --list\n"
@@ -322,7 +327,7 @@ msgstr ""
 "  -V,--version        prikaži obavijesti o inačici\n"
 "  -w,--wait           čekaj da se proces prekine\n"
 
-#: src/killall.c:694
+#: src/killall.c:712
 #, c-format
 msgid ""
 "  -Z,--context REGEXP kill only process(es) having context\n"
@@ -331,7 +336,7 @@ msgstr ""
 "  -Z,--context REGEXP prekini samo procese s odgovarajućim kontekstom\n"
 "                      (mora prethoditi ostalim argumentima)\n"
 
-#: src/killall.c:706
+#: src/killall.c:724
 #, c-format
 msgid ""
 "Copyright (C) 1993-2014 Werner Almesberger and Craig Small\n"
@@ -340,41 +345,41 @@ msgstr ""
 "Copyright © 1993-2014 Werner Almesberger i Craig Small\n"
 "\n"
 
-#: src/killall.c:796 src/killall.c:802
+#: src/killall.c:814 src/killall.c:820
 msgid "Invalid time format"
 msgstr "Neispravan format vremena"
 
-#: src/killall.c:822
+#: src/killall.c:840
 #, c-format
 msgid "Cannot find user %s\n"
 msgstr "Ne mogu pronaći korisnika %s\n"
 
-#: src/killall.c:853
+#: src/killall.c:871
 #, c-format
 msgid "Bad regular expression: %s\n"
 msgstr "Neispravan regularni izraz: %s\n"
 
-#: src/killall.c:885
+#: src/killall.c:903
 #, c-format
 msgid "killall: Maximum number of names is %d\n"
 msgstr "killall: Najveći broj imena je %d\n"
 
-#: src/killall.c:890
+#: src/killall.c:908
 #, c-format
 msgid "killall: %s lacks process entries (not mounted ?)\n"
 msgstr "killall: %s nema zapise procesa (nije montiran?)\n"
 
-#: src/peekfd.c:102
+#: src/peekfd.c:107
 #, c-format
 msgid "Error attaching to pid %i\n"
 msgstr "Greška pridruživanja pid-u %i\n"
 
-#: src/peekfd.c:110
+#: src/peekfd.c:115
 #, c-format
 msgid "peekfd (PSmisc) %s\n"
 msgstr "peekfd (PSmisc) %s\n"
 
-#: src/peekfd.c:112
+#: src/peekfd.c:117
 #, c-format
 msgid ""
 "Copyright (C) 2007 Trent Waddington\n"
@@ -383,16 +388,17 @@ msgstr ""
 "Copyright © 2007 Trent Waddington\n"
 "\n"
 
-#: src/peekfd.c:122
-#, c-format
+#: src/peekfd.c:127
+#, fuzzy, c-format
 msgid ""
 "Usage: peekfd [-8] [-n] [-c] [-d] [-V] [-h] <pid> [<fd> ..]\n"
-"    -8 output 8 bit clean streams.\n"
-"    -n don't display read/write from fd headers.\n"
-"    -c peek at any new child processes too.\n"
-"    -d remove duplicate read/writes from the output.\n"
-"    -V prints version info.\n"
-"    -h prints this help.\n"
+"    -8, --eight-bit-clean        output 8 bit clean streams.\n"
+"    -n, --no-headers             don't display read/write from fd headers.\n"
+"    -c, --follow                 peek at any new child processes too.\n"
+"    -d, --duplicates-removed     remove duplicate read/writes from the "
+"output.\n"
+"    -V, --version                prints version info.\n"
+"    -h, --help                   prints this help.\n"
 "\n"
 "  Press CTRL-C to end output.\n"
 msgstr ""
@@ -557,30 +563,30 @@ msgstr "Nije moguće otvoriti ‘stat’ datoteku za pid %d (%s)\n"
 msgid "Unable to allocate memory for proc_info\n"
 msgstr "Ne mogu alocirati memoriju za proc_info\n"
 
-#: src/prtstat.c:282
+#: src/prtstat.c:283
 #, c-format
 msgid "Unable to scan stat file"
 msgstr "Nije moguće otvoriti ‘stat’ datoteku"
 
-#: src/prtstat.c:316
+#: src/prtstat.c:318
 msgid "Invalid option"
 msgstr "Neispravna opcija"
 
-#: src/prtstat.c:321
+#: src/prtstat.c:323
 msgid "You must provide at least one PID."
 msgstr "Morate navesti barem jedan PID."
 
-#: src/prtstat.c:325
+#: src/prtstat.c:327
 #, c-format
 msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
 msgstr "/proc nije montiran, ne mogu izvršiti ‘stat’ /proc/self/stat.\n"
 
-#: src/pstree.c:994
+#: src/pstree.c:1046
 #, c-format
 msgid "%s is empty (not mounted ?)\n"
 msgstr "%s je prazan (nije montiran?)\n"
 
-#: src/pstree.c:1030
+#: src/pstree.c:1082
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -600,7 +606,8 @@ msgid ""
 "  -l, --long          don't truncate long lines\n"
 "  -n, --numeric-sort  sort output by PID\n"
 "  -N type,\n"
-"  --ns-sort=type      sort by namespace type (ipc, mnt, net, pid, user, uts)\n"
+"  --ns-sort=type      sort by namespace type (ipc, mnt, net, pid, user, "
+"uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 "  -s, --show-parents  show parents of the selected process\n"
 "  -S, --ns-changes    show namespace transitions\n"
@@ -636,7 +643,7 @@ msgstr ""
 "  -U, --unicode       rabi UTF-8 (Unicode) znakove za crtanje\n"
 "  -V, --version       prikaži obavijesti o inačici\n"
 
-#: src/pstree.c:1058
+#: src/pstree.c:1110
 #, c-format
 msgid ""
 "  -Z, --security-context\n"
@@ -645,7 +652,7 @@ msgstr ""
 "  -Z, --security-context\n"
 "                      pokaži SELinux sigurnosni kontekst\n"
 
-#: src/pstree.c:1061
+#: src/pstree.c:1113
 #, c-format
 msgid ""
 "  PID    start at this PID; default is 1 (init)\n"
@@ -656,12 +663,12 @@ msgstr ""
 "  KORISNIK  prikaži samo stablo s korijenom u procesima ovog KORISNIKA\n"
 "\n"
 
-#: src/pstree.c:1068
+#: src/pstree.c:1120
 #, c-format
 msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
-#: src/pstree.c:1071
+#: src/pstree.c:1123
 #, c-format
 msgid ""
 "Copyright (C) 1993-2009 Werner Almesberger and Craig Small\n"
@@ -670,32 +677,32 @@ msgstr ""
 "Copyright © 1993-2009 Werner Almesberger i Craig Small\n"
 "\n"
 
-#: src/pstree.c:1187
+#: src/pstree.c:1239
 #, c-format
 msgid "TERM is not set\n"
 msgstr "TERM nije postavljen\n"
 
-#: src/pstree.c:1191
+#: src/pstree.c:1243
 #, c-format
 msgid "Can't get terminal capabilities\n"
 msgstr "Ne mogu otkriti mogućnosti terminala\n"
 
-#: src/pstree.c:1209
+#: src/pstree.c:1261
 #, c-format
 msgid "procfs file for %s namespace not available\n"
 msgstr "procfs datoteka za %s prostor imena (namespace) nije dostupna\n"
 
-#: src/pstree.c:1262
+#: src/pstree.c:1314
 #, c-format
 msgid "No such user name: %s\n"
 msgstr "Nema takvog korisnika: %s\n"
 
-#: src/pstree.c:1288
+#: src/pstree.c:1340
 #, c-format
 msgid "No processes found.\n"
 msgstr "Nijedan proces nije pronađen.\n"
 
-#: src/pstree.c:1294
+#: src/pstree.c:1348
 #, c-format
 msgid "Press return to close\n"
 msgstr "Pritisnite return/enter za zatvaranje\n"

@@ -9,20 +9,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc 23.0-rc1\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2016-12-03 20:28+1100\n"
+"POT-Creation-Date: 2017-03-25 10:15+1100\n"
 "PO-Revision-Date: 2016-12-08 08:35+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <translation-team-vi@lists.sourceforge.net>\n"
 "Language: vi\n"
-"X-Bugs: Report translation errors to the Language-Team address.\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Gtranslator 2.91.7\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: src/fuser.c:124
+#: src/fuser.c:136
 #, c-format
 msgid ""
 "Usage: fuser [-fIMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE]\n"
@@ -51,12 +51,15 @@ msgstr ""
 "                 [-k [-i] [-TÍN_HIỆU]] TÊN…\n"
 "           fuser -l\n"
 "           fuser -V\n"
-"Hiển thị những tiến trình nào đang dùng những tập tin, ổ cắm hay hệ thống tập tin có tên đưa ra.\n"
+"Hiển thị những tiến trình nào đang dùng những tập tin, ổ cắm hay hệ thống "
+"tập tin có tên đưa ra.\n"
 "\n"
 "  -a,--all              cũng hiển thị các tập tin không dùng\n"
-"  -i,--interactive      hỏi trước khi buộc kết thúc (bị bỏ qua nếu không có \"-k\")\n"
+"  -i,--interactive      hỏi trước khi buộc kết thúc (bị bỏ qua nếu không có "
+"\"-k\")\n"
 "  -I,--inode            luôn dùng nút để so sánh các tập tin\n"
-"  -k,--kill             buộc kết thúc mỗi tiến trình đang truy cập đến tập tin có tên đưa ra\n"
+"  -k,--kill             buộc kết thúc mỗi tiến trình đang truy cập đến tập "
+"tin có tên đưa ra\n"
 "  -l,--list-signals     liệt kê những tên tín hiệu sẵn có\n"
 "  -m,--mount            hiển thị tất cả các tiến trình đang sử dụng\n"
 "                          những hệ thống tập tin hay thiết bị khối\n"
@@ -69,7 +72,7 @@ msgstr ""
 "  -w,--writeonly        chỉ buộc chấm dứt những tiến trình mà có quyền ghi\n"
 "  -V,--version          hiển thị thông tin về phiên bản\n"
 
-#: src/fuser.c:145
+#: src/fuser.c:157
 #, c-format
 msgid ""
 "  -4,--ipv4             search IPv4 sockets only\n"
@@ -78,7 +81,7 @@ msgstr ""
 "  -4,--ipv4             chỉ tìm kiếm ổ cắm kiểu IPv4\n"
 "  -6,--ipv6             chỉ tìm kiếm ổ cắm kiểu IPv6\n"
 
-#: src/fuser.c:148
+#: src/fuser.c:160
 #, c-format
 msgid ""
 "  -                     reset options\n"
@@ -91,12 +94,12 @@ msgstr ""
 "  Các tên udp/tcp: [cổng_cục_bộ][,[máy_chủ][,[cổng_máy_chủ]]]\n"
 "\n"
 
-#: src/fuser.c:155
+#: src/fuser.c:167
 #, c-format
 msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
-#: src/fuser.c:158
+#: src/fuser.c:170
 #, c-format
 msgid ""
 "Copyright (C) 1993-2010 Werner Almesberger and Craig Small\n"
@@ -105,8 +108,8 @@ msgstr ""
 "Tác quyền © năm 1993-2010 của Werner Almesberger và Craig Small\n"
 "\n"
 
-#: src/fuser.c:160 src/killall.c:708 src/peekfd.c:114 src/prtstat.c:68
-#: src/pstree.c:1073
+#: src/fuser.c:172 src/killall.c:726 src/peekfd.c:119 src/prtstat.c:68
+#: src/pstree.c:1125
 #, c-format
 msgid ""
 "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
@@ -119,110 +122,110 @@ msgstr ""
 "Giấy Phép Công của Gnu (GPL).\n"
 "Để tìm thấy thông tin thêm thì hãy xem tập tin có tên COPYING (Giấy phép)\n"
 
-#: src/fuser.c:179
+#: src/fuser.c:191
 #, c-format
 msgid "Cannot open /proc directory: %s\n"
 msgstr "Không thể mở thư mục /proc: %s\n"
 
-#: src/fuser.c:370 src/fuser.c:423 src/fuser.c:1880
+#: src/fuser.c:382 src/fuser.c:435 src/fuser.c:2030
 #, c-format
 msgid "Cannot allocate memory for matched proc: %s\n"
 msgstr "Không thể cấp phát bộ nhớ cho tiến trình khớp: %s\n"
 
-#: src/fuser.c:450
+#: src/fuser.c:462
 #, c-format
 msgid "Specified filename %s does not exist.\n"
 msgstr "Tên tập tin đã cho %s không tồn tại.\n"
 
-#: src/fuser.c:453
+#: src/fuser.c:465
 #, c-format
 msgid "Cannot stat %s: %s\n"
 msgstr "Không thể lấy các thông tin về %s: %s\n"
 
-#: src/fuser.c:590
+#: src/fuser.c:602
 #, c-format
 msgid "Cannot resolve local port %s: %s\n"
 msgstr "Không tìm thấy tên cổng cục bộ %s: %s\n"
 
-#: src/fuser.c:608
+#: src/fuser.c:620
 #, c-format
 msgid "Unknown local port AF %d\n"
 msgstr "Không biết cổng cục bộ AF %d\n"
 
-#: src/fuser.c:698
+#: src/fuser.c:710
 #, c-format
 msgid "Cannot open protocol file \"%s\": %s\n"
 msgstr "Không thể mở tập tin giao thức \"%s\": %s\n"
 
-#: src/fuser.c:884
+#: src/fuser.c:1013
 #, c-format
 msgid "Specified filename %s is not a mountpoint.\n"
 msgstr "Tên tập tin đã cho %s không phải là một điểm gắn.\n"
 
-#: src/fuser.c:984
+#: src/fuser.c:1105
 #, c-format
 msgid "%s: Invalid option %s\n"
 msgstr "%s: Tùy chọn %s không hợp lệ\n"
 
-#: src/fuser.c:1041
+#: src/fuser.c:1159
 msgid "Namespace option requires an argument."
 msgstr "Tùy chọn miền tên cần đến một đối số."
 
-#: src/fuser.c:1059
+#: src/fuser.c:1176
 msgid "Invalid namespace name"
 msgstr "Tên miền tên không hợp lệ"
 
-#: src/fuser.c:1124
+#: src/fuser.c:1241
 msgid "You can only use files with mountpoint options"
 msgstr "Bạn có thể sử dụng tập tin chỉ với tùy chọn điểm_lắp"
 
-#: src/fuser.c:1173
+#: src/fuser.c:1291
 msgid "No process specification given"
 msgstr "Chưa nhập đặc tả tiến trình"
 
-#: src/fuser.c:1185
+#: src/fuser.c:1306
 msgid "all option cannot be used with silent option."
 msgstr "tất cả các tùy chọn không cho phép bạn dùng với tùy chọn \"im lặng\"."
 
-#: src/fuser.c:1190
+#: src/fuser.c:1311
 msgid "You cannot search for only IPv4 and only IPv6 sockets at the same time"
 msgstr "Không cho phép bạn tìm kiếm ổ cắm kiểu cả IPv4 lẫn IPv6 đều đồng thời"
 
-#: src/fuser.c:1269
+#: src/fuser.c:1400
 #, c-format
 msgid "%*s USER        PID ACCESS COMMAND\n"
 msgstr "%*s NGƯỜI_DÙNG  PID TRUY_CẬP LỆNH\n"
 
-#: src/fuser.c:1302 src/fuser.c:1359
+#: src/fuser.c:1433 src/fuser.c:1490
 msgid "(unknown)"
 msgstr "(không hiểu)"
 
-#: src/fuser.c:1438 src/fuser.c:1477
+#: src/fuser.c:1569 src/fuser.c:1608
 #, c-format
 msgid "Cannot stat file %s: %s\n"
 msgstr "Không thể lấy các thông tin về tập tin %s: %s\n"
 
-#: src/fuser.c:1563
+#: src/fuser.c:1694
 #, c-format
 msgid "Cannot open /proc/net/unix: %s\n"
 msgstr "Không thể mở thư mục /proc/net/unix: %s\n"
 
-#: src/fuser.c:1639
+#: src/fuser.c:1789
 #, c-format
 msgid "Kill process %d ? (y/N) "
 msgstr "Có buộc kết thúc tiến trình %d không? (y/N) (có/không) "
 
-#: src/fuser.c:1675
+#: src/fuser.c:1825
 #, c-format
 msgid "Could not kill process %d: %s\n"
 msgstr "Không thể buộc kết thúc tiến trình %d: %s\n"
 
-#: src/fuser.c:1690
+#: src/fuser.c:1840
 #, c-format
 msgid "Cannot open a network socket.\n"
 msgstr "Không thể mở một ổ cắm mạng.\n"
 
-#: src/fuser.c:1694
+#: src/fuser.c:1844
 #, c-format
 msgid "Cannot find socket's device number.\n"
 msgstr "Không tìm thấy số hiệu thiết bị ổ cắm.\n"
@@ -242,41 +245,43 @@ msgstr "Tín hiệu %s(%s%d) không? (y/N)(c/K) "
 msgid "killall: Cannot get UID from process status\n"
 msgstr "killall: Không thể lấy UID từ trạng thái của tiến trình\n"
 
-#: src/killall.c:242
+#: src/killall.c:251
 #, c-format
 msgid "killall: Bad regular expression: %s\n"
 msgstr "killall: Biểu thức chính quy sai: %s\n"
 
-#: src/killall.c:379
+#: src/killall.c:396
 #, c-format
 msgid "killall: skipping partial match %s(%d)\n"
 msgstr "killall: bỏ qua khớp một phần %s(%d)\n"
 
-#: src/killall.c:606
+#: src/killall.c:626
 #, c-format
 msgid "Killed %s(%s%d) with signal %d\n"
 msgstr "Mới buộc kết thúc %s(%s%d) với tín hiệu %d\n"
 
-#: src/killall.c:626
+#: src/killall.c:645
 #, c-format
 msgid "%s: no process found\n"
 msgstr "%s: không tìm thấy tiến trình\n"
 
-#: src/killall.c:669
+#: src/killall.c:687
 #, c-format
 msgid ""
-"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -eIgiqrvw ]\n"
+"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
+"eIgiqrvw ]\n"
 "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
 msgstr ""
-"Cách dùng: killall [ -Z NGỮ_CẢNH ] [ -u NGƯỜI_DÙNG ] [ -y GIỜ ] [ -eIgiqrvw ]\n"
+"Cách dùng: killall [ -Z NGỮ_CẢNH ] [ -u NGƯỜI_DÙNG ] [ -y GIỜ ] [ -"
+"eIgiqrvw ]\n"
 "                   [ -s TÍN_HIỆU | -TÍN_HIỆU] TÊN…\n"
 
-#: src/killall.c:673
+#: src/killall.c:691
 #, c-format
 msgid "Usage: killall [OPTION]... [--] NAME...\n"
 msgstr "Cách dùng: killall [ TÙY_CHỌN ]… [--] TÊN…\n"
 
-#: src/killall.c:676
+#: src/killall.c:694
 #, c-format
 msgid ""
 "       killall -l, --list\n"
@@ -315,7 +320,7 @@ msgstr ""
 "  -V,--version        hiện thông tin phiên bản của chương trình\n"
 "  -w,--wait           đợi tiến trình kết thúc\n"
 
-#: src/killall.c:694
+#: src/killall.c:712
 #, c-format
 msgid ""
 "  -Z,--context REGEXP kill only process(es) having context\n"
@@ -324,7 +329,7 @@ msgstr ""
 "  -Z,--context BIỂU_THỨC_CHÍNH _QUY chỉ buộc kết thúc những tiến trình\n"
 "                        có ngữ cảnh (phải đi trước các đối số khác)\n"
 
-#: src/killall.c:706
+#: src/killall.c:724
 #, c-format
 msgid ""
 "Copyright (C) 1993-2014 Werner Almesberger and Craig Small\n"
@@ -333,41 +338,41 @@ msgstr ""
 "Tác quyền © năm 1993-2014 của Werner Almesberger và Craig Small\n"
 "\n"
 
-#: src/killall.c:796 src/killall.c:802
+#: src/killall.c:814 src/killall.c:820
 msgid "Invalid time format"
 msgstr "Định dạng thời gian không hợp lệ"
 
-#: src/killall.c:822
+#: src/killall.c:840
 #, c-format
 msgid "Cannot find user %s\n"
 msgstr "Không tìm thấy người dùng %s\n"
 
-#: src/killall.c:853
+#: src/killall.c:871
 #, c-format
 msgid "Bad regular expression: %s\n"
 msgstr "Biểu thức chính quy sai: %s\n"
 
-#: src/killall.c:885
+#: src/killall.c:903
 #, c-format
 msgid "killall: Maximum number of names is %d\n"
 msgstr "killall: Số lượng tên tối đa là %d\n"
 
-#: src/killall.c:890
+#: src/killall.c:908
 #, c-format
 msgid "killall: %s lacks process entries (not mounted ?)\n"
 msgstr "killall: %s thiếu các mục tuyến trình (đã gắn chưa?)\n"
 
-#: src/peekfd.c:102
+#: src/peekfd.c:107
 #, c-format
 msgid "Error attaching to pid %i\n"
 msgstr "Gặp lỗi khi đính kèm đến PID %i\n"
 
-#: src/peekfd.c:110
+#: src/peekfd.c:115
 #, c-format
 msgid "peekfd (PSmisc) %s\n"
 msgstr "peekfd (PSmisc) %s\n"
 
-#: src/peekfd.c:112
+#: src/peekfd.c:117
 #, c-format
 msgid ""
 "Copyright (C) 2007 Trent Waddington\n"
@@ -376,16 +381,17 @@ msgstr ""
 "Tác quyền © năm 2007 của Trent Waddington\n"
 "\n"
 
-#: src/peekfd.c:122
-#, c-format
+#: src/peekfd.c:127
+#, fuzzy, c-format
 msgid ""
 "Usage: peekfd [-8] [-n] [-c] [-d] [-V] [-h] <pid> [<fd> ..]\n"
-"    -8 output 8 bit clean streams.\n"
-"    -n don't display read/write from fd headers.\n"
-"    -c peek at any new child processes too.\n"
-"    -d remove duplicate read/writes from the output.\n"
-"    -V prints version info.\n"
-"    -h prints this help.\n"
+"    -8, --eight-bit-clean        output 8 bit clean streams.\n"
+"    -n, --no-headers             don't display read/write from fd headers.\n"
+"    -c, --follow                 peek at any new child processes too.\n"
+"    -d, --duplicates-removed     remove duplicate read/writes from the "
+"output.\n"
+"    -V, --version                prints version info.\n"
+"    -h, --help                   prints this help.\n"
 "\n"
 "  Press CTRL-C to end output.\n"
 msgstr ""
@@ -551,30 +557,31 @@ msgstr "Không thể mở tập tin thống kê về PID %d (%s)\n"
 msgid "Unable to allocate memory for proc_info\n"
 msgstr "Không thể cấp phát bộ nhớ cho proc_info\n"
 
-#: src/prtstat.c:282
+#: src/prtstat.c:283
 #, c-format
 msgid "Unable to scan stat file"
 msgstr "Không thể mở quét tập tin thống kê"
 
-#: src/prtstat.c:316
+#: src/prtstat.c:318
 msgid "Invalid option"
 msgstr "Tùy chọn không hợp lệ"
 
-#: src/prtstat.c:321
+#: src/prtstat.c:323
 msgid "You must provide at least one PID."
 msgstr "Phải cung cấp ít nhất một PID (mã số tiến trình)."
 
-#: src/prtstat.c:325
+#: src/prtstat.c:327
 #, c-format
 msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
-msgstr "Chưa gắn \"/proc\" thì không thể lấy thống kê về \"/proc/self/stat\".\n"
+msgstr ""
+"Chưa gắn \"/proc\" thì không thể lấy thống kê về \"/proc/self/stat\".\n"
 
-#: src/pstree.c:994
+#: src/pstree.c:1046
 #, c-format
 msgid "%s is empty (not mounted ?)\n"
 msgstr "%s trống rỗng (đã gắn chưa?)\n"
 
-#: src/pstree.c:1030
+#: src/pstree.c:1082
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -594,7 +601,8 @@ msgid ""
 "  -l, --long          don't truncate long lines\n"
 "  -n, --numeric-sort  sort output by PID\n"
 "  -N type,\n"
-"  --ns-sort=type      sort by namespace type (ipc, mnt, net, pid, user, uts)\n"
+"  --ns-sort=type      sort by namespace type (ipc, mnt, net, pid, user, "
+"uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 "  -s, --show-parents  show parents of the selected process\n"
 "  -S, --ns-changes    show namespace transitions\n"
@@ -622,17 +630,19 @@ msgstr ""
 "  -l, --long          đừng cắt ngắn dòng dài\n"
 "  -n, --numeric-sort  sắp xếp kết xuất theo PID (mã số tiến trình)\n"
 "  -N type,\n"
-"  --ns-sort=kiểu      sắp xếp theo không gian tên (ipc, mnt, net, pid, user, uts)\n"
+"  --ns-sort=kiểu      sắp xếp theo không gian tên (ipc, mnt, net, pid, user, "
+"uts)\n"
 "  -p, --show-pids     hiển thị các PID (ngầm sử dụng \"-c\")\n"
 "  -s, --show-parents  hiển thị cha mẹ của tiến trình đã chọn\n"
 "  -S, --ns-changes    hiển thị sự chuyển tiếp không gian tên\n"
 "  -t, --thread-names  hiển thị tên tuyến trình đầy đủ\n"
 "  -T, --hide-threads  ẩn các tuyến trình, chỉ hiển thị tiến trình\n"
 "  -u, --uid-changes   hiển thị các sự chuyển tiếp UID (mã số người dùng)\n"
-"  -U, --unicode       dùng các ký tự thuộc bảng mã UTF-8 (Unicode) để vẽ đường kẻ\n"
+"  -U, --unicode       dùng các ký tự thuộc bảng mã UTF-8 (Unicode) để vẽ "
+"đường kẻ\n"
 "  -V, --version       hiển thị thông tin về phiên bản\n"
 
-#: src/pstree.c:1058
+#: src/pstree.c:1110
 #, c-format
 msgid ""
 "  -Z, --security-context\n"
@@ -641,7 +651,7 @@ msgstr ""
 "  -Z --security-context\n"
 "                     hiển thị các ngữ cảnh bảo mật SELinux\n"
 
-#: src/pstree.c:1061
+#: src/pstree.c:1113
 #, c-format
 msgid ""
 "  PID    start at this PID; default is 1 (init)\n"
@@ -652,12 +662,12 @@ msgstr ""
 "  NGƯỜI_DÙNG hiển thị chỉ những cây có gốc là tiến trình của người dùng này\n"
 "\n"
 
-#: src/pstree.c:1068
+#: src/pstree.c:1120
 #, c-format
 msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
-#: src/pstree.c:1071
+#: src/pstree.c:1123
 #, c-format
 msgid ""
 "Copyright (C) 1993-2009 Werner Almesberger and Craig Small\n"
@@ -666,32 +676,32 @@ msgstr ""
 "Tác quyền © 1993-2009 Werner Almesberger và Craig Small\n"
 "\n"
 
-#: src/pstree.c:1187
+#: src/pstree.c:1239
 #, c-format
 msgid "TERM is not set\n"
 msgstr "Chưa đặt TERM\n"
 
-#: src/pstree.c:1191
+#: src/pstree.c:1243
 #, c-format
 msgid "Can't get terminal capabilities\n"
 msgstr "Không thể lấy khả năng của thiết bị cuối\n"
 
-#: src/pstree.c:1209
+#: src/pstree.c:1261
 #, c-format
 msgid "procfs file for %s namespace not available\n"
 msgstr "tập tin procfs cho không gian tên %s không sẵn có\n"
 
-#: src/pstree.c:1262
+#: src/pstree.c:1314
 #, c-format
 msgid "No such user name: %s\n"
 msgstr "Không có tên người dùng như vậy: %s\n"
 
-#: src/pstree.c:1288
+#: src/pstree.c:1340
 #, c-format
 msgid "No processes found.\n"
 msgstr "Không tìm thấy tiến trình.\n"
 
-#: src/pstree.c:1294
+#: src/pstree.c:1348
 #, c-format
 msgid "Press return to close\n"
 msgstr "Bấm phím Enter để đóng\n"
@@ -699,7 +709,8 @@ msgstr "Bấm phím Enter để đóng\n"
 #: src/signals.c:84
 #, c-format
 msgid "%s: unknown signal; %s -l lists signals.\n"
-msgstr "%s: không hiểu tín hiệu; câu lệnh \"%s -l\" giúp bạn liệt kê các tín hiệu.\n"
+msgstr ""
+"%s: không hiểu tín hiệu; câu lệnh \"%s -l\" giúp bạn liệt kê các tín hiệu.\n"
 
 #~ msgid ""
 #~ "Copyright (C) 1993-2012 Werner Almesberger and Craig Small\n"
