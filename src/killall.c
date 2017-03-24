@@ -2,7 +2,7 @@
  * killall.c - kill processes by name or list PIDs
  *
  * Copyright (C) 1993-2002 Werner Almesberger
- * Copyright (C) 2002-2012 Craig Small
+ * Copyright (C) 2002-2017 Craig Small
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -721,7 +721,7 @@ void print_version()
 {
   fprintf(stderr, "killall (PSmisc) %s\n", VERSION);
   fprintf(stderr, _(
-    "Copyright (C) 1993-2014 Werner Almesberger and Craig Small\n\n"));
+    "Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n\n"));
   fprintf(stderr, _(
     "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
     "This is free software, and you are welcome to redistribute it under\n"

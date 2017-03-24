@@ -4,7 +4,7 @@
  * Based on fuser.c Copyright (C) 1993-2005 Werner Almesberger and Craig Small
  *
  * Completely re-written
- * Copyright (C) 2005-2014 Craig Small
+ * Copyright (C) 2005-2017 Craig Small
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -167,7 +167,7 @@ void print_version()
 	fprintf(stderr, _("fuser (PSmisc) %s\n"), VERSION);
 	fprintf(stderr,
 		_
-		("Copyright (C) 1993-2010 Werner Almesberger and Craig Small\n\n"));
+		("Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n\n"));
 	fprintf(stderr,
 		_("PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
 		  "This is free software, and you are welcome to redistribute it under\n"

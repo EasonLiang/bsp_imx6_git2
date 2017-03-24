@@ -1,7 +1,7 @@
 /*
  * prtstat.c - Print a processes stat file
  *
- * Copyright (C) 2009-2014 Craig Small
+ * Copyright (C) 2009-2017 Craig Small
  * Based upon a shell script pstat by martin f. krafft <madduck@madduck.net>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -63,7 +63,7 @@ static void usage(const char *errormsg)
 static void print_version(void)
 {
   fprintf(stderr, _("prtstat (PSmisc) %s\n"), VERSION);
-  fprintf(stderr, _( "Copyright (C) 2009 Craig Small\n\n"));
+  fprintf(stderr, _( "Copyright (C) 2009-2017 Craig Small\n\n"));
   fprintf(stderr, _(
 		"PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
 		"This is free software, and you are welcome to redistribute it under\n"

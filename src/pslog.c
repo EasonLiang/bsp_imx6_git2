@@ -1,7 +1,7 @@
 /*
  * pslog.c - print process log paths.
  *
- * Copyright (C) 2015 Vito Mule'
+ * Copyright (C) 2015-2017 Vito Mule'
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,7 +48,7 @@ print_version()
 {
   fprintf(stderr, "pslog (PSmisc) %s\n", VERSION);
   fprintf(stderr,
-    "Copyright (C) 2015-2016 Vito Mule'.\n\n");
+    "Copyright (C) 2015-2017 Vito Mule'.\n\n");
   fprintf(stderr,
     "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
     "This is free software, and you are welcome to redistribute it under\n"
