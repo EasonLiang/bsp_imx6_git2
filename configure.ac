@@ -96,8 +96,8 @@ AC_TYPE_UID_T
 
 # Check that harden CFLAGS and LDFLAGS will compile
 AS_IF([test "$enable_harden_flags" = "yes"],
-  HARDEN_CFLAGS="-g -O2 -fPIE -fstack-protector-strong -Wformat -Werror=format-security"
-  [HARDEN_LDFLAGS="-fPIE -pie -Wl,-z,relro -Wl,-z,now"]
+  HARDEN_CFLAGS="-g -O2 -fstack-protector-strong -Wformat -Werror=format-security"
+  [HARDEN_LDFLAGS="-Wl,-z,relro"]
   [ AC_MSG_CHECKING([compiler supports harden flags])
   save_harden_cflags="$CFLAGS"
   CFLAGS="$CFLAGS $HARDEN_CFLAGS"
