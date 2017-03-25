@@ -834,7 +834,7 @@ static void dump_by_namespace(struct ns_entry *root)
     char buff[14];
 
     for ( ; ptr; ptr = ptr->next) {
-        snprintf(buff, sizeof(buff), "[%li]\n", ptr->number);
+        snprintf(buff, sizeof(buff), "[%li]\n", (long int)ptr->number);
         out_string(buff);
         for (c = ptr->children; c; c = c->next)
             dump_tree(c->child, 0, 1, 1, 1, 0, 0);
