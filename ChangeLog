@@ -1,5 +1,6 @@
 Changes in 23.0
 ===============
+	* pstree: add cgroup namespaces !10
 	* peekfd: Help give long options too !5
 	* killall: correctly report when 32+ procs match !8
 	* prtat: Remove duplicate options in man page !3 Debian #846387
