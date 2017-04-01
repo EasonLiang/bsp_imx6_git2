@@ -518,9 +518,9 @@ kill_all (int signal, int name_count, char **namelist, struct passwd *pwent)
 	    continue;
 
 	/* test for process age, if required */
-	if ( younger_than && process_age_sec && (process_age_sec > younger_than ) )
+	if ( younger_than && (process_age_sec > younger_than ) )
 	    continue;
-	if ( older_than   && process_age_sec && (process_age_sec < older_than ) )
+	if ( older_than   && (process_age_sec < older_than ) )
 	    continue;
 
         got_long = 0;
