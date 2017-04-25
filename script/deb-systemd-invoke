@@ -85,7 +85,7 @@ if ($action eq "start" || $action eq "restart") {
     my $global_exit_code = 0;
     for my $unit (@units) {
         my $unit_installed = 0;
-        my $enabled_output = `/bin/systemctl is-enabled -- $unit`;
+        my $enabled_output = `/bin/systemctl is-enabled -- '$unit'`;
         # matching enabled and enabled-runtime as an installed non static unit
         if ($enabled_output =~ /enabled/) {
             $unit_installed = 1;
