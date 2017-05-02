@@ -1,3 +1,13 @@
+init-system-helpers (1.48) unstable; urgency=medium
+
+  * Team upload
+  * [fbabdc8] Handle units with escaped characters correctly.
+    See
+    https://www.freedesktop.org/software/systemd/man/systemd-escape.html
+    for details. (Closes: #861204)
+
+ -- Bernd Zeimetz <bzed@debian.org>  Tue, 02 May 2017 12:20:21 +0200
+
 init-system-helpers (1.47) unstable; urgency=medium
 
   [ Christian Hofstaedtler ]
