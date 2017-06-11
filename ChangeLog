@@ -1,5 +1,6 @@
 Changes in 23.0
 ===============
+	* killall: better parsing of command names
 	* pstree: add cgroup namespaces !10
 	* peekfd: Help give long options too !5
 	* killall: correctly report when 32+ procs match !8

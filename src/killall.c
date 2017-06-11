@@ -288,36 +288,45 @@ load_process_name_and_age(char *comm, double *process_age_sec,
 {
     FILE *file;
     char *path;
+    char buf[1024];
+    char *startcomm, *endcomm;
+    unsigned lencomm;
     *process_age_sec = 0;
 
     if (asprintf (&path, PROC_BASE "/%d/stat", pid) < 0)
 	return -1;
     if (!(file = fopen (path, "r")))
     {
-	free(path);
-	return -1;
+    free(path);
+    return -1;
     }
     free (path);
-    if (fscanf (file, "%*d (%15[^)]", comm) != 1)
+    if (fgets(buf, 1024, file) == NULL)
     {
-	fclose(file);
-	return -1;
+        fclose(file);
+        return -1;
     }
+    fclose(file);
+    startcomm = strchr(buf, '(') + 1;
+    endcomm = strrchr(startcomm, ')');
+    lencomm = endcomm - startcomm;
+    if (lencomm > 15)
+        lencomm = 15;
+    strncpy(comm, startcomm, lencomm);
+    comm[lencomm] = '\0';
 
+    endcomm += 2; // skip ") "
     if (load_age)
     {
-	rewind(file);
-	unsigned long long proc_stt_jf = 0;
-	if (fscanf(file, "%*d %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %Lu",
-		    &proc_stt_jf) != 1)
-	{
-	    fclose(file);
-	    return -1;
-	}
-	*process_age_sec = process_age(proc_stt_jf);
+        unsigned long long proc_stt_jf = 0;
+        if (sscanf(endcomm, "%*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %Lu",
+                   &proc_stt_jf) != 1)
+        {
+            return -1;
+        }
+        *process_age_sec = process_age(proc_stt_jf);
     }
-    (void) fclose (file);
-    return strlen(comm);
+    return lencomm;
 }
 
 static int
