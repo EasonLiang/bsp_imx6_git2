@@ -1,12 +1,12 @@
 .\"
 .\" Copyright 1993-2002 Werner Almesberger
-.\"           2002-2015 Craig Small
+.\"           2002-2017 Craig Small
 .\" This program is free software; you can redistribute it and/or modify
 .\" it under the terms of the GNU General Public License as published by
 .\" the Free Software Foundation; either version 2 of the License, or
 .\" (at your option) any later version.
 .\"
-.TH KILLALL 1 "2015-07-03" "psmisc" "User Commands"
+.TH KILLALL 1 "2017-06-12" "psmisc" "User Commands"
 .SH NAME
 killall \- kill processes by name
 .SH SYNOPSIS
@@ -17,6 +17,8 @@ killall \- kill processes by name
 .RB [ \-e , \ \-\-exact ]
 .RB [ \-g , \ \-\-process\-group ]
 .RB [ \-i , \ \-\-interactive ]
+.RB [ \-n , \ \-\-ns
+.IR PID ]
 .RB [ \-o , \ \-\-older\-than
 .IR TIME ]
 .RB [ \-q , \ \-\-quiet ]
@@ -98,6 +100,9 @@ the same process group were found.
 Interactively ask for confirmation before killing.
 .IP "\fB\-l\fP, \fB\-\-list\fP"
 List all known signal names.
+.IP "\fB\-n\fP, \fB\-\-ns\fP"
+Match against the PID namespace of the given PID. Use 0 to match against
+all namespaces. The default is to match against the current PID namespace.
 .IP "\fB\-o\fP, \fB\-\-older\-than\fP"
 Match only processes that are older (started before) the time
 specified.  The time is specified as a float then a unit.  The units

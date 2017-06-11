@@ -1,5 +1,6 @@
 Changes in 23.0
 ===============
+	* killall: only use scope of current namespace by default
 	* killall: better parsing of command names
 	* pstree: add cgroup namespaces !10
 	* peekfd: Help give long options too !5
