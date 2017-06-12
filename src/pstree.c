@@ -46,10 +46,6 @@
 #include "i18n.h"
 #include "comm.h"
 
-#ifndef PATH_MAX
-#define PATH_MAX 4096
-#endif /* PATH_MAX */
-
 #ifdef WITH_SELINUX
 #include <selinux/selinux.h>
 #else
@@ -863,7 +859,9 @@ static char* get_threadname(const pid_t pid, const int tid, const char *comm)
 {
     FILE *file;
     char *thread_comm, *endcomm, *threadname;
-    char path[PATH_MAX + 1];
+    char *path = NULL;
+    size_t len = 0;
+    int nbytes;
     char readbuf[BUFSIZ + 1];
 
     if (! (threadname = malloc(COMM_LEN + 2 + 1))) {
@@ -873,8 +871,16 @@ static char* get_threadname(const pid_t pid, const int tid, const char *comm)
         sprintf(threadname, THREAD_FORMAT, COMM_LEN, comm);
         return threadname;
     }
-    if (snprintf(path, PATH_MAX, "%s/%d/task/%d/stat", PROC_BASE, pid, tid) < 0)
-        perror("get_threadname: asprintf");
+    len = snprintf(NULL, 0, "%s/%d/task/%d/stat", PROC_BASE, pid, tid);
+    if (len < 0)
+        exit(2);
+    len++;
+    path = malloc(len);
+    if (path == NULL)
+        exit(2);
+    nbytes = snprintf(path, len, "%s/%d/task/%d/stat", PROC_BASE, pid, tid);
+    if (nbytes < 0 || nbytes >= len)
+        perror("get_threadname: snprintf");
     if ( (file = fopen(path, "r")) != NULL) {
         if (fgets(readbuf, BUFSIZ, file) != NULL) {
             if ((thread_comm = strchr(readbuf, '('))
@@ -883,11 +889,13 @@ static char* get_threadname(const pid_t pid, const int tid, const char *comm)
                 *endcomm = '\0';
                 sprintf(threadname, THREAD_FORMAT, COMM_LEN, thread_comm);
                 (void) fclose(file);
+                free(path);
                 return threadname;
             }
         }
         fclose(file);
     }
+    free(path);
 
     /* Fall back to old method */
     sprintf(threadname, THREAD_FORMAT, COMM_LEN, comm);

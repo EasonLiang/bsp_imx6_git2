@@ -17,7 +17,7 @@ Changes in 23.0
 	* fuser: Fixed typo for  -M flag. Debian #740275
 	* pstree: by default doesn't show threadnames, use -t to show
 	  as it disables compaction. SF [#33] Debian #815902
-	* pstree: PATH_MAX defined for FreeBSD. Debian #750405
+	* pstree: Removed need for PATH_MAX Debian #750405
 	* pstree: ignores disappeared processes. SF [#34]
 	* killall: -o and -y work with -r flags. SF [#64]
 	* m4/gettext.m4: Upgrade to gettext-0.19.4.
