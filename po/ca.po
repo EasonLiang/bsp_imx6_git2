@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc 21.6cvs\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2017-03-25 10:15+1100\n"
+"POT-Creation-Date: 2017-06-12 10:28+1000\n"
 "PO-Revision-Date: 2004-12-08 12:46+0100\n"
 "Last-Translator: Guillem Jover <guillem@debian.org>\n"
 "Language-Team: Catalan <debian-l10n-catalan@lists.debian.org>\n"
@@ -88,17 +88,17 @@ msgstr ""
 msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (psmisc) %s\n"
 
-#: src/fuser.c:170
+#: src/fuser.c:170 src/killall.c:780 src/pstree.c:1134
 #, fuzzy, c-format
 msgid ""
-"Copyright (C) 1993-2010 Werner Almesberger and Craig Small\n"
+"Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
 "Copyright (C) 1993-2002 Werner Almesberger i Craig Small\n"
 "\n"
 
-#: src/fuser.c:172 src/killall.c:726 src/peekfd.c:119 src/prtstat.c:68
-#: src/pstree.c:1125
+#: src/fuser.c:172 src/killall.c:782 src/peekfd.c:119 src/prtstat.c:68
+#: src/pstree.c:1136
 #, c-format
 msgid ""
 "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
@@ -222,42 +222,42 @@ msgstr ""
 msgid "Cannot find socket's device number.\n"
 msgstr "no s'ha pogut trobar el nombre de dispositiu del sòcol"
 
-#: src/killall.c:106
+#: src/killall.c:108
 #, c-format
 msgid "Kill %s(%s%d) ? (y/N) "
 msgstr "Voleu matar %s(%s%d)? (s/N) "
 
-#: src/killall.c:109
+#: src/killall.c:111
 #, fuzzy, c-format
 msgid "Signal %s(%s%d) ? (y/N) "
 msgstr "Voleu matar %s(%s%d)? (s/N) "
 
-#: src/killall.c:216
+#: src/killall.c:254
 #, c-format
 msgid "killall: Cannot get UID from process status\n"
 msgstr ""
 
-#: src/killall.c:251
+#: src/killall.c:289
 #, c-format
 msgid "killall: Bad regular expression: %s\n"
 msgstr ""
 
-#: src/killall.c:396
+#: src/killall.c:443
 #, fuzzy, c-format
 msgid "killall: skipping partial match %s(%d)\n"
 msgstr "s'evitarà la coincidència parcial %s(%d)\n"
 
-#: src/killall.c:626
+#: src/killall.c:679
 #, c-format
 msgid "Killed %s(%s%d) with signal %d\n"
 msgstr "S'ha matat %s(%s%d) amb el senyal %d\n"
 
-#: src/killall.c:645
+#: src/killall.c:698
 #, fuzzy, c-format
 msgid "%s: no process found\n"
 msgstr "%s: no s'ha matat cap procés\n"
 
-#: src/killall.c:687
+#: src/killall.c:740
 #, fuzzy, c-format
 msgid ""
 "Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
@@ -266,12 +266,12 @@ msgid ""
 msgstr ""
 "Forma d'ús: killall [-s sid] [-c context] [ -egiqvw ] [ -senyal ] nom ...\n"
 
-#: src/killall.c:691
+#: src/killall.c:744
 #, fuzzy, c-format
 msgid "Usage: killall [OPTION]... [--] NAME...\n"
 msgstr "Forma d'ús: killall [ OPCIONS ] [ -- ] nom ...\n"
 
-#: src/killall.c:694
+#: src/killall.c:747
 #, fuzzy, c-format
 msgid ""
 "       killall -l, --list\n"
@@ -291,6 +291,8 @@ msgid ""
 "  -v,--verbose        report if the signal was successfully sent\n"
 "  -V,--version        display version information\n"
 "  -w,--wait           wait for processes to die\n"
+"  -n,--ns PID         match processes that belong to the same namespaces\n"
+"                      as PID or 0 for all namespaces\n"
 msgstr ""
 "            killall -l, --list\n"
 "            killall -V --version\n"
@@ -307,7 +309,7 @@ msgstr ""
 "  -w,--wait           espera fins que el procés mori\n"
 "\n"
 
-#: src/killall.c:712
+#: src/killall.c:768
 #, fuzzy, c-format
 msgid ""
 "  -Z,--context REGEXP kill only process(es) having context\n"
@@ -318,35 +320,26 @@ msgstr ""
 "   (-s, -c són mútuament excloents i han de precedir altres arguments)\n"
 "\n"
 
-#: src/killall.c:724
-#, fuzzy, c-format
-msgid ""
-"Copyright (C) 1993-2014 Werner Almesberger and Craig Small\n"
-"\n"
-msgstr ""
-"Copyright (C) 1993-2002 Werner Almesberger i Craig Small\n"
-"\n"
-
-#: src/killall.c:814 src/killall.c:820
+#: src/killall.c:873 src/killall.c:879
 msgid "Invalid time format"
 msgstr ""
 
-#: src/killall.c:840
+#: src/killall.c:899
 #, c-format
 msgid "Cannot find user %s\n"
 msgstr ""
 
-#: src/killall.c:871
+#: src/killall.c:933
 #, c-format
 msgid "Bad regular expression: %s\n"
 msgstr ""
 
-#: src/killall.c:903
+#: src/killall.c:965
 #, fuzzy, c-format
 msgid "killall: Maximum number of names is %d\n"
 msgstr "El nombre màxim de noms és %d\n"
 
-#: src/killall.c:908
+#: src/killall.c:970
 #, fuzzy, c-format
 msgid "killall: %s lacks process entries (not mounted ?)\n"
 msgstr "%s és buit (no s'ha muntat?)\n"
@@ -401,7 +394,7 @@ msgstr "pstree (psmisc) %s\n"
 #: src/prtstat.c:66
 #, fuzzy, c-format
 msgid ""
-"Copyright (C) 2009 Craig Small\n"
+"Copyright (C) 2009-2017 Craig Small\n"
 "\n"
 msgstr ""
 "Copyright (C) 1993-2002 Werner Almesberger i Craig Small\n"
@@ -525,12 +518,12 @@ msgstr ""
 msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
 msgstr ""
 
-#: src/pstree.c:1046
+#: src/pstree.c:1056
 #, c-format
 msgid "%s is empty (not mounted ?)\n"
 msgstr "%s és buit (no s'ha muntat?)\n"
 
-#: src/pstree.c:1082
+#: src/pstree.c:1092
 #, fuzzy, c-format
 msgid ""
 "Usage: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -550,8 +543,8 @@ msgid ""
 "  -l, --long          don't truncate long lines\n"
 "  -n, --numeric-sort  sort output by PID\n"
 "  -N type,\n"
-"  --ns-sort=type      sort by namespace type (ipc, mnt, net, pid, user, "
-"uts)\n"
+"  --ns-sort=type      sort by namespace type (cgroup, ipc, mnt, net, pid,\n"
+"                                              user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 "  -s, --show-parents  show parents of the selected process\n"
 "  -S, --ns-changes    show namespace transitions\n"
@@ -577,7 +570,7 @@ msgstr ""
 "    -p     mostra els PID; implica -c\n"
 "    -u     mostra transicions de uid\n"
 
-#: src/pstree.c:1110
+#: src/pstree.c:1121
 #, fuzzy, c-format
 msgid ""
 "  -Z, --security-context\n"
@@ -586,7 +579,7 @@ msgstr ""
 "    -s     mostra els SID de Flask\n"
 "    -x     mostra els contextes de seguretat de Flask\n"
 
-#: src/pstree.c:1113
+#: src/pstree.c:1124
 #, fuzzy, c-format
 msgid ""
 "  PID    start at this PID; default is 1 (init)\n"
@@ -599,46 +592,37 @@ msgstr ""
 "    user   només mostra arbres amb arrel en processos d'aquest usuari\n"
 "\n"
 
-#: src/pstree.c:1120
+#: src/pstree.c:1131
 #, fuzzy, c-format
 msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (psmisc) %s\n"
 
-#: src/pstree.c:1123
-#, fuzzy, c-format
-msgid ""
-"Copyright (C) 1993-2009 Werner Almesberger and Craig Small\n"
-"\n"
-msgstr ""
-"Copyright (C) 1993-2002 Werner Almesberger i Craig Small\n"
-"\n"
-
-#: src/pstree.c:1239
+#: src/pstree.c:1250
 #, c-format
 msgid "TERM is not set\n"
 msgstr "TERM no està especificada\n"
 
-#: src/pstree.c:1243
+#: src/pstree.c:1254
 #, c-format
 msgid "Can't get terminal capabilities\n"
 msgstr "No s'han pogut obtenir les capacitats\n"
 
-#: src/pstree.c:1261
+#: src/pstree.c:1272
 #, c-format
 msgid "procfs file for %s namespace not available\n"
 msgstr ""
 
-#: src/pstree.c:1314
+#: src/pstree.c:1325
 #, c-format
 msgid "No such user name: %s\n"
 msgstr "No existeix aquest nom d'usuari: %s\n"
 
-#: src/pstree.c:1340
+#: src/pstree.c:1351
 #, c-format
 msgid "No processes found.\n"
 msgstr "No s'han trobat processos.\n"
 
-#: src/pstree.c:1348
+#: src/pstree.c:1359
 #, c-format
 msgid "Press return to close\n"
 msgstr "Premeu retorn per a tancar\n"
@@ -647,6 +631,22 @@ msgstr "Premeu retorn per a tancar\n"
 #, c-format
 msgid "%s: unknown signal; %s -l lists signals.\n"
 msgstr "%s: senyal desconegut. «%s -l» llista els senyals.\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "Copyright (C) 1993-2014 Werner Almesberger and Craig Small\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Copyright (C) 1993-2002 Werner Almesberger i Craig Small\n"
+#~ "\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "Copyright (C) 1993-2009 Werner Almesberger and Craig Small\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Copyright (C) 1993-2002 Werner Almesberger i Craig Small\n"
+#~ "\n"
 
 #, fuzzy
 #~ msgid ""
