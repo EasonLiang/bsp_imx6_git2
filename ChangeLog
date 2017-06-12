@@ -1,5 +1,6 @@
 Changes in 23.0
 ===============
+	* killall: Fix process age race condition !11 Debian #822861
 	* killall: only use scope of current namespace by default
 	* killall: better parsing of command names
 	* pstree: add cgroup namespaces !10
