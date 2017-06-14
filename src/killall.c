@@ -972,7 +972,6 @@ main (int argc, char **argv)
     exit (1);
   }
   argv = argv + myoptind;
-  printf("sending signal %d to procs\n", sig_num);
 #ifdef WITH_SELINUX
   return kill_all(sig_num,argc - myoptind, argv, pwent, 
 		  		scontext ? &scontext_reg : NULL);

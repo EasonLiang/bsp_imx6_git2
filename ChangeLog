@@ -1,3 +1,6 @@
+Changes in 23.1
+===============
+	* killall: Remove debug output Debian: #864753
 Changes in 23.0
 ===============
 	* killall: Fix process age race condition !11 Debian #822861
