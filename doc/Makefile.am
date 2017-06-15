@@ -1,5 +1,5 @@
 
-man_MANS = killall.1 peekfd.1 prtstat.1 pstree.1
+man_MANS = killall.1 peekfd.1 prtstat.1 pslog.1 pstree.1
 EXTRA_MANS = 
 
 if WANT_FUSER

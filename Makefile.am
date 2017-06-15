@@ -74,7 +74,7 @@ nodist_src_killall_SOURCES = signames.h
 
 BUILT_SOURCES = src/signames.h
 
-EXTRA_DIST = src/signames.c
+EXTRA_DIST = src/signames.c README.md
 
 CLEANFILES = src/signames.h
 

@@ -1,6 +1,8 @@
 Changes in 23.1
 ===============
 	* killall: Remove debug output Debian: #864753
+	* docs: distribute pslog.1
+	* docs: distribute README.md Debian: #864752
 Changes in 23.0
 ===============
 	* killall: Fix process age race condition !11 Debian #822861
