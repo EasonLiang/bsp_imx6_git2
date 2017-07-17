@@ -195,9 +195,11 @@ sub insserv_updatercd {
     my $insserv = "/usr/lib/insserv/insserv";
     # Fallback for older insserv package versions [2014-04-16]
     $insserv = "/sbin/insserv" if ( -x "/sbin/insserv");
+    # If insserv is not configured it is not fully installed
+    my $insserv_installed = -x $insserv && -e "/etc/insserv.conf";
     if ("remove" eq $action) {
         system("rc-update", "-qqa", "delete", $scriptname) if ( -x "/sbin/openrc" );
-        if ( ! -x $insserv) {
+        if ( !$insserv_installed ) {
             # We are either under systemd or in a chroot where the link priorities don't matter
             make_sysv_links($scriptname, "remove");
             systemd_reload;
@@ -231,7 +233,7 @@ sub insserv_updatercd {
             cmp_args_with_defaults($scriptname, $action, @args);
         }
 
-        if ( ! -x $insserv) {
+        if ( !$insserv_installed ) {
             # We are either under systemd or in a chroot where the link priorities don't matter
             make_sysv_links($scriptname, "defaults");
             systemd_reload;
@@ -265,7 +267,7 @@ sub insserv_updatercd {
 
         sysv_toggle($notreally, $action, $scriptname, @args);
 
-        if ( ! -x $insserv) {
+        if ( !$insserv_installed ) {
             # We are either under systemd or in a chroot where the link priorities don't matter
             systemd_reload;
             exit 0;
