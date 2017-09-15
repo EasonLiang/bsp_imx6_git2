@@ -19,6 +19,7 @@ sub usage {
 	print STDERR <<EOF;
 usage: update-rc.d [-f] <basename> remove
        update-rc.d [-f] <basename> defaults
+       update-rc.d [-f] <basename> defaults-disabled
        update-rc.d <basename> disable|enable [S|2|3|4|5]
 		-f: force
 
@@ -109,9 +110,10 @@ sub make_sysv_links {
 
     # for "defaults", parse Default-{Start,Stop} and create these links
     my ($lsb_start_ref, $lsb_stop_ref) = parse_def_start_stop("/etc/init.d/$scriptname");
+    my $start = $action = "defaults-disabled" ? "K" : "S";
     foreach my $lvl (@$lsb_start_ref) {
         make_path("/etc/rc$lvl.d");
-        my $l = "/etc/rc$lvl.d/S01$scriptname";
+        my $l = "/etc/rc$lvl.d/${start}01$scriptname";
         symlink("../init.d/$scriptname", $l);
     }
 
@@ -193,6 +195,17 @@ sub create_sequence {
             error("initscript does not exist: /etc/init.d/$scriptname");
         }
     };
+    $sysv_insserv->{defaults_disabled} = sub {
+        my ($scriptname) = @_;
+        return if glob("/etc/rc?.d/[SK][0-9][0-9]$scriptname");
+        if ( -f "/etc/init.d/$scriptname" ) {
+            my $rc = system($insserv, @opts, $scriptname) >> 8;
+            error_code($rc, "insserv rejected the script header") if $rc;
+        } else {
+            error("initscript does not exist: /etc/init.d/$scriptname");
+        }
+        sysv_toggle("disable", $scriptname);
+    };
     $sysv_insserv->{toggle} = sub {
         my ($action, $scriptname) = (shift, shift);
         sysv_toggle($action, $scriptname, @_);
@@ -211,6 +224,10 @@ sub create_sequence {
         my ($scriptname) = @_;
         make_sysv_links($scriptname, "defaults");
     };
+    $sysv_plain->{defaults_disabled} = sub {
+        my ($scriptname) = @_;
+        make_sysv_links($scriptname, "defaults-disabled");
+    };
     $sysv_plain->{toggle} = sub {
         my ($action, $scriptname) = (shift, shift);
         sysv_toggle($action, $scriptname, @_);
@@ -221,6 +238,9 @@ sub create_sequence {
         systemd_reload;
     };
     $systemd->{defaults} = sub {
+        systemd_reload;
+    };
+    $systemd->{defaults_disabled} = sub {
         systemd_reload;
     };
     $systemd->{toggle} = sub {
@@ -247,6 +267,9 @@ sub create_sequence {
         if ( @rls ) {
             system("rc-update", "add", $scriptname, openrc_rlconv(@rls));
         }
+    };
+    $openrc->{defaults_disabled} = sub {
+        # In openrc everything is disabled by default
     };
     $openrc->{toggle} = sub {
         my ($action, $scriptname) = (shift, shift);
@@ -318,6 +341,10 @@ sub main {
         }
         foreach my $init (@sequence) {
             $init->{defaults}->($scriptname);
+        }
+    } elsif ("defaults-disabled" eq $action) {
+        foreach my $init (@sequence) {
+            $init->{defaults_disabled}->($scriptname);
         }
     } elsif ("disable" eq $action || "enable" eq $action) {
         foreach my $init (@sequence) {
