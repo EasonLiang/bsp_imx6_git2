@@ -5,16 +5,13 @@
 update\-rc.d \- install and remove System\-V style init script links
 .SH "SYNOPSIS"
 .B update\-rc.d
-.RI [ \-n ]
 .RI [ \-f ]
 .IB name " remove"
 .HP
 .B update\-rc.d
-.RI [ \-n ]
 .IB name " defaults"
 .HP
 .B update\-rc.d
-.RI [ \-n ]
 .IB name " disable|enable "
 .RI [ " S|2|3|4|5 " ]
 .SH "DESCRIPTION"
@@ -153,9 +150,6 @@ Both of these options only operate on start runlevel links of S, 2,
 keywords, the script will attempt to modify links in all start runlevels.
 
 .SH "OPTIONS"
-.TP 
-.I \-n
-Don't do anything, just show what we would do.
 .TP 
 .I \-f
 Force removal of symlinks even if

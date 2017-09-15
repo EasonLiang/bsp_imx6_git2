@@ -11,17 +11,15 @@ use warnings;
 
 my $initd = "/etc/init.d";
 my $etcd  = "/etc/rc";
-my $notreally = 0;
 
 # Print usage message and die.
 
 sub usage {
 	print STDERR "update-rc.d: error: @_\n" if ($#_ >= 0);
 	print STDERR <<EOF;
-usage: update-rc.d [-n] [-f] <basename> remove
-       update-rc.d [-n] [-f] <basename> defaults
-       update-rc.d [-n] <basename> disable|enable [S|2|3|4|5]
-		-n: not really
+usage: update-rc.d [-f] <basename> remove
+       update-rc.d [-f] <basename> defaults
+       update-rc.d <basename> disable|enable [S|2|3|4|5]
 		-f: force
 
 The disable|enable API is not stable and might change in the future.
@@ -165,13 +163,11 @@ sub main {
     my @opts;
     my $scriptname;
     my $action;
-    my $notreally = 0;
 
     my @orig_argv = @args;
 
     while($#args >= 0 && ($_ = $args[0]) =~ /^-/) {
         shift @args;
-        if (/^-n$/) { push(@opts, $_); $notreally++; next }
         if (/^-f$/) { push(@opts, $_); next }
         if (/^-h|--help$/) { usage(); }
         usage("unknown option");
@@ -249,7 +245,7 @@ sub main {
     } elsif ("disable" eq $action || "enable" eq $action) {
         make_systemd_links($scriptname, $action);
 
-        sysv_toggle($notreally, $action, $scriptname, @args);
+        sysv_toggle($action, $scriptname, @args);
 
         if ( !$insserv_installed ) {
             # We are either under systemd or in a chroot where the link priorities don't matter
@@ -362,7 +358,7 @@ sub cmp_args_with_defaults {
 }
 
 sub sysv_toggle {
-    my ($dryrun, $act, $name) = (shift, shift, shift);
+    my ($act, $name) = (shift, shift);
     my (@toggle_lvls, $start_lvls, $stop_lvls, @symlinks);
     my $lsb_header = lsb_header_for_script($name);
 
@@ -411,11 +407,6 @@ sub sysv_toggle {
             $sk = rindex($cur_lnk, '/K') + 1;
             next if $sk < 1;
             $new_lnk[$sk] = 'S';
-        }
-
-        if ($dryrun) {
-            printf("rename(%s, %s)\n", $cur_lnk, join('', @new_lnk));
-            next;
         }
 
         rename($cur_lnk, join('', @new_lnk)) or error($!);
