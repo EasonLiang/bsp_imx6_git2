@@ -30,14 +30,6 @@ EOF
 
 exit main(@ARGV);
 
-sub save_last_action {
-    # No-op (archive removed)
-}
-
-sub remove_last_action {
-    # No-op (archive removed)
-}
-
 sub info {
     print STDOUT "update-rc.d: @_\n";
 }
@@ -207,9 +199,6 @@ sub main {
         }
         if ( -f "/etc/init.d/$scriptname" ) {
             my $rc = system($insserv, @opts, "-r", $scriptname) >> 8;
-            if (0 == $rc && !$notreally) {
-                remove_last_action($scriptname);
-            }
             error_code($rc, "insserv rejected the script header") if $rc;
             systemd_reload;
             exit $rc;
@@ -217,9 +206,6 @@ sub main {
             # insserv removes all dangling symlinks, no need to tell it
             # what to look for.
             my $rc = system($insserv, @opts) >> 8;
-            if (0 == $rc && !$notreally) {
-                remove_last_action($scriptname);
-            }
             error_code($rc, "insserv rejected the script header") if $rc;
             systemd_reload;
             exit $rc;
@@ -242,9 +228,6 @@ sub main {
 
         if ( -f "/etc/init.d/$scriptname" ) {
             my $rc = system($insserv, @opts, $scriptname) >> 8;
-            if (0 == $rc && !$notreally) {
-                save_last_action($scriptname, @orig_argv);
-            }
             error_code($rc, "insserv rejected the script header") if $rc;
             systemd_reload;
 
@@ -275,9 +258,6 @@ sub main {
 
         # Call insserv to resequence modified links
         my $rc = system($insserv, @opts, $scriptname) >> 8;
-        if (0 == $rc && !$notreally) {
-            save_last_action($scriptname, @orig_argv);
-        }
         error_code($rc, "insserv rejected the script header") if $rc;
         systemd_reload;
         exit $rc;
