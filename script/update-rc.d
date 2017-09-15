@@ -1,4 +1,5 @@
 #! /usr/bin/perl
+# vim: ft=perl
 #
 # update-rc.d	Update the links in /etc/rc[0-9S].d/
 #

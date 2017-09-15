@@ -1,4 +1,5 @@
 #!/bin/sh  
+# vim: ft=sh
 #
 # invoke-rc.d.sysvinit - Executes initscript actions
 #
