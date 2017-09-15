@@ -28,7 +28,7 @@ EOF
 	exit (1);
 }
 
-exit insserv_updatercd(@ARGV);
+exit main(@ARGV);
 
 sub save_last_action {
     # No-op (archive removed)
@@ -167,7 +167,7 @@ sub make_systemd_links {
 }
 
 ## Dependency based
-sub insserv_updatercd {
+sub main {
     my @args = @_;
     my @opts;
     my $scriptname;
