@@ -157,55 +157,156 @@ sub make_systemd_links {
     }
 }
 
+sub create_sequence {
+    my $force = (@_);
+    my $insserv = "/usr/lib/insserv/insserv";
+    # Fallback for older insserv package versions [2014-04-16]
+    $insserv = "/sbin/insserv" if ( -x "/sbin/insserv");
+    # If insserv is not configured it is not fully installed
+    my $insserv_installed = -x $insserv && -e "/etc/insserv.conf";
+    my @opts;
+    push(@opts, '-f') if $force;
+    # Add force flag if initscripts is not installed
+    # This enables inistcripts-less systems to not fail when a facility is missing
+    unshift(@opts, '-f') unless is_initscripts_installed();
+
+    my $openrc_installed = -x "/sbin/openrc";
+
+    my $sysv_insserv ={};
+    $sysv_insserv->{remove} = sub {
+        my ($scriptname) = @_;
+        if ( -f "/etc/init.d/$scriptname" ) {
+            return system($insserv, @opts, "-r", $scriptname) >> 8;
+        } else {
+            # insserv removes all dangling symlinks, no need to tell it
+            # what to look for.
+            my $rc = system($insserv, @opts) >> 8;
+            error_code($rc, "insserv rejected the script header") if $rc;
+        }
+    };
+    $sysv_insserv->{defaults} = sub {
+        my ($scriptname) = @_;
+        if ( -f "/etc/init.d/$scriptname" ) {
+            my $rc = system($insserv, @opts, $scriptname) >> 8;
+            error_code($rc, "insserv rejected the script header") if $rc;
+        } else {
+            error("initscript does not exist: /etc/init.d/$scriptname");
+        }
+    };
+    $sysv_insserv->{toggle} = sub {
+        my ($action, $scriptname) = (shift, shift);
+        sysv_toggle($action, $scriptname, @_);
+
+        # Call insserv to resequence modified links
+        my $rc = system($insserv, @opts, $scriptname) >> 8;
+        error_code($rc, "insserv rejected the script header") if $rc;
+    };
+
+    my $sysv_plain = {};
+    $sysv_plain->{remove} = sub {
+        my ($scriptname) = @_;
+        make_sysv_links($scriptname, "remove");
+    };
+    $sysv_plain->{defaults} = sub {
+        my ($scriptname) = @_;
+        make_sysv_links($scriptname, "defaults");
+    };
+    $sysv_plain->{toggle} = sub {
+        my ($action, $scriptname) = (shift, shift);
+        sysv_toggle($action, $scriptname, @_);
+    };
+
+    my $systemd = {};
+    $systemd->{remove} = sub {
+        systemd_reload;
+    };
+    $systemd->{defaults} = sub {
+        systemd_reload;
+    };
+    $systemd->{toggle} = sub {
+        my ($action, $scriptname) = (shift, shift);
+        make_systemd_links($scriptname, $action);
+        systemd_reload;
+    };
+
+    # Should we check exit codeS?
+    my $openrc = {};
+    $openrc->{remove} = sub {
+        my ($scriptname) = @_;
+        system("rc-update", "-qqa", "delete", $scriptname);
+
+    };
+    $openrc->{defaults} = sub {
+        my ($scriptname) = @_;
+        # OpenRC does not distinguish halt and reboot.  They are handled
+        # by /etc/init.d/transit instead.
+        return if ("halt" eq $scriptname || "reboot" eq $scriptname);
+        # no need to consider default disabled runlevels
+        # because everything is disabled by openrc by default
+        my @rls=script_runlevels($scriptname);
+        if ( @rls ) {
+            system("rc-update", "add", $scriptname, openrc_rlconv(@rls));
+        }
+    };
+    $openrc->{toggle} = sub {
+        my ($action, $scriptname) = (shift, shift);
+        my (@toggle_lvls, $start_lvls, $stop_lvls, @symlinks);
+        my $lsb_header = lsb_header_for_script($scriptname);
+
+        # Extra arguments to disable|enable action are runlevels. If none
+        # given parse LSB info for Default-Start value.
+        if ($#_ >= 0) {
+            @toggle_lvls = @_;
+        } else {
+            ($start_lvls, $stop_lvls) = parse_def_start_stop($lsb_header);
+            @toggle_lvls = @$start_lvls;
+            if ($#toggle_lvls < 0) {
+                error("$scriptname Default-Start contains no runlevels, aborting.");
+            }
+        }
+        my %openrc_act = ( "disable" => "del", "enable" => "add" );
+        system("rc-update", $openrc_act{$action}, $scriptname,
+               openrc_rlconv(@toggle_lvls))
+    };
+
+    my @sequence;
+    if ($openrc_installed) {
+        push @sequence, $openrc;
+    }
+    if ($insserv_installed) {
+        push @sequence, $sysv_insserv;
+    }
+    else {
+        push @sequence, $sysv_plain;
+    }
+    push @sequence, $systemd;
+
+    return @sequence;
+}
+
 ## Dependency based
 sub main {
     my @args = @_;
-    my @opts;
     my $scriptname;
     my $action;
-
-    my @orig_argv = @args;
+    my $force = 0;
 
     while($#args >= 0 && ($_ = $args[0]) =~ /^-/) {
         shift @args;
-        if (/^-f$/) { push(@opts, $_); next }
+        if (/^-f$/) { $force = 1; next }
         if (/^-h|--help$/) { usage(); }
         usage("unknown option");
     }
 
     usage("not enough arguments") if ($#args < 1);
 
-    # Add force flag if initscripts is not installed
-    # This enables inistcripts-less systems to not fail when a facility is missing
-    unshift(@opts, '-f') unless is_initscripts_installed();
+    my @sequence = create_sequence($force);
 
     $scriptname = shift @args;
     $action = shift @args;
-    my $insserv = "/usr/lib/insserv/insserv";
-    # Fallback for older insserv package versions [2014-04-16]
-    $insserv = "/sbin/insserv" if ( -x "/sbin/insserv");
-    # If insserv is not configured it is not fully installed
-    my $insserv_installed = -x $insserv && -e "/etc/insserv.conf";
     if ("remove" eq $action) {
-        system("rc-update", "-qqa", "delete", $scriptname) if ( -x "/sbin/openrc" );
-        if ( !$insserv_installed ) {
-            # We are either under systemd or in a chroot where the link priorities don't matter
-            make_sysv_links($scriptname, "remove");
-            systemd_reload;
-            exit 0;
-        }
-        if ( -f "/etc/init.d/$scriptname" ) {
-            my $rc = system($insserv, @opts, "-r", $scriptname) >> 8;
-            error_code($rc, "insserv rejected the script header") if $rc;
-            systemd_reload;
-            exit $rc;
-        } else {
-            # insserv removes all dangling symlinks, no need to tell it
-            # what to look for.
-            my $rc = system($insserv, @opts) >> 8;
-            error_code($rc, "insserv rejected the script header") if $rc;
-            systemd_reload;
-            exit $rc;
+        foreach my $init (@sequence) {
+            $init->{remove}->($scriptname);
         }
     } elsif ("defaults" eq $action || "start" eq $action ||
              "stop" eq $action) {
@@ -215,49 +316,13 @@ sub main {
         if ("start" eq $action || "stop" eq $action) {
             cmp_args_with_defaults($scriptname, $action, @args);
         }
-
-        if ( !$insserv_installed ) {
-            # We are either under systemd or in a chroot where the link priorities don't matter
-            make_sysv_links($scriptname, "defaults");
-            systemd_reload;
-            exit 0;
-        }
-
-        if ( -f "/etc/init.d/$scriptname" ) {
-            my $rc = system($insserv, @opts, $scriptname) >> 8;
-            error_code($rc, "insserv rejected the script header") if $rc;
-            systemd_reload;
-
-	    # OpenRC does not distinguish halt and reboot.  They are handled
-	    # by /etc/init.d/transit instead.
-            if ( -x "/sbin/openrc" && "halt" ne $scriptname
-                 && "reboot" ne $scriptname ) {
-                # no need to consider default disabled runlevels
-                # because everything is disabled by openrc by default
-		my @rls=script_runlevels($scriptname);
-                system("rc-update", "add", $scriptname, openrc_rlconv(@rls))
-		    if ( @rls );
-            }
-            exit $rc;
-        } else {
-            error("initscript does not exist: /etc/init.d/$scriptname");
+        foreach my $init (@sequence) {
+            $init->{defaults}->($scriptname);
         }
     } elsif ("disable" eq $action || "enable" eq $action) {
-        make_systemd_links($scriptname, $action);
-
-        sysv_toggle($action, $scriptname, @args);
-
-        if ( !$insserv_installed ) {
-            # We are either under systemd or in a chroot where the link priorities don't matter
-            systemd_reload;
-            exit 0;
+        foreach my $init (@sequence) {
+            $init->{toggle}->($action, $scriptname, @args);
         }
-
-        # Call insserv to resequence modified links
-        my $rc = system($insserv, @opts, $scriptname) >> 8;
-        error_code($rc, "insserv rejected the script header") if $rc;
-        systemd_reload;
-        exit $rc;
     } else {
         usage();
     }
@@ -372,12 +437,6 @@ sub sysv_toggle {
         if ($#toggle_lvls < 0) {
             error("$name Default-Start contains no runlevels, aborting.");
         }
-    }
-
-    if ( -x "/sbin/openrc" ) {
-        my %openrc_act = ( "disable" => "del", "enable" => "add" );
-        system("rc-update", $openrc_act{$act}, $name,
-               openrc_rlconv(@toggle_lvls))
     }
 
     # Find symlinks in rc.d directories. Refuse to modify links in runlevels
