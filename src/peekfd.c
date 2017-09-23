@@ -152,6 +152,7 @@ int main(int argc, char **argv)
 	int eight_bit_clean = 0;
 	int no_headers = 0;
 	int follow_forks = 0;
+	int follow_clones = 0;
 	int remove_duplicates = 0;
 	int optc;
     int target_pid = 0;
@@ -190,6 +191,7 @@ int main(int argc, char **argv)
 				break;
 			case 'c':
 				follow_forks = 1;
+				follow_clones = 1;
 				break;
 			case 'd':
 				remove_duplicates = 1;
@@ -258,9 +260,10 @@ int main(int argc, char **argv)
 			ptrace(PTRACE_GETREGS, pid, 0, &regs);
 #endif		
 			/*unsigned int b = ptrace(PTRACE_PEEKTEXT, pid, regs.eip, 0);*/
-			if (follow_forks && (regs.REG_ORIG_ACCUM == SYS_fork || regs.REG_ORIG_ACCUM == SYS_clone)) {
+			if ((follow_forks && regs.REG_ORIG_ACCUM == SYS_fork)
+			 || (follow_clones && regs.REG_ORIG_ACCUM == SYS_clone)) {
 				if (regs.REG_ACCUM > 0)
-					attach(regs.REG_ACCUM);					
+					attach(regs.REG_ACCUM);
 			}
 			if ((regs.REG_ORIG_ACCUM == SYS_read || regs.REG_ORIG_ACCUM == SYS_write) && (regs.REG_PARAM3 == regs.REG_ACCUM)) {
 				for (i = 0; i < numfds; i++)
