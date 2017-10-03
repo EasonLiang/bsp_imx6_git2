@@ -34,6 +34,7 @@
 #include <stdlib.h>
 #include <getopt.h>
 #include <ctype.h>
+#include <dirent.h>
 
 #include "i18n.h"
 
@@ -132,6 +133,7 @@ void usage() {
 	  "    -8, --eight-bit-clean        output 8 bit clean streams.\n"
 	  "    -n, --no-headers             don't display read/write from fd headers.\n"
 	  "    -c, --follow                 peek at any new child processes too.\n"
+	  "    -t, --tgid                   peek at all threads where tgid equals <pid>.\n"
 	  "    -d, --duplicates-removed     remove duplicate read/writes from the output.\n"
 	  "    -V, --version                prints version info.\n"
 	  "    -h, --help                   prints this help.\n"
@@ -153,6 +155,7 @@ int main(int argc, char **argv)
 	int no_headers = 0;
 	int follow_forks = 0;
 	int follow_clones = 0;
+	int tgid = 0;
 	int remove_duplicates = 0;
 	int optc;
     int target_pid = 0;
@@ -164,6 +167,7 @@ int main(int argc, char **argv)
       {"eight-bit-clean", 0, NULL, '8'},
       {"no-headers", 0, NULL, 'n'},
       {"follow", 0, NULL, 'c'},
+      {"tgid", 0, NULL, 't'},
       {"duplicates-removed", 0, NULL, 'd'},
       {"help", 0, NULL, 'h'},
       {"version", 0, NULL, 'V'},
@@ -181,7 +185,7 @@ int main(int argc, char **argv)
 		return 1;
 	}
 
-	while ((optc = getopt_long(argc, argv, "8ncdhV",options, NULL)) != -1) {
+	while ((optc = getopt_long(argc, argv, "8nctdhV", options, NULL)) != -1) {
 		switch(optc) {
 			case '8':
 				eight_bit_clean = 1;
@@ -191,6 +195,10 @@ int main(int argc, char **argv)
 				break;
 			case 'c':
 				follow_forks = 1;
+				follow_clones = 1;
+				break;
+			case 't':
+				tgid = 1;
 				follow_clones = 1;
 				break;
 			case 'd':
@@ -220,12 +228,31 @@ int main(int argc, char **argv)
     }
 
 	attach(target_pid);
+
+	if (tgid) {
+		DIR *taskdir;
+		struct dirent *dt;
+		char taskpath[24];
+
+		snprintf(taskpath, 24, "/proc/%d/task", target_pid);
+
+		if ((taskdir = opendir(taskpath)) != 0) {
+			while ((dt = readdir(taskdir)) != NULL) {
+				int thread = atoi(dt->d_name);
+				if ((thread != 0) && (thread != target_pid))
+					attach(thread);
+			}
+			closedir(taskdir);
+		}
+	}
+
 	if (num_attached_pids == 0)
 		return 1;
 
 	signal(SIGINT, detach);
 
-	ptrace(PTRACE_SYSCALL, attached_pids[0], 0, 0);
+	for (i = 0; i < num_attached_pids; i++)
+		ptrace(PTRACE_SYSCALL, attached_pids[i], 0, 0);
 
 	/*int count = 0;*/
 	int lastfd = numfds > 0 ? fds[0] : 0;
@@ -273,8 +300,12 @@ int main(int argc, char **argv)
 					if ((int)regs.REG_PARAM1 != lastfd || (int)regs.REG_ORIG_ACCUM != lastdir) {
 						lastfd = regs.REG_PARAM1;
 						lastdir = regs.REG_ORIG_ACCUM;
-						if (!no_headers)
-							printf("\n%sing fd %i:\n", regs.REG_ORIG_ACCUM == SYS_read ? "read" : "writ", lastfd);
+						if (!no_headers) {
+							printf("\n%sing fd %i", regs.REG_ORIG_ACCUM == SYS_read ? "read" : "writ", lastfd);
+							if (tgid)
+								printf(" (thread %d)", pid);
+							printf(":\n");
+						}
 					}
 					if (!remove_duplicates || lastbuf == NULL
 							||  last_buf_size != regs.REG_PARAM3 || 
