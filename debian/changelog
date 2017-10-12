@@ -13,7 +13,8 @@ init-system-helpers (1.49) unstable; urgency=low
   * Bump Standards-Version
 
   [ Iain Lane ]
-  * invoke-rc.d: Pass --full to `systemctl status', so we don't get ellipsised output.
+  * invoke-rc.d: Pass --full to `systemctl status', so we don't get ellipsised
+    output.
 
   [ Michael Biebl ]
   * Drop support for upstart
