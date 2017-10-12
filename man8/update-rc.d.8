@@ -12,6 +12,9 @@ update\-rc.d \- install and remove System\-V style init script links
 .IB name " defaults"
 .HP
 .B update\-rc.d
+.IB name " defaults-disabled"
+.HP
+.B update\-rc.d
 .IB name " disable|enable "
 .RI [ " S|2|3|4|5 " ]
 .SH "DESCRIPTION"
@@ -55,6 +58,17 @@ that point to the script
 .BR /etc/init.d/ \fIname\fR,
 using runlevel and dependency information from the init.d script LSB
 comment header.
+
+When run with the
+.BR defaults\-disabled
+option,
+.B update\-rc.d
+makes links named
+.BI /etc/rc runlevel .d/K NNname
+that point to the script
+.BR /etc/init.d/ \fIname\fR,
+using dependency information from the init.d script LSB comment header.
+This means that the init.d script will be disabled (see below).
 
 If any files named
 .BI /etc/rc runlevel .d/[SK]?? name
