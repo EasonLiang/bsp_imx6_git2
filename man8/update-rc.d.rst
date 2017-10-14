@@ -1,79 +1,95 @@
-.\" Hey, Emacs!  This is an -*- nroff -*- source file.
-.\" Authors: Ian Jackson, Miquel van Smoorenburg
-.TH "UPDATE\-RC.D" "8" "14 November 2005" "Debian Project" "sysv-rc"
-.SH "NAME"
-update\-rc.d \- install and remove System\-V style init script links
-.SH "SYNOPSIS"
-.B update\-rc.d
-.RI [ \-f ]
-.IB name " remove"
-.HP
-.B update\-rc.d
-.IB name " defaults"
-.HP
-.B update\-rc.d
-.IB name " defaults-disabled"
-.HP
-.B update\-rc.d
-.IB name " disable|enable "
-.RI [ " S|2|3|4|5 " ]
-.SH "DESCRIPTION"
-.B update\-rc.d
-updates the System V style init script links
-.BI /etc/rc runlevel .d/ NNname
+===================
+ invoke-rc.d
+===================
+
+---------------------------------------------------------
+install and remove System-V style init script links
+---------------------------------------------------------
+
+:Manual section: 8
+:Manual group: Debian GNU/Linux
+:Author:
+    Ian Jackson,
+    Miquel van Smoorenburg
+
+:Version:   14 November 2005
+:Copyright: 2001 Hernique Holschuh
+:Licence:   GNU Public Licence v2 or Later (GPLv2+)
+
+
+SYNOPSIS
+=========
+
+``update-rc.d`` [*-f*] *name* ``remove``
+
+``update-rc.d`` *name* ``defaults``
+
+``update-rc.d`` *name* ``defaults-disabled``
+
+``update-rc.d`` *name* ``disable|enable`` [ *S|2|3|4|5* ]
+
+
+DESCRIPTION
+===========
+
+``update-rc.d`` updates the System V style init script links
+``/etc/rc``\ *runlevel*\ ``.d/``\ *NNname*
 whose target is the script
-.BI /etc/init.d/ name \fR.
+``/etc/init.d/``\ *name*.
 These links are run by
-.B init
+``init``
 when it changes runlevels; they are generally used to start and stop
 system services such as daemons.
-.I runlevel
+*runlevel*
 is one of the runlevels supported by
-.BR init ", namely, " 0123456789S ", and "
-.I NN
-is the two\-digit sequence number that determines where in the sequence
-.B init
+``init``, namely, ``0123456789S``, and
+*NN*
+is the two-digit sequence number that determines where in the sequence
+``init``
 will run the scripts.
 
 This manpage documents only the usage and behaviour of
-.BR update\-rc.d .
+``update-rc.d``.
 For a discussion of the System V style init script arrangements please
 see
-.BR init (8)
+``init``\(8)
 and the
-.IR "Debian Policy Manual" .
+*Debian Policy Manual*.
 
-.SH "INSTALLING INIT SCRIPT LINKS"
-update\-rc.d requires dependency and runlevel information to be
+
+INSTALLING INIT SCRIPT LINKS
+============================
+
+update-rc.d requires dependency and runlevel information to be
 provided in the init.d script LSB comment header of all init.d scripts.
 See the insserv(8) manual page for details about the LSB header format.
 
 When run with the
-.BR defaults
+``defaults``
 option,
-.B update\-rc.d
+``update-rc.d``
 makes links named
-.BI /etc/rc runlevel .d/[SK] NNname
+``/etc/rc``\ *runlevel*\ ``.d/[SK]``\ *NNname*
 that point to the script
-.BR /etc/init.d/ \fIname\fR,
+``/etc/init.d/``\ *name*,
 using runlevel and dependency information from the init.d script LSB
 comment header.
 
 When run with the
-.BR defaults\-disabled
+``defaults-disabled``
 option,
-.B update\-rc.d
+``update-rc.d``
 makes links named
-.BI /etc/rc runlevel .d/K NNname
+``/etc/rc``\ *runlevel*\ ``.d/K``\ *NNname*
 that point to the script
-.BR /etc/init.d/ \fIname\fR,
+``/etc/init.d/``\ *name*,
 using dependency information from the init.d script LSB comment header.
 This means that the init.d script will be disabled (see below).
 
 If any files named
-.BI /etc/rc runlevel .d/[SK]?? name
+``/etc/rc``\ *runlevel*\ ``.d/[SK]??``\ *name*
 already exist then
-.B update\-rc.d
+``update-rc.d``
 does nothing.
 The program was written this way so that it will never
 change an existing configuration, which may have been
@@ -81,79 +97,82 @@ customized by the system administrator.
 The program will only install links if none are present,
 i.e.,
 if it appears that the service has never been installed before.
-.P
+
 Older versions of
-.B update\-rc.d
+``update-rc.d``
 also supported
-.BR start
+``start``
 and
-.BR stop
+``stop``
 options.  These options are no longer supported, and are now
 equivalent to the
-.BR defaults
+``defaults``
 option.
-.P
+
 A common system administration error is to delete the links
 with the thought that this will "disable" the service, i.e.,
 that this will prevent the service from being started.
 However, if all links have been deleted then the next time
 the package is upgraded, the package's
-.I postinst
+*postinst*
 script will run
-.B update\-rc.d
+``update-rc.d``
 again and this will reinstall links at their factory default locations.
 The correct way to disable services is to configure the
 service as stopped in all runlevels in which it is started by default.
 In the System V init system this means renaming
 the service's symbolic links
-from
-.B S
-to
-.BR K .
+from ``S`` to ``K``.
 .P
 The script
 .BI /etc/init.d/ name
 must exist before
-.B update\-rc.d
+``update-rc.d``
 is run to create the links.
-.SH "REMOVING SCRIPTS"
+
+REMOVING SCRIPTS
+================
+
 When invoked with the
-.I remove
-option, update\-rc.d removes any links in the
-.BI /etc/rc runlevel .d
+*remove*
+option, update-rc.d removes any links in the
+``/etc/rc``\ *runlevel*\ ``.d``
 directories to the script
-.BI /etc/init.d/ name\fR.
+``/etc/init.d/``\ *name*.
 The script must have been deleted already.
 If the script is still present then
-.B update\-rc.d
+``update-rc.d``
 aborts with an error message.
 .P
-.B update\-rc.d
-is usually called from a package's post\-removal script when that
+``update-rc.d``
+is usually called from a package's post-removal script when that
 script is given the
-.B purge
+``purge``
 argument.
 Any files in the
-.BI /etc/rc runlevel .d
+``/etc/rc``\ *runlevel*\ ``.d``
 directories that are not symbolic links to the script
-.BI /etc/init.d/ name
+``/etc/init.d/``\ *name*
 will be left untouched.
-.SH "DISABLING INIT SCRIPT START LINKS"
+
+DISABLING INIT SCRIPT START LINKS
+=================================
+
 When run with the
-.BR disable " [ " S|2|3|4|5 " ] "
+``disable`` [ *S|2|3|4|5* ]
 options,
-.B update\-rc.d
+``update-rc.d``
 modifies existing runlevel links for the script
-.BR /etc/init.d/ \fIname\fR
+``/etc/init.d/``\ *name*
 by renaming start links to stop links with a sequence number equal
 to the difference of 100 minus the original sequence number.
-.P
+
 When run with the
-.BR enable " [ " S|2|3|4|5 " ] "
+``enable`` [ *S|2|3|4|5* ]
 options,
-.B update\-rc.d
+``update-rc.d``
 modifies existing runlevel links for the script
-.BR /etc/init.d/ \fIname\fR
+``/etc/init.d/``\ *name*
 by renaming stop links to start links with a sequence number equal
 to the positive difference of current sequence number minus 100, thus
 returning to the original sequence number that the script had been
@@ -163,61 +182,69 @@ Both of these options only operate on start runlevel links of S, 2,
 3, 4 or 5. If no start runlevel is specified after the disable or enable
 keywords, the script will attempt to modify links in all start runlevels.
 
-.SH "OPTIONS"
-.TP 
-.I \-f
-Force removal of symlinks even if
-.BI /etc/init.d/ name
-still exists.
-.SH "EXAMPLES"
+
+OPTIONS
+=======
+
+-f
+    Force removal of symlinks even if
+    ``/etc/init.d/``\ *name*
+    still exists.
+
+EXAMPLES
+========
+
 Insert links using the defaults:
-.nf 
-.B "   update\-rc.d foobar defaults"
+
+    ``update-rc.d foobar defaults``
+
 The equivalent dependency header would have start and stop
 dependencies on $remote_fs and $syslog, and start in
-runlevels 2\-5 and stop in runlevels 0, 1 and 6.
-.fi 
+runlevels 2-5 and stop in runlevels 0, 1 and 6.
+
+
 Remove all links for a script (assuming foobar has been deleted
 already):
-.nf 
-.B "   update\-rc.d foobar remove"
-.fi 
-Example of disabling a service:
-.nf 
-.B "   update\-rc.d foobar disable"
-.fi 
-Example of a command for installing a system initialization\-and\-shutdown script:
-.nf
-.B "   update\-rc.d foobar defaults"
-.fi 
-Example of a command for disabling a system initialization\-and\-shutdown script:
-.nf 
-.B "   update\-rc.d foobar disable"
-.fi 
 
-.SH "BUGS"
-See http://bugs.debian.org/sysv\-rc.
-.SH "FILES"
-.TP 
-.B /etc/init.d/
-The directory containing the actual init scripts.
-.TP 
-.B /etc/rc?.d/
-The directories containing the links used by
-.BR init
-and managed by
-.BR update\-rc.d .
-.TP 
-.B /etc/init.d/skeleton
-Model for use by writers of
-.B init.d
-scripts.
-.SH "SEE ALSO"
-.IR "Debian Policy Manual" ,
-.br 
-.BR /etc/init.d/skeleton ,
-.br 
-.BR insserv (8),
-.BR sysv\-rc\-conf (8),
-.BR bum (8),
-.BR init (8).
+    ``update-rc.d foobar remove``
+
+Example of disabling a service:
+
+    ``update-rc.d foobar disable``
+
+Example of a command for installing a system initialization-and-shutdown script:
+
+    ``update-rc.d foobar defaults``
+
+Example of a command for disabling a system initialization-and-shutdown script:
+
+    ``update-rc.d foobar disable``
+
+BUGS
+====
+
+See http://bugs.debian.org/sysv-rc.
+
+FILES
+=====
+
+
+``/etc/init.d/``
+    The directory containing the actual init scripts.
+
+``/etc/rc?.d/``
+    The directories containing the links used by ``init``
+    and managed by ``update-rc.d .``
+
+``/etc/init.d/skeleton``
+    Model for use by writers of ``init.d`` scripts.
+
+SEE ALSO
+========
+
+| *Debian Policy Manual*,
+| ``/etc/init.d/skeleton``,
+| ``insserv``\(8),
+| ``sysv-rc-conf``\(8),
+| ``bum``\(8),
+| ``init``\(8)
