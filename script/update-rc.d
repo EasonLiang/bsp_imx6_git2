@@ -110,7 +110,7 @@ sub make_sysv_links {
 
     # for "defaults", parse Default-{Start,Stop} and create these links
     my ($lsb_start_ref, $lsb_stop_ref) = parse_def_start_stop("/etc/init.d/$scriptname");
-    my $start = $action = "defaults-disabled" ? "K" : "S";
+    my $start = $action eq "defaults-disabled" ? "K" : "S";
     foreach my $lvl (@$lsb_start_ref) {
         make_path("/etc/rc$lvl.d");
         my $l = "/etc/rc$lvl.d/${start}01$scriptname";
