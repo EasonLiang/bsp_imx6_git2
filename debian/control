@@ -48,7 +48,6 @@ Section: metapackages
 Architecture: any
 Priority: important
 XB-Important: yes
-Multi-Arch: foreign
 Pre-Depends: systemd-sysv [linux-any] ${alt:sysvinit},
 Depends: init-system-helpers (>= 1.25),
          ${misc:Depends},
