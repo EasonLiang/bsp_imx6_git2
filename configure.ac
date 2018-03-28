@@ -5,6 +5,7 @@ AC_CONFIG_SRCDIR(libtaku/taku-tile.c)
 
 AM_INIT_AUTOMAKE(subdir-objects)
 AM_CONFIG_HEADER(config.h)
+AM_SILENT_RULES([yes])
 
 AC_PROG_CPP
 AC_PROG_CC
