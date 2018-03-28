@@ -1,6 +1,5 @@
 AC_PREREQ(2.52)
 AC_INIT(matchbox-desktop, 2.2)
-AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR(libtaku/taku-tile.c)
 
 AM_INIT_AUTOMAKE(subdir-objects)
