@@ -50,6 +50,10 @@
 	#define REG_PARAM2 rsi
 	#define REG_PARAM3 rdx
 #elif PPC
+	#if !defined(__WORDSIZE)
+	#include <bits/reg.h>
+	#endif
+
 	#define REG_ORIG_ACCUM gpr[0]
 	#define REG_ACCUM gpr[3]
 	#define REG_PARAM1 orig_gpr3
