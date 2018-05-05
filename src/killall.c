@@ -2,7 +2,7 @@
  * killall.c - kill processes by name or list PIDs
  *
  * Copyright (C) 1993-2002 Werner Almesberger
- * Copyright (C) 2002-2017 Craig Small
+ * Copyright (C) 2002-2018 Craig Small
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -761,7 +761,7 @@ usage (const char *msg)
     "  -V,--version        display version information\n"
     "  -w,--wait           wait for processes to die\n"
     "  -n,--ns PID         match processes that belong to the same namespaces\n"
-    "                      as PID or 0 for all namespaces\n"));
+    "                      as PID\n"));
 
 #ifdef WITH_SELINUX
   fprintf(stderr, _(
@@ -830,7 +830,6 @@ main (int argc, char **argv)
     {"version", 0, NULL, 'V'},
     {0,0,0,0 }};
 
-  opt_ns_pid = getpid();
 
   /* Setup the i18n */
 #ifdef ENABLE_NLS
@@ -924,6 +923,8 @@ main (int argc, char **argv)
       break;
     case 'n':
       opt_ns_pid = atoi(optarg);
+      if (opt_ns_pid == 0)
+          usage(_("Invalid namespace PID"));
       break;
 #ifdef WITH_SELINUX
     case 'Z': 

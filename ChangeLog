@@ -1,3 +1,6 @@
+Changes in 23.2
+===============
+	* killall: look at all namespaces by default
 Changes in 23.1
 ===============
 	* killall: Remove debug output Debian: #864753
