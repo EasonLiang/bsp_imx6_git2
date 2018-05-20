@@ -2,7 +2,7 @@
  * comm.h - command name length definition 
  *
  * Copyright 1995 Werner Almesberger
- * Copyright 2012 Craig Small <csmall@enc.com.au>
+ * Copyright 2012-2018 Craig Small <csmall@enc.com.au>
  *
  *
  * This program is free software; you can redistribute it and/or modify
@@ -31,6 +31,6 @@
  * COMM_LEN should be the same size as TASK_COMM_LEN in the Linux source
  * at include/linux/sched.h
  */
-#define COMM_LEN 16
+#define COMM_LEN 64
 
 #endif
