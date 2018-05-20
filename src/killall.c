@@ -803,6 +803,7 @@ main (int argc, char **argv)
   int sig_num;
   int optc;
   int myoptind;
+  int skip_error=0;
   struct passwd *pwent = NULL;
   char yt[16];
   char ot[16];
@@ -911,6 +912,7 @@ main (int argc, char **argv)
         ignore_case = 1;
       } else {
 	      sig_num = get_signal (argv[optind]+1, "killall");
+          skip_error=1;
       }
       break;
     case 'V':
@@ -948,7 +950,10 @@ main (int argc, char **argv)
         if (argv[optind-1][1] >= '0' && argv[optind-1][1] <= '9') {
           sig_num = atoi(argv[optind-1]+1);
         } else {
-          usage(NULL);
+            if (skip_error)
+                skip_error=0;
+            else
+                usage(NULL);
         }
       }
       break;
