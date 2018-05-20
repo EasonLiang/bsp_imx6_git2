@@ -104,8 +104,9 @@ typedef struct mntinfo_s {
 #define NAMESPACE_TCP 1
 #define NAMESPACE_UDP 2
 
-#define MAX_PATHNAME 200
-#define MAX_CMDNAME 16
+#ifndef PATH_MAX
+#define PATH_MAX 4096
+#endif /* PATH_MAX */
 
 #define KNFSD_EXPORTS "/proc/fs/nfs/exports"
 #define PROC_MOUNTS "/proc/mounts"

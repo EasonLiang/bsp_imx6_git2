@@ -60,6 +60,7 @@
 #include "signals.h"
 #include "i18n.h"
 #include "timeout.h"
+#include "comm.h"
 
 //#define DEBUG 1
 
@@ -396,13 +397,13 @@ add_matched_proc(struct names *name_list, const pid_t pid, const uid_t uid,
 	if ((asprintf(&pathname, "/proc/%d/stat", pid) > 0) &&
 	    ((fp = fopen(pathname, "r")) != NULL) &&
 	    (fscanf(fp, "%*d (%100[^)]", cmdname) == 1))
-		if ((pptr->command = (char *)malloc(MAX_CMDNAME + 1)) != NULL) {
+		if ((pptr->command = (char *)malloc(COMM_LEN + 1)) != NULL) {
 			cmdlen = 0;
-			for (cptr = cmdname; cmdlen < MAX_CMDNAME && *cptr;
+			for (cptr = cmdname; cmdlen < COMM_LEN && *cptr;
 			     cptr++) {
 				if (isprint(*cptr))
 					pptr->command[cmdlen++] = *cptr;
-				else if (cmdlen < (MAX_CMDNAME - 4))
+				else if (cmdlen < (COMM_LEN - 4))
 					cmdlen +=
 					    sprintf(&(pptr->command[cmdlen]),
 						    "\\%03o", *cptr);
@@ -1551,17 +1552,22 @@ check_dir(const pid_t pid, const char *dirname, struct device_list *dev_head,
 	struct device_list *dev_tmp;
 	struct unixsocket_list *sock_tmp;
 	struct stat st, lst;
-	char dirpath[MAX_PATHNAME];
-	char filepath[MAX_PATHNAME];
+	char *dirpath;
+	char filepath[PATH_MAX];
 
-	snprintf(dirpath, MAX_PATHNAME, "/proc/%d/%s", pid, dirname);
-	if ((dirp = opendir(dirpath)) == NULL)
+	if (asprintf(&dirpath, "/proc/%d/%s", pid, dirname) < 0)
+        return;
+	if ((dirp = opendir(dirpath)) == NULL) {
+        free(dirpath);
 		return;
+    }
+    free(dirpath);
+
 	while ((direntry = readdir(dirp)) != NULL) {
 		if (direntry->d_name[0] < '0' || direntry->d_name[0] > '9')
 			continue;
 
-		snprintf(filepath, MAX_PATHNAME, "/proc/%d/%s/%s",
+		snprintf(filepath, sizeof filepath - 1, "/proc/%d/%s/%s",
 			 pid, dirname, direntry->d_name);
 
 		if (timeout(thestat, filepath, &st, 5) != 0) {
@@ -1634,7 +1640,7 @@ check_map(const pid_t pid, const char *filename,
 	  struct device_list *dev_head, struct inode_list *ino_head,
 	  const uid_t uid, const char access)
 {
-	char pathname[MAX_PATHNAME];
+	char *pathname;
 	char line[BUFSIZ];
 	struct inode_list *ino_tmp;
 	struct device_list *dev_tmp;
@@ -1643,9 +1649,13 @@ check_map(const pid_t pid, const char *filename,
 	unsigned int tmp_maj, tmp_min;
 	dev_t tmp_device;
 
-	snprintf(pathname, MAX_PATHNAME, "/proc/%d/%s", pid, filename);
-	if ((fp = fopen(pathname, "r")) == NULL)
+	if (asprintf(&pathname, "/proc/%d/%s", pid, filename) < 0)
+        return;
+	if ((fp = fopen(pathname, "r")) == NULL) {
+        free(pathname);
 		return;
+    }
+    free(pathname);
 	while (fgets(line, BUFSIZ, fp)) {
 		if (sscanf(line, "%*s %*s %*s %x:%x %lld",
 			   &tmp_maj, &tmp_min, &tmp_inode) == 3) {
@@ -1668,13 +1678,16 @@ check_map(const pid_t pid, const char *filename,
 
 static uid_t getpiduid(const pid_t pid)
 {
-	char pathname[MAX_PATHNAME];
+	char *pathname;
 	struct stat st;
 
-	if (snprintf(pathname, MAX_PATHNAME, "/proc/%d", pid) < 0)
+	if (asprintf(&pathname, "/proc/%d", pid) < 0)
 		return 0;
-	if (timeout(thestat, pathname, &st, 5) != 0)
+	if (timeout(thestat, pathname, &st, 5) != 0) {
+        free(pathname);
 		return 0;
+    }
+    free(pathname);
 	return st.st_uid;
 }
 
@@ -2007,7 +2020,7 @@ static void clear_mntinfo(void)
 
 static void init_mntinfo(void)
 {
-	char mpoint[PATH_MAX*4 + 1]; // octal escaping takes 4 chars per 1 char
+	char mpoint[PATH_MAX *4 + 1]; // octal escaping takes 4 chars per 1 char
 	int mid, parid, max = 0;
 	uint maj, min;
 	list_t sort;
