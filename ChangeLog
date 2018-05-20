@@ -1,5 +1,6 @@
 Changes in 23.2
 ===============
+	* buildsys: signals.c depends on signames.h !16
 	* killall: look at all namespaces by default
 	* killall: Fix -INT option parsing #11
 	* killall: change to getopt_long without _only #12

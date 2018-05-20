@@ -89,6 +89,8 @@ src/signames.h: src/signames.c Makefile
 		grep '^{ 1,"HUP" },$$' $@ >/dev/null || \
 		  { rm -f $@; exit 1; }
 
+src/signals.c: src/signames.h
+
 install-exec-hook:
 		cd $(DESTDIR)$(bindir) && \
 			( [ -h pstree.x11 ]  || $(LN_S) pstree pstree.x11)
