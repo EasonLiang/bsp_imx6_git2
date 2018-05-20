@@ -2,6 +2,7 @@ Changes in 23.2
 ===============
 	* killall: look at all namespaces by default
 	* killall: Fix -INT option parsing #11
+	* killall: change to getopt_long without _only #12
 Changes in 23.1
 ===============
 	* killall: Remove debug output Debian: #864753

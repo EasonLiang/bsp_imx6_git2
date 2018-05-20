@@ -855,9 +855,9 @@ main (int argc, char **argv)
 
   opterr = 0;
 #ifdef WITH_SELINUX
-  while ( (optc = getopt_long_only(argc,argv,"egy:o:ilqrs:u:vwZ:VIn:",options,NULL)) != -1) {
+  while ( (optc = getopt_long(argc,argv,"egy:o:ilqrs:u:vwZ:VIn:",options,NULL)) != -1) {
 #else
-  while ( (optc = getopt_long_only(argc,argv,"egy:o:ilqrs:u:vwVIn:",options,NULL)) != -1) {
+  while ( (optc = getopt_long(argc,argv,"egy:o:ilqrs:u:vwVIn:",options,NULL)) != -1) {
 #endif
     switch (optc) {
     case 'e':
