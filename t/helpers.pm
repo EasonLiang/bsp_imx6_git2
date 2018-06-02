@@ -13,13 +13,18 @@ sub bind_mount_tmp {
 }
 
 # In a new mount namespace, bindmount tmpdirs on /etc/systemd,
-# /lib/systemd, and /var/lib/systemd to start with clean state
-# yet use the actual locations and code paths.
+# /lib/systemd/system, and /var/lib/systemd to start with clean state
+# yet use the actual locations and code paths.  The test harnesses use
+# systemctl which is linked to /lib/systemd/libsystemd-shared-$ver.so,
+# thus do not bindmount a tmpdir on /lib/systemd.
 sub test_setup() {
     unless ($ENV{'TEST_ON_REAL_SYSTEM'}) {
         my $etc_systemd = bind_mount_tmp('/etc/systemd');
-        my $lib_systemd = bind_mount_tmp('/lib/systemd');
+        my $lib_systemd_system = bind_mount_tmp('/lib/systemd/system');
         my $var_lib_systemd = bind_mount_tmp('/var/lib/systemd');
+
+        # Tell `systemctl` to do not speak with the world outside our namespace.
+        $ENV{'SYSTEMCTL_INSTALL_CLIENT_SIDE'} = '1'
     }
 }
 
