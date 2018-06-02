@@ -1,8 +1,4 @@
 use File::Temp qw(tempdir); # in core since perl 5.6.1
-use Linux::Clone; # neither in core nor in Debian :-/
-
-my $retval = Linux::Clone::unshare Linux::Clone::NEWNS;
-BAIL_OUT("Cannot unshare(NEWNS): $!") if $retval != 0;
 
 sub bind_mount_tmp {
     my ($dir) = @_;
@@ -19,6 +15,11 @@ sub bind_mount_tmp {
 # thus do not bindmount a tmpdir on /lib/systemd.
 sub test_setup() {
     unless ($ENV{'TEST_ON_REAL_SYSTEM'}) {
+        use Linux::Clone; # neither in core nor in Debian :-/
+
+        my $retval = Linux::Clone::unshare Linux::Clone::NEWNS;
+        BAIL_OUT("Cannot unshare(NEWNS): $!") if $retval != 0;
+
         my $etc_systemd = bind_mount_tmp('/etc/systemd');
         my $lib_systemd_system = bind_mount_tmp('/lib/systemd/system');
         my $var_lib_systemd = bind_mount_tmp('/var/lib/systemd');
