@@ -20,6 +20,16 @@ sub test_setup() {
         my $retval = Linux::Clone::unshare Linux::Clone::NEWNS;
         BAIL_OUT("Cannot unshare(NEWNS): $!") if $retval != 0;
 
+        # Make sure that the tests do not clutter the system by
+        # remounting the root filesystem read-only.
+        system("mount -n -o bind,ro / /") == 0
+            or BAIL_OUT("bind-mounting / read-only failed: $!");
+
+        # We still need to be able to create temporary files and
+        # directories: mount a tmpfs on /tmp.
+        system("mount -n -t tmpfs tmpfs /tmp") == 0
+            or BAIL_OUT("mounting tmpfs on /tmp failed: $!");
+
         my $etc_systemd = bind_mount_tmp('/etc/systemd');
         my $lib_systemd_system = bind_mount_tmp('/lib/systemd/system');
         my $var_lib_systemd = bind_mount_tmp('/var/lib/systemd');
