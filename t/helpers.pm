@@ -32,6 +32,7 @@ sub test_setup() {
 
         my $etc_systemd = bind_mount_tmp('/etc/systemd');
         my $lib_systemd_system = bind_mount_tmp('/lib/systemd/system');
+        my $lib_systemd_user = bind_mount_tmp('/usr/lib/systemd/user');
         my $var_lib_systemd = bind_mount_tmp('/var/lib/systemd');
 
         # Tell `systemctl` to do not speak with the world outside our namespace.
@@ -55,18 +56,20 @@ sub state_file_entries {
 my $dsh = "$FindBin::Bin/../script/deb-systemd-helper";
 
 sub _unit_check {
-    my ($unit_file, $cmd, $cb, $verb) = @_;
+    my ($cmd, $cb, $verb, $unit, %opts) = @_;
+    my $user = $opts{'user'} ? '--user' : '';
 
-    my $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh $cmd '$unit_file'");
+    my $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh $user $cmd '$unit'");
+
     isnt($retval, -1, 'deb-systemd-helper could be executed');
     ok(!($retval & 127), 'deb-systemd-helper did not exit due to a signal');
-    $cb->($retval >> 8, 0, "random unit file '$unit_file' $verb $cmd");
+    $cb->($retval >> 8, 0, "random unit file '$unit' $verb $cmd");
 }
 
-sub is_enabled { _unit_check($_[0], 'is-enabled', \&is, 'is') }
-sub isnt_enabled { _unit_check($_[0], 'is-enabled', \&isnt, 'isnt') }
+sub is_enabled { _unit_check('is-enabled', \&is, 'is', @_) }
+sub isnt_enabled { _unit_check('is-enabled', \&isnt, 'isnt', @_) }
 
-sub is_debian_installed { _unit_check($_[0], 'debian-installed', \&is, 'is') }
-sub isnt_debian_installed { _unit_check($_[0], 'debian-installed', \&isnt, 'isnt') }
+sub is_debian_installed { _unit_check('debian-installed', \&is, 'is', @_) }
+sub isnt_debian_installed { _unit_check('debian-installed', \&isnt, 'isnt', @_) }
 
 1;
