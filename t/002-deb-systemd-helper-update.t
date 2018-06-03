@@ -14,8 +14,6 @@ use helpers;
 
 test_setup();
 
-my $dsh = "$FindBin::Bin/../script/deb-systemd-helper";
-
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃ Verify “is-enabled” is not true for a random, non-existing unit file.     ┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
@@ -47,7 +45,7 @@ close($fh);
 # ┃ Verify “enable” creates the requested symlinks.                           ┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-my $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh enable $random_unit");
+my $retval = dsh('enable', $random_unit);
 my $symlink_path = "/etc/systemd/system/multi-user.target.wants/$random_unit";
 ok(-l $symlink_path, "$random_unit was enabled");
 is(readlink($symlink_path), $servicefile_path,
@@ -73,7 +71,7 @@ isnt_enabled($random_unit);
 # ┃ Verify “was-enabled” is still true (operates on the state file).          ┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh was-enabled $random_unit");
+$retval = dsh('was-enabled', $random_unit);
 isnt($retval, -1, 'deb-systemd-helper could be executed');
 ok(!($retval & 127), 'deb-systemd-helper did not exit due to a signal');
 is($retval >> 8, 0, "random unit file was-enabled");
@@ -94,7 +92,7 @@ is_deeply(
 my $new_symlink_path = '/etc/systemd/system/newalias.service';
 ok(! -l $new_symlink_path, 'new symlink does not exist yet');
 
-$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh enable $random_unit");
+$retval = dsh('enable', $random_unit);
 ok(-l $new_symlink_path, 'new symlink was created');
 is(readlink($new_symlink_path), $servicefile_path,
     "symlink points to $servicefile_path");
@@ -124,7 +122,7 @@ isnt_enabled($random_unit);
 # ┃ Verify “was-enabled” is still true (operates on the state file).          ┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh was-enabled $random_unit");
+$retval = dsh('was-enabled', $random_unit);
 isnt($retval, -1, 'deb-systemd-helper could be executed');
 ok(!($retval & 127), 'deb-systemd-helper did not exit due to a signal');
 is($retval >> 8, 0, "random unit file was-enabled");
@@ -146,7 +144,7 @@ is_deeply(
 my $new_symlink_path2 = '/etc/systemd/system/another.service';
 ok(! -l $new_symlink_path2, 'new symlink does not exist yet');
 
-$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh update-state $random_unit");
+$retval = dsh('update-state', $random_unit);
 ok(! -l $new_symlink_path2, 'new symlink still does not exist');
 
 isnt_enabled($random_unit);
@@ -179,7 +177,7 @@ unlink($new_symlink_path);
 ok(! -l $new_symlink_path, 'new symlink still does not exist');
 ok(! -l $new_symlink_path2, 'new symlink 2 still does not exist');
 
-$retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh update-state $random_unit");
+$retval = dsh('update-state', $random_unit);
 
 ok(! -l $new_symlink_path, 'new symlink still does not exist');
 ok(! -l $new_symlink_path2, 'new symlink 2 still does not exist');

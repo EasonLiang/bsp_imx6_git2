@@ -54,12 +54,16 @@ sub state_file_entries {
 }
 
 my $dsh = "$FindBin::Bin/../script/deb-systemd-helper";
+$ENV{'DPKG_MAINTSCRIPT_PACKAGE'} = 'deb-systemd-helper-test';
+
+sub dsh {
+    return system($dsh, @_);
+}
 
 sub _unit_check {
     my ($cmd, $cb, $verb, $unit, %opts) = @_;
-    my $user = $opts{'user'} ? '--user' : '';
 
-    my $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh $user $cmd '$unit'");
+    my $retval = dsh($opts{'user'} ? '--user' : '--system', $cmd, $unit);
 
     isnt($retval, -1, 'deb-systemd-helper could be executed');
     ok(!($retval & 127), 'deb-systemd-helper did not exit due to a signal');

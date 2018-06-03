@@ -14,8 +14,6 @@ use helpers;
 
 test_setup();
 
-my $dsh = "$FindBin::Bin/../script/deb-systemd-helper";
-
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃ Create two unit files with random names; one refers to the other (Also=). ┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
@@ -80,7 +78,7 @@ unless ($ENV{'TEST_ON_REAL_SYSTEM'}) {
        'multi-user.target.wants does not exist yet');
 }
 
-my $retval = system("DPKG_MAINTSCRIPT_PACKAGE=test $dsh enable $random_unit1");
+my $retval = dsh('enable', $random_unit1);
 my %links = map { (basename($_), readlink($_)) }
     ("/etc/systemd/system/multi-user.target.wants/$random_unit1",
      "/etc/systemd/system/multi-user.target.wants/$random_unit2");
