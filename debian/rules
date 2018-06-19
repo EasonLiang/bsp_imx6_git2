@@ -19,7 +19,7 @@ override_dh_auto_build:
 	dh_auto_build
 	set -e ; \
 	for file in script/deb-*; do \
-		pod2man --section=1p --utf8 $$file $$file.1p; \
+		pod2man --section=1p --utf8 --center="init-system-helpers" --release=$(VERSION) $$file $$file.1p; \
 	done
 	set -e ; \
 	for file in man8/*.rst ; do \
