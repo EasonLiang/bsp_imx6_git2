@@ -366,11 +366,7 @@ RC=
 if [ -n "$is_systemd" ]; then
     case ${ACTION} in
         start|restart|try-restart)
-            # Note that systemd 215 does not yet support is-enabled for SysV scripts,
-            # this works only with systemd >= 220-1 (systemd-sysv-install). Add a
-            # simple fallback check which can be dropped after releasing stretch.
-            if systemctl --quiet is-enabled "${UNIT}" 2>/dev/null || \
-               ls ${RCDPREFIX}[S2345].d/S[0-9][0-9]${INITSCRIPTID} >/dev/null 2>&1; then
+            if systemctl --quiet is-enabled "${UNIT}" 2>/dev/null; then
                 RC=104
             elif systemctl --quiet is-active "${UNIT}" 2>/dev/null; then
                 RC=104
