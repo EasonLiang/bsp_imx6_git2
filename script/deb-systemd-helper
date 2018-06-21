@@ -246,9 +246,11 @@ sub no_link_installed {
 sub enable {
     my ($scriptname, $service_path) = @_;
     if ($has_systemctl) {
-        # We use systemctl preset on the initial installation only
-        # On upgrade, we manually add the missing symlinks only if
-        # the service already has some links installed.
+        # We use 'systemctl preset' on the initial installation only.
+        # On upgrade, we manually add the missing symlinks only if the
+        # service already has some links installed. Using 'systemctl
+        # preset' allows administrators and downstreams to alter the
+        # enable policy using systemd-native tools.
         my $create_links = 0;
         if (debian_installed($scriptname)) {
             $create_links = 1 unless no_link_installed($scriptname, $service_path);
