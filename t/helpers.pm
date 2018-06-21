@@ -17,6 +17,16 @@ sub test_setup() {
     unless ($ENV{'TEST_ON_REAL_SYSTEM'}) {
         use Linux::Clone; # neither in core nor in Debian :-/
 
+        open(my $fh, '<', "/proc/$$/mountinfo")
+            or BAIL_OUT("Cannot open(/proc/$$/mountinfo): $!");
+
+        # Check that the root filesystem has been made private.
+        @shared = grep { /shared:\d+/ } grep { /^\d+ \d+ \d+:\d+ \/ \/ / } <$fh>;
+        BAIL_OUT("Root filesystem not marked as a private subtree.  " .
+                 "Execute 'mount --make-private /'") if @shared;
+
+        close($fh);
+
         my $retval = Linux::Clone::unshare Linux::Clone::NEWNS;
         BAIL_OUT("Cannot unshare(NEWNS): $!") if $retval != 0;
 
