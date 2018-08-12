@@ -5,7 +5,7 @@ Maintainer: Debian systemd Maintainers <pkg-systemd-maintainers@lists.alioth.deb
 Uploaders: Michael Biebl <biebl@debian.org>,
            Martin Pitt <mpitt@debian.org>,
            Felipe Sateler <fsateler@debian.org>
-Build-Depends: debhelper (>= 9),
+Build-Depends: debhelper (>= 11),
                perl:any,
                python3-docutils
 Standards-Version: 4.2.0
