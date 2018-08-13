@@ -18,6 +18,9 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
 
 #include <dirent.h>
 #include <errno.h>
@@ -28,9 +31,14 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <stdio.h>
 
 #include "i18n.h"
 
+
+#ifndef PATH_MAX
+#define PATH_MAX 4096
+#endif /* PATH_MAX */
 
 static int
 usage ()
@@ -61,6 +69,7 @@ main(int argc, char const *argv[])
 {
   regex_t re_log;
   regex_t re_pid;
+  char *fullpath = NULL;
 
   if (argc < 2) {
     usage();
@@ -100,12 +109,6 @@ main(int argc, char const *argv[])
 
   struct dirent *namelist;
 
-  char* fullpath = (char*) malloc(PATH_MAX+1);
-  if (!fullpath) {
-    perror ("malloc");
-    return 1;
-  }
-
   char* linkpath = (char*) malloc(PATH_MAX+1);
   if (!linkpath) {
     perror ("malloc");
@@ -117,17 +120,21 @@ main(int argc, char const *argv[])
   DIR *pid_dir;
 
   if (argv[1][0] != '/') {
-    strncpy(fullpath, "/proc/", PATH_MAX);
-    strncat(fullpath, argv[1], PATH_MAX - strlen(fullpath));
-    strncat(fullpath, "/fd/", PATH_MAX - strlen(fullpath));
-  } else {
-      strncpy(fullpath, argv[1], PATH_MAX);
-      strncat(fullpath, "/fd/", PATH_MAX - strlen(fullpath));
+    if (asprintf(&fullpath, "/proc/%s/fd/", argv[1]) < 0) {
+      perror ("asprintf");
+      return 1;
     }
+  } else {
+    if (asprintf(&fullpath, "%s/fd/", argv[1]) < 0) {
+        perror("asprintf");
+        return 1;
+    }
+  }
 
   pid_dir = opendir(fullpath);
   if (!pid_dir) {
     perror("opendir");
+    free(fullpath);
     return 1;
   }
 
