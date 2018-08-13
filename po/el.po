@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc-23.0-rc1\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2017-06-16 06:42+1000\n"
+"POT-Creation-Date: 2018-08-13 21:28+1000\n"
 "PO-Revision-Date: 2017-02-28 18:47+0200\n"
 "Last-Translator: Lefteris Dimitroulakis <ledimitro@gmail.com>\n"
 "Language-Team: Greek <team@lists.gnome.gr>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Lokalize 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/fuser.c:136
+#: src/fuser.c:137
 #, c-format
 msgid ""
 "Usage: fuser [-fIMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE]\n"
@@ -70,7 +70,7 @@ msgstr ""
 "    -w,--writeonly    τερματισμός μόνο των διεργασιών με άδεια εγγραφής\n"
 "    -V,--version        εμφάνιση πληροφοριών έκδοσης\n"
 
-#: src/fuser.c:157
+#: src/fuser.c:158
 #, c-format
 msgid ""
 "  -4,--ipv4             search IPv4 sockets only\n"
@@ -79,7 +79,7 @@ msgstr ""
 "    -4,--ipv4        αναζήτηση μόνο IPv4 sockets\n"
 "    -6,--ipv6        αναζήτηση μόνο IPv6 sockets\n"
 
-#: src/fuser.c:160
+#: src/fuser.c:161
 #, c-format
 msgid ""
 "  -                     reset options\n"
@@ -92,12 +92,12 @@ msgstr ""
 "  ονόματα udp/tcp: [local_port][,[rmt_host][,[rmt_port]]]\n"
 "\n"
 
-#: src/fuser.c:167
+#: src/fuser.c:168
 #, c-format
 msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
-#: src/fuser.c:170 src/killall.c:780 src/pstree.c:1134
+#: src/fuser.c:171 src/killall.c:782 src/pstree.c:1134
 #, fuzzy, c-format
 msgid ""
 "Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n"
@@ -106,7 +106,7 @@ msgstr ""
 "Copyright (C) 1993-2005 Werner Almesberger και Craig Small\n"
 "\n"
 
-#: src/fuser.c:172 src/killall.c:782 src/peekfd.c:119 src/prtstat.c:68
+#: src/fuser.c:173 src/killall.c:784 src/peekfd.c:124 src/prtstat.c:68
 #: src/pstree.c:1136
 #, c-format
 msgid ""
@@ -120,114 +120,114 @@ msgstr ""
 "the terms of the GNU General Public License.\n"
 "For more information about these matters, see the files named COPYING.\n"
 
-#: src/fuser.c:191
+#: src/fuser.c:192
 #, c-format
 msgid "Cannot open /proc directory: %s\n"
 msgstr "Αδυναμία ανοίγματος καταλόγου /proc: %s\n"
 
-#: src/fuser.c:382 src/fuser.c:435 src/fuser.c:2030
+#: src/fuser.c:383 src/fuser.c:436 src/fuser.c:2043
 #, c-format
 msgid "Cannot allocate memory for matched proc: %s\n"
 msgstr "Αδύνατη η εκχώρηση μνήμης στην αντίστοιχη διεργασία: %s\n"
 
-#: src/fuser.c:462
+#: src/fuser.c:463
 #, c-format
 msgid "Specified filename %s does not exist.\n"
 msgstr "Το όνομα αρχείου %s δεν υπάρχει.\n"
 
-#: src/fuser.c:465
+#: src/fuser.c:466
 #, c-format
 msgid "Cannot stat %s: %s\n"
 msgstr "Αδύνατον να προσδιορίσω %s: %s\n"
 
-#: src/fuser.c:602
+#: src/fuser.c:603
 #, c-format
 msgid "Cannot resolve local port %s: %s\n"
 msgstr "Δεν μπορώ να βρω την τοπική θύρα %s: %s\n"
 
-#: src/fuser.c:620
+#: src/fuser.c:621
 #, c-format
 msgid "Unknown local port AF %d\n"
 msgstr "Άγνωστη τοπική θύρα AF %d\n"
 
-#: src/fuser.c:710
+#: src/fuser.c:711
 #, c-format
 msgid "Cannot open protocol file \"%s\": %s\n"
 msgstr "Δεν μπορώ να ανοίξω αρχείο πρωτοκόλλου \"%s\": %s\n"
 
-#: src/fuser.c:1013
+#: src/fuser.c:1014
 #, c-format
 msgid "Specified filename %s is not a mountpoint.\n"
 msgstr "Το όνομα αρχείου %s δεν αποτελεί σημείο προσάρτησης.\n"
 
-#: src/fuser.c:1105
+#: src/fuser.c:1106
 #, c-format
 msgid "%s: Invalid option %s\n"
 msgstr "%s: μη έγκυρη επιλογή %s\n"
 
-#: src/fuser.c:1159
+#: src/fuser.c:1160
 msgid "Namespace option requires an argument."
 msgstr "Η επιλογή του πίνακα ονομάτων απαιτεί όρισμα"
 
-#: src/fuser.c:1176
+#: src/fuser.c:1177
 msgid "Invalid namespace name"
 msgstr "Λάθος όνομα"
 
-#: src/fuser.c:1241
+#: src/fuser.c:1242
 msgid "You can only use files with mountpoint options"
 msgstr ""
 "Δεν μπορείτε να χρησιμοποιήσετε παρά τα αρχεία με την επιλογή σημείου "
 "προσάρτησης"
 
-#: src/fuser.c:1291
+#: src/fuser.c:1292
 msgid "No process specification given"
 msgstr "Ουδεμία προδιαγραφή διεργασίας δόθηκε"
 
-#: src/fuser.c:1306
+#: src/fuser.c:1307
 msgid "all option cannot be used with silent option."
 msgstr "Η επιλογή all δεν μπορεί να χρησιμοποιηθεί με την επιλογή silent."
 
-#: src/fuser.c:1311
+#: src/fuser.c:1312
 msgid "You cannot search for only IPv4 and only IPv6 sockets at the same time"
 msgstr ""
 "Δεν μπορείτε να ψάξετε συγχρόνως μόνο για sockets IPv4 και μόνο για sockets "
 "IPv6."
 
-#: src/fuser.c:1400
+#: src/fuser.c:1401
 #, c-format
 msgid "%*s USER        PID ACCESS COMMAND\n"
 msgstr "%*s USER        PID ACCESS COMMAND\n"
 
-#: src/fuser.c:1433 src/fuser.c:1490
+#: src/fuser.c:1434 src/fuser.c:1491
 msgid "(unknown)"
 msgstr "(άγνωστο)"
 
-#: src/fuser.c:1569 src/fuser.c:1608
+#: src/fuser.c:1575 src/fuser.c:1614
 #, c-format
 msgid "Cannot stat file %s: %s\n"
 msgstr "Αδύνατον να προσδιορίσω το αρχείο %s: %s\n"
 
-#: src/fuser.c:1694
+#: src/fuser.c:1707
 #, c-format
 msgid "Cannot open /proc/net/unix: %s\n"
 msgstr "Αδυναμία ανοίγματος του /proc/net/unix: %s\n"
 
-#: src/fuser.c:1789
+#: src/fuser.c:1802
 #, c-format
 msgid "Kill process %d ? (y/N) "
 msgstr "Kill process %d ? (y/N) "
 
-#: src/fuser.c:1825
+#: src/fuser.c:1838
 #, c-format
 msgid "Could not kill process %d: %s\n"
 msgstr "Αδύνατον να τερματίσω τη διεργασία %d: %s\n"
 
-#: src/fuser.c:1840
+#: src/fuser.c:1853
 #, c-format
 msgid "Cannot open a network socket.\n"
 msgstr "Δεν μπορώ να ανοίξω ένα δικτυακό socket.\n"
 
-#: src/fuser.c:1844
+#: src/fuser.c:1857
 #, c-format
 msgid "Cannot find socket's device number.\n"
 msgstr "Αδύνατον να βρω τον αριθμό της συσκευής του socket.\n"
@@ -252,22 +252,22 @@ msgstr "killall: Δεν μπορώ να πάρω UID από την κατάστ�
 msgid "killall: Bad regular expression: %s\n"
 msgstr "killall: Κακή κανονική έκφραση: %s\n"
 
-#: src/killall.c:443
+#: src/killall.c:445
 #, c-format
 msgid "killall: skipping partial match %s(%d)\n"
 msgstr "killall: παράβλεψη μερικού ταιριάσματος %s(%d)\n"
 
-#: src/killall.c:679
+#: src/killall.c:681
 #, c-format
 msgid "Killed %s(%s%d) with signal %d\n"
 msgstr "Τερματίστηκε %s(%s%d) με το σήμα %d\n"
 
-#: src/killall.c:698
+#: src/killall.c:700
 #, c-format
 msgid "%s: no process found\n"
 msgstr "%s: δεν βρέθηκε διεργασία\n"
 
-#: src/killall.c:740
+#: src/killall.c:742
 #, c-format
 msgid ""
 "Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
@@ -278,12 +278,12 @@ msgstr ""
 "eIgiqrvw ]\n"
 "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
 
-#: src/killall.c:744
+#: src/killall.c:746
 #, c-format
 msgid "Usage: killall [OPTION]... [--] NAME...\n"
 msgstr "Χρήση: killall [ΕΠΙΛΟΓΗ]... [--] ΟΝΟΜΑ...\n"
 
-#: src/killall.c:747
+#: src/killall.c:749
 #, fuzzy, c-format
 msgid ""
 "       killall -l, --list\n"
@@ -304,7 +304,7 @@ msgid ""
 "  -V,--version        display version information\n"
 "  -w,--wait           wait for processes to die\n"
 "  -n,--ns PID         match processes that belong to the same namespaces\n"
-"                      as PID or 0 for all namespaces\n"
+"                      as PID\n"
 msgstr ""
 "       killall -l, --list\n"
 "       killall -V, --version\n"
@@ -324,7 +324,7 @@ msgstr ""
 "  -V,--version        πληροφορίες έκδοσης έκδοσης\n"
 "  -w,--wait           wait for processes to die\n"
 
-#: src/killall.c:768
+#: src/killall.c:770
 #, c-format
 msgid ""
 "  -Z,--context REGEXP kill only process(es) having context\n"
@@ -333,41 +333,46 @@ msgstr ""
 "  -Z,--context REGEXP τερματίζει μόνο την/τις διεργασία(ες) με context\n"
 "                      (πρέπει να προηγείται των άλλων ορισμάτων)\n"
 
-#: src/killall.c:873 src/killall.c:879
+#: src/killall.c:875 src/killall.c:881
 msgid "Invalid time format"
 msgstr "Μη έγκυρο φορμά χρόνου"
 
-#: src/killall.c:899
+#: src/killall.c:901
 #, c-format
 msgid "Cannot find user %s\n"
 msgstr "Δεν μπορώ να βρω το χρήστη %s\n"
 
-#: src/killall.c:933
+#: src/killall.c:931
+#, fuzzy
+msgid "Invalid namespace PID"
+msgstr "Λάθος όνομα"
+
+#: src/killall.c:938
 #, c-format
 msgid "Bad regular expression: %s\n"
 msgstr "Κακή κανονική έκφραση: %s\n"
 
-#: src/killall.c:965
+#: src/killall.c:973
 #, c-format
 msgid "killall: Maximum number of names is %d\n"
 msgstr "killall: Μέγιστος αριθμός ονομάτων είναι %d\n"
 
-#: src/killall.c:970
+#: src/killall.c:978
 #, c-format
 msgid "killall: %s lacks process entries (not mounted ?)\n"
 msgstr "killall: %s lacks process entries (not mounted ?)\n"
 
-#: src/peekfd.c:107
+#: src/peekfd.c:112
 #, c-format
 msgid "Error attaching to pid %i\n"
 msgstr "Σφάλμα κατά την πρόσδεση στη διεργασία με pid %i\n"
 
-#: src/peekfd.c:115
+#: src/peekfd.c:120
 #, c-format
 msgid "peekfd (PSmisc) %s\n"
 msgstr "peekfd (PSmisc) %s\n"
 
-#: src/peekfd.c:117
+#: src/peekfd.c:122
 #, c-format
 msgid ""
 "Copyright (C) 2007 Trent Waddington\n"
@@ -376,13 +381,15 @@ msgstr ""
 "Copyright (C) 2007 Trent Waddington\n"
 "\n"
 
-#: src/peekfd.c:127
+#: src/peekfd.c:132
 #, fuzzy, c-format
 msgid ""
 "Usage: peekfd [-8] [-n] [-c] [-d] [-V] [-h] <pid> [<fd> ..]\n"
 "    -8, --eight-bit-clean        output 8 bit clean streams.\n"
 "    -n, --no-headers             don't display read/write from fd headers.\n"
 "    -c, --follow                 peek at any new child processes too.\n"
+"    -t, --tgid                   peek at all threads where tgid equals "
+"<pid>.\n"
 "    -d, --duplicates-removed     remove duplicate read/writes from the "
 "output.\n"
 "    -V, --version                prints version info.\n"

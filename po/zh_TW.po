@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc 22.21-pre2\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2017-06-16 06:42+1000\n"
+"POT-Creation-Date: 2018-08-13 21:28+1000\n"
 "PO-Revision-Date: 2015-10-08 12:39+0800\n"
 "Last-Translator: Wei-Lun Chao <bluebat@member.fsf.org>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/fuser.c:136
+#: src/fuser.c:137
 #, fuzzy, c-format
 msgid ""
 "Usage: fuser [-fIMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE]\n"
@@ -63,7 +63,7 @@ msgstr ""
 "  -w,--writeonly        只砍除有寫入權限的行程\n"
 "  -V,--version          顯示版本資訊\n"
 
-#: src/fuser.c:157
+#: src/fuser.c:158
 #, c-format
 msgid ""
 "  -4,--ipv4             search IPv4 sockets only\n"
@@ -72,7 +72,7 @@ msgstr ""
 "  -4,--ipv4             只搜尋 IPv4 通訊端\n"
 "  -6,--ipv6             只搜尋 IPv6 通訊端\n"
 
-#: src/fuser.c:160
+#: src/fuser.c:161
 #, c-format
 msgid ""
 "  -                     reset options\n"
@@ -85,12 +85,12 @@ msgstr ""
 "  udp/tcp 名稱：[本地埠號][,[遠端主機][,[遠端埠號]]]\n"
 "\n"
 
-#: src/fuser.c:167
+#: src/fuser.c:168
 #, c-format
 msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
-#: src/fuser.c:170 src/killall.c:780 src/pstree.c:1134
+#: src/fuser.c:171 src/killall.c:782 src/pstree.c:1134
 #, fuzzy, c-format
 msgid ""
 "Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n"
@@ -99,7 +99,7 @@ msgstr ""
 "著作權©1993-2010 Werner Almesberger 和 Craig Small\n"
 "\n"
 
-#: src/fuser.c:172 src/killall.c:782 src/peekfd.c:119 src/prtstat.c:68
+#: src/fuser.c:173 src/killall.c:784 src/peekfd.c:124 src/prtstat.c:68
 #: src/pstree.c:1136
 #, c-format
 msgid ""
@@ -113,110 +113,110 @@ msgstr ""
 "來再次散布它。\n"
 "請參看名為 COPYING 的檔案，以獲得更多關於這些問題的資訊。\n"
 
-#: src/fuser.c:191
+#: src/fuser.c:192
 #, c-format
 msgid "Cannot open /proc directory: %s\n"
 msgstr "無法開啟 /proc 目錄：%s\n"
 
-#: src/fuser.c:382 src/fuser.c:435 src/fuser.c:2030
+#: src/fuser.c:383 src/fuser.c:436 src/fuser.c:2043
 #, c-format
 msgid "Cannot allocate memory for matched proc: %s\n"
 msgstr "無法為符合的行程配置記憶體：%s\n"
 
-#: src/fuser.c:462
+#: src/fuser.c:463
 #, c-format
 msgid "Specified filename %s does not exist.\n"
 msgstr "指定的檔名 %s 不存在。\n"
 
-#: src/fuser.c:465
+#: src/fuser.c:466
 #, c-format
 msgid "Cannot stat %s: %s\n"
 msgstr "無法顯示 %s:%s\n"
 
-#: src/fuser.c:602
+#: src/fuser.c:603
 #, c-format
 msgid "Cannot resolve local port %s: %s\n"
 msgstr "無法解析本機通訊埠 %s:%s\n"
 
-#: src/fuser.c:620
+#: src/fuser.c:621
 #, c-format
 msgid "Unknown local port AF %d\n"
 msgstr "不明的本機通訊埠 AF %d\n"
 
-#: src/fuser.c:710
+#: src/fuser.c:711
 #, c-format
 msgid "Cannot open protocol file \"%s\": %s\n"
 msgstr "無法開啟協定檔案「%s」：%s\n"
 
-#: src/fuser.c:1013
+#: src/fuser.c:1014
 #, c-format
 msgid "Specified filename %s is not a mountpoint.\n"
 msgstr "指定的檔名 %s 並非掛載點。\n"
 
-#: src/fuser.c:1105
+#: src/fuser.c:1106
 #, c-format
 msgid "%s: Invalid option %s\n"
 msgstr "%s：無效的選項 %s\n"
 
-#: src/fuser.c:1159
+#: src/fuser.c:1160
 msgid "Namespace option requires an argument."
 msgstr "名稱空間選項需要一個引數。"
 
-#: src/fuser.c:1176
+#: src/fuser.c:1177
 msgid "Invalid namespace name"
 msgstr "無效的名稱空間名稱"
 
-#: src/fuser.c:1241
+#: src/fuser.c:1242
 msgid "You can only use files with mountpoint options"
 msgstr "您只能使用具備掛載點選項的檔案"
 
-#: src/fuser.c:1291
+#: src/fuser.c:1292
 msgid "No process specification given"
 msgstr "沒有給定任何行程規格"
 
-#: src/fuser.c:1306
+#: src/fuser.c:1307
 msgid "all option cannot be used with silent option."
 msgstr "所有選項無法與安靜選項一起使用。"
 
-#: src/fuser.c:1311
+#: src/fuser.c:1312
 msgid "You cannot search for only IPv4 and only IPv6 sockets at the same time"
 msgstr "您無法同時只搜尋 IPv4 又只搜尋 IPv6 通訊端"
 
-#: src/fuser.c:1400
+#: src/fuser.c:1401
 #, c-format
 msgid "%*s USER        PID ACCESS COMMAND\n"
 msgstr "%*s 使用者      PID 存取命令\n"
 
-#: src/fuser.c:1433 src/fuser.c:1490
+#: src/fuser.c:1434 src/fuser.c:1491
 msgid "(unknown)"
 msgstr "(不明)"
 
-#: src/fuser.c:1569 src/fuser.c:1608
+#: src/fuser.c:1575 src/fuser.c:1614
 #, c-format
 msgid "Cannot stat file %s: %s\n"
 msgstr "無法顯示檔案 %s：%s\n"
 
-#: src/fuser.c:1694
+#: src/fuser.c:1707
 #, c-format
 msgid "Cannot open /proc/net/unix: %s\n"
 msgstr "無法開啟 /proc/net/unix：%s\n"
 
-#: src/fuser.c:1789
+#: src/fuser.c:1802
 #, c-format
 msgid "Kill process %d ? (y/N) "
 msgstr "砍除行程 %d？(y/N) "
 
-#: src/fuser.c:1825
+#: src/fuser.c:1838
 #, c-format
 msgid "Could not kill process %d: %s\n"
 msgstr "無法砍除行程 %d：%s\n"
 
-#: src/fuser.c:1840
+#: src/fuser.c:1853
 #, c-format
 msgid "Cannot open a network socket.\n"
 msgstr "無法開啟網路通訊端。\n"
 
-#: src/fuser.c:1844
+#: src/fuser.c:1857
 #, c-format
 msgid "Cannot find socket's device number.\n"
 msgstr "找不到通訊端裝置編號。\n"
@@ -241,22 +241,22 @@ msgstr "killall：無法從程序狀態提取 UID\n"
 msgid "killall: Bad regular expression: %s\n"
 msgstr "killall：不當的正規表示式：%s\n"
 
-#: src/killall.c:443
+#: src/killall.c:445
 #, c-format
 msgid "killall: skipping partial match %s(%d)\n"
 msgstr "killall：跳過部分匹配 %s(%d)\n"
 
-#: src/killall.c:679
+#: src/killall.c:681
 #, c-format
 msgid "Killed %s(%s%d) with signal %d\n"
 msgstr "藉由信號 %4$d 砍除 %1$s(%2$s%3$d)\n"
 
-#: src/killall.c:698
+#: src/killall.c:700
 #, c-format
 msgid "%s: no process found\n"
 msgstr "%s：找不到任何行程\n"
 
-#: src/killall.c:740
+#: src/killall.c:742
 #, fuzzy, c-format
 msgid ""
 "Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
@@ -265,12 +265,12 @@ msgid ""
 msgstr ""
 "用法：killall [-Z 上下文] [-u 使用者] [ -eIgiqrvw ] [ -SIGNAL ] 名稱…\n"
 
-#: src/killall.c:744
+#: src/killall.c:746
 #, c-format
 msgid "Usage: killall [OPTION]... [--] NAME...\n"
 msgstr "用法：killall [選項]… [--] 名稱…\n"
 
-#: src/killall.c:747
+#: src/killall.c:749
 #, fuzzy, c-format
 msgid ""
 "       killall -l, --list\n"
@@ -291,7 +291,7 @@ msgid ""
 "  -V,--version        display version information\n"
 "  -w,--wait           wait for processes to die\n"
 "  -n,--ns PID         match processes that belong to the same namespaces\n"
-"                      as PID or 0 for all namespaces\n"
+"                      as PID\n"
 msgstr ""
 "       killall -l, --list\n"
 "       killall -V, --version\n"
@@ -311,7 +311,7 @@ msgstr ""
 "  -V,--version        顯示版本資訊\n"
 "  -w,--wait           等待行程的消滅\n"
 
-#: src/killall.c:768
+#: src/killall.c:770
 #, c-format
 msgid ""
 "  -Z,--context REGEXP kill only process(es) having context\n"
@@ -320,41 +320,46 @@ msgstr ""
 "  -Z,--context REGEXP 只砍除有此上下文的行程\n"
 "                     (必須位於其他引數之前)\n"
 
-#: src/killall.c:873 src/killall.c:879
+#: src/killall.c:875 src/killall.c:881
 msgid "Invalid time format"
 msgstr "無效的時間格式"
 
-#: src/killall.c:899
+#: src/killall.c:901
 #, c-format
 msgid "Cannot find user %s\n"
 msgstr "找不到使用者 %s\n"
 
-#: src/killall.c:933
+#: src/killall.c:931
+#, fuzzy
+msgid "Invalid namespace PID"
+msgstr "無效的名稱空間名稱"
+
+#: src/killall.c:938
 #, c-format
 msgid "Bad regular expression: %s\n"
 msgstr "不當的正規表示式：%s\n"
 
-#: src/killall.c:965
+#: src/killall.c:973
 #, c-format
 msgid "killall: Maximum number of names is %d\n"
 msgstr "killall：名稱數量最大值是 %d\n"
 
-#: src/killall.c:970
+#: src/killall.c:978
 #, c-format
 msgid "killall: %s lacks process entries (not mounted ?)\n"
 msgstr "killall：%s 缺乏行程條目 (未掛載？)\n"
 
-#: src/peekfd.c:107
+#: src/peekfd.c:112
 #, c-format
 msgid "Error attaching to pid %i\n"
 msgstr "附加到 pid %i 時發生錯誤\n"
 
-#: src/peekfd.c:115
+#: src/peekfd.c:120
 #, c-format
 msgid "peekfd (PSmisc) %s\n"
 msgstr "peekfd (PSmisc) %s\n"
 
-#: src/peekfd.c:117
+#: src/peekfd.c:122
 #, c-format
 msgid ""
 "Copyright (C) 2007 Trent Waddington\n"
@@ -363,13 +368,15 @@ msgstr ""
 "著作權 © 2007 Trent Waddington\n"
 "\n"
 
-#: src/peekfd.c:127
+#: src/peekfd.c:132
 #, fuzzy, c-format
 msgid ""
 "Usage: peekfd [-8] [-n] [-c] [-d] [-V] [-h] <pid> [<fd> ..]\n"
 "    -8, --eight-bit-clean        output 8 bit clean streams.\n"
 "    -n, --no-headers             don't display read/write from fd headers.\n"
 "    -c, --follow                 peek at any new child processes too.\n"
+"    -t, --tgid                   peek at all threads where tgid equals "
+"<pid>.\n"
 "    -d, --duplicates-removed     remove duplicate read/writes from the "
 "output.\n"
 "    -V, --version                prints version info.\n"
