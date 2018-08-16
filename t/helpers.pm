@@ -1,4 +1,5 @@
 use File::Temp qw(tempdir); # in core since perl 5.6.1
+use if !$ENV{'TEST_ON_REAL_SYSTEM'}, "Linux::Clone"; # neither in core nor in Debian :-/
 
 sub bind_mount_tmp {
     my ($dir) = @_;
@@ -15,8 +16,6 @@ sub bind_mount_tmp {
 # thus do not bindmount a tmpdir on /lib/systemd.
 sub test_setup() {
     unless ($ENV{'TEST_ON_REAL_SYSTEM'}) {
-        use Linux::Clone; # neither in core nor in Debian :-/
-
         open(my $fh, '<', "/proc/$$/mountinfo")
             or BAIL_OUT("Cannot open(/proc/$$/mountinfo): $!");
 
