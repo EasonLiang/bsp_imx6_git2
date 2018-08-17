@@ -1,3 +1,17 @@
+init-system-helpers (1.54) unstable; urgency=medium
+
+  * Revert "Drop fallback for old versions of systemd that didn't have
+    is-enabled"
+    If a package ships both init script and systemd service file, the
+    systemd unit will not be enabled by the time invoke-rc.d is called
+    (with current debhelper sequence). This would make systemctl is-enabled
+    report the wrong status, and then the service would not be started.
+    Add a comment noting this to avoid removing again in the future.
+    This reverts commit 6f95680ffc9b1605841eb7d3d8eb92c790e6c73a.
+    (Closes: #906421, #906051)
+
+ -- Felipe Sateler <fsateler@debian.org>  Fri, 17 Aug 2018 10:33:08 -0300
+
 init-system-helpers (1.53) unstable; urgency=medium
 
   * tests: only load Linux::Clone if not testing on real system
