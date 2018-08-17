@@ -374,7 +374,14 @@ RC=
 if [ -n "$is_systemd" ]; then
     case ${ACTION} in
         start|restart|try-restart)
-            if systemctl --quiet is-enabled "${UNIT}" 2>/dev/null; then
+            # If a package ships both init script and systemd service file, the
+            # systemd unit will not be enabled by the time invoke-rc.d is called
+            # (with current debhelper sequence). This would make systemctl is-enabled
+            # report the wrong status, and then the service would not be started.
+            # This check cannot be removed as long as we support not passing --skip-systemd-native
+
+            if systemctl --quiet is-enabled "${UNIT}" 2>/dev/null || \
+               ls ${RCDPREFIX}[S2345].d/S[0-9][0-9]${INITSCRIPTID} >/dev/null 2>&1; then
                 RC=104
             elif systemctl --quiet is-active "${UNIT}" 2>/dev/null; then
                 RC=104
