@@ -350,8 +350,8 @@ load_process_name_and_age(char *comm, double *process_age_sec,
     lencomm = endcomm - startcomm;
     if (lencomm < 0)
         lencomm = 0;
-    if (lencomm > sizeof comm -1)
-        lencomm = sizeof comm -1;
+    if (lencomm > COMM_LEN -1)
+        lencomm = COMM_LEN -1;
     strncpy(comm, startcomm, lencomm);
     comm[lencomm] = '\0';
 
