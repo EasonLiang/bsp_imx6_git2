@@ -5,6 +5,7 @@ Changes in 23.2
 	* killall: look at all namespaces by default
 	* killall: Fix -INT option parsing #11
 	* killall: change to getopt_long without _only #12
+	* killall: ignore -n 0 #15
 	* peekfd: Attach to all threads option !15
 	* pslog: Define PATH_MAX if required Debian:#905797
 

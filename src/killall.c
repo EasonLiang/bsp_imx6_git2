@@ -859,7 +859,7 @@ main (int argc, char **argv)
 #ifdef WITH_SELINUX
     while ( (optc = getopt_long(argc,argv,"egy:o:ilqrs:u:vwZ:VIn:",options,NULL)) != -1) {
 #else
-        while ( (optc = getopt_long(argc,argv,"egy:o:ilqrs:u:vwVIn:",options,NULL)) != -1) {
+        while ( (optc = getopt_long_only(argc,argv,"egy:o:ilqrs:u:vwVIn:",options,NULL)) != -1) {
 #endif
             switch (optc) {
             case 'e':
@@ -925,10 +925,15 @@ main (int argc, char **argv)
                 }
                 sig_num = get_signal (argv[optind]+1, "killall");
                 break;
-            case 'n':
-                opt_ns_pid = atoi(optarg);
-                if (opt_ns_pid == 0)
+            case 'n': {
+                long num;
+                char *end = NULL;
+                errno = 0;
+                num = strtol(optarg, &end, 10);
+                if (errno != 0 || optarg == end || end == NULL)
                     usage(_("Invalid namespace PID"));
+                opt_ns_pid = (pid_t) num;
+            }
                 break;
 #ifdef WITH_SELINUX
             case 'Z': 
