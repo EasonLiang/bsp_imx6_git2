@@ -4,13 +4,13 @@
 # This file is distributed under the same license as the psmisc package.
 #
 # Ilya Evseev <evseev@altlinux.ru>, 2005.
-# Yuri Kozlov <yuray@komyakino.ru>, 2009, 2010, 2012, 2013, 2014, 2016.
+# Yuri Kozlov <yuray@komyakino.ru>, 2009, 2010, 2012, 2013, 2014, 2016, 2018.
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc 23.0-rc1\n"
+"Project-Id-Version: psmisc 23.2\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2018-08-13 21:28+1000\n"
-"PO-Revision-Date: 2016-12-06 19:11+0300\n"
+"POT-Creation-Date: 2018-08-13 21:33+1000\n"
+"PO-Revision-Date: 2018-08-25 08:01+0300\n"
 "Last-Translator: Yuri Kozlov <yuray@komyakino.ru>\n"
 "Language-Team: Russian <gnu@d07.ru>\n"
 "Language: ru\n"
@@ -18,9 +18,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Lokalize 1.5\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 2.0\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: src/fuser.c:137
 #, c-format
@@ -64,8 +63,7 @@ msgstr ""
 "  -M,--ismountpoint    выполнять запрос, только если ИМЯ является точкой\n"
 "                       монтирования\n"
 "    -n,--namespace ОБЛАСТЬ\n"
-"                     искать в указанном пространстве имён (file, udp или "
-"tcp)\n"
+"                     искать в указанном пространстве имён (file, udp или tcp)\n"
 "    -s,--silent        не выводить сообщения\n"
 "    -СИГНАЛ            посылать указанный сигнал вместо SIGKILL\n"
 "    -u,--user          показывать идентификатор пользователя (uid)\n"
@@ -101,12 +99,12 @@ msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
 #: src/fuser.c:171 src/killall.c:782 src/pstree.c:1134
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Copyright (C) 1993-2010 Werner Almesberger and Craig Small\n"
+"Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n"
 "\n"
 
 #: src/fuser.c:173 src/killall.c:784 src/peekfd.c:124 src/prtstat.c:68
@@ -186,9 +184,7 @@ msgstr "Не указан процесс"
 
 #: src/fuser.c:1307
 msgid "all option cannot be used with silent option."
-msgstr ""
-"Параметр показа всех файлов нельзя использовать вместе с параметром "
-"отключения сообщений."
+msgstr "Параметр показа всех файлов нельзя использовать вместе с параметром отключения сообщений."
 
 #: src/fuser.c:1312
 msgid "You cannot search for only IPv4 and only IPv6 sockets at the same time"
@@ -271,8 +267,7 @@ msgstr "%s: процесс не найден\n"
 #: src/killall.c:742
 #, c-format
 msgid ""
-"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
-"eIgiqrvw ]\n"
+"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -eIgiqrvw ]\n"
 "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
 msgstr ""
 "Использование: killall [-Z КОНТЕКСТ] [-u ПОЛЬЗОВАТЕЛЬ] [ -o ВРЕМЯ ]\n"
@@ -284,7 +279,7 @@ msgid "Usage: killall [OPTION]... [--] NAME...\n"
 msgstr "Использование: killall [ПАРАМЕТР]… [--] ИМЯ…\n"
 
 #: src/killall.c:749
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "       killall -l, --list\n"
 "       killall -V, --version\n"
@@ -314,18 +309,17 @@ msgstr ""
 "  -g,--process-group   завершать группу процесса вместо одного процесса\n"
 "  -y,--younger-than    завершить процессы, новее чем заданного ВРЕМЕНИ\n"
 "  -o,--older-than      завершить процессы, старее чем заданного ВРЕМЕНИ\n"
-"  -i,--interactive     запрашивать подтверждение перед завершением "
-"процессов\n"
+"  -i,--interactive     запрашивать подтверждение перед завершением процессов\n"
 "  -l,--list            вывести список допустимых имён сигналов\n"
 "  -q,--quiet           не показывать подробные сообщения\n"
-"  -r,--regexp          рассматривать ИМЯ как расширенное регулярное "
-"выражение\n"
+"  -r,--regexp          рассматривать ИМЯ как расширенное регулярное выражение\n"
 "  -s,--signal СИГНАЛ   посылать указанный СИГНАЛ, а не SIGTERM\n"
-"  -u,--user ПОЛЬЗВ      завершить процесс(ы), запущенный только "
-"ПОЛЬЗОВАТЕЛЕМ\n"
+"  -u,--user ПОЛЬЗВ      завершить процесс(ы), запущенный только ПОЛЬЗОВАТЕЛЕМ\n"
 "  -v,--verbose         уведомлять только при успешной отправке сигнала\n"
 "  -V,--version         показать информацию о версии\n"
 "  -w,--wait            ожидать завершения процессов\n"
+"  -n,--ns PID          все процессы, принадлежащие тем же пространствам имён\n"
+"                       что и PID\n"
 
 #: src/killall.c:770
 #, c-format
@@ -347,9 +341,8 @@ msgid "Cannot find user %s\n"
 msgstr "Пользователь %s не найден\n"
 
 #: src/killall.c:931
-#, fuzzy
 msgid "Invalid namespace PID"
-msgstr "Неверное имя области"
+msgstr "Неверный PID пространства имён"
 
 #: src/killall.c:938
 #, c-format
@@ -386,28 +379,30 @@ msgstr ""
 "\n"
 
 #: src/peekfd.c:132
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: peekfd [-8] [-n] [-c] [-d] [-V] [-h] <pid> [<fd> ..]\n"
 "    -8, --eight-bit-clean        output 8 bit clean streams.\n"
 "    -n, --no-headers             don't display read/write from fd headers.\n"
 "    -c, --follow                 peek at any new child processes too.\n"
-"    -t, --tgid                   peek at all threads where tgid equals "
-"<pid>.\n"
-"    -d, --duplicates-removed     remove duplicate read/writes from the "
-"output.\n"
+"    -t, --tgid                   peek at all threads where tgid equals <pid>.\n"
+"    -d, --duplicates-removed     remove duplicate read/writes from the output.\n"
 "    -V, --version                prints version info.\n"
 "    -h, --help                   prints this help.\n"
 "\n"
 "  Press CTRL-C to end output.\n"
 msgstr ""
 "Использование: peekfd [-8] [-n] [-c] [-d] [-V] [-h] <pid> [<fd> ..]\n"
-"    -8 в потоках не сбрасывается 8-й бит.\n"
-"    -n не отображать fd заголовки при чтении/записи.\n"
-"    -c наблюдать также за всеми новыми дочерними процессами.\n"
-"    -d удалять повторяющиеся операции чтения/записи при выводе.\n"
-"    -V вывести информацию о версии.\n"
-"    -h вывести эту справку.\n"
+"    -8, --eight-bit-clean    не сбрасывать 8-й бит в потоках\n"
+"    -n, --no-headers         не отображать fd заголовки при чтении/записи\n"
+"    -c, --follow             наблюдать также за всеми новыми\n"
+"                             дочерними процессами\n"
+"    -t, --tgid                   наблюдать за всеми нитями, у которых\n"
+"                             tgid равен <pid>\n"
+"    -d, --duplicates-removed удалять повторяющиеся операции чтения/записи\n"
+"                             при выводе\n"
+"    -V, --version            вывести информацию о версии\n"
+"    -h, --help               вывести эту справку\n"
 "\n"
 "  Нажмите CTRL-C для завершения.\n"
 
@@ -432,12 +427,12 @@ msgid "prtstat (PSmisc) %s\n"
 msgstr "prtstat (PSmisc) %s\n"
 
 #: src/prtstat.c:66
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 2009-2017 Craig Small\n"
 "\n"
 msgstr ""
-"Copyright (C) 2009 Craig Small\n"
+"Copyright (C) 2009-2017 Craig Small\n"
 "\n"
 
 #: src/prtstat.c:78
@@ -511,8 +506,7 @@ msgid ""
 "  Child processes (user system guest):       %6.2f %6.2f %6.2f\n"
 msgstr ""
 "Процессорное время\n"
-"  Этот процесс      (польз. систем. гостевое blkio): %6.2f %6.2f %6.2f "
-"%6.2f\n"
+"  Этот процесс      (польз. систем. гостевое blkio): %6.2f %6.2f %6.2f %6.2f\n"
 "  Дочерние процессы (польз. систем. гостевое):       %6.2f %6.2f %6.2f\n"
 
 #: src/prtstat.c:189
@@ -586,7 +580,7 @@ msgid "%s is empty (not mounted ?)\n"
 msgstr "%s пуст (не смонтирован?)\n"
 
 #: src/pstree.c:1092
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N type ]\n"
 "Usage: pstree [-acglpsStu] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -630,22 +624,19 @@ msgstr ""
 "  --highlight-pid=PID выделить цветом процесс PID и его предков\n"
 "  -g, --show-pgids    показывать идентификаторы групп процесса;\n"
 "                      включает -c\n"
-"  -G, --vt100         использовать символы терминала VT100 для рисования "
-"линий\n"
+"  -G, --vt100         использовать символы терминала VT100 для рисования линий\n"
 "  -l, --long          не обрезать длинные строки\n"
 "  -n, --numeric-sort  сортировать вывод по PID\n"
 "  -N тип,\n"
 "  --ns-sort=тип       сортировать по типу пространства имён\n"
-"                      (ipc, mnt, net, pid, user, uts)\n"
-"  -p, --show-pids     показывать идентификаторы процессов (PID); включает -"
-"c\n"
+"                      (cgroup, ipc, mnt, net, pid, user, uts)\n"
+"  -p, --show-pids     показывать идентификаторы процессов (PID); включает -c\n"
 "  -s, --show-parents  показывать родителей выбранного процесса\n"
 "  -S, --ns-changes    показывать переходы пространств имён\n"
 "  -t, --thread-names  показывать полные имена нитей\n"
 "  -T, --hide-threads  скрывать нити, показывать только процессы\n"
 "  -u, --uid-changes   показывать переходы идентификаторов пользователей\n"
-"  -U, --unicode       использовать символы UTF-8 (Юникод) для рисования "
-"линий\n"
+"  -U, --unicode       использовать символы UTF-8 (Юникод) для рисования линий\n"
 "  -V, --version       показать информацию о версии\n"
 
 #: src/pstree.c:1121
@@ -665,8 +656,7 @@ msgid ""
 "\n"
 msgstr ""
 "  PID                 начинать от указанного PID; по умолчанию 1 (init)\n"
-"  ПОЛЬЗОВАТЕЛЬ        показать только дерево процессов указанного "
-"пользователя\n"
+"  ПОЛЬЗОВАТЕЛЬ        показать только дерево процессов указанного пользователя\n"
 "\n"
 
 #: src/pstree.c:1131
@@ -745,8 +735,7 @@ msgstr "%s: неизвестный сигнал; %s -l выводит списо
 #~ "\n"
 #~ "   -e          требовать полного совпадения для очень длинных имён;\n"
 #~ "               игнорировать, если командная строка недоступна\n"
-#~ "   -g          показывать идентификатор группы вместо идентификатора "
-#~ "процесса\n"
+#~ "   -g          показывать идентификатор группы вместо идентификатора процесса\n"
 #~ "   -V          показать информацию о версии\n"
 #~ "\n"
 

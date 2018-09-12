@@ -1,14 +1,14 @@
 # Czech translation of psmisc.
 # Copyright (C) 2009 Free Software Foundation, Inc.
 # This file is distributed under the same license as the psmisc package.
-# Petr Pisar <petr.pisar@atlas.cz>, 2009, 2010, 2012, 2013, 2014.
+# Petr Pisar <petr.pisar@atlas.cz>, 2009, 2010, 2012, 2013, 2014, 2017, 2018.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc 22.21-pre2\n"
+"Project-Id-Version: psmisc 23.2\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2018-08-13 21:28+1000\n"
-"PO-Revision-Date: 2014-02-02 11:53+0100\n"
+"POT-Creation-Date: 2018-08-13 21:33+1000\n"
+"PO-Revision-Date: 2018-08-13 21:13+02:00\n"
 "Last-Translator: Petr Pisar <petr.pisar@atlas.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 
 #: src/fuser.c:137
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: fuser [-fIMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE]\n"
 "             [-k [-i] [-SIGNAL]] NAME...\n"
@@ -42,9 +42,8 @@ msgid ""
 "  -w,--writeonly        kill only processes with write access\n"
 "  -V,--version          display version information\n"
 msgstr ""
-"Použití: fuser [-fMuvw] [-a|-s] [-4|-6] [-c|-m|-n PROSTOR] [-k [-i] [-"
-"SIGNÁL]]\n"
-"               NÁZEV…\n"
+"Použití: fuser [-fIMuvw] [-a|-s] [-4|-6] [-c|-m|-n PROSTOR]\n"
+"               [-k [-i] [-SIGNÁL]] NÁZEV…\n"
 "         fuser -l\n"
 "         fuser -V\n"
 "Ukáže, které procesy používají vyjmenované soubory, sockety nebo souborové\n"
@@ -52,13 +51,12 @@ msgstr ""
 "\n"
 "  -a,--all              zobrazí rovněž nepoužité soubory\n"
 "  -i,--interactive      před zabitím se dotáže (ignorováno bez -k)\n"
+"  -I,--inode            pro porovnání souborů vždy použije iuzly\n"
 "  -k,--kill             zabije procesy přistupující k zadanému souboru\n"
 "  -l,--list-signals     vypíše seznam názvů dostupných signálů\n"
-"  -m,--mount            zobrazí všechny procesy používající zadané "
-"souborové\n"
+"  -m,--mount            zobrazí všechny procesy používající zadané souborové\n"
 "                        systémy nebo bloková zařízení\n"
-"  -M,--ismountpoint     vyhoví požadavku, pouze když NÁZEV je bod připojení "
-"FS\n"
+"  -M,--ismountpoint     vyhoví požadavku, pouze když NÁZEV je bod připojení FS\n"
 "  -n,--namespace PROSTOR    hledá v tomto jmenném prostoru\n"
 "                        (file [soubor], udp, nebo tcp)\n"
 "  -s,--silent           tichý běh\n"
@@ -96,12 +94,12 @@ msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
 #: src/fuser.c:171 src/killall.c:782 src/pstree.c:1134
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Copyright © 1993–2010 Werner Almesberger a Craig Small\n"
+"Copyright © 1993–2017 Werner Almesberger a Craig Small\n"
 "\n"
 
 #: src/fuser.c:173 src/killall.c:784 src/peekfd.c:124 src/prtstat.c:68
@@ -262,13 +260,13 @@ msgid "%s: no process found\n"
 msgstr "%s: žádný proces nenalezen\n"
 
 #: src/killall.c:742
-#, fuzzy, c-format
+#, c-format
 msgid ""
-"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
-"eIgiqrvw ]\n"
+"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -eIgiqrvw ]\n"
 "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
 msgstr ""
-"Usage: killall [-Z KONTEXT] [-u UŽIVATEL] [-eIgiqrvw] [-SIGNÁL] NÁZEV…\n"
+"Použití: killall [-Z KONTEXT] [-u UŽIVATEL] [-y ČAS ] [-o ČAS] [-eIgiqrvw]\n"
+"                 [-s SIGNÁL | -SIGNÁL] NÁZEV…\n"
 
 #: src/killall.c:746
 #, c-format
@@ -276,7 +274,7 @@ msgid "Usage: killall [OPTION]... [--] NAME...\n"
 msgstr "Použití: killall [PŘEPÍNAČ…] [--] NÁZEV…\n"
 
 #: src/killall.c:749
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "       killall -l, --list\n"
 "       killall -V, --version\n"
@@ -302,8 +300,7 @@ msgstr ""
 "         killall -V, --version\n"
 "\n"
 "  -e,--exact          u velmi dlouhých názvu vyžaduje přesnou shodu\n"
-"  -I,--ignore-case    porovnávání názvů procesů nebere ohled na velikost "
-"písmen\n"
+"  -I,--ignore-case    porovnávání názvů procesů nebere ohled na velikost písmen\n"
 "  -g,--process-group  zabije skupinu procesů namísto procesu\n"
 "  -y,--younger-than   zabije procesy mladší než ČAS\n"
 "  -o,--older-than     zabije procesy starší než ČAS\n"
@@ -316,6 +313,8 @@ msgstr ""
 "  -v,--verbose        ohlásí úspěšně odeslaný signál\n"
 "  -V,--version        zobrazí informace o verzi\n"
 "  -w,--wait           čeká, dokud proces nezemře\n"
+"  -n,--ns PID         vybere procesy, které patří do stejných jmenných\n"
+"                      prostorů jako PID\n"
 
 #: src/killall.c:770
 #, c-format
@@ -336,9 +335,8 @@ msgid "Cannot find user %s\n"
 msgstr "Uživatele %s nelze nalézt\n"
 
 #: src/killall.c:931
-#, fuzzy
 msgid "Invalid namespace PID"
-msgstr "Neplatný název jmenného prostoru"
+msgstr "Neplatný PID jmenného prostoru"
 
 #: src/killall.c:938
 #, c-format
@@ -375,28 +373,30 @@ msgstr ""
 "\n"
 
 #: src/peekfd.c:132
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: peekfd [-8] [-n] [-c] [-d] [-V] [-h] <pid> [<fd> ..]\n"
 "    -8, --eight-bit-clean        output 8 bit clean streams.\n"
 "    -n, --no-headers             don't display read/write from fd headers.\n"
 "    -c, --follow                 peek at any new child processes too.\n"
-"    -t, --tgid                   peek at all threads where tgid equals "
-"<pid>.\n"
-"    -d, --duplicates-removed     remove duplicate read/writes from the "
-"output.\n"
+"    -t, --tgid                   peek at all threads where tgid equals <pid>.\n"
+"    -d, --duplicates-removed     remove duplicate read/writes from the output.\n"
 "    -V, --version                prints version info.\n"
 "    -h, --help                   prints this help.\n"
 "\n"
 "  Press CTRL-C to end output.\n"
 msgstr ""
-"Použití: peekfd [-8] [-n] [-c] [-d] [-V] [-h] PID [FD…]\n"
-"      -8 na výstupu neodstraňuje z datových proudů osmý bit.\n"
-"      -n nezobrazuje čtení/zápis z hlaviček FD.\n"
-"      -c špehuje též nové potomky.\n"
-"      -d odstraňuje duplicitní čtení/zápisy z výstupu.\n"
-"      -V vypíše informaci o verzi.\n"
-"      -h vypíše tuto nápovědu.\n"
+"Použití: peekfd [-8] [-n] [-c] [-d] [-V] [-h] <pid> [<df>…]\n"
+"    -8, --eight-bit-clean        na výstupu neodstraňuje z datových proudů\n"
+"                                 osmý bit.\n"
+"    -n, --no-headers             nezobrazuje čtení/zápis z hlaviček\n"
+"                                 deskriptoru.\n"
+"    -c, --follow                 špehuje též nové potomky.\n"
+"    -t, --tgid                   špehuje všechna vlákna, jejichž TGID je\n"
+"                                 roven <pid>.\n"
+"    -d, --duplicates-removed     z výstupu odstraňuje duplicitní čtení/zápisy.\n"
+"    -V, --version                vypíše údaje o verzi.\n"
+"    -h, --help                   vypíše tuto nápovědu.\n"
 "\n"
 "  Výstup ukončíte stiskem Ctrl-C.\n"
 
@@ -421,12 +421,12 @@ msgid "prtstat (PSmisc) %s\n"
 msgstr "prtstat (PSmisc) %s\n"
 
 #: src/prtstat.c:66
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 2009-2017 Craig Small\n"
 "\n"
 msgstr ""
-"Copyright © 2009 Craig Small\n"
+"Copyright © 2009–2017 Craig Small\n"
 "\n"
 
 #: src/prtstat.c:78
@@ -547,14 +547,14 @@ msgid "Unable to open stat file for pid %d (%s)\n"
 msgstr "Soubor se statistikou PID %d nelze otevřít (%s)\n"
 
 #: src/prtstat.c:243
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to allocate memory for proc_info\n"
-msgstr "Paměť pro odpovídající proc nelze alokovat: %s\n"
+msgstr "Paměť pro proc_info nelze alokovat\n"
 
 #: src/prtstat.c:283
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to scan stat file"
-msgstr "Soubor se statistikou PID %d nelze otevřít (%s)\n"
+msgstr "Soubor se statistikou nelze prohlédnout"
 
 #: src/prtstat.c:318
 msgid "Invalid option"
@@ -575,7 +575,7 @@ msgid "%s is empty (not mounted ?)\n"
 msgstr "%s je prázdný (není připojen?)\n"
 
 #: src/pstree.c:1092
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N type ]\n"
 "Usage: pstree [-acglpsStu] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -605,8 +605,9 @@ msgid ""
 "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
 "  -V, --version       display version information\n"
 msgstr ""
-"Použití: pstree [-a] [-c] [-h|-H PID] [-l] [-n] [-p] [-g] [-u]\n"
-"                [-A|-G|-U] [PID|USER]\n"
+"Použití: pstree [-acglpsStuZ] [-h | -H PID ] [-n | -N DRUH]\n"
+"Použití: pstree [-acglpsStu] [-h | -H PID] [-n | -N DRUH]\n"
+"                [-A|-G|-U] [PID|UŽIVATEL]\n"
 "         pstree -V\n"
 "Zobrazí strom procesů.\n"
 "\n"
@@ -622,20 +623,24 @@ msgstr ""
 "  -n, --numeric-sort   seřadí výstup podle PID\n"
 "  -N druh,\n"
 "  --ns-sort=druh       seřadí výstup podle druhu jmenného prostoru\n"
-"                       (ipc, mnt, net, pid, user, uts)\n"
+"                       (cgroup, ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids      zobrazí PID; implikuje -c\n"
 "  -s, --show-parents   zobrazí rodiče vybraného procesu\n"
 "  -S, --ns-changes     zobrazí přechody mezi jmennými prostory\n"
+"  -t, --thread-names   zobrazí celé názvy vláken\n"
+"  -T, --hide-threads   skryje vlákna, zobrazí pouze procesy\n"
 "  -u, --uid-changes    zobrazí přechody UID\n"
 "  -U, --unicode        použije znaky UTF-8 (Unicode) pro kreslení čar\n"
 "  -V, --version        zobrazí informace o verzi\n"
 
 #: src/pstree.c:1121
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -Z, --security-context\n"
 "                      show SELinux security contexts\n"
-msgstr "  -Z                   zobrazí bezpečnostní kontext SELinuxu\n"
+msgstr ""
+"  -Z, --security-context\n"
+"                      zobrazí bezpečnostní kontext SELinuxu\n"
 
 #: src/pstree.c:1124
 #, c-format
@@ -689,10 +694,10 @@ msgid "%s: unknown signal; %s -l lists signals.\n"
 msgstr "%s: neznámý signál, %s -l vypíše signály.\n"
 
 #~ msgid ""
-#~ "Copyright (C) 1993-2012 Werner Almesberger and Craig Small\n"
+#~ "Copyright (C) 1993-2014 Werner Almesberger and Craig Small\n"
 #~ "\n"
 #~ msgstr ""
-#~ "Copyright © 1993–2012 Werner Almesberger a Craig Small\n"
+#~ "Copyright © 1993–2014 Werner Almesberger a Craig Small\n"
 #~ "\n"
 
 #~ msgid ""
@@ -700,4 +705,11 @@ msgstr "%s: neznámý signál, %s -l vypíše signály.\n"
 #~ "\n"
 #~ msgstr ""
 #~ "Copyright © 1993–2009 Werner Almesberger a Craig Small\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "Copyright (C) 1993-2012 Werner Almesberger and Craig Small\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Copyright © 1993–2012 Werner Almesberger a Craig Small\n"
 #~ "\n"

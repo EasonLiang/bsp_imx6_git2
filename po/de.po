@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the psmisc package.
 # Wolfgang Schorer <wcc@wolfgangs.com>, 2002.
 # Benno Schulenberg <benno@vertaalt.nl>, 2007.
-# Roland Illig <roland.illig@gmx.de>, 2009-2017.
+# Roland Illig <roland.illig@gmx.de>, 2009-2018.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc 23.0-rc1\n"
+"Project-Id-Version: psmisc 23.2\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2018-08-13 21:28+1000\n"
-"PO-Revision-Date: 2017-04-05 00:05+0200\n"
+"POT-Creation-Date: 2018-08-13 21:33+1000\n"
+"PO-Revision-Date: 2018-08-13 22:04+0200\n"
 "Last-Translator: Roland Illig <roland.illig@gmx.de>\n"
 "Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
 "Language: de\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Poedit 2.0\n"
+"X-Generator: Poedit 2.1.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/fuser.c:137
@@ -50,22 +50,17 @@ msgstr ""
 "              [-k [-i] [-SIGNAL]] NAME...\n"
 "        fuser -l\n"
 "        fuser -V\n"
-"Anzeigen, welche Prozesse die angegebenen Dateien, Sockets oder Dateisysteme "
-"benutzen.\n"
+"Anzeigen, welche Prozesse die angegebenen Dateien, Sockets oder Dateisysteme benutzen.\n"
 "\n"
 "  -a,--all             auch ungenutzte Dateien anzeigen\n"
 "  -i,--interactive     vor dem Abschießen nachfragen (ohne -k wirkungslos)\n"
 "  -I,--inode           immer Inodes benutzen, um Dateien zu vergleichen\n"
-"  -k,--kill            Prozesse abschießen, die auf die angegebene Datei "
-"zugreifen\n"
+"  -k,--kill            Prozesse abschießen, die auf die angegebene Datei zugreifen\n"
 "  -l,--list-signals    Signalnamen auflisten\n"
-"  -m,--mount           alle Prozesse anzeigen, die auf die angegebenen "
-"Dateisysteme\n"
+"  -m,--mount           alle Prozesse anzeigen, die auf die angegebenen Dateisysteme\n"
 "                       oder Blockgeräte zugreifen\n"
-"  -M,--ismountpoint    Operation nur durchführen, wenn NAME ein "
-"Einhängepunkt ist\n"
-"  -n,--namespace RAUM  in angegebenem Namensraum suchen (file, udp oder "
-"tcp)\n"
+"  -M,--ismountpoint    Operation nur durchführen, wenn NAME ein Einhängepunkt ist\n"
+"  -n,--namespace RAUM  in angegebenem Namensraum suchen (file, udp oder tcp)\n"
 "  -s,--silent          stille Durchführung\n"
 "  -SIGNAL              SIGNAL anstatt SIGKILL senden\n"
 "  -u,--user            Benutzer-IDs anzeigen\n"
@@ -101,12 +96,12 @@ msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
 #: src/fuser.c:171 src/killall.c:782 src/pstree.c:1134
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Copyright (C) 1993-2010 Werner Almesberger und Craig Small\n"
+"Copyright (C) 1993-2017 Werner Almesberger und Craig Small\n"
 "\n"
 
 #: src/fuser.c:173 src/killall.c:784 src/peekfd.c:124 src/prtstat.c:68
@@ -190,9 +185,7 @@ msgstr "Die Option »all« kann nicht mit der Option »silent« kombiniert werde
 
 #: src/fuser.c:1312
 msgid "You cannot search for only IPv4 and only IPv6 sockets at the same time"
-msgstr ""
-"Es ist nicht möglich, gleichzeitig ausschließlich nach IPv4 und "
-"ausschließlich nach IPv6-Sockets zu suchen."
+msgstr "Es ist nicht möglich, gleichzeitig ausschließlich nach IPv4 und ausschließlich nach IPv6-Sockets zu suchen."
 
 #: src/fuser.c:1401
 #, c-format
@@ -271,8 +264,7 @@ msgstr "%s: Kein Prozess gefunden\n"
 #: src/killall.c:742
 #, c-format
 msgid ""
-"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
-"eIgiqrvw ]\n"
+"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -eIgiqrvw ]\n"
 "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
 msgstr ""
 "Aufruf: killall [-Z CONTEXT] [-u USER] [-y TIME] [-o TIME] [-eIgiqrvw]\n"
@@ -284,7 +276,7 @@ msgid "Usage: killall [OPTION]... [--] NAME...\n"
 msgstr "Aufruf: killall [OPTION]... [--] NAME...\n"
 
 #: src/killall.c:749
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "       killall -l, --list\n"
 "       killall -V, --version\n"
@@ -310,8 +302,7 @@ msgstr ""
 "       killall -V, --version\n"
 "\n"
 "  -e,--exact          genaue Übereinstimmung für sehr lange Namen verlangen\n"
-"  -I,--ignore-case    nicht zwischen Groß- und Kleinschreibung "
-"unterscheiden\n"
+"  -I,--ignore-case    nicht zwischen Groß- und Kleinschreibung unterscheiden\n"
 "  -g,--process-group  Prozessgruppe statt Einzelprozess abbrechen\n"
 "  -y,--younger-than   Prozesse jünger als ZEIT abbrechen\n"
 "  -o,--older-than     Prozesse älter als ZEIT abbrechen\n"
@@ -321,10 +312,12 @@ msgstr ""
 "  -r,--regexp         NAME ist ein erweiteter regulärer Ausdruck\n"
 "  -s,--signal SIGNAL  benutzerdefiniertes Signal anstatt SIGTERM senden\n"
 "  -u,--user USER      nur Prozesse von angegebenem Benutzer abbrechen\n"
-"  -v,--verbose        benachrichtigen, falls das Signal erfolgreich gesendet "
-"wurde\n"
+"  -v,--verbose        benachrichtigen, falls das Signal erfolgreich gesendet\n"
+"                      wurde\n"
 "  -V,--version        Version anzeigen\n"
 "  -w,--wait           auf das Beenden der Prozesse warten\n"
+"  -n,--ns PID         nur Prozesse aus demselben Namensraum wie PID\n"
+"                      berücksichtigen\n"
 
 #: src/killall.c:770
 #, c-format
@@ -345,9 +338,8 @@ msgid "Cannot find user %s\n"
 msgstr "Benutzer %s kann nicht gefunden werden\n"
 
 #: src/killall.c:931
-#, fuzzy
 msgid "Invalid namespace PID"
-msgstr "Ungültiger Namensraum"
+msgstr "Ungültige Namensraum-PID"
 
 #: src/killall.c:938
 #, c-format
@@ -362,9 +354,7 @@ msgstr "killall: Die maximale Anzahl von Namen ist %d\n"
 #: src/killall.c:978
 #, c-format
 msgid "killall: %s lacks process entries (not mounted ?)\n"
-msgstr ""
-"killall: Bei %s fehlen die Prozesseinträge (Dateisystem möglicherweise nicht "
-"eingehängt?)\n"
+msgstr "killall: Bei %s fehlen die Prozesseinträge (Dateisystem möglicherweise nicht eingehängt?)\n"
 
 #: src/peekfd.c:112
 #, c-format
@@ -386,28 +376,29 @@ msgstr ""
 "\n"
 
 #: src/peekfd.c:132
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: peekfd [-8] [-n] [-c] [-d] [-V] [-h] <pid> [<fd> ..]\n"
 "    -8, --eight-bit-clean        output 8 bit clean streams.\n"
 "    -n, --no-headers             don't display read/write from fd headers.\n"
 "    -c, --follow                 peek at any new child processes too.\n"
-"    -t, --tgid                   peek at all threads where tgid equals "
-"<pid>.\n"
-"    -d, --duplicates-removed     remove duplicate read/writes from the "
-"output.\n"
+"    -t, --tgid                   peek at all threads where tgid equals <pid>.\n"
+"    -d, --duplicates-removed     remove duplicate read/writes from the output.\n"
 "    -V, --version                prints version info.\n"
 "    -h, --help                   prints this help.\n"
 "\n"
 "  Press CTRL-C to end output.\n"
 msgstr ""
 "Aufruf: peekfd [-8] [-n] [-c] [-d] [-V] [-h] <pid> [<fd> ..]\n"
-"    -8 8-Bit-Ausgabe erzwingen.\n"
-"    -n Header für Lesen/Schreiben aus FDs nicht anzeigen.\n"
-"    -c Auch nach neuen Kindprozessen Ausschau halten.\n"
-"    -d Doppeltes Lesen/Schreiben nicht ausgeben.\n"
-"    -V Versionsinformationen ausgeben.\n"
-"    -h Diese Hilfe ausgeben.\n"
+"    -8, --eight-bit-clean      8-Bit-Ausgabe erzwingen.\n"
+"    -n, --no-headers           Header für Lesen/Schreiben aus FDs nicht\n"
+"                               anzeigen.\n"
+"    -c, --follow               Auch nach neuen Kindprozessen Ausschau halten.\n"
+"    -t, --tgid                 Nach allen Threads Ausschau halten, deren tgid\n"
+"                               gleich <PID> ist.\n"
+"    -d, --duplicates-removed   Doppeltes Lesen/Schreiben nicht ausgeben.\n"
+"    -V, --version              Versionsinformationen ausgeben.\n"
+"    -h, --help                 Diese Hilfe ausgeben.\n"
 "\n"
 "  Drücken Sie Strg-C, um die Ausgabe zu beenden.\n"
 
@@ -432,12 +423,12 @@ msgid "prtstat (PSmisc) %s\n"
 msgstr "prtstat (PSmisc) %s\n"
 
 #: src/prtstat.c:66
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 2009-2017 Craig Small\n"
 "\n"
 msgstr ""
-"Copyright (C) 2009 Craig Small\n"
+"Copyright (C) 2009–2017 Craig Small\n"
 "\n"
 
 #: src/prtstat.c:78
@@ -585,7 +576,7 @@ msgid "%s is empty (not mounted ?)\n"
 msgstr "%s ist leer (Dateisystem möglicherweise nicht eingebunden?)\n"
 
 #: src/pstree.c:1092
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Usage: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N type ]\n"
 "Usage: pstree [-acglpsStu] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -621,25 +612,27 @@ msgstr ""
 "        pstree -V\n"
 "Einen Prozessbaum anzeigen.\n"
 "\n"
-"    -a, --arguments       Kommandozeilenargumente anzeigen\n"
-"    -A, --ascii           ASCII-Zeichen für die Ausgabe benutzen\n"
-"    -c, --compact         Identische Unterbäume nicht zusammenfassen\n"
-"    -h, --highlight all   Aktuellen Prozess und seine Ahnen hervorheben\n"
-"    -H PID,\n"
-"    --highlight-pid=PID   Angegebenen Prozess und seine Ahnen hervorheben\n"
-"    -g, --show-pgids      Prozessgruppen-IDs anzeigen; impliziert -c\n"
-"    -G, --vt100           VT100-Zeichen für die Ausgabe benutzen\n"
-"    -l, --long            Lange Zeilen nicht abschneiden\n"
-"    -n, --numeric-sort    Ausgabe nach PID sortieren\n"
-"    -N Art,\n"
-"    --ns-sort=type        Nach Art des Namensraums sortieren (ipc, mnt, net, "
-"pid, user, uts)\n"
-"    -p, --show-pids       PIDs anzeigen; impliziert -c\n"
-"    -s, --show-parents    Eltern des ausgewählten Prozesses anzeigen\n"
-"    -S, --ns-changes      Wechsel des Namensraums anzeigen\n"
-"    -u, --uid-changes     Wechsel der UID anzeigen\n"
-"    -U, --unicode         UTF-8 (Unicode) für die Ausgabe verwenden\n"
-"    -V, --version         Verwendete Version ausgeben\n"
+"  -a, --arguments       Kommandozeilenargumente anzeigen\n"
+"  -A, --ascii           ASCII-Zeichen für die Ausgabe benutzen\n"
+"  -c, --compact         Identische Unterbäume nicht zusammenfassen\n"
+"  -h, --highlight-all   Aktuellen Prozess und seine Ahnen hervorheben\n"
+"  -H PID,\n"
+"  --highlight-pid=PID   Angegebenen Prozess und seine Ahnen hervorheben\n"
+"  -g, --show-pgids      Prozessgruppen-IDs anzeigen; impliziert -c\n"
+"  -G, --vt100           VT100-Zeichen für die Ausgabe benutzen\n"
+"  -l, --long            Lange Zeilen nicht abschneiden\n"
+"  -n, --numeric-sort    Ausgabe nach PID sortieren\n"
+"  -N Art,\n"
+"  --ns-sort=type        Nach Art des Namensraums sortieren\n"
+"                        (ipc, mnt, net, pid, user, uts)\n"
+"  -p, --show-pids       PIDs anzeigen; impliziert -c\n"
+"  -s, --show-parents    Eltern des ausgewählten Prozesses anzeigen\n"
+"  -S, --ns-changes      Wechsel des Namensraums anzeigen\n"
+"  -t, --thread-names    Vollständige Threadnamen anzeigen\n"
+"  -T, --hide-threads    Threads verstecken, nur Prozesse anzeigen\n"
+"  -u, --uid-changes     Wechsel der UID anzeigen\n"
+"  -U, --unicode         UTF-8 (Unicode) für die Ausgabe verwenden\n"
+"  -V, --version         Verwendete Version ausgeben\n"
 
 #: src/pstree.c:1121
 #, c-format
@@ -658,8 +651,7 @@ msgid ""
 "\n"
 msgstr ""
 "    PID       mit dieser PID starten; Vorgabewert ist 1 (init)\n"
-"    BENUTZER  zeige nur Prozessbäume, deren Wurzeln Prozesse dieses "
-"Benutzers sind\n"
+"    BENUTZER  zeige nur Prozessbäume, deren Wurzeln Prozesse dieses Benutzers sind\n"
 "\n"
 
 #: src/pstree.c:1131
@@ -750,9 +742,7 @@ msgstr "%s: unbekanntes Signal; %s -l listet die Signale auf.\n"
 #~ "\n"
 
 #~ msgid "You cannot use the mounted and mountpoint flags together"
-#~ msgstr ""
-#~ "Die Flags gemounted und mount-Punkt können nicht gleichzeitig verwendet "
-#~ "werden."
+#~ msgstr "Die Flags gemounted und mount-Punkt können nicht gleichzeitig verwendet werden."
 
 #~ msgid "Cannot stat mount point %s: %s\n"
 #~ msgstr "Kann Status von Einhängepunkt \"%s\" nicht ermitteln: %s\n"
