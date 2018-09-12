@@ -21,15 +21,14 @@ fuser \- identify processes using files or sockets
 .RB [ \-i ]
 .RB [ \-M ]
 .RB [ \-w ]
-.RB [ \- \fISIGNAL\fR]
+.RB [ \-\c
+.IR SIGNAL ]
 ]
-.IR name " ..."
+.IR name " \&...\&"
 .br
-.B fuser
-.RB \-l
+.B fuser \-l
 .br
-.B fuser
-.RB \-V
+.B fuser \-V
 .ad b
 .SH DESCRIPTION
 .B fuser
@@ -88,7 +87,7 @@ options.  The socket(s) can be specified by the local and remote port,
 and the remote address.  All fields are optional, but commas in front
 of missing fields must be present:
 .PP
-\fB[\fR\fIlcl_port\fR\fB][\fR,\fB[\fR\fIrmt_host\fR\fB][\fR,\fB[\fIrmt_port\fR\fB]]]
+.RI [ lcl_port ][,[ rmt_host ][,[ rmt_port ]]]
 .PP
 Either symbolic or numeric values can be used for IP addresses and port
 numbers.
@@ -97,19 +96,21 @@ numbers.
 outputs only the PIDs to stdout, everything else is sent to stderr.
 .SH OPTIONS
 .TP
-\fB\-a\fR, \fB\-\-all\fR
+.BR \-a ", " \-\-all
 Show all files specified on the command line.  By default, only files
 that are accessed by at least one process are shown.
 .TP
-\fB\-c\fR
+.B \-c
 Same as \-m option, used for POSIX compatibility.
 .TP
-\fB\-f\fR
+.B \-f
 Silently ignored, used for POSIX compatibility.
 .TP
-\fB\-k\fR, \fB\-\-kill\fR
+.BR \-k ", "\-\-kill
 Kill processes accessing the file.  Unless changed with
-\fB\-\fR\fISIGNAL\fR, SIGKILL is sent.  An
+.BI \- SIGNAL\/\c
+, SIGKILL is sent.
+An
 .B fuser
 process never kills itself, but may kill other
 .B fuser
@@ -117,22 +118,23 @@ processes.  The effective user ID of the process executing
 .B fuser
 is set to its real user ID before attempting to kill.
 .TP
-\fB\-i\fR, \fB\-\-interactive\fR
-Ask the user for confirmation before killing a process. This option is
+.BR \-i ", " \-\-interactive
+Ask the user for confirmation before killing a process.
+This option is
 silently ignored if
 .B \-k
 is not present too.
 .TP
-\fB\-I\fR, \fB\-\-inode\fR
+.BR \-I ", " \-\-inode
 For the name space
 .B file
-let all comparisions be based on the inodes of the specified file(s)
+let all comparisons be based on the inodes of the specified file(s)
 and never on the file names even on network based file systems.
 .TP
-\fB\-l\fR, \fB\-\-list\-signals\fR
+.BR \-l ", " \-\-list\-signals
 List all known signal names.
 .TP
-\fB\-m\fR \fINAME\fR, \fB\-\-mount\fR \fINAME\fR
+.BI -m " NAME \fR, " "\-\-mount " NAME
 .I NAME
 specifies a file on a mounted file system or a block device that is
 mounted.  All processes accessing files on that file system are listed.
@@ -140,21 +142,21 @@ If a directory file is specified, it is automatically changed to
 .IR NAME /.
 to use any file system that might be mounted on that directory.
 .TP
-\fB\-M\fR, \fB\-\-ismountpoint\fR
+.BR \-M ", " \-\-ismountpoint
 Request will be fulfilled only if
 .I NAME
-specifies a mountpoint.  This is an invaluable seatbelt which prevents
+specifies a mountpoint.  This is an invaluable seat belt which prevents
 you from killing the machine if
 .I NAME
 happens to not be a filesystem.
 .TP
-\fB\-w\fP
+.B \-w
 Kill only processes which have write access.  This option is silently
 ignored if
 .B \-k
 is not present too.
 .TP
-\fB\-n \fISPACE\fR, \fB\-\-namespace\fR \fISPACE\fR
+.BI \-n " SPACE\fR, " "\-\-namespace " SPACE
 Select a different name space.  The name spaces
 .B file
 (file names, the default),
@@ -163,10 +165,13 @@ Select a different name space.  The name spaces
 .B tcp
 (local TCP ports) are supported.  For ports, either the port number or
 the symbolic name can be specified.  If there is no ambiguity, the
-shortcut notation \fIname\fB/\fIspace\fR (e.g. \fI80\fB/\fItcp\fR)
+shortcut notation
+.IB name / space
+(e.g.,
+.IB 80 / tcp \fR)
 can be used.
 .TP
-\fB\-s\fR, \fB\-\-silent\fR
+.BR \-s ", " \-\-silent
 Silent operation.
 .B  \-u
 and
@@ -176,20 +181,20 @@ are ignored in this mode.
 must not be used with
 .BR \-s .
 .TP
-\fB\-\fISIGNAL\fR
+.BI \- SIGNAL
 Use the specified signal instead of SIGKILL when killing processes.
-Signals can be specified either by name (e.g.
-.BR \-HUP ) or by
-number (e.g.
+Signals can be specified either by name (e.g.,
+.BR \-HUP )
+or by number (e.g.,
 .BR \-1 ).
 This option is silently ignored if the
 .B \-k
 option is not used.
 .TP
-\fB\-u\fR, \fB\-\-user\fR
+.BR \-u ", " \-\-user
 Append the user name of the process owner to each PID.
 .TP
-\fB\-v\fR, \fB\-\-verbose\fR
+.BR \-v ", " \-\-verbose
 
 Verbose mode.  Processes are shown in a
 .BR  ps -like
@@ -201,15 +206,15 @@ export or swap file.  In this case
 .B kernel
 is shown instead of the PID.
 .TP
-\fB\-V\fR, \fB\-\-version\fR
+.BR \-V ", " \-\-version
 Display version information.
 .TP
-\fB\-4\fR, \fB\-\-ipv4\fR
+.BR \-4 ", " \-\-ipv4
 Search only for IPv4 sockets.  This option must not be used with the
 .B \-6
 option and only has an effect with the tcp and udp namespaces.
 .TP
-\fB\-6\fR, \fB\-\-ipv6\fR
+.BR \-6 ", " \-\-ipv6
 Search only for IPv6 sockets.  This option must not be used with the
 .B \-4
 option and only has an effect with the tcp and udp namespaces.
@@ -224,7 +229,7 @@ location of the proc file system
 .B fuser \-km /home
 kills all processes accessing the file system /home in any way.
 .TP
-\fBif fuser \-s /dev/ttyS1; then :; else \fIsomething\fB; fi\fR
+.BI "if fuser \-s /dev/ttyS1; then :; else " something "; fi"
 invokes
 .I something
 if no other process is using /dev/ttyS1.

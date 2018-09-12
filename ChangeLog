@@ -2,6 +2,7 @@ Changes in 23.2
 ===============
 	* misc: Command names increased from 16 to 64 characters
 	* buildsys: signals.c depends on signames.h !16
+	* docs: Fix fuser.1 groff errors Debian #900225
 	* killall: look at all namespaces by default
 	* killall: Fix -INT option parsing #11
 	* killall: change to getopt_long without _only #12
