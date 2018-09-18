@@ -857,7 +857,7 @@ main (int argc, char **argv)
 
     opterr = 0;
 #ifdef WITH_SELINUX
-    while ( (optc = getopt_long(argc,argv,"egy:o:ilqrs:u:vwZ:VIn:",options,NULL)) != -1) {
+    while ( (optc = getopt_long_only(argc,argv,"egy:o:ilqrs:u:vwZ:VIn:",options,NULL)) != -1) {
 #else
         while ( (optc = getopt_long_only(argc,argv,"egy:o:ilqrs:u:vwVIn:",options,NULL)) != -1) {
 #endif
@@ -914,7 +914,7 @@ main (int argc, char **argv)
                     ignore_case = 1;
                 } else {
                     sig_num = get_signal (argv[optind]+1, "killall");
-                    skip_error=1;
+                    skip_error=optind;
                 }
                 break;
             case 'V':
@@ -922,8 +922,10 @@ main (int argc, char **argv)
                 if (strcmp(argv[optind-1],"-V") == 0 || strncmp(argv[optind-1],"--",2) == 0) {
                     print_version();
                     return 0;
+                } else {
+                    sig_num = get_signal (argv[optind]+1, "killall");
+                    skip_error=optind;
                 }
-                sig_num = get_signal (argv[optind]+1, "killall");
                 break;
             case 'n': {
                 long num;
@@ -948,6 +950,15 @@ main (int argc, char **argv)
                 break;
 #endif /*WITH_SELINUX*/
             case '?':
+                if (skip_error == optind)
+                    break;
+                /* Sigh, this is a hack because -ve could be -version or
+                 * -verbose */
+                if (strncmp(argv[optind-1], "-ve", 3) == 0) {
+                    verbose=1;
+                    exact=1;
+                    break;
+                }
                 /* Signal names are in uppercase, so check to see if the argv
                  * is upper case */
                 if (argv[optind-1][1] >= 'A' && argv[optind-1][1] <= 'Z') {
@@ -957,9 +968,6 @@ main (int argc, char **argv)
                     if (argv[optind-1][1] >= '0' && argv[optind-1][1] <= '9') {
                         sig_num = atoi(argv[optind-1]+1);
                     } else {
-                        if (skip_error)
-                            skip_error=0;
-                        else
                             usage(NULL);
                     }
                 }

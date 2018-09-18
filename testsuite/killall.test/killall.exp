@@ -17,3 +17,16 @@ set test "killall process not found"
 spawn $killall ${fake_proc_name}
 expect_pass "$test" "${fake_proc_name}: no process found"
 
+set test "killall using -ve"
+spawn $killall -ve ${fake_proc_name}
+expect_pass "$test" "${fake_proc_name}: no process found"
+
+set signals [regexp -all -inline {\w+} [exec $killall -l]]
+foreach signame $signals {
+  set test "killall using signal $signame"
+  spawn $killall -$signame ${fake_proc_name}
+  expect_pass "$test" "${fake_proc_name}: no process found"
+  set test "killall using signal SIG$signame"
+  spawn $killall -SIG$signame ${fake_proc_name}
+  expect_pass "$test" "${fake_proc_name}: no process found"
+}
