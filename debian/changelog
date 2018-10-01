@@ -1,3 +1,9 @@
+init-system-helpers (1.55) UNRELEASED; urgency=medium
+
+  * d/control: Deprecating priority extra as per policy 4.0.1
+
+ -- Ondřej Nový <onovy@debian.org>  Mon, 01 Oct 2018 10:26:57 +0200
+
 init-system-helpers (1.54) unstable; urgency=medium
 
   * Revert "Drop fallback for old versions of systemd that didn't have

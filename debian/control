@@ -1,6 +1,6 @@
 Source: init-system-helpers
 Section: admin
-Priority: extra
+Priority: optional
 Maintainer: Debian systemd Maintainers <pkg-systemd-maintainers@lists.alioth.debian.org>
 Uploaders: Michael Biebl <biebl@debian.org>,
            Martin Pitt <mpitt@debian.org>,
