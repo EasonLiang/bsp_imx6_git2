@@ -79,7 +79,7 @@ EXTRA_DIST = src/signames.c README.md misc/git-version-gen
 
 CLEANFILES = src/signames.h
 
-src/signames.h: src/signames.c Makefile
+src/signames.h: src/signames.c Makefile src/$(am__dirstamp)
 		export LC_ALL=C ; \
 		@CPP@ -dM $< |\
 		tr -s '\t ' ' ' | sort -n -k 3 | sed \
