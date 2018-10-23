@@ -293,14 +293,16 @@ sub create_sequence {
     };
 
     my @sequence;
-    if ($openrc_installed) {
-        push @sequence, $openrc;
-    }
     if ($insserv_installed) {
         push @sequence, $sysv_insserv;
     }
     else {
         push @sequence, $sysv_plain;
+    }
+    # OpenRC has to be after sysv_{insserv,plain} because it depends on them to synchronize
+    # states.
+    if ($openrc_installed) {
+        push @sequence, $openrc;
     }
     push @sequence, $systemd;
 
