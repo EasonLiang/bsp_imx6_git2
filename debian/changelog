@@ -1,8 +1,23 @@
-init-system-helpers (1.55) UNRELEASED; urgency=medium
+init-system-helpers (1.55) unstable; urgency=medium
 
+  [ Ondřej Nový ]
   * d/control: Deprecating priority extra as per policy 4.0.1
 
- -- Ondřej Nový <onovy@debian.org>  Mon, 01 Oct 2018 10:26:57 +0200
+  [ Benda Xu ]
+  * s/update-rc.d: let OpenRC run after sysv_{insserv,plain}
+    Refactorization in 6cb72b59a0a1898939b818d8d2 made rc-update from
+    OpenRC run *before* sysv_{insserv,plain}.  OpenRC needs to
+    sychronize with /etc/rc?.d links to maintain consistency and
+    administrator configurations, therefore it has to be executed after
+    them. (Closes: #910444)
+
+  [ Felipe Sateler ]
+  * Fix manpage listings in d/copyright for rst manual pages.
+    The names were not changed correctly when the manpages were rewritten in
+    rst.
+  * Bump Standards-Version (no changes needed)
+
+ -- Felipe Sateler <fsateler@debian.org>  Wed, 24 Oct 2018 08:31:28 -0300
 
 init-system-helpers (1.54) unstable; urgency=medium
 
