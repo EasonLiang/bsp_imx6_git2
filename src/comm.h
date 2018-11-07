@@ -33,4 +33,10 @@
  */
 #define COMM_LEN 64
 
+/*
+ * Older kernels had only 16 characters, which means we may have to check this
+ * too
+ */
+#define OLD_COMM_LEN 16
+
 #endif
