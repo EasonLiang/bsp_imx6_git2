@@ -1,3 +1,6 @@
+Changes in 23.4
+===============
+	* killall: check also truncated 16 char comm names Debian #912748
 Changes in 23.2
 ===============
 	* misc: Command names increased from 16 to 64 characters

@@ -492,6 +492,49 @@ create_pid_table(int *max_pids, int *pids)
     return pid_table;
 }
 
+#define strcmp2(A,B,I) (I? strcasecmp((A),(B)):strcmp((A),(B)))
+#define strncmp2(A,B,L,I) (I? strncasecmp((A),(B),(L)):strncmp((A),(B),(L)))
+static int match_process_name(
+    const char *proc_comm,
+    const int comm_len,
+    const char *proc_cmdline,
+    const char *match_name,
+    const int match_len,
+    const int got_long
+                         )
+{
+    /* process is old length but matching longer */
+    if (comm_len == OLD_COMM_LEN - 1 && match_len >= OLD_COMM_LEN - 1)
+    {
+        if (got_long)
+        {
+            return (0 == strncmp2 (match_name, proc_cmdline, OLD_COMM_LEN - 1,
+                                   ignore_case));
+        } else {
+            return (0 == strncmp2 (match_name, proc_comm, OLD_COMM_LEN - 1,
+                                   ignore_case));
+        }
+    }
+
+    if (comm_len == COMM_LEN - 1 && match_len >= COMM_LEN - 1)
+    {
+        if (got_long)
+        {
+            return (0 == strncmp2 (match_name, proc_cmdline, COMM_LEN - 1,
+                                   ignore_case));
+        } else {
+            return (0 == strncmp2 (match_name, proc_comm, COMM_LEN - 1,
+                                   ignore_case));
+        }
+    }
+    /* Not old new COMM_LEN so we match all of it */
+    if (got_long)
+    {
+        return (0 == strcmp2 (match_name, proc_cmdline, ignore_case));
+    }
+    return (0 == strcmp2 (match_name, proc_comm, ignore_case));
+}
+
 #ifdef WITH_SELINUX
 static int
 kill_all(int signal, int name_count, char **namelist, struct passwd *pwent, 
@@ -599,28 +642,10 @@ kill_all (int signal, int name_count, char **namelist, struct passwd *pwent)
             {
                 if (!name_info[j].st.st_dev)
                 {
-                    if (length != COMM_LEN - 1 || name_info[j].name_length < COMM_LEN - 1)
-                    {
-                        if (ignore_case == 1)
-                        {
-                            if (strcasecmp (namelist[j], comm))
-                                continue;
-                        } else {
-                            if (strcmp(namelist[j], comm))
-                                continue;
-                        }
-                    } else {
-                        if (ignore_case == 1)
-                        {
-                            if (got_long ? strcasecmp (namelist[j], command) :
-                                strncasecmp (namelist[j], comm, COMM_LEN - 1))
-                                continue;
-                        } else {
-                            if (got_long ? strcmp (namelist[j], command) :
-                                strncmp (namelist[j], comm, COMM_LEN - 1))
-                                continue;
-                        }
-                    }
+                    if (!match_process_name(comm, length, command, namelist[j],
+                                            name_info[j].name_length, got_long))
+                        continue;
+
                 } else {
                     int ok = 1; 
                     if (asprintf (&path, PROC_BASE "/%d/exe", pid_table[i]) < 0)
