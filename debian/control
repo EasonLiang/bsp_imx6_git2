@@ -25,7 +25,7 @@ Replaces: sysv-rc (<< 2.88dsf-59.3~),
 # sysv-rc now pre-depends on us and if we break them we get:
 # E: This installation run will require temporarily removing the essential package sysvinit-utils:amd64 due to a Conflicts/Pre-Depends loop. This is often bad, but if you really want to do it, activate the APT::Force-LoopBreak option.
 #Breaks: sysv-rc (<< 2.88dsf-59.3~)
-Breaks: systemd (<< 44-12),
+Breaks: systemd (<< 228),
         sysvinit-utils (<< 2.88dsf-59.3~),
 Conflicts: file-rc (<< 0.8.17~),
            openrc (<= 0.18.3-1),
