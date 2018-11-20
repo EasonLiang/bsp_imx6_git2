@@ -245,6 +245,4 @@ SEE ALSO
 | *Debian Policy Manual*,
 | ``/etc/init.d/skeleton``,
 | ``insserv``\(8),
-| ``sysv-rc-conf``\(8),
-| ``bum``\(8),
 | ``init``\(8)
