@@ -69,7 +69,6 @@ policies, use the *--force* switch.
 OPTIONS
 =======
 
-
 *--help*
     Display usage help.
 
@@ -192,7 +191,6 @@ is installed in the system.
 FILES
 =====
 
-
 /etc/init.d/*
     System V init scripts.
 
@@ -202,7 +200,6 @@ FILES
 /etc/rc?.d/*
     System V runlevel configuration.
 
-
 NOTES
 =====
 
@@ -210,12 +207,11 @@ NOTES
 action, and returns exit status 4 instead of exit status 0 when
 it is denied.
 
-
 BUGS
 ====
 
-Please report any bugs using the Debian bug tracking system,
-http://bugs.debian.org/, package sysv-rc.
+See http://bugs.debian.org/sysv-rc and
+http://bugs.debian.org/init-system-helpers.
 
 SEE ALSO
 ========

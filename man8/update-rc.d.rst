@@ -223,7 +223,8 @@ Example of a command for disabling a system initialization-and-shutdown script:
 BUGS
 ====
 
-See http://bugs.debian.org/sysv-rc.
+See http://bugs.debian.org/sysv-rc and
+http://bugs.debian.org/init-system-helpers.
 
 FILES
 =====
