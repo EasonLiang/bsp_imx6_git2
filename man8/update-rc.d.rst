@@ -13,7 +13,7 @@ install and remove System-V style init script links
     Miquel van Smoorenburg
 
 :Version:   14 November 2005
-:Copyright: 2001 Hernique Holschuh
+:Copyright: 2001 Henrique de Moraes Holschuh
 :Licence:   GNU Public Licence v2 or Later (GPLv2+)
 
 

@@ -9,10 +9,10 @@ executes System-V style init script actions
 :Manual section: 8
 :Manual group: Debian GNU/Linux
 :Author:
-    Henrique Holschuh
+    Henrique de Moraes Holschuh
 
 :Version:   1 March 2001
-:Copyright: 2001 Hernique Holschuh
+:Copyright: 2001 Henrique de Moraes Holschuh
 :Licence:   GNU Public Licence v2 or Later (GPLv2+)
 
 SYNOPSIS
