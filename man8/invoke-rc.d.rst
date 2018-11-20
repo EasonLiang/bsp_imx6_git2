@@ -199,11 +199,8 @@ FILES
 /usr/sbin/policy-rc.d
     Init script policy layer helper (not required).
 
-/etc/runlevel.conf
-    file-rc runlevel configuration (if the file-rc package is being used).
-
 /etc/rc?.d/*
-    System V runlevel configuration (if the sysv-rc package is being used).
+    System V runlevel configuration.
 
 
 NOTES
@@ -218,8 +215,7 @@ BUGS
 ====
 
 Please report any bugs using the Debian bug tracking system,
-http://bugs.debian.org/, package sysv-rc or file-rc
-(depending on which version of invoke-rc.d you are using).
+http://bugs.debian.org/, package sysv-rc.
 
 SEE ALSO
 ========
