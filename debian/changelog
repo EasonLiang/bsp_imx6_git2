@@ -1,3 +1,19 @@
+init-system-helpers (1.56) unstable; urgency=medium
+
+  * update-rc.d: If systemctl is available, use it in make_systemd_links.
+    To not create an endless loop, we set SYSTEMCTL_SKIP_SYSV=1 which is
+    respected by systemd-sysv-install since v228. Add a versioned Breaks
+    against systemd accordingly.
+  * man: Fix name field of update-rc.d man page
+  * man: Stop mentioning file-rc in invoke-rc.d man page.
+    The file-rc package has been removed from the archive.
+  * man: Stop mentioning bum and sysv-rc-conf in update-rc.d man page
+  * man: Update bugtracker URLs.
+    invoke-rc.d and update-rc.d are provided by init-system-helpers
+    nowadays. Keep a reference to sysv-rc, for the sysvinit related bits.
+
+ -- Michael Biebl <biebl@debian.org>  Thu, 22 Nov 2018 00:15:24 +0100
+
 init-system-helpers (1.55) unstable; urgency=medium
 
   [ Ondřej Nový ]
