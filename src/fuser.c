@@ -188,6 +188,9 @@ scan_procs(struct names *names_head, struct inode_list *ino_head,
 	pid_t pid, my_pid;
 	uid_t uid;
 
+	if ( (ino_head == NULL) && (dev_head == NULL) )
+		return;
+
 	if ((topproc_dir = opendir("/proc")) == NULL) {
 		fprintf(stderr, _("Cannot open /proc directory: %s\n"),
 			strerror(errno));
@@ -1873,6 +1876,10 @@ scan_knfsd(struct names *names_head, struct inode_list *ino_head,
 	char *find_space;
 	struct stat st;
 
+	if ( (ino_head == NULL) && (dev_head == NULL) )
+		return;
+
+
 	if ((fp = fopen(KNFSD_EXPORTS, "r")) == NULL) {
 #ifdef DEBUG
 		printf("Cannot open %s\n", KNFSD_EXPORTS);
@@ -1919,6 +1926,10 @@ scan_mounts(struct names *names_head, struct inode_list *ino_head,
 	char *find_space;
 	struct stat st;
 
+	if ( (ino_head == NULL) && (dev_head == NULL) )
+		return;
+
+
 	if ((fp = fopen(PROC_MOUNTS, "r")) == NULL) {
 		fprintf(stderr, "Cannot open %s\n", PROC_MOUNTS);
 		return;
@@ -1961,6 +1972,9 @@ scan_swaps(struct names *names_head, struct inode_list *ino_head,
 	char line[BUFSIZ];
 	char *find_space;
 	struct stat st;
+
+	if ( (ino_head == NULL) && (dev_head == NULL) )
+		return;
 
 	if ((fp = fopen(PROC_SWAPS, "r")) == NULL) {
 		/*fprintf(stderr, "Cannot open %s\n", PROC_SWAPS); */
