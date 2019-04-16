@@ -40,6 +40,12 @@ if WANT_PEEKFD_ARM
   bin_PROGRAMS += src/peekfd
   AM_CPPFLAGS += -DARM
 endif
+
+if WANT_PEEKFD_ARM64
+  bin_PROGRAMS += src/peekfd
+  AM_CPPFLAGS += -DARM64
+endif
+
 if WANT_PEEKFD_MIPS
   bin_PROGRAMS += src/peekfd
   AM_CPPFLAGS += -DMIPS

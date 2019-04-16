@@ -131,6 +131,7 @@ AC_CHECK_MEMBERS([struct user_regs_struct.orig_eax,
 AC_CHECK_MEMBERS([struct pt_regs.orig_gpr3,
 		struct pt_regs.gpr], [],[], [#include <linux/ptrace.h>])
 AC_CHECK_MEMBERS([struct pt_regs.uregs],[],[], [#include <asm/ptrace.h>])
+AC_CHECK_MEMBERS([struct user_pt_regs.regs],[],[], [#include <asm/ptrace.h>])
 AC_CHECK_MEMBERS([struct pt_regs.regs,
                   struct pt_regs.cp0_status],[],[], [#include <asm/ptrace.h>])
 AC_CHECK_MEMBERS([struct pt_regs.orig_d0,
@@ -163,6 +164,8 @@ AM_CONDITIONAL(WANT_PEEKFD_PPC,
    test $ac_cv_member_struct_pt_regs_gpr = yes )
 AM_CONDITIONAL(WANT_PEEKFD_ARM,
    test $ac_cv_member_struct_pt_regs_uregs = yes)
+AM_CONDITIONAL(WANT_PEEKFD_ARM64,
+   test $ac_cv_member_struct_user_pt_regs_regs = yes)
 AM_CONDITIONAL(WANT_PEEKFD_MIPS,
    test $build_cpu = mipsel &&
    test $ac_cv_member_struct_pt_regs_regs = yes &&
