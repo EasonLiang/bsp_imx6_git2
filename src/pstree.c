@@ -1148,7 +1148,7 @@ int main(int argc, char **argv)
     pid_t pid, highlight;
     char termcap_area[1024];
     char *termname, *endptr;
-    int c, pid_set;
+    int c, pid_set = 0;
     enum ns_type nsid = NUM_NS;
 
     struct option options[] = {
