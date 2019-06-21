@@ -1,3 +1,12 @@
+init-system-helpers (1.57) unstable; urgency=medium
+
+  [ Dmitry Bogatov ]
+  * Document that `service` does not check /usr/sbin/policy-rc.d.
+    It is an administrator interface, so it is meant to be able to start
+    disabled services. (Closes: #656081)
+
+ -- Michael Biebl <biebl@debian.org>  Fri, 21 Jun 2019 20:56:55 +0200
+
 init-system-helpers (1.56) unstable; urgency=medium
 
   * update-rc.d: If systemctl is available, use it in make_systemd_links.
