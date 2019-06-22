@@ -1102,32 +1102,38 @@ static void usage(void)
     fprintf(stderr, _(
              "  -a, --arguments     show command line arguments\n"
              "  -A, --ascii         use ASCII line drawing characters\n"
-             "  -c, --compact       don't compact identical subtrees\n"
-             "  -h, --highlight-all highlight current process and its ancestors\n"
-             "  -H PID,\n"
-             "  --highlight-pid=PID highlight this process and its ancestors\n"
+             "  -c, --compact       don't compact identical subtrees\n"));
+    fprintf(stderr, _(
              "  -g, --show-pgids    show process group ids; implies -c\n"
-             "  -G, --vt100         use VT100 line drawing characters\n"
-             "  -l, --long          don't truncate long lines\n"
+             "  -G, --vt100         use VT100 line drawing characters\n"));
+    fprintf(stderr, _(
+             "  -h, --highlight-all highlight current process and its ancestors\n"
+             "  -H PID, --highlight-pid=PID\n"
+             "                      highlight this process and its ancestors\n"
+             "  -l, --long          don't truncate long lines\n"));
+    fprintf(stderr, _(
              "  -n, --numeric-sort  sort output by PID\n"
-             "  -N type,\n"
-             "  --ns-sort=type      sort by namespace type (cgroup, ipc, mnt, net, pid,\n"
-             "                                              user, uts)\n"
-             "  -p, --show-pids     show PIDs; implies -c\n"
+             "  -N TYPE, --ns-sort=TYPE\n"
+             "                      sort output by this namespace type\n"
+             "                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
+             "  -p, --show-pids     show PIDs; implies -c\n"));
+    fprintf(stderr, _(
              "  -s, --show-parents  show parents of the selected process\n"
              "  -S, --ns-changes    show namespace transitions\n"
              "  -t, --thread-names  show full thread names\n"
-             "  -T, --hide-threads  hide threads, show only processes\n"
+             "  -T, --hide-threads  hide threads, show only processes\n"));
+    fprintf(stderr, _(
              "  -u, --uid-changes   show uid transitions\n"
              "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
              "  -V, --version       display version information\n"));
 #ifdef WITH_SELINUX
-    fprintf(stderr,
-            _("  -Z, --security-context\n"
-              "                      show SELinux security contexts\n"));
+    fprintf(stderr, _(
+             "  -Z, --security-context\n"
+             "                      show SELinux security contexts\n"));
 #endif                                /*WITH_SELINUX */
-    fprintf(stderr, _("  PID    start at this PID; default is 1 (init)\n"
-                      "  USER   show only trees rooted at processes of this user\n\n"));
+    fprintf(stderr, _("\n"
+              "  PID    start at this PID; default is 1 (init)\n"
+              "  USER   show only trees rooted at processes of this user\n\n"));
     exit(1);
 }
 
