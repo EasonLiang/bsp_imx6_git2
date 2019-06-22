@@ -14,8 +14,8 @@ pstree \- display a tree of processes
 .B pstree
 .RB [ \-a  , \ \-\-arguments ]
 .RB [ \-c  , \ \-\-compact ]
-.RB [ \-h  , \ \-\-highlight\-all  , \ \-H \fIpid\fB  , \ \-\-highlight\-pid\ \fIpid\fB ]
 .RB [ \-g  , \ \-\-show\-pgids ]
+.RB [ \-h  , \ \-\-highlight\-all  , \ \-H \fIpid\fB  , \ \-\-highlight\-pid\ \fIpid\fB ]
 .RB [ \-l  , \ \-\-long ]
 .RB [ \-n  , \ \-\-numeric\-sort ]
 .RB [ \-N  , \ \-\-ns\-sort \fIns\fB
@@ -96,6 +96,12 @@ Use ASCII characters to draw the tree.
 .IP \fB\-c\fP
 Disable compaction of identical subtrees.  By default, subtrees are
 compacted whenever possible.
+.IP \fB\-g\fP
+Show PGIDs.  Process Group IDs are shown as decimal numbers in
+parentheses after each process name.
+.B \-g
+implicitly disables compaction.  If both PIDs and PGIDs are displayed
+then PIDs are shown first.
 .IP \fB\-G\fP
 Use VT100 line drawing characters.
 .IP \fB\-h\fP
@@ -112,12 +118,6 @@ fails when using
 .B \-H
 if highlighting is not
 available.
-.IP \fB\-g\fP
-Show PGIDs.  Process Group IDs are shown as decimal numbers in
-parentheses after each process name.
-.B \-g
-implicitly disables compaction.  If both PIDs and PGIDs are displayed
-then PIDs are shown first.
 .IP \fB\-l\fP
 Display long lines.  By default, lines are truncated to either the COLUMNS
 environment variable or the display width.  If neither of these methods work,
