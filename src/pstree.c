@@ -1102,7 +1102,7 @@ static void usage(void)
     fprintf(stderr, _(
              "  -a, --arguments     show command line arguments\n"
              "  -A, --ascii         use ASCII line drawing characters\n"
-             "  -c, --compact       don't compact identical subtrees\n"));
+             "  -c, --compact-not   don't compact identical subtrees\n"));
     fprintf(stderr, _(
              "  -g, --show-pgids    show process group ids; implies -c\n"
              "  -G, --vt100         use VT100 line drawing characters\n"));
@@ -1165,7 +1165,7 @@ int main(int argc, char **argv)
     struct option options[] = {
         {"arguments", 0, NULL, 'a'},
         {"ascii", 0, NULL, 'A'},
-        {"compact", 0, NULL, 'c'},
+        {"compact-not", 0, NULL, 'c'},
         {"vt100", 0, NULL, 'G'},
         {"highlight-all", 0, NULL, 'h'},
         {"highlight-pid", 1, NULL, 'H'},
