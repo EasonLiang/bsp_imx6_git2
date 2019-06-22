@@ -1085,16 +1085,21 @@ static void fix_orphans(security_context_t scontext)
 
 static void usage(void)
 {
-    fprintf(stderr,
-            _
-            (
 #ifdef WITH_SELINUX
-             "Usage: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N type ]\n"
-#else                                 /*WITH_SELINUX */
-             "Usage: pstree [-acglpsStu] [ -h | -H PID ] [ -n | -N type ]\n"
-#endif                                /*WITH_SELINUX */
+    fprintf(stderr, _(
+             "Usage: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N type ]\n"
              "              [ -A | -G | -U ] [ PID | USER ]\n"
-             "       pstree -V\n" "Display a tree of processes.\n\n"
+             "   or: pstree -V\n"));
+#else                                 /*WITH_SELINUX */
+    fprintf(stderr, _(
+             "Usage: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N type ]\n"
+             "              [ -A | -G | -U ] [ PID | USER ]\n"
+             "   or: pstree -V\n"));
+#endif                                /*WITH_SELINUX */
+    fprintf(stderr, _(
+             "\n"
+             "Display a tree of processes.\n\n"));
+    fprintf(stderr, _(
              "  -a, --arguments     show command line arguments\n"
              "  -A, --ascii         use ASCII line drawing characters\n"
              "  -c, --compact       don't compact identical subtrees\n"
