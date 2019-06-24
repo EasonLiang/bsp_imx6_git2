@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc 23.2\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2018-08-13 21:33+1000\n"
+"POT-Creation-Date: 2018-09-24 20:02+1000\n"
 "PO-Revision-Date: 2018-09-17 00:13+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -263,10 +263,12 @@ msgstr "%s：找不到任何行程\n"
 #: src/killall.c:742
 #, c-format
 msgid ""
-"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -eIgiqrvw ]\n"
+"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
+"eIgiqrvw ]\n"
 "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
 msgstr ""
-"用法：killall [ -Z 上下文 ] [ -u 使用者 ] [ -y 時間 ] [ -o 時間 ] [ -eIgiqrvw ]\n"
+"用法：killall [ -Z 上下文 ] [ -u 使用者 ] [ -y 時間 ] [ -o 時間 ] [ -"
+"eIgiqrvw ]\n"
 "               [ -s SIGNAL | -SIGNAL ] 名稱...\n"
 
 #: src/killall.c:746
@@ -334,21 +336,21 @@ msgstr "無效的時間格式"
 msgid "Cannot find user %s\n"
 msgstr "找不到使用者 %s\n"
 
-#: src/killall.c:931
+#: src/killall.c:936
 msgid "Invalid namespace PID"
 msgstr "無效的命名空間 PID"
 
-#: src/killall.c:938
+#: src/killall.c:945
 #, c-format
 msgid "Bad regular expression: %s\n"
 msgstr "不當的正規表示式：%s\n"
 
-#: src/killall.c:973
+#: src/killall.c:986
 #, c-format
 msgid "killall: Maximum number of names is %d\n"
 msgstr "killall：名稱數量最大值是 %d\n"
 
-#: src/killall.c:978
+#: src/killall.c:991
 #, c-format
 msgid "killall: %s lacks process entries (not mounted ?)\n"
 msgstr "killall：%s 缺乏行程條目 (未掛載？)\n"
@@ -379,8 +381,10 @@ msgid ""
 "    -8, --eight-bit-clean        output 8 bit clean streams.\n"
 "    -n, --no-headers             don't display read/write from fd headers.\n"
 "    -c, --follow                 peek at any new child processes too.\n"
-"    -t, --tgid                   peek at all threads where tgid equals <pid>.\n"
-"    -d, --duplicates-removed     remove duplicate read/writes from the output.\n"
+"    -t, --tgid                   peek at all threads where tgid equals "
+"<pid>.\n"
+"    -d, --duplicates-removed     remove duplicate read/writes from the "
+"output.\n"
 "    -V, --version                prints version info.\n"
 "    -h, --help                   prints this help.\n"
 "\n"

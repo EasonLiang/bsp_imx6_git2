@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc 23.2\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2018-08-13 21:33+1000\n"
+"POT-Creation-Date: 2018-09-24 20:02+1000\n"
 "PO-Revision-Date: 2018-08-14 20:34+0800\n"
 "Last-Translator: Sebastian Rasmussen <sebras@gmail.com>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -57,8 +57,10 @@ msgstr ""
 "  -I,--inode            använd alltid inoder för att jämföra filer\n"
 "  -k,--kill             döda processer som använder namngiven fil\n"
 "  -l,--list-signals     lista tillgängliga signalnamn\n"
-"  -m,--mount            visa alla processer som använder namngivna filsystem eller blockenheter\n"
-"  -M,--ismountpoint     genomför begäran endast om NAMN är en monteringspunkt\n"
+"  -m,--mount            visa alla processer som använder namngivna filsystem "
+"eller blockenheter\n"
+"  -M,--ismountpoint     genomför begäran endast om NAMN är en "
+"monteringspunkt\n"
 "  -n,--namespace RYMD   sök i denna namnrymd (fil, udp, tcp)\n"
 "  -s,--silent           tyst körning\n"
 "  -SIGNAL               skicka denna signal istället för SIGKILL\n"
@@ -117,7 +119,8 @@ msgstr ""
 "villkoren för GNU General Public License.\n"
 "För mer information om dessa villkor, se filerna kallade COPYING.\n"
 "Följande text är en informell översättning som enbart tillhandahålls\n"
-"i informativt syfte. För alla juridiska tolkningar gäller den engelska originaltexten.\n"
+"i informativt syfte. För alla juridiska tolkningar gäller den engelska "
+"originaltexten.\n"
 
 #: src/fuser.c:192
 #, c-format
@@ -265,10 +268,12 @@ msgstr "%s: ingen process hittades\n"
 #: src/killall.c:742
 #, c-format
 msgid ""
-"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -eIgiqrvw ]\n"
+"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
+"eIgiqrvw ]\n"
 "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
 msgstr ""
-"Användning: killall [-Z KONTEXT] [-u ANVÄNDARE] [-y TID] [ -o TID ] [ -eIgiqrvw ]\n"
+"Användning: killall [-Z KONTEXT] [-u ANVÄNDARE] [-y TID] [ -o TID ] [ -"
+"eIgiqrvw ]\n"
 "               [ -s SIGNAL | -SIGNAL ] NAMN...\n"
 
 #: src/killall.c:746
@@ -337,21 +342,21 @@ msgstr "Ogiltigt tidsformat"
 msgid "Cannot find user %s\n"
 msgstr "Kan inte hitta användare %s\n"
 
-#: src/killall.c:931
+#: src/killall.c:936
 msgid "Invalid namespace PID"
 msgstr "Ogiltig PID för namnrymd"
 
-#: src/killall.c:938
+#: src/killall.c:945
 #, c-format
 msgid "Bad regular expression: %s\n"
 msgstr "Felaktigt reguljärt uttryck: %s\n"
 
-#: src/killall.c:973
+#: src/killall.c:986
 #, c-format
 msgid "killall: Maximum number of names is %d\n"
 msgstr "killall: Maximalt antal namn är %d\n"
 
-#: src/killall.c:978
+#: src/killall.c:991
 #, c-format
 msgid "killall: %s lacks process entries (not mounted ?)\n"
 msgstr "killall: %s saknar processposter (inte monterad?)\n"
@@ -382,8 +387,10 @@ msgid ""
 "    -8, --eight-bit-clean        output 8 bit clean streams.\n"
 "    -n, --no-headers             don't display read/write from fd headers.\n"
 "    -c, --follow                 peek at any new child processes too.\n"
-"    -t, --tgid                   peek at all threads where tgid equals <pid>.\n"
-"    -d, --duplicates-removed     remove duplicate read/writes from the output.\n"
+"    -t, --tgid                   peek at all threads where tgid equals "
+"<pid>.\n"
+"    -d, --duplicates-removed     remove duplicate read/writes from the "
+"output.\n"
 "    -V, --version                prints version info.\n"
 "    -h, --help                   prints this help.\n"
 "\n"
@@ -393,8 +400,10 @@ msgstr ""
 "    -8, --eight-bit-clean         skriv ut 8-bitars rena strömmar.\n"
 "    -n, --no-headers              visa inte läs/skriv från fd-huvuden.\n"
 "    -c, --follow                  titta även på alla nya barnprocesser.\n"
-"    -t, --tgid                    titta på alla trådar där tgid är lika med <pid>.\n"
-"    -d, --duplicates-removed      Ta bort dubbletter av läs/skriv från utdata.\n"
+"    -t, --tgid                    titta på alla trådar där tgid är lika med "
+"<pid>.\n"
+"    -d, --duplicates-removed      Ta bort dubbletter av läs/skriv från "
+"utdata.\n"
 "    -V, --version                 visar versionsinformation.\n"
 "    -h, --help                    visar den här hjälpen.\n"
 "\n"
@@ -743,7 +752,8 @@ msgstr "%s: okänd signal; %s -l listar signaler.\n"
 #~ "\n"
 
 #~ msgid "You cannot use the mounted and mountpoint flags together"
-#~ msgstr "Du kan inte använda monterade och monteringspunktflaggorna samtidigt"
+#~ msgstr ""
+#~ "Du kan inte använda monterade och monteringspunktflaggorna samtidigt"
 
 #~ msgid "Cannot stat mount point %s: %s\n"
 #~ msgstr "Kan inte ta status på monteringspunkten %s: %s\n"

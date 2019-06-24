@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc 23.2\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2018-08-13 21:33+1000\n"
+"POT-Creation-Date: 2018-09-24 20:02+1000\n"
 "PO-Revision-Date: 2018-08-22 15:38+0100\n"
 "Last-Translator: Bozidar Putanec <bozidarp@yahoo.com>\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
@@ -17,7 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 2.0\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
@@ -52,7 +53,8 @@ msgstr ""
 "               [-k [-i] [-SIGNAL]] IME...\n"
 "         fuser -l\n"
 "         fuser -V\n"
-"Prikaže procese koji koriste navedene datoteke, utičnice ili datotečne sustave.\n"
+"Prikaže procese koji koriste navedene datoteke, utičnice ili datotečne "
+"sustave.\n"
 "\n"
 "  -a, --all              pokaže i nekorištene datoteke\n"
 "  -i, --interactive      pita prije ubijanja (ignorira se bez -k)\n"
@@ -62,7 +64,8 @@ msgstr ""
 "  -m, --mount            pokaže sve procese koji koriste navedene\n"
 "                           datotečne sustave ili blokovske uređaje\n"
 "  -M, --ismountpoint     izvrši zahtjev samo ako je IME točka montiranja\n"
-"  -n, --namespace PROSTOR  traži u ovom imenskom PROSTORU (file, udp ili tcp)\n"
+"  -n, --namespace PROSTOR  traži u ovom imenskom PROSTORU (file, udp ili "
+"tcp)\n"
 "  -s, --silent           tihi rad (bez ispisa)\n"
 "  -SIGNAL                pošalje SIGNAL umjesto SIGKILL\n"
 "  -u, --user             pokaže korisničke oznake (ID)\n"
@@ -176,7 +179,8 @@ msgstr "Nevaljano ime imenskog prostora (namespace)"
 
 #: src/fuser.c:1242
 msgid "You can only use files with mountpoint options"
-msgstr "Smijete koristiti samo datoteke uz opcije točke montiranja (mountpoint)"
+msgstr ""
+"Smijete koristiti samo datoteke uz opcije točke montiranja (mountpoint)"
 
 #: src/fuser.c:1292
 msgid "No process specification given"
@@ -270,10 +274,12 @@ msgstr "%s: proces nije pronađen\n"
 #: src/killall.c:742
 #, c-format
 msgid ""
-"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -eIgiqrvw ]\n"
+"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
+"eIgiqrvw ]\n"
 "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
 msgstr ""
-"Uporaba: killall [-Z KONTEKST] [-u KORISNIK] [-y TIME] [-o TIME] [-eIgiqrvw]\n"
+"Uporaba: killall [-Z KONTEKST] [-u KORISNIK] [-y TIME] [-o TIME] [-"
+"eIgiqrvw]\n"
 "                 [-s -SIGNAL | -SIGNAL] IME...\n"
 
 #: src/killall.c:746
@@ -342,21 +348,21 @@ msgstr "Nevaljani format vremena"
 msgid "Cannot find user %s\n"
 msgstr "Nije moguće pronaći korisnika %s\n"
 
-#: src/killall.c:931
+#: src/killall.c:936
 msgid "Invalid namespace PID"
 msgstr "Nevaljani naziv za imenski prostor (namespace)"
 
-#: src/killall.c:938
+#: src/killall.c:945
 #, c-format
 msgid "Bad regular expression: %s\n"
 msgstr "Loši regularni izraz: %s\n"
 
-#: src/killall.c:973
+#: src/killall.c:986
 #, c-format
 msgid "killall: Maximum number of names is %d\n"
 msgstr "killall: Najveći broj imena je %d\n"
 
-#: src/killall.c:978
+#: src/killall.c:991
 #, c-format
 msgid "killall: %s lacks process entries (not mounted ?)\n"
 msgstr "killall: %s proces nema zapise -- je li montiran?\n"
@@ -387,8 +393,10 @@ msgid ""
 "    -8, --eight-bit-clean        output 8 bit clean streams.\n"
 "    -n, --no-headers             don't display read/write from fd headers.\n"
 "    -c, --follow                 peek at any new child processes too.\n"
-"    -t, --tgid                   peek at all threads where tgid equals <pid>.\n"
-"    -d, --duplicates-removed     remove duplicate read/writes from the output.\n"
+"    -t, --tgid                   peek at all threads where tgid equals "
+"<pid>.\n"
+"    -d, --duplicates-removed     remove duplicate read/writes from the "
+"output.\n"
 "    -V, --version                prints version info.\n"
 "    -h, --help                   prints this help.\n"
 "\n"
@@ -396,9 +404,11 @@ msgid ""
 msgstr ""
 "Uporaba: peekfd [-8] [-n] [-c] [-d] [-V] [-h] <pid> [<fd> ..]\n"
 "    -8, --eight-bit-clean        producira čisti 8-bitni izlaz\n"
-"    -n, --no-headers             ne prikazuje čitanje i pisanje iz fd zaglavlja\n"
+"    -n, --no-headers             ne prikazuje čitanje i pisanje iz fd "
+"zaglavlja\n"
 "    -c, --follow                 također gleda svaki novi dijete-proces\n"
-"    -t, --tgid                   gleda sve dretve za koje je tgid jednak <pid>\n"
+"    -t, --tgid                   gleda sve dretve za koje je tgid jednak "
+"<pid>\n"
 "    -d, --duplicates-removed     uklanja sve duplikate na izlazu\n"
 "    -V, --version                informacije o ovoj inačici\n"
 "    -h, --help                   ova pomoć\n"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc 23.2\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2018-08-13 21:33+1000\n"
+"POT-Creation-Date: 2018-09-24 20:02+1000\n"
 "PO-Revision-Date: 2018-08-14 18:11+0200\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -49,16 +49,19 @@ msgstr ""
 "            [-k [-i] [-SIGNAL]] NAVN...\n"
 "      fuser -l\n"
 "      fuser -V\n"
-"Vis hvilke processer, der bruger de navngivne filer, sokler eller filsystemer.\n"
+"Vis hvilke processer, der bruger de navngivne filer, sokler eller "
+"filsystemer.\n"
 "\n"
 "  -a,--all              vis også ubrugte filer\n"
 "  -i,--interactive      spørg før der dræbes (ignoreres uden -k)\n"
 "  -I,--inode            brug altid iknuder til at sammenligne filer\n"
 "  -k,--kill             dræb processer som tilgår den navngivne fil\n"
 "  -l,--list-signals     vis tilgængelige signalnavne\n"
-"  -m,--mount            vis alle processer med brug af de navngivne filsystemer\n"
+"  -m,--mount            vis alle processer med brug af de navngivne "
+"filsystemer\n"
 "                        eller blokenhed\n"
-"  -M,--ismountpoint     udfør kun forespørgsel hvis NAVN er et monteringspunkt\n"
+"  -M,--ismountpoint     udfør kun forespørgsel hvis NAVN er et "
+"monteringspunkt\n"
 "  -n,--namespace RUM    søg i dette navneområde (file, udp eller tcp)\n"
 "  -s,--silent           stille kørsel\n"
 "  -SIGNAL               send dette signal i stedet for SIGKILL\n"
@@ -184,7 +187,8 @@ msgstr "tilvalget --all kan ikke anvendes med tilvalget --silent."
 
 #: src/fuser.c:1312
 msgid "You cannot search for only IPv4 and only IPv6 sockets at the same time"
-msgstr "Du kan ikke begrænse søgning til blot IPv4- og IPv6-sokler på samme tid"
+msgstr ""
+"Du kan ikke begrænse søgning til blot IPv4- og IPv6-sokler på samme tid"
 
 #: src/fuser.c:1401
 #, c-format
@@ -263,7 +267,8 @@ msgstr "%s: ingen proces fundet\n"
 #: src/killall.c:742
 #, c-format
 msgid ""
-"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -eIgiqrvw ]\n"
+"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
+"eIgiqrvw ]\n"
 "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
 msgstr ""
 "Brug: killall [-Z KONTEKST ] [-u BRUGER] [ -y TIDSPUNKT ] [ -o TIDSPUNKT ]\n"
@@ -335,21 +340,21 @@ msgstr "Ugyldigt tidsformat"
 msgid "Cannot find user %s\n"
 msgstr "Kan ikke finde brugeren %s\n"
 
-#: src/killall.c:931
+#: src/killall.c:936
 msgid "Invalid namespace PID"
 msgstr "Ugyldig PID for navneområde"
 
-#: src/killall.c:938
+#: src/killall.c:945
 #, c-format
 msgid "Bad regular expression: %s\n"
 msgstr "Ugyldigt regulært udtryk: %s\n"
 
-#: src/killall.c:973
+#: src/killall.c:986
 #, c-format
 msgid "killall: Maximum number of names is %d\n"
 msgstr "killall: Maksimalt antal navne er %d\n"
 
-#: src/killall.c:978
+#: src/killall.c:991
 #, c-format
 msgid "killall: %s lacks process entries (not mounted ?)\n"
 msgstr "killall: %s mangler proceselementer (ikke monteret)?\n"
@@ -380,8 +385,10 @@ msgid ""
 "    -8, --eight-bit-clean        output 8 bit clean streams.\n"
 "    -n, --no-headers             don't display read/write from fd headers.\n"
 "    -c, --follow                 peek at any new child processes too.\n"
-"    -t, --tgid                   peek at all threads where tgid equals <pid>.\n"
-"    -d, --duplicates-removed     remove duplicate read/writes from the output.\n"
+"    -t, --tgid                   peek at all threads where tgid equals "
+"<pid>.\n"
+"    -d, --duplicates-removed     remove duplicate read/writes from the "
+"output.\n"
 "    -V, --version                prints version info.\n"
 "    -h, --help                   prints this help.\n"
 "\n"
@@ -391,8 +398,10 @@ msgstr ""
 "    -8, --eight-bit-clean        giver uddata i rene 8-bit strømme.\n"
 "    -n, --no-headers             vis ikke læsning/skrivning fra fd-headere.\n"
 "    -c, --follow                 smugkig også på alle nye barneprocesser.\n"
-"    -t, --tgid                   kig på alle tråde hvor tgid er lig med <pid>.\n"
-"    -d, --duplicates-removed     fjern duplikerede læsninger/skrivninger fra uddata.\n"
+"    -t, --tgid                   kig på alle tråde hvor tgid er lig med "
+"<pid>.\n"
+"    -d, --duplicates-removed     fjern duplikerede læsninger/skrivninger fra "
+"uddata.\n"
 "    -V, --version                udskriver versionsinfo.\n"
 "    -h, --help                   udskriver denne hjælpetekst.\n"
 "\n"

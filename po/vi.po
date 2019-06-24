@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc 23.2\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2018-08-13 21:33+1000\n"
+"POT-Creation-Date: 2018-09-24 20:02+1000\n"
 "PO-Revision-Date: 2018-08-14 13:25+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <translation-team-vi@lists.sourceforge.net>\n"
@@ -51,12 +51,15 @@ msgstr ""
 "                 [-k [-i] [-TÍN_HIỆU]] TÊN…\n"
 "           fuser -l\n"
 "           fuser -V\n"
-"Hiển thị những tiến trình nào đang dùng những tập tin, ổ cắm hay hệ thống tập tin có tên đưa ra.\n"
+"Hiển thị những tiến trình nào đang dùng những tập tin, ổ cắm hay hệ thống "
+"tập tin có tên đưa ra.\n"
 "\n"
 "  -a,--all              cũng hiển thị các tập tin không dùng\n"
-"  -i,--interactive      hỏi trước khi buộc kết thúc (bị bỏ qua nếu không có \"-k\")\n"
+"  -i,--interactive      hỏi trước khi buộc kết thúc (bị bỏ qua nếu không có "
+"\"-k\")\n"
 "  -I,--inode            luôn dùng nút để so sánh các tập tin\n"
-"  -k,--kill             buộc kết thúc mỗi tiến trình đang truy cập đến tập tin có tên đưa ra\n"
+"  -k,--kill             buộc kết thúc mỗi tiến trình đang truy cập đến tập "
+"tin có tên đưa ra\n"
 "  -l,--list-signals     liệt kê những tên tín hiệu sẵn có\n"
 "  -m,--mount            hiển thị tất cả các tiến trình đang sử dụng\n"
 "                          những hệ thống tập tin hay thiết bị khối\n"
@@ -265,10 +268,12 @@ msgstr "%s: không tìm thấy tiến trình\n"
 #: src/killall.c:742
 #, c-format
 msgid ""
-"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -eIgiqrvw ]\n"
+"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
+"eIgiqrvw ]\n"
 "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
 msgstr ""
-"Cách dùng: killall [ -Z NGỮ_CẢNH ] [ -u NGƯỜI_DÙNG ] [ -y GIỜ ] [ -eIgiqrvw ]\n"
+"Cách dùng: killall [ -Z NGỮ_CẢNH ] [ -u NGƯỜI_DÙNG ] [ -y GIỜ ] [ -"
+"eIgiqrvw ]\n"
 "                   [ -s TÍN_HIỆU | -TÍN_HIỆU] TÊN…\n"
 
 #: src/killall.c:746
@@ -337,21 +342,21 @@ msgstr "Định dạng thời gian không hợp lệ"
 msgid "Cannot find user %s\n"
 msgstr "Không tìm thấy người dùng %s\n"
 
-#: src/killall.c:931
+#: src/killall.c:936
 msgid "Invalid namespace PID"
 msgstr "IID không gian tên không hợp lệ"
 
-#: src/killall.c:938
+#: src/killall.c:945
 #, c-format
 msgid "Bad regular expression: %s\n"
 msgstr "Biểu thức chính quy sai: %s\n"
 
-#: src/killall.c:973
+#: src/killall.c:986
 #, c-format
 msgid "killall: Maximum number of names is %d\n"
 msgstr "killall: Số lượng tên tối đa là %d\n"
 
-#: src/killall.c:978
+#: src/killall.c:991
 #, c-format
 msgid "killall: %s lacks process entries (not mounted ?)\n"
 msgstr "killall: %s thiếu các mục tuyến trình (đã gắn chưa?)\n"
@@ -382,8 +387,10 @@ msgid ""
 "    -8, --eight-bit-clean        output 8 bit clean streams.\n"
 "    -n, --no-headers             don't display read/write from fd headers.\n"
 "    -c, --follow                 peek at any new child processes too.\n"
-"    -t, --tgid                   peek at all threads where tgid equals <pid>.\n"
-"    -d, --duplicates-removed     remove duplicate read/writes from the output.\n"
+"    -t, --tgid                   peek at all threads where tgid equals "
+"<pid>.\n"
+"    -d, --duplicates-removed     remove duplicate read/writes from the "
+"output.\n"
 "    -V, --version                prints version info.\n"
 "    -h, --help                   prints this help.\n"
 "\n"
@@ -393,7 +400,8 @@ msgstr ""
 "    -8, --eight-bit-clean        xuất luồng dữ liệu sạch 8 bít.\n"
 "    -n, --no-headers             không hiển thị đọc/viết từ phần đầu fd.\n"
 "    -c, --follow                 xem bất kỳ tiến trình con mới nào.\n"
-"    -t, --tgid                   xem tất cả các tiến trình chỗ mà tgid bằng <pid>.\n"
+"    -t, --tgid                   xem tất cả các tiến trình chỗ mà tgid bằng "
+"<pid>.\n"
 "    -d, --duplicates-removed     gỡ bỏ đọc/viết trùng lặp ra khỏi kết xuất.\n"
 "    -V, --version                hiển thị thông tin về phiên bản.\n"
 "    -h, --help                   hiển thị trợ giúp này.\n"
@@ -568,7 +576,8 @@ msgstr "Phải cung cấp ít nhất một PID (mã số tiến trình)."
 #: src/prtstat.c:327
 #, c-format
 msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
-msgstr "Chưa gắn \"/proc\" thì không thể lấy thống kê về \"/proc/self/stat\".\n"
+msgstr ""
+"Chưa gắn \"/proc\" thì không thể lấy thống kê về \"/proc/self/stat\".\n"
 
 #: src/pstree.c:1056
 #, c-format
@@ -624,7 +633,8 @@ msgstr ""
 "  -l, --long          đừng cắt ngắn dòng dài\n"
 "  -n, --numeric-sort  sắp xếp kết xuất theo PID (mã số tiến trình)\n"
 "  -N type,\n"
-"  --ns-sort=kiểu      sắp xếp theo không gian tên (cgroup, ipc, mnt, net, pid,\n"
+"  --ns-sort=kiểu      sắp xếp theo không gian tên (cgroup, ipc, mnt, net, "
+"pid,\n"
 "                                                   user, uts)\n"
 "  -p, --show-pids     hiển thị các PID;  ngầm sử dụng -c\n"
 "  -s, --show-parents  hiển thị cha mẹ của tiến trình đã chọn\n"
@@ -632,7 +642,8 @@ msgstr ""
 "  -t, --thread-names  hiển thị tên tuyến trình đầy đủ\n"
 "  -T, --hide-threads  ẩn các tuyến trình, chỉ hiển thị tiến trình\n"
 "  -u, --uid-changes   hiển thị các sự chuyển tiếp UID (mã số người dùng)\n"
-"  -U, --unicode       dùng các ký tự thuộc bảng mã UTF-8 (Unicode) để vẽ đường kẻ\n"
+"  -U, --unicode       dùng các ký tự thuộc bảng mã UTF-8 (Unicode) để vẽ "
+"đường kẻ\n"
 "  -V, --version       hiển thị thông tin về phiên bản\n"
 
 #: src/pstree.c:1121
@@ -693,7 +704,8 @@ msgstr "Bấm phím Enter để đóng\n"
 #: src/signals.c:84
 #, c-format
 msgid "%s: unknown signal; %s -l lists signals.\n"
-msgstr "%s: không hiểu tín hiệu; câu lệnh \"%s -l\" giúp bạn liệt kê các tín hiệu.\n"
+msgstr ""
+"%s: không hiểu tín hiệu; câu lệnh \"%s -l\" giúp bạn liệt kê các tín hiệu.\n"
 
 #~ msgid ""
 #~ "Copyright (C) 1993-2014 Werner Almesberger and Craig Small\n"

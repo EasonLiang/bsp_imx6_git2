@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc 23.2\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2018-08-13 21:33+1000\n"
+"POT-Creation-Date: 2018-09-24 20:02+1000\n"
 "PO-Revision-Date: 2018-08-20 16:25+0200\n"
 "Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -58,7 +58,8 @@ msgstr ""
 "                        plików lub urządzeń\n"
 "  -M,--ismountpoint     wykonywanie poleceń tylko jeśli NAZWA jest punktem\n"
 "                        montowania\n"
-"  -n,--namespace PRZ    szukanie w podanej przestrzeni nazw (file, udp lub tcp)\n"
+"  -n,--namespace PRZ    szukanie w podanej przestrzeni nazw (file, udp lub "
+"tcp)\n"
 "  -s,--silent           działanie po cichu\n"
 "  -SYGNAŁ               wysłanie podanego sygnału zamiast SIGKILL\n"
 "  -u,--user             wyświetlenie identyfikatorów użytkowników\n"
@@ -262,10 +263,12 @@ msgstr "%s: nie znaleziono żadnego procesu\n"
 #: src/killall.c:742
 #, c-format
 msgid ""
-"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -eIgiqrvw ]\n"
+"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
+"eIgiqrvw ]\n"
 "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
 msgstr ""
-"Składnia: killall [-Z KONTEKST] [-u UŻYTKOWNIK] [-y CZAS] [-o CZAS] [-eIgiqrvw]\n"
+"Składnia: killall [-Z KONTEKST] [-u UŻYTKOWNIK] [-y CZAS] [-o CZAS] [-"
+"eIgiqrvw]\n"
 "               [ -s SYGNAŁ | -SYGNAŁ ] NAZWA...\n"
 
 #: src/killall.c:746
@@ -299,8 +302,10 @@ msgstr ""
 "          killall -l, --list\n"
 "          killall -V, --version\n"
 "\n"
-"  -e,--exact          wymaganie dokładnego dopasowania dla bardzo długich nazw\n"
-"  -I,--ignore-case    dopasowywanie nazw procesów niewrażliwe na wielkość liter\n"
+"  -e,--exact          wymaganie dokładnego dopasowania dla bardzo długich "
+"nazw\n"
+"  -I,--ignore-case    dopasowywanie nazw procesów niewrażliwe na wielkość "
+"liter\n"
 "  -g,--process-group  zabicie grupy procesów zamiast procesu\n"
 "  -y,--younger-than   zabicie procesów młodszych niż CZAS\n"
 "  -o,--other-than     zabicie procesów starszych niż CZAS\n"
@@ -309,11 +314,13 @@ msgstr ""
 "  -q,--quiet          nie wyświetlanie narzekań\n"
 "  -r,--regexp         użycie NAZWY jako rozszerzonego wyrażenia regularnego\n"
 "  -s,--signal SYGNAŁ  wysłanie podanego sygnału zamiast SIGTERM\n"
-"  -u, --user UŻYTK    zabicie tylko procesów działających jako podany użytkownik\n"
+"  -u, --user UŻYTK    zabicie tylko procesów działających jako podany "
+"użytkownik\n"
 "  -v,--verbose        informowanie czy wysłanie sygnału się powiodło\n"
 "  -V,--version        wyświetlenie informacji o wersji\n"
 "  -w,--wait           zaczekanie na śmierć procesów\n"
-"  -n,--ns PID         dopasowanie procesów należących do przestrzeni nazw PID-u\n"
+"  -n,--ns PID         dopasowanie procesów należących do przestrzeni nazw "
+"PID-u\n"
 
 #: src/killall.c:770
 #, c-format
@@ -321,7 +328,8 @@ msgid ""
 "  -Z,--context REGEXP kill only process(es) having context\n"
 "                      (must precede other arguments)\n"
 msgstr ""
-"  -Z,--context REGEXP zabicie tylko procesu(ów) mających dany kontekst bezp.\n"
+"  -Z,--context REGEXP zabicie tylko procesu(ów) mających dany kontekst "
+"bezp.\n"
 "                        (musi poprzedzać inne argumenty)\n"
 
 #: src/killall.c:875 src/killall.c:881
@@ -333,21 +341,21 @@ msgstr "Błędny format czasu"
 msgid "Cannot find user %s\n"
 msgstr "Nie można odnaleźć użytkownika %s\n"
 
-#: src/killall.c:931
+#: src/killall.c:936
 msgid "Invalid namespace PID"
 msgstr "Błędny PID przestrzeni nazw"
 
-#: src/killall.c:938
+#: src/killall.c:945
 #, c-format
 msgid "Bad regular expression: %s\n"
 msgstr "Błędne wyrażenie regularne: %s\n"
 
-#: src/killall.c:973
+#: src/killall.c:986
 #, c-format
 msgid "killall: Maximum number of names is %d\n"
 msgstr "killall: maksymalna liczba nazw to %d\n"
 
-#: src/killall.c:978
+#: src/killall.c:991
 #, c-format
 msgid "killall: %s lacks process entries (not mounted ?)\n"
 msgstr "killall: %s nie ma wpisów procesów (nie jest zamontowany?)\n"
@@ -378,8 +386,10 @@ msgid ""
 "    -8, --eight-bit-clean        output 8 bit clean streams.\n"
 "    -n, --no-headers             don't display read/write from fd headers.\n"
 "    -c, --follow                 peek at any new child processes too.\n"
-"    -t, --tgid                   peek at all threads where tgid equals <pid>.\n"
-"    -d, --duplicates-removed     remove duplicate read/writes from the output.\n"
+"    -t, --tgid                   peek at all threads where tgid equals "
+"<pid>.\n"
+"    -d, --duplicates-removed     remove duplicate read/writes from the "
+"output.\n"
 "    -V, --version                prints version info.\n"
 "    -h, --help                   prints this help.\n"
 "\n"
@@ -387,10 +397,13 @@ msgid ""
 msgstr ""
 "Składnia: peekfd [-8] [-n] [-c] [-d] [-V] [-h] <pid> [<fd> ..]\n"
 "    -8, --eight-bit-clean        wypisywanie strumieni czysto 8-bitowych.\n"
-"    -n, --no-headers             bez nagłówków odczytu/zapisu z deskryptora.\n"
-"    -c, --follow                 podglądanie także nowych procesów potomnych.\n"
+"    -n, --no-headers             bez nagłówków odczytu/zapisu z "
+"deskryptora.\n"
+"    -c, --follow                 podglądanie także nowych procesów "
+"potomnych.\n"
 "    -t, --tgid                   podglądanie wątków o tgid równym <pid>.\n"
-"    -d, --duplicates-removed     usuwanie z wyjścia powtórzonych odczytów/zapisów.\n"
+"    -d, --duplicates-removed     usuwanie z wyjścia powtórzonych odczytów/"
+"zapisów.\n"
 "    -V, --version                wypisanie informacji o wersji.\n"
 "    -h, --help                   wypisanie tego opisu.\n"
 "\n"
@@ -496,7 +509,8 @@ msgid ""
 "  Child processes (user system guest):       %6.2f %6.2f %6.2f\n"
 msgstr ""
 "Czasy procesora\n"
-"  Ten proces      (użytkownika systemowy gościnny blkio): %6.2f %6.2f %6.2f %6.2f\n"
+"  Ten proces      (użytkownika systemowy gościnny blkio): %6.2f %6.2f %6.2f "
+"%6.2f\n"
 "  Procesy potomne (użytkownika systemowy gościnny:        %6.2f %6.2f %6.2f\n"
 
 #: src/prtstat.c:189
@@ -562,7 +576,8 @@ msgstr "Trzeba podać przynajmniej jeden PID."
 #: src/prtstat.c:327
 #, c-format
 msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
-msgstr "/proc nie jest zamontowany, nie można wykonać stat na /proc/self/stat.\n"
+msgstr ""
+"/proc nie jest zamontowany, nie można wykonać stat na /proc/self/stat.\n"
 
 #: src/pstree.c:1056
 #, c-format
@@ -617,7 +632,8 @@ msgstr ""
 "  -l, --long          nie obcinanie długich linii\n"
 "  -n, --numeric-sort  sortowanie wyjścia wg PID-u\n"
 "  -N typ,\n"
-"  --ns-sort=typ       sortowanie wg przestrzeni (cgroup, ipc, mnt, net, pid,\n"
+"  --ns-sort=typ       sortowanie wg przestrzeni (cgroup, ipc, mnt, net, "
+"pid,\n"
 "                                                 user, uts)\n"
 "  -p, --show-pids     wyświetlanie PID-ów; włącza także -c\n"
 "  -s, --show-parents  wyświetlanie rodziców wybranego procesu\n"
