@@ -703,7 +703,8 @@ find_net_sockets(struct inode_list **ino_list,
 	FILE *fp;
 	char pathname[200], line[BUFSIZ];
 	unsigned long loc_port, rmt_port;
-	unsigned long rmt_addr, scanned_inode;
+	unsigned long rmt_addr;
+    unsigned long long scanned_inode;
 	ino_t inode;
 	struct ip_connections *conn_tmp;
 
@@ -718,7 +719,7 @@ find_net_sockets(struct inode_list **ino_list,
 	while (fgets(line, BUFSIZ, fp) != NULL) {
 		if (sscanf
 		    (line,
-		     "%*u: %*x:%lx %08lx:%lx %*x %*x:%*x %*x:%*x %*x %*d %*d %lu",
+		     "%*u: %*x:%lx %08lx:%lx %*x %*x:%*x %*x:%*x %*x %*d %*d %llu",
 		     &loc_port, &rmt_addr, &rmt_port, &scanned_inode) != 4)
 			continue;
 #ifdef DEBUG
@@ -769,7 +770,7 @@ find_net6_sockets(struct inode_list **ino_list,
 	unsigned int tmp_addr[4];
 	char rmt_addr6str[INET6_ADDRSTRLEN];
 	struct ip6_connections *conn_tmp;
-	unsigned long scanned_inode;
+	unsigned long long scanned_inode;
 	ino_t inode;
 
 	if (snprintf(pathname, 200, "/proc/net/%s6", protocol) < 0)
@@ -785,7 +786,7 @@ find_net6_sockets(struct inode_list **ino_list,
 	while (fgets(line, BUFSIZ, fp) != NULL) {
 		if (sscanf
 		    (line,
-		     "%*u: %*x:%lx %08x%08x%08x%08x:%lx %*x %*x:%*x %*x:%*x %*x %*d %*d %lu",
+		     "%*u: %*x:%lx %08x%08x%08x%08x:%lx %*x %*x:%*x %*x:%*x %*x %*d %*d %llu",
 		     &loc_port, &(tmp_addr[0]), &(tmp_addr[1]), &(tmp_addr[2]),
 		     &(tmp_addr[3]), &rmt_port, &scanned_inode) != 7)
 			continue;
@@ -1702,7 +1703,7 @@ void fill_unix_cache(struct unixsocket_list **unixsocket_head)
 {
 	FILE *fp;
 	char line[BUFSIZ];
-	int scanned_inode;
+	unsigned long long scanned_inode;
 	struct stat st;
 	struct unixsocket_list *newsocket;
 
@@ -1714,7 +1715,7 @@ void fill_unix_cache(struct unixsocket_list **unixsocket_head)
 	while (fgets(line, BUFSIZ, fp) != NULL) {
 		char *path;
 		char *scanned_path = NULL;
-		if (sscanf(line, "%*x: %*x %*x %*x %*x %*d %d %ms",
+		if (sscanf(line, "%*x: %*x %*x %*x %*x %*d %llu %ms",
 			   &scanned_inode, &scanned_path) != 2) {
 			if (scanned_path)
 				free(scanned_path);
