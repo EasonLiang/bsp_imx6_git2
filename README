@@ -12,7 +12,7 @@ corrupt files. They are explicitly not intended to decompress correctly,
 but to catch errors in bzip2 trying to deal with deliberately bad data.
 All such files have a name ending in .bz2.bad.
 
-All none bad files end in bz2. And should come with a .md5 file for
+All non-bad files end in bz2. And should come with a .md5 file for
 the original input file. The .md5 file is used to check that bzip2
 could correctly decompress the file. The original (non-compressed)
 files are deliberately not checked in.
