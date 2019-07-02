@@ -137,6 +137,8 @@ while IFS= read -r -d '' bzfile; do
            nogood=$[${nogood}+1]; continue; }
   fi
 
+  rm "${copy}"
+
 done < <(find ${TESTS_DIR} -type f -name \*\.bz2 -print0)
 
 echo
