@@ -64,6 +64,8 @@ find ${TESTS_DIR} -type f -name \*\.testfilecopy\.bz2 -exec rm \{\} \;
 echo "Testing decompression and recompression..."
 echo
 
+badtests=()
+
 nogood=0
 while IFS= read -r -d '' bzfile; do
   file="${bzfile%.*}"
@@ -78,11 +80,13 @@ while IFS= read -r -d '' bzfile; do
   rm -f "${file}"
   ${VALGRIND} ${VALGRIND_ARGS} ${BZIP2} -k -d -q ${bzfile} \
     || { echo "!!! bad decompress result $?";
+         badtests=("${badtests[@]}" $"${bzfile} bad decompress result")
          nogood=$[${nogood}+1]; continue; }
 
   if [[ ${IGNORE_MD5} -ne 1 ]]; then
     md5sum --check --status ${md5file} < ${file} \
       || { echo "!!! md5sum doesn't match decompressed file";
+           badtests=("${badtests[@]}" $"${file} md5sum doesn't match")
            nogood=$[${nogood}+1]; continue; }
   fi
 
@@ -92,15 +96,18 @@ while IFS= read -r -d '' bzfile; do
   echo "  Recompress..."
   ${VALGRIND} ${VALGRIND_ARGS} ${BZIP2} -z -q -s ${copy} \
     || { echo "!!! bad compress result $?";
+         badtests=("${badtests[@]}" $"${copy} bad result")
          nogood=$[${nogood}+1]; continue; }
   echo "  Redecompress..."
   ${VALGRIND} ${VALGRIND_ARGS} ${BZIP2} -d -q -s ${bzcopy} \
     || { echo "!!! bad (re)decompress result $?";
+         badtests=("${badtests[@]}" $"${bzcopy} bad result")
          nogood=$[${nogood}+1]; continue; }
 
   if [[ ${IGNORE_MD5} -ne 1 ]]; then
     md5sum --check --status ${md5file} < ${copy} \
       || { echo "!!! md5sum doesn't match (re)decompressed file";
+           badtests=("${badtests[@]}" $"${copy} md5sum doesn't match")
            nogood=$[${nogood}+1]; continue; }
   fi
 
@@ -111,11 +118,13 @@ while IFS= read -r -d '' bzfile; do
   rm -f "${file}"
   ${VALGRIND} ${VALGRIND_ARGS} ${BZIP2} -k -d -q -s ${bzfile} \
     || { echo "!!! bad decompress result $?";
+         badtests=("${badtests[@]}" $"${bzfile} bad decompress result")
          nogood=$[${nogood}+1]; continue; }
 
   if [[ ${IGNORE_MD5} -ne 1 ]]; then
     md5sum --check --status ${md5file} < ${file} \
       || { echo "!!! md5sum doesn't match decompressed file";
+           badtests=("${badtests[@]}" $"${file} md5sum doesn't match")
            nogood=$[${nogood}+1]; continue; }
   fi
 
@@ -125,15 +134,18 @@ while IFS= read -r -d '' bzfile; do
   echo "  Recompress (small)..."
   ${VALGRIND} ${VALGRIND_ARGS} ${BZIP2} -z -q -s ${copy} \
     || { echo "!!! bad compress result $?";
+         badtests=("${badtests[@]}" $"${copy} bad result")
          nogood=$[${nogood}+1]; continue; }
   echo "  Redecompress (small)..."
   ${VALGRIND} ${VALGRIND_ARGS} ${BZIP2} -d -q -s ${bzcopy} \
     || { echo "!!! bad (re)decompress result $?";
+         badtests=("${badtests[@]}" $"${bzcopy} bad result")
          nogood=$[${nogood}+1]; continue; }
 
   if [[ ${IGNORE_MD5} -ne 1 ]]; then
     md5sum --check --status ${md5file} < ${copy} \
       || { echo "!!! md5sum doesn't match (re)decompressed file";
+           badtests=("${badtests[@]}" $"${copy} md5sum doesn't match")
            nogood=$[${nogood}+1]; continue; }
   fi
 
@@ -166,6 +178,7 @@ while IFS= read -r -d '' badfile; do
   if [[ ${ret} -eq 0 ]]; then
     echo "!!! badness not detected"
     nobad=$[${nobad}+1]
+    badtests=("${badtests[@]}" $"${badfile} badness not detected")
     continue
   fi
 
@@ -174,6 +187,7 @@ while IFS= read -r -d '' badfile; do
   if [[ ${ret} != 1 ]] && [[ ${ret} != 2 ]]; then
     echo "!!! baddness caused baddness in ${BZIP2}"
     badbad=$[${badbad}+1]
+    badtests=("${badtests[@]}" $"${badfile} badness caused baddness")
     continue
   fi
 
@@ -184,6 +198,7 @@ while IFS= read -r -d '' badfile; do
   if [[ ${ret} -eq 0 ]]; then
     echo "!!! badness not detected"
     nobad=$[${nobad}+1]
+    badtests=("${badtests[@]}" $"${badfile} badness not detected")
     continue
   fi
 
@@ -192,6 +207,7 @@ while IFS= read -r -d '' badfile; do
   if [[ ${ret} != 1 ]] && [[ ${ret} != 2 ]]; then
     echo "!!! baddness caused baddness in ${BZIP2}"
     badbad=$[${badbad}+1]
+    badtests=("${badtests[@]}" $"${badfile} badness caused baddness")
     continue
   fi
 
@@ -217,5 +233,6 @@ if [[ ${results} -eq 0 ]]; then
   exit 0
 else
   echo "Bad results, look for !!! in the logs above"
+  printf ' - %s\n' "${badtests[@]}"
   exit 1
 fi
