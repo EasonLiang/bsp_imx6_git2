@@ -2,7 +2,7 @@
  * killall.c - kill processes by name or list PIDs
  *
  * Copyright (C) 1993-2002 Werner Almesberger
- * Copyright (C) 2002-2018 Craig Small
+ * Copyright (C) 2002-2018 Craig Small <csmall@dropbear.xyz>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

@@ -2,7 +2,7 @@
  * comm.h - command name length definition 
  *
  * Copyright 1995 Werner Almesberger
- * Copyright 2012-2018 Craig Small <csmall@enc.com.au>
+ * Copyright 2012-2019 Craig Small <csmall@dropbear.xyz>
  *
  *
  * This program is free software; you can redistribute it and/or modify
