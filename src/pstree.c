@@ -1035,8 +1035,9 @@ static void read_proc(void)
           }
 #endif                /*WITH_SELINUX */
         if (stat(path, &st) < 0) {
-          perror(path);
-          exit(1);
+          (void) fclose(file);
+          free(path);
+          continue;
         }
         size = fread(readbuf, 1, BUFSIZ, file);
         if (ferror(file) == 0) {
