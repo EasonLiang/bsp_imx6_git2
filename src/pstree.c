@@ -196,27 +196,6 @@ const char *get_ns_name(enum ns_type id) {
     return ns_names[id];
 }
 
-static void reset_color(void){
-    if (color_highlight != COLOR_NONE)
-	printf("\033[0m");
-}
-
-static void print_proc_color(const int process_age) {
-
-    switch(color_highlight) {
-	case COLOR_AGE: {
-	    struct age_to_color *p;
-	    for(p=age_to_color; p->age_seconds != 0; p++)
-		if (process_age < p->age_seconds)
-		    break;
-	    printf("%s", p->color);
-			}
-	    break;
-	default:
-	    break;
-    }
-
-}
 static enum ns_type get_ns_id(const char *name) {
     int i;
 
@@ -500,6 +479,27 @@ static void out_newline(void)
     cur_x = 1;
 }
 
+static void reset_color(void){
+    if (color_highlight != COLOR_NONE)
+	out_string("\033[0m");
+}
+
+static void print_proc_color(const int process_age) {
+
+    switch(color_highlight) {
+	case COLOR_AGE: {
+	    struct age_to_color *p;
+	    for(p=age_to_color; p->age_seconds != 0; p++)
+		if (process_age < p->age_seconds)
+		    break;
+	    out_string(p->color);
+			}
+	    break;
+	default:
+	    break;
+    }
+
+}
 
 static PROC *find_proc(pid_t pid)
 {
