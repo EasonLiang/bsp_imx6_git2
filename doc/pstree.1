@@ -1,12 +1,12 @@
 .\"
 .\" Copyright 1993-2002 Werner Almesberger
-.\"           2002-2016 Craig Small
+.\"           2002-2019 Craig Small
 .\" This program is free software; you can redistribute it and/or modify
 .\" it under the terms of the GNU General Public License as published by
 .\" the Free Software Foundation; either version 2 of the License, or
 .\" (at your option) any later version.
 .\"
-.TH PSTREE 1 "2016-06-18" "psmisc" "User Commands"
+.TH PSTREE 1 "2019-10-23" "psmisc" "User Commands"
 .SH NAME
 pstree \- display a tree of processes
 .SH SYNOPSIS
@@ -14,11 +14,12 @@ pstree \- display a tree of processes
 .B pstree
 .RB [ \-a  , \ \-\-arguments ]
 .RB [ \-c  , \ \-\-compact\-not ]
+.RB [ \-C  , \ \-\-color\ \fIattr\fB ]
 .RB [ \-g  , \ \-\-show\-pgids ]
 .RB [ \-h  , \ \-\-highlight\-all  , \ \-H \fIpid\fB  , \ \-\-highlight\-pid\ \fIpid\fB ]
 .RB [ \-l  , \ \-\-long ]
 .RB [ \-n  , \ \-\-numeric\-sort ]
-.RB [ \-N  , \ \-\-ns\-sort \fIns\fB
+.RB [ \-N  , \ \-\-ns\-sort\ \fIns\fB ]
 .RB [ \-p  , \ \-\-show\-pids ]
 .RB [ \-s  , \ \-\-show\-parents ]
 .RB [ \-S  , \ \-\-ns-changes ]
@@ -96,6 +97,11 @@ Use ASCII characters to draw the tree.
 .IP \fB\-c\fP
 Disable compaction of identical subtrees.  By default, subtrees are
 compacted whenever possible.
+.IP \fB\-C\fP
+Color the process name by given attribute. Currently \fBpstree\fR
+only accepts \fIage\fR which colors by process age.
+Processes newer than 60 seconds are green,
+newer than an hour yellow and the remaining red.
 .IP \fB\-g\fP
 Show PGIDs.  Process Group IDs are shown as decimal numbers in
 parentheses after each process name.
