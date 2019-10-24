@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc-23.0-rc1\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2018-09-24 20:02+1000\n"
+"POT-Creation-Date: 2019-10-24 20:53+1100\n"
 "PO-Revision-Date: 2017-01-27 07:01+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <(nothing)>\n"
@@ -94,7 +94,7 @@ msgstr ""
 msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (ПСмисц) %s\n"
 
-#: src/fuser.c:171 src/killall.c:782 src/pstree.c:1134
+#: src/fuser.c:171 src/killall.c:807
 #, fuzzy, c-format
 msgid ""
 "Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n"
@@ -103,8 +103,8 @@ msgstr ""
 "Ауторска права © 1993-2010 Вернер Алмесбергер и Крег Смол\n"
 "\n"
 
-#: src/fuser.c:173 src/killall.c:784 src/peekfd.c:124 src/prtstat.c:68
-#: src/pstree.c:1136
+#: src/fuser.c:173 src/killall.c:809 src/peekfd.c:195 src/prtstat.c:68
+#: src/pstree.c:1232
 #, c-format
 msgid ""
 "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
@@ -117,110 +117,110 @@ msgstr ""
 "под одредбама ГНУ-ове Опште јавне лиценце.\n"
 "Да сазнате више о овоме, погледајте датотеку под називом „COPYING“.\n"
 
-#: src/fuser.c:192
+#: src/fuser.c:195
 #, c-format
 msgid "Cannot open /proc directory: %s\n"
 msgstr "Не могу да отворим „/proc“ директоријум: %s\n"
 
-#: src/fuser.c:383 src/fuser.c:436 src/fuser.c:2043
+#: src/fuser.c:386 src/fuser.c:439 src/fuser.c:2058
 #, c-format
 msgid "Cannot allocate memory for matched proc: %s\n"
 msgstr "Не могу да доделим меморију одговарајућем проку: %s\n"
 
-#: src/fuser.c:463
+#: src/fuser.c:466
 #, c-format
 msgid "Specified filename %s does not exist.\n"
 msgstr "Наведени назив датотеке %s не постоји.\n"
 
-#: src/fuser.c:466
+#: src/fuser.c:469
 #, c-format
 msgid "Cannot stat %s: %s\n"
 msgstr "Не могу да добијем податке о %s: %s\n"
 
-#: src/fuser.c:603
+#: src/fuser.c:606
 #, c-format
 msgid "Cannot resolve local port %s: %s\n"
 msgstr "Не могу да решим локални прикључак %s: %s\n"
 
-#: src/fuser.c:621
+#: src/fuser.c:624
 #, c-format
 msgid "Unknown local port AF %d\n"
 msgstr "Непознати локални порт АФ %d\n"
 
-#: src/fuser.c:711
+#: src/fuser.c:715
 #, c-format
 msgid "Cannot open protocol file \"%s\": %s\n"
 msgstr "Не могу да отворим датотеку протокола „%s“: %s\n"
 
-#: src/fuser.c:1014
+#: src/fuser.c:1018
 #, c-format
 msgid "Specified filename %s is not a mountpoint.\n"
 msgstr "Наведени назив датотеке „%s“ није прикључна тачка.\n"
 
-#: src/fuser.c:1106
+#: src/fuser.c:1110
 #, c-format
 msgid "%s: Invalid option %s\n"
 msgstr "%s: неисправна опција „%s“\n"
 
-#: src/fuser.c:1160
+#: src/fuser.c:1164
 msgid "Namespace option requires an argument."
 msgstr "Опција простора назива захтева аргумент."
 
-#: src/fuser.c:1177
+#: src/fuser.c:1181
 msgid "Invalid namespace name"
 msgstr "Неиспрван назив простора назива"
 
-#: src/fuser.c:1242
+#: src/fuser.c:1246
 msgid "You can only use files with mountpoint options"
 msgstr "Можете само да користите датотеке са опцијама тачке качења"
 
-#: src/fuser.c:1292
+#: src/fuser.c:1296
 msgid "No process specification given"
 msgstr "Није дата одредница процеса"
 
-#: src/fuser.c:1307
+#: src/fuser.c:1311
 msgid "all option cannot be used with silent option."
 msgstr "све опције не могу бити коришћене са тихом опцијом."
 
-#: src/fuser.c:1312
+#: src/fuser.c:1316
 msgid "You cannot search for only IPv4 and only IPv6 sockets at the same time"
 msgstr "Не можете да тражите само ИПв4 и само ИПв6 прикључке у исто време"
 
-#: src/fuser.c:1401
+#: src/fuser.c:1405
 #, c-format
 msgid "%*s USER        PID ACCESS COMMAND\n"
 msgstr "%*s КОРИСНИК        НАРЕДБА ПРИСТУПА ПИБ-у\n"
 
-#: src/fuser.c:1434 src/fuser.c:1491
+#: src/fuser.c:1438 src/fuser.c:1495
 msgid "(unknown)"
 msgstr "(непознато)"
 
-#: src/fuser.c:1575 src/fuser.c:1614
+#: src/fuser.c:1579 src/fuser.c:1618
 #, c-format
 msgid "Cannot stat file %s: %s\n"
 msgstr "Не могу да добијем податке о датотеци %s: %s\n"
 
-#: src/fuser.c:1707
+#: src/fuser.c:1711
 #, c-format
 msgid "Cannot open /proc/net/unix: %s\n"
 msgstr "Не могу да отворим „/proc/net/unix“: %s\n"
 
-#: src/fuser.c:1802
+#: src/fuser.c:1806
 #, c-format
 msgid "Kill process %d ? (y/N) "
 msgstr "Да убијем процес %d ? (y/N) "
 
-#: src/fuser.c:1838
+#: src/fuser.c:1842
 #, c-format
 msgid "Could not kill process %d: %s\n"
 msgstr "Не могу да убијем процес %d: %s\n"
 
-#: src/fuser.c:1853
+#: src/fuser.c:1857
 #, c-format
 msgid "Cannot open a network socket.\n"
 msgstr "Не могу да отворим мрежни прикључак.\n"
 
-#: src/fuser.c:1857
+#: src/fuser.c:1861
 #, c-format
 msgid "Cannot find socket's device number.\n"
 msgstr "Не могу да пронађем број уређаја прикључка.\n"
@@ -250,17 +250,17 @@ msgstr "убијсве: Лош регуларни израз: %s\n"
 msgid "killall: skipping partial match %s(%d)\n"
 msgstr "убијсве: прескачем делимично поклапање %s(%d)\n"
 
-#: src/killall.c:681
+#: src/killall.c:706
 #, c-format
 msgid "Killed %s(%s%d) with signal %d\n"
 msgstr "Убио сам %s(%s%d) са сигналом %d\n"
 
-#: src/killall.c:700
+#: src/killall.c:725
 #, c-format
 msgid "%s: no process found\n"
 msgstr "%s: нисам пронашао процес\n"
 
-#: src/killall.c:742
+#: src/killall.c:767
 #, c-format
 msgid ""
 "Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
@@ -271,12 +271,12 @@ msgstr ""
 "[ -eIgiqrvw ]\n"
 "               [ -s СИГНАЛ | -SIGNAL ] НАЗИВ...\n"
 
-#: src/killall.c:746
+#: src/killall.c:771
 #, c-format
 msgid "Usage: killall [OPTION]... [--] NAME...\n"
 msgstr "Употреба: killall [ОПЦИЈА]... [--] НАЗИВ...\n"
 
-#: src/killall.c:749
+#: src/killall.c:774
 #, fuzzy, c-format
 msgid ""
 "       killall -l, --list\n"
@@ -317,7 +317,7 @@ msgstr ""
 "  -V,--version         приказује обавештење о издању\n"
 "  -w,--wait            чека док процес не умре\n"
 
-#: src/killall.c:770
+#: src/killall.c:795
 #, c-format
 msgid ""
 "  -Z,--context REGEXP kill only process(es) having context\n"
@@ -326,46 +326,46 @@ msgstr ""
 "  -Z,--context РЕГИЗР  убија само процес(е) који има(ју) контекст\n"
 "                       (мора да претходи другим аргументима)\n"
 
-#: src/killall.c:875 src/killall.c:881
+#: src/killall.c:900 src/killall.c:906
 msgid "Invalid time format"
 msgstr "Неисправни облик времена"
 
-#: src/killall.c:901
+#: src/killall.c:926
 #, c-format
 msgid "Cannot find user %s\n"
 msgstr "Не могу да пронађем корисника %s\n"
 
-#: src/killall.c:936
+#: src/killall.c:961
 #, fuzzy
 msgid "Invalid namespace PID"
 msgstr "Неиспрван назив простора назива"
 
-#: src/killall.c:945
+#: src/killall.c:970
 #, c-format
 msgid "Bad regular expression: %s\n"
 msgstr "Лош регуларни израз: %s\n"
 
-#: src/killall.c:986
+#: src/killall.c:1011
 #, c-format
 msgid "killall: Maximum number of names is %d\n"
 msgstr "убијсве: Највећи број назива је %d\n"
 
-#: src/killall.c:991
+#: src/killall.c:1016
 #, c-format
 msgid "killall: %s lacks process entries (not mounted ?)\n"
 msgstr "убијсве: %s нема уносе процеса (није прикачено ?)\n"
 
-#: src/peekfd.c:112
+#: src/peekfd.c:183
 #, c-format
 msgid "Error attaching to pid %i\n"
 msgstr "Грешка приликом прикачињања пибу %i\n"
 
-#: src/peekfd.c:120
+#: src/peekfd.c:191
 #, c-format
 msgid "peekfd (PSmisc) %s\n"
 msgstr "peekfd (ПСмисц) %s\n"
 
-#: src/peekfd.c:122
+#: src/peekfd.c:193
 #, c-format
 msgid ""
 "Copyright (C) 2007 Trent Waddington\n"
@@ -374,7 +374,7 @@ msgstr ""
 "Ауторска права © 2007 Трент Вадингтон\n"
 "\n"
 
-#: src/peekfd.c:132
+#: src/peekfd.c:203
 #, fuzzy, c-format
 msgid ""
 "Usage: peekfd [-8] [-n] [-c] [-d] [-V] [-h] <pid> [<fd> ..]\n"
@@ -570,70 +570,94 @@ msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
 msgstr ""
 "„/proc“ није прикачен, не могу да добавим стање за „/proc/self/stat“.\n"
 
-#: src/pstree.c:1056
+#: src/pstree.c:1138
 #, c-format
 msgid "%s is empty (not mounted ?)\n"
 msgstr "%s је празно (није прикачено ?)\n"
 
-#: src/pstree.c:1092
-#, fuzzy, c-format
+#: src/pstree.c:1172
+#, c-format
 msgid ""
-"Usage: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N type ]\n"
-"Usage: pstree [-acglpsStu] [ -h | -H PID ] [ -n | -N type ]\n"
+"Usage: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N type ]\n"
 "              [ -A | -G | -U ] [ PID | USER ]\n"
-"       pstree -V\n"
+"   or: pstree -V\n"
+msgstr ""
+
+#: src/pstree.c:1177
+#, c-format
+msgid ""
+"Usage: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N type ]\n"
+"              [ -A | -G | -U ] [ PID | USER ]\n"
+"   or: pstree -V\n"
+msgstr ""
+
+#: src/pstree.c:1182
+#, c-format
+msgid ""
+"\n"
 "Display a tree of processes.\n"
 "\n"
+msgstr ""
+
+#: src/pstree.c:1185
+#, c-format
+msgid ""
 "  -a, --arguments     show command line arguments\n"
 "  -A, --ascii         use ASCII line drawing characters\n"
-"  -c, --compact       don't compact identical subtrees\n"
-"  -h, --highlight-all highlight current process and its ancestors\n"
-"  -H PID,\n"
-"  --highlight-pid=PID highlight this process and its ancestors\n"
+"  -c, --compact-not   don't compact identical subtrees\n"
+msgstr ""
+
+#: src/pstree.c:1189
+#, c-format
+msgid ""
+"  -C, --color=TYPE    color process by attribute\n"
+"                      (age)\n"
+msgstr ""
+
+#: src/pstree.c:1192
+#, c-format
+msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
 "  -G, --vt100         use VT100 line drawing characters\n"
+msgstr ""
+
+#: src/pstree.c:1195
+#, c-format
+msgid ""
+"  -h, --highlight-all highlight current process and its ancestors\n"
+"  -H PID, --highlight-pid=PID\n"
+"                      highlight this process and its ancestors\n"
 "  -l, --long          don't truncate long lines\n"
+msgstr ""
+
+#: src/pstree.c:1200
+#, c-format
+msgid ""
 "  -n, --numeric-sort  sort output by PID\n"
-"  -N type,\n"
-"  --ns-sort=type      sort by namespace type (cgroup, ipc, mnt, net, pid,\n"
-"                                              user, uts)\n"
+"  -N TYPE, --ns-sort=TYPE\n"
+"                      sort output by this namespace type\n"
+"                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
+msgstr ""
+
+#: src/pstree.c:1206
+#, c-format
+msgid ""
 "  -s, --show-parents  show parents of the selected process\n"
 "  -S, --ns-changes    show namespace transitions\n"
 "  -t, --thread-names  show full thread names\n"
 "  -T, --hide-threads  hide threads, show only processes\n"
+msgstr ""
+
+#: src/pstree.c:1211
+#, c-format
+msgid ""
 "  -u, --uid-changes   show uid transitions\n"
 "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
 "  -V, --version       display version information\n"
 msgstr ""
-"Употреба: pstree [-acglpsStuZ] [ -h | -H ПИД ] [ -n | -N врста ]\n"
-"Употреба: pstree [-acglpsStu] [ -h | -H ПИД ] [ -n | -N врста ]\n"
-"       pstree -V\n"
-"Приказује стабло процеса.\n"
-"\n"
-"  -a, --arguments      приказује аргументе линије наредби\n"
-"  -A, --ascii          користи знаке за исцртавање АСКРИ реда\n"
-"  -c, --compact        не сабија истоветна подстабла\n"
-"  -h, --highlight-all  истиче текући процес и његовог претходника\n"
-"  -H ПИД,\n"
-"  --highlight-pid=ПИД  истиче овај процес и његовог претходника\n"
-"  -g, --show-pgids     приказује ибове процесне групе; подразумева „-c“\n"
-"  -G, --vt100          користи знаке за исцртавање ВТ100 реда\n"
-"  -l, --long           не крати дуге редове\n"
-"  -n, --numeric-sort   ређа излаз према ПИБ-у\n"
-"  -N врста,\n"
-"  --ns-sort=врста      ређа према врсти називног простора (ipc, mnt, net, "
-"pid, user, uts)\n"
-"  -p, --show-pids      приказује ПИБ-ове; подразумева -c\n"
-"  -s, --show-parents   приакзује родитеље изабраног процеса\n"
-"  -S, --ns-changes     приказује преводе називног простора\n"
-"  -t, --thread-names   приказује пуне називе нити\n"
-"  -T, --hide-threads   скрива нити, приказује само процесе\n"
-"  -u, --uid-changes    приказује прелазе уиба\n"
-"  -U, --unicode        користи знакове за исцртавање УТФ-8 (Уникод) реда\n"
-"  -V, --version        приказује податке о издању\n"
 
-#: src/pstree.c:1121
+#: src/pstree.c:1216
 #, c-format
 msgid ""
 "  -Z, --security-context\n"
@@ -642,9 +666,10 @@ msgstr ""
 "  -Z, --security-context\n"
 "                       приказује СЕЛинукс безбедносни контекст\n"
 
-#: src/pstree.c:1124
-#, c-format
+#: src/pstree.c:1219
+#, fuzzy, c-format
 msgid ""
+"\n"
 "  PID    start at this PID; default is 1 (init)\n"
 "  USER   show only trees rooted at processes of this user\n"
 "\n"
@@ -653,37 +678,46 @@ msgstr ""
 "  КОРИСНИК   приказује само стабла укорењена у процесима овог корисника\n"
 "\n"
 
-#: src/pstree.c:1131
+#: src/pstree.c:1227
 #, c-format
 msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (ПСмисц) %s\n"
 
-#: src/pstree.c:1250
+#: src/pstree.c:1230
+#, fuzzy, c-format
+msgid ""
+"Copyright (C) 1993-2019 Werner Almesberger and Craig Small\n"
+"\n"
+msgstr ""
+"Ауторска права © 1993-2010 Вернер Алмесбергер и Крег Смол\n"
+"\n"
+
+#: src/pstree.c:1354
 #, c-format
 msgid "TERM is not set\n"
 msgstr "ТЕРМ није подешен\n"
 
-#: src/pstree.c:1254
+#: src/pstree.c:1358
 #, c-format
 msgid "Can't get terminal capabilities\n"
 msgstr "Не могу да добавим могућности терминала\n"
 
-#: src/pstree.c:1272
+#: src/pstree.c:1376
 #, c-format
 msgid "procfs file for %s namespace not available\n"
 msgstr "процфс датотека за %s простор назива није доступна\n"
 
-#: src/pstree.c:1325
+#: src/pstree.c:1429
 #, c-format
 msgid "No such user name: %s\n"
 msgstr "Нема таквог корисничког имена: %s\n"
 
-#: src/pstree.c:1351
+#: src/pstree.c:1455
 #, c-format
 msgid "No processes found.\n"
 msgstr "Нисам пронашао процесе.\n"
 
-#: src/pstree.c:1359
+#: src/pstree.c:1463
 #, c-format
 msgid "Press return to close\n"
 msgstr "Притисните „унеси“ да затворите\n"
@@ -699,6 +733,62 @@ msgstr "%s: непознат сигнал; %s -l исписује сигнале
 #~ msgstr ""
 #~ "Ауторска права © 1993-2014 Вернер Алмесбергер и Крег Смол\n"
 #~ "\n"
+
+#~ msgid ""
+#~ "Usage: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N type ]\n"
+#~ "Usage: pstree [-acglpsStu] [ -h | -H PID ] [ -n | -N type ]\n"
+#~ "              [ -A | -G | -U ] [ PID | USER ]\n"
+#~ "       pstree -V\n"
+#~ "Display a tree of processes.\n"
+#~ "\n"
+#~ "  -a, --arguments     show command line arguments\n"
+#~ "  -A, --ascii         use ASCII line drawing characters\n"
+#~ "  -c, --compact       don't compact identical subtrees\n"
+#~ "  -h, --highlight-all highlight current process and its ancestors\n"
+#~ "  -H PID,\n"
+#~ "  --highlight-pid=PID highlight this process and its ancestors\n"
+#~ "  -g, --show-pgids    show process group ids; implies -c\n"
+#~ "  -G, --vt100         use VT100 line drawing characters\n"
+#~ "  -l, --long          don't truncate long lines\n"
+#~ "  -n, --numeric-sort  sort output by PID\n"
+#~ "  -N type,\n"
+#~ "  --ns-sort=type      sort by namespace type (ipc, mnt, net, pid, user, "
+#~ "uts)\n"
+#~ "  -p, --show-pids     show PIDs; implies -c\n"
+#~ "  -s, --show-parents  show parents of the selected process\n"
+#~ "  -S, --ns-changes    show namespace transitions\n"
+#~ "  -t, --thread-names  show full thread names\n"
+#~ "  -T, --hide-threads  hide threads, show only processes\n"
+#~ "  -u, --uid-changes   show uid transitions\n"
+#~ "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
+#~ "  -V, --version       display version information\n"
+#~ msgstr ""
+#~ "Употреба: pstree [-acglpsStuZ] [ -h | -H ПИД ] [ -n | -N врста ]\n"
+#~ "Употреба: pstree [-acglpsStu] [ -h | -H ПИД ] [ -n | -N врста ]\n"
+#~ "       pstree -V\n"
+#~ "Приказује стабло процеса.\n"
+#~ "\n"
+#~ "  -a, --arguments      приказује аргументе линије наредби\n"
+#~ "  -A, --ascii          користи знаке за исцртавање АСКРИ реда\n"
+#~ "  -c, --compact        не сабија истоветна подстабла\n"
+#~ "  -h, --highlight-all  истиче текући процес и његовог претходника\n"
+#~ "  -H ПИД,\n"
+#~ "  --highlight-pid=ПИД  истиче овај процес и његовог претходника\n"
+#~ "  -g, --show-pgids     приказује ибове процесне групе; подразумева „-c“\n"
+#~ "  -G, --vt100          користи знаке за исцртавање ВТ100 реда\n"
+#~ "  -l, --long           не крати дуге редове\n"
+#~ "  -n, --numeric-sort   ређа излаз према ПИБ-у\n"
+#~ "  -N врста,\n"
+#~ "  --ns-sort=врста      ређа према врсти називног простора (ipc, mnt, net, "
+#~ "pid, user, uts)\n"
+#~ "  -p, --show-pids      приказује ПИБ-ове; подразумева -c\n"
+#~ "  -s, --show-parents   приакзује родитеље изабраног процеса\n"
+#~ "  -S, --ns-changes     приказује преводе називног простора\n"
+#~ "  -t, --thread-names   приказује пуне називе нити\n"
+#~ "  -T, --hide-threads   скрива нити, приказује само процесе\n"
+#~ "  -u, --uid-changes    приказује прелазе уиба\n"
+#~ "  -U, --unicode        користи знакове за исцртавање УТФ-8 (Уникод) реда\n"
+#~ "  -V, --version        приказује податке о издању\n"
 
 #~ msgid ""
 #~ "Copyright (C) 1993-2009 Werner Almesberger and Craig Small\n"

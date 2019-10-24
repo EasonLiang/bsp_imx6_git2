@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc-23.2\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2018-09-24 20:02+1000\n"
+"POT-Creation-Date: 2019-10-24 20:53+1100\n"
 "PO-Revision-Date: 2018-08-13 19:03+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation-team-uk@lists.sourceforge.net>\n"
@@ -99,7 +99,7 @@ msgstr ""
 msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
-#: src/fuser.c:171 src/killall.c:782 src/pstree.c:1134
+#: src/fuser.c:171 src/killall.c:807
 #, c-format
 msgid ""
 "Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n"
@@ -108,8 +108,8 @@ msgstr ""
 "© Werner Almesberger та Craig Small, 1993–2017\n"
 "\n"
 
-#: src/fuser.c:173 src/killall.c:784 src/peekfd.c:124 src/prtstat.c:68
-#: src/pstree.c:1136
+#: src/fuser.c:173 src/killall.c:809 src/peekfd.c:195 src/prtstat.c:68
+#: src/pstree.c:1232
 #, c-format
 msgid ""
 "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
@@ -122,111 +122,111 @@ msgstr ""
 "його відповідно до умов Загальної громадської ліцензії GNU (GPL).\n"
 "Щоб дізнатися більше про це, ознайомтеся з файлом з назвою COPYING.\n"
 
-#: src/fuser.c:192
+#: src/fuser.c:195
 #, c-format
 msgid "Cannot open /proc directory: %s\n"
 msgstr "Не вдалося відкрити каталог /proc: %s\n"
 
-#: src/fuser.c:383 src/fuser.c:436 src/fuser.c:2043
+#: src/fuser.c:386 src/fuser.c:439 src/fuser.c:2058
 #, c-format
 msgid "Cannot allocate memory for matched proc: %s\n"
 msgstr "Не вдалося отримати область пам’яті для відповідного процесу: %s\n"
 
-#: src/fuser.c:463
+#: src/fuser.c:466
 #, c-format
 msgid "Specified filename %s does not exist.\n"
 msgstr "Файл з вказаною назвою, %s, не існує.\n"
 
-#: src/fuser.c:466
+#: src/fuser.c:469
 #, c-format
 msgid "Cannot stat %s: %s\n"
 msgstr "Не вдалося отримати дані за допомогою stat %s: %s\n"
 
-#: src/fuser.c:603
+#: src/fuser.c:606
 #, c-format
 msgid "Cannot resolve local port %s: %s\n"
 msgstr "Не вдалося визначити локальний порт %s: %s\n"
 
-#: src/fuser.c:621
+#: src/fuser.c:624
 #, c-format
 msgid "Unknown local port AF %d\n"
 msgstr "Невідомий локальний порт AF %d\n"
 
-#: src/fuser.c:711
+#: src/fuser.c:715
 #, c-format
 msgid "Cannot open protocol file \"%s\": %s\n"
 msgstr "Не вдалося відкрити файл протоколу «%s»: %s\n"
 
-#: src/fuser.c:1014
+#: src/fuser.c:1018
 #, c-format
 msgid "Specified filename %s is not a mountpoint.\n"
 msgstr "Вказана назва файла, %s, не є точкою монтування.\n"
 
-#: src/fuser.c:1106
+#: src/fuser.c:1110
 #, c-format
 msgid "%s: Invalid option %s\n"
 msgstr "%s: некоректний параметр, %s\n"
 
-#: src/fuser.c:1160
+#: src/fuser.c:1164
 msgid "Namespace option requires an argument."
 msgstr "Параметр простору назв слід вказувати з аргументом."
 
-#: src/fuser.c:1177
+#: src/fuser.c:1181
 msgid "Invalid namespace name"
 msgstr "Некоректна назва простору назв"
 
-#: src/fuser.c:1242
+#: src/fuser.c:1246
 msgid "You can only use files with mountpoint options"
 msgstr "Файли можна використовувати лише разом з параметрами точки монтування"
 
-#: src/fuser.c:1292
+#: src/fuser.c:1296
 msgid "No process specification given"
 msgstr "Не вказано специфікації процесу"
 
-#: src/fuser.c:1307
+#: src/fuser.c:1311
 msgid "all option cannot be used with silent option."
 msgstr "параметр «all» не можна використовувати разом з параметром «silent»."
 
-#: src/fuser.c:1312
+#: src/fuser.c:1316
 msgid "You cannot search for only IPv4 and only IPv6 sockets at the same time"
 msgstr ""
 "Одночасно можна виконувати пошук лише для сокетів IPv4 або сокетів IPv6"
 
-#: src/fuser.c:1401
+#: src/fuser.c:1405
 #, c-format
 msgid "%*s USER        PID ACCESS COMMAND\n"
 msgstr "%*s КОРИСТУВАЧ  PID ДОСТУП КОМАНДА\n"
 
-#: src/fuser.c:1434 src/fuser.c:1491
+#: src/fuser.c:1438 src/fuser.c:1495
 msgid "(unknown)"
 msgstr "(невідомий)"
 
-#: src/fuser.c:1575 src/fuser.c:1614
+#: src/fuser.c:1579 src/fuser.c:1618
 #, c-format
 msgid "Cannot stat file %s: %s\n"
 msgstr "Не вдалося обробити файл за допомогою stat %s: %s\n"
 
-#: src/fuser.c:1707
+#: src/fuser.c:1711
 #, c-format
 msgid "Cannot open /proc/net/unix: %s\n"
 msgstr "Не вдалося відкрити /proc/net/unix: %s\n"
 
-#: src/fuser.c:1802
+#: src/fuser.c:1806
 #, c-format
 msgid "Kill process %d ? (y/N) "
 msgstr "Завершити процес %d? (y (так) або N (ні)) "
 
-#: src/fuser.c:1838
+#: src/fuser.c:1842
 #, c-format
 msgid "Could not kill process %d: %s\n"
 msgstr "Не вдалося завершити роботу процесу %d: %s\n"
 
-#: src/fuser.c:1853
+#: src/fuser.c:1857
 #, c-format
 msgid "Cannot open a network socket.\n"
 msgstr "Не вдалося відкрити сокет мережі.\n"
 
-#: src/fuser.c:1857
+#: src/fuser.c:1861
 #, c-format
 msgid "Cannot find socket's device number.\n"
 msgstr "Не вдалося визначити номер пристрою сокета.\n"
@@ -256,17 +256,17 @@ msgstr "killall: помилковий формальний вираз: %s\n"
 msgid "killall: skipping partial match %s(%d)\n"
 msgstr "killall: пропускаємо частковий відповідник %s(%d)\n"
 
-#: src/killall.c:681
+#: src/killall.c:706
 #, c-format
 msgid "Killed %s(%s%d) with signal %d\n"
 msgstr "Завершено роботу %s(%s%d) за допомогою сигналу %d\n"
 
-#: src/killall.c:700
+#: src/killall.c:725
 #, c-format
 msgid "%s: no process found\n"
 msgstr "%s: процес не знайдено\n"
 
-#: src/killall.c:742
+#: src/killall.c:767
 #, c-format
 msgid ""
 "Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
@@ -277,12 +277,12 @@ msgstr ""
 "eIgiqrvw ]\n"
 "                      [ -s СИГНАЛ | -СИГНАЛ ] НАЗВА...\n"
 
-#: src/killall.c:746
+#: src/killall.c:771
 #, c-format
 msgid "Usage: killall [OPTION]... [--] NAME...\n"
 msgstr "Використання: killall [ПАРАМЕТР]... [--] НАЗВА...\n"
 
-#: src/killall.c:749
+#: src/killall.c:774
 #, c-format
 msgid ""
 "       killall -l, --list\n"
@@ -330,7 +330,7 @@ msgstr ""
 "назв,\n"
 "                       що і PID\n"
 
-#: src/killall.c:770
+#: src/killall.c:795
 #, c-format
 msgid ""
 "  -Z,--context REGEXP kill only process(es) having context\n"
@@ -340,45 +340,45 @@ msgstr ""
 "контекстом\n"
 "                      (слід вказувати перед іншими аргументами)\n"
 
-#: src/killall.c:875 src/killall.c:881
+#: src/killall.c:900 src/killall.c:906
 msgid "Invalid time format"
 msgstr "Некоректний формат визначення часу"
 
-#: src/killall.c:901
+#: src/killall.c:926
 #, c-format
 msgid "Cannot find user %s\n"
 msgstr "Не вдалося знайти користувача %s\n"
 
-#: src/killall.c:936
+#: src/killall.c:961
 msgid "Invalid namespace PID"
 msgstr "Некоректний PID простору назв"
 
-#: src/killall.c:945
+#: src/killall.c:970
 #, c-format
 msgid "Bad regular expression: %s\n"
 msgstr "Помилковий формальний вираз: %s\n"
 
-#: src/killall.c:986
+#: src/killall.c:1011
 #, c-format
 msgid "killall: Maximum number of names is %d\n"
 msgstr "killall: максимальною кількістю назв є %d\n"
 
-#: src/killall.c:991
+#: src/killall.c:1016
 #, c-format
 msgid "killall: %s lacks process entries (not mounted ?)\n"
 msgstr "killall: %s не містить записів процесів (не змонтовано?)\n"
 
-#: src/peekfd.c:112
+#: src/peekfd.c:183
 #, c-format
 msgid "Error attaching to pid %i\n"
 msgstr "Помилка під час спроби приєднатися до pid %i\n"
 
-#: src/peekfd.c:120
+#: src/peekfd.c:191
 #, c-format
 msgid "peekfd (PSmisc) %s\n"
 msgstr "peekfd (PSmisc) %s\n"
 
-#: src/peekfd.c:122
+#: src/peekfd.c:193
 #, c-format
 msgid ""
 "Copyright (C) 2007 Trent Waddington\n"
@@ -387,7 +387,7 @@ msgstr ""
 "© Trent Waddington, 2007\n"
 "\n"
 
-#: src/peekfd.c:132
+#: src/peekfd.c:203
 #, c-format
 msgid ""
 "Usage: peekfd [-8] [-n] [-c] [-d] [-V] [-h] <pid> [<fd> ..]\n"
@@ -585,74 +585,94 @@ msgstr "Вам слід вказати принаймні одне значен�
 msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
 msgstr "/proc не змонтовано, виконання обробки /proc/self/stat неможливе.\n"
 
-#: src/pstree.c:1056
+#: src/pstree.c:1138
 #, c-format
 msgid "%s is empty (not mounted ?)\n"
 msgstr "%s є порожнім (не змонтовано?)\n"
 
-#: src/pstree.c:1092
+#: src/pstree.c:1172
 #, c-format
 msgid ""
-"Usage: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N type ]\n"
-"Usage: pstree [-acglpsStu] [ -h | -H PID ] [ -n | -N type ]\n"
+"Usage: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N type ]\n"
 "              [ -A | -G | -U ] [ PID | USER ]\n"
-"       pstree -V\n"
+"   or: pstree -V\n"
+msgstr ""
+
+#: src/pstree.c:1177
+#, c-format
+msgid ""
+"Usage: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N type ]\n"
+"              [ -A | -G | -U ] [ PID | USER ]\n"
+"   or: pstree -V\n"
+msgstr ""
+
+#: src/pstree.c:1182
+#, c-format
+msgid ""
+"\n"
 "Display a tree of processes.\n"
 "\n"
+msgstr ""
+
+#: src/pstree.c:1185
+#, c-format
+msgid ""
 "  -a, --arguments     show command line arguments\n"
 "  -A, --ascii         use ASCII line drawing characters\n"
-"  -c, --compact       don't compact identical subtrees\n"
-"  -h, --highlight-all highlight current process and its ancestors\n"
-"  -H PID,\n"
-"  --highlight-pid=PID highlight this process and its ancestors\n"
+"  -c, --compact-not   don't compact identical subtrees\n"
+msgstr ""
+
+#: src/pstree.c:1189
+#, c-format
+msgid ""
+"  -C, --color=TYPE    color process by attribute\n"
+"                      (age)\n"
+msgstr ""
+
+#: src/pstree.c:1192
+#, c-format
+msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
 "  -G, --vt100         use VT100 line drawing characters\n"
+msgstr ""
+
+#: src/pstree.c:1195
+#, c-format
+msgid ""
+"  -h, --highlight-all highlight current process and its ancestors\n"
+"  -H PID, --highlight-pid=PID\n"
+"                      highlight this process and its ancestors\n"
 "  -l, --long          don't truncate long lines\n"
+msgstr ""
+
+#: src/pstree.c:1200
+#, c-format
+msgid ""
 "  -n, --numeric-sort  sort output by PID\n"
-"  -N type,\n"
-"  --ns-sort=type      sort by namespace type (cgroup, ipc, mnt, net, pid,\n"
-"                                              user, uts)\n"
+"  -N TYPE, --ns-sort=TYPE\n"
+"                      sort output by this namespace type\n"
+"                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
+msgstr ""
+
+#: src/pstree.c:1206
+#, c-format
+msgid ""
 "  -s, --show-parents  show parents of the selected process\n"
 "  -S, --ns-changes    show namespace transitions\n"
 "  -t, --thread-names  show full thread names\n"
 "  -T, --hide-threads  hide threads, show only processes\n"
+msgstr ""
+
+#: src/pstree.c:1211
+#, c-format
+msgid ""
 "  -u, --uid-changes   show uid transitions\n"
 "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
 "  -V, --version       display version information\n"
 msgstr ""
-"Користування: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N тип ]\n"
-"Користування: pstree [-acglpsStu] [ -h | -H PID ] [ -n | -N тип ]\n"
-"              [ -A | -G | -U ] [ PID | USER ]\n"
-"       pstree -V\n"
-"Показати ієрархію процесів.\n"
-"\n"
-"  -a, --arguments     показати аргументи командного рядка\n"
-"  -A, --ascii         використовувати для малювання ліній символи ASCII\n"
-"  -c, --compact       не ущільнювати ідентичні гілки ієрархії\n"
-"  -h, --highlight-all позначити поточний процес та його дочірні процеси\n"
-"  -H PID,\n"
-"  --highlight-pid=PID позначити вказаний процес та його дочірні процеси\n"
-"  -g, --show-pgids    показати ідентифікатори груп процесів; додається -c\n"
-"  -G, --vt100         використовувати символи малювання ліній VT100\n"
-"  -l, --long          не обрізати довгі рядки\n"
-"  -n, --numeric-sort  впорядкувати дані за PID\n"
-"  -N тип,\n"
-"  --ns-sort=тип       впорядкувати за типами просторів назв (cgroup, ipc, "
-"mnt,\n"
-"                                                          net, pid, user, "
-"uts)\n"
-"  -p, --show-pids     показати PID; додається -c\n"
-"  -s, --show-parents  показати основні процеси вибраного процесу\n"
-"  -S, --ns-changes    показати переходи просторів назв\n"
-"  -t, --thread-names  показати назви потоків повністю\n"
-"  -T, --hide-threads  приховати потоки, показати лише процеси\n"
-"  -u, --uid-changes   показати переходи uid\n"
-"  -U, --unicode       використовувати символи малювання ліній UTF-8 "
-"(Unicode)\n"
-"  -V, --version       показати дані щодо версії програми\n"
 
-#: src/pstree.c:1121
+#: src/pstree.c:1216
 #, c-format
 msgid ""
 "  -Z, --security-context\n"
@@ -661,9 +681,10 @@ msgstr ""
 "  -Z, --security-context\n"
 "                      вивести контексти захисту SELinux\n"
 
-#: src/pstree.c:1124
-#, c-format
+#: src/pstree.c:1219
+#, fuzzy, c-format
 msgid ""
+"\n"
 "  PID    start at this PID; default is 1 (init)\n"
 "  USER   show only trees rooted at processes of this user\n"
 "\n"
@@ -674,37 +695,46 @@ msgstr ""
 "користувача\n"
 "\n"
 
-#: src/pstree.c:1131
+#: src/pstree.c:1227
 #, c-format
 msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
-#: src/pstree.c:1250
+#: src/pstree.c:1230
+#, fuzzy, c-format
+msgid ""
+"Copyright (C) 1993-2019 Werner Almesberger and Craig Small\n"
+"\n"
+msgstr ""
+"© Werner Almesberger та Craig Small, 1993–2017\n"
+"\n"
+
+#: src/pstree.c:1354
 #, c-format
 msgid "TERM is not set\n"
 msgstr "Не встановлено змінної TERM\n"
 
-#: src/pstree.c:1254
+#: src/pstree.c:1358
 #, c-format
 msgid "Can't get terminal capabilities\n"
 msgstr "Не вдалося отримати дані щодо можливостей термінала\n"
 
-#: src/pstree.c:1272
+#: src/pstree.c:1376
 #, c-format
 msgid "procfs file for %s namespace not available\n"
 msgstr "файл procfs для простору назв %s недоступний\n"
 
-#: src/pstree.c:1325
+#: src/pstree.c:1429
 #, c-format
 msgid "No such user name: %s\n"
 msgstr "Користувача з таким іменем не існує: %s\n"
 
-#: src/pstree.c:1351
+#: src/pstree.c:1455
 #, c-format
 msgid "No processes found.\n"
 msgstr "Не знайдено жодного процесу.\n"
 
-#: src/pstree.c:1359
+#: src/pstree.c:1463
 #, c-format
 msgid "Press return to close\n"
 msgstr "Натисніть Enter, щоб закрити.\n"
@@ -714,6 +744,68 @@ msgstr "Натисніть Enter, щоб закрити.\n"
 msgid "%s: unknown signal; %s -l lists signals.\n"
 msgstr ""
 "%s: невідомий сигнал; щоб отримати список сигналів віддайте команду %s -l .\n"
+
+#~ msgid ""
+#~ "Usage: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N type ]\n"
+#~ "Usage: pstree [-acglpsStu] [ -h | -H PID ] [ -n | -N type ]\n"
+#~ "              [ -A | -G | -U ] [ PID | USER ]\n"
+#~ "       pstree -V\n"
+#~ "Display a tree of processes.\n"
+#~ "\n"
+#~ "  -a, --arguments     show command line arguments\n"
+#~ "  -A, --ascii         use ASCII line drawing characters\n"
+#~ "  -c, --compact       don't compact identical subtrees\n"
+#~ "  -h, --highlight-all highlight current process and its ancestors\n"
+#~ "  -H PID,\n"
+#~ "  --highlight-pid=PID highlight this process and its ancestors\n"
+#~ "  -g, --show-pgids    show process group ids; implies -c\n"
+#~ "  -G, --vt100         use VT100 line drawing characters\n"
+#~ "  -l, --long          don't truncate long lines\n"
+#~ "  -n, --numeric-sort  sort output by PID\n"
+#~ "  -N type,\n"
+#~ "  --ns-sort=type      sort by namespace type (cgroup, ipc, mnt, net, "
+#~ "pid,\n"
+#~ "                                              user, uts)\n"
+#~ "  -p, --show-pids     show PIDs; implies -c\n"
+#~ "  -s, --show-parents  show parents of the selected process\n"
+#~ "  -S, --ns-changes    show namespace transitions\n"
+#~ "  -t, --thread-names  show full thread names\n"
+#~ "  -T, --hide-threads  hide threads, show only processes\n"
+#~ "  -u, --uid-changes   show uid transitions\n"
+#~ "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
+#~ "  -V, --version       display version information\n"
+#~ msgstr ""
+#~ "Користування: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N тип ]\n"
+#~ "Користування: pstree [-acglpsStu] [ -h | -H PID ] [ -n | -N тип ]\n"
+#~ "              [ -A | -G | -U ] [ PID | USER ]\n"
+#~ "       pstree -V\n"
+#~ "Показати ієрархію процесів.\n"
+#~ "\n"
+#~ "  -a, --arguments     показати аргументи командного рядка\n"
+#~ "  -A, --ascii         використовувати для малювання ліній символи ASCII\n"
+#~ "  -c, --compact       не ущільнювати ідентичні гілки ієрархії\n"
+#~ "  -h, --highlight-all позначити поточний процес та його дочірні процеси\n"
+#~ "  -H PID,\n"
+#~ "  --highlight-pid=PID позначити вказаний процес та його дочірні процеси\n"
+#~ "  -g, --show-pgids    показати ідентифікатори груп процесів; додається -"
+#~ "c\n"
+#~ "  -G, --vt100         використовувати символи малювання ліній VT100\n"
+#~ "  -l, --long          не обрізати довгі рядки\n"
+#~ "  -n, --numeric-sort  впорядкувати дані за PID\n"
+#~ "  -N тип,\n"
+#~ "  --ns-sort=тип       впорядкувати за типами просторів назв (cgroup, ipc, "
+#~ "mnt,\n"
+#~ "                                                          net, pid, user, "
+#~ "uts)\n"
+#~ "  -p, --show-pids     показати PID; додається -c\n"
+#~ "  -s, --show-parents  показати основні процеси вибраного процесу\n"
+#~ "  -S, --ns-changes    показати переходи просторів назв\n"
+#~ "  -t, --thread-names  показати назви потоків повністю\n"
+#~ "  -T, --hide-threads  приховати потоки, показати лише процеси\n"
+#~ "  -u, --uid-changes   показати переходи uid\n"
+#~ "  -U, --unicode       використовувати символи малювання ліній UTF-8 "
+#~ "(Unicode)\n"
+#~ "  -V, --version       показати дані щодо версії програми\n"
 
 #~ msgid ""
 #~ "Copyright (C) 1993-2014 Werner Almesberger and Craig Small\n"
