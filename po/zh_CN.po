@@ -8,10 +8,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc 23.2\n"
+"Project-Id-Version: psmisc 23.3\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
 "POT-Creation-Date: 2019-10-24 21:25+1100\n"
-"PO-Revision-Date: 2019-04-18 19:29-0400\n"
+"PO-Revision-Date: 2019-10-30 13:54-0400\n"
 "Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.4\n"
 
 #     -c          已挂载的文件系统
 #     -f          此选项被悄悄忽略(为了 POSIX 兼容性)
@@ -585,6 +585,9 @@ msgid ""
 "              [ -A | -G | -U ] [ PID | USER ]\n"
 "   or: pstree -V\n"
 msgstr ""
+"用法：pstree [-acglpsStTuZ] [ -h | -H 进程号 ] [ -n | -N 类型 ]\n"
+"              [ -A | -G | -U ] [ 进程号 | 用户 ]\n"
+"  或：pstree -V\n"
 
 #: src/pstree.c:1177
 #, c-format
@@ -593,6 +596,9 @@ msgid ""
 "              [ -A | -G | -U ] [ PID | USER ]\n"
 "   or: pstree -V\n"
 msgstr ""
+"用法：pstree [-acglpsStTu] [ -h | -H 进程号 ] [ -n | -N 类型 ]\n"
+"              [ -A | -G | -U ] [ 进程号 | 用户 ]\n"
+"  或：pstree -V\n"
 
 #: src/pstree.c:1182
 #, c-format
@@ -601,6 +607,9 @@ msgid ""
 "Display a tree of processes.\n"
 "\n"
 msgstr ""
+"\n"
+"显示进程树。\n"
+"\n"
 
 #: src/pstree.c:1185
 #, c-format
@@ -609,6 +618,9 @@ msgid ""
 "  -A, --ascii         use ASCII line drawing characters\n"
 "  -c, --compact-not   don't compact identical subtrees\n"
 msgstr ""
+"  -a, --arguments     显示命令行参数\n"
+"  -A, --ascii         使用 ASCII 行绘制字符\n"
+"  -c, --compact-not   不要对完全相同的子树进行压缩\n"
 
 #: src/pstree.c:1189
 #, c-format
@@ -616,6 +628,8 @@ msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
 "                      (age)\n"
 msgstr ""
+"  -C, --color=类型    按照指定属性对进程上色\n"
+"                      (age)\n"
 
 #: src/pstree.c:1192
 #, c-format
@@ -623,6 +637,8 @@ msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
 "  -G, --vt100         use VT100 line drawing characters\n"
 msgstr ""
+"  -g, --show-pgids    显示进程组 ID；隐含启用 -c 选项\n"
+"  -G, --vt100         使用 VT100 行绘制字符\n"
 
 #: src/pstree.c:1195
 #, c-format
@@ -632,6 +648,10 @@ msgid ""
 "                      highlight this process and its ancestors\n"
 "  -l, --long          don't truncate long lines\n"
 msgstr ""
+"  -h, --highlight-all 高亮显示当前进程和其所有祖先\n"
+"  -H PID, --highlight-pid=PID\n"
+"                      高亮显示指定 PID 对应的进程和其所有祖先\n"
+"  -l, --long          不要截断长行\n"
 
 #: src/pstree.c:1200
 #, c-format
@@ -642,6 +662,11 @@ msgid ""
 "                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 msgstr ""
+"  -n, --numeric-sort  按照 PID 对输出进行排序\n"
+"  -N 类型, --ns-sort=类型\n"
+"                      按照指定命名空间类型对输出进行排序\n"
+"                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
+"  -p, --show-pids     显示 PID；隐含启用 -c 选项\n"
 
 #: src/pstree.c:1206
 #, c-format
@@ -651,6 +676,10 @@ msgid ""
 "  -t, --thread-names  show full thread names\n"
 "  -T, --hide-threads  hide threads, show only processes\n"
 msgstr ""
+"  -s, --show-parents  显示所选进程的父进程\n"
+"  -S, --ns-changes    显示命名空间的变化\n"
+"  -t, --thread-names  显示完整线程名称\n"
+"  -T, --hide-threads  隐藏线程，只显示进程\n"
 
 #: src/pstree.c:1211
 #, c-format
@@ -659,6 +688,9 @@ msgid ""
 "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
 "  -V, --version       display version information\n"
 msgstr ""
+"  -u, --uid-changes   显示用户 ID（UID）的变化\n"
+"  -U, --unicode       使用 UTF-8（Unicode）的行绘制字符\n"
+"  -V, --version       显示版本信息\n"
 
 #: src/pstree.c:1216
 #, c-format
@@ -670,15 +702,16 @@ msgstr ""
 "                      显示 SELinux 安全上下文\n"
 
 #: src/pstree.c:1219
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "  PID    start at this PID; default is 1 (init)\n"
 "  USER   show only trees rooted at processes of this user\n"
 "\n"
 msgstr ""
-"  进程号 从 \"进程号\" 开始，缺省是1(init)\n"
-"  用户   仅显示从该 \"用户\" 的进程开始的进程树\n"
+"\n"
+"  进程号 从指定进程号开始；默认为 1（init）\n"
+"  用户   仅显示从指定用户的进程开始的进程树\n"
 "\n"
 
 #: src/pstree.c:1227
@@ -688,12 +721,12 @@ msgstr "pstree (PSmisc) %s\n"
 
 # GPL Howto 说了，不要翻译 Copyright.
 #: src/pstree.c:1230
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2019 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"版权所有 © 1993-2017 Werner Almesberger 和 Craig Small\n"
+"版权所有 © 1993-2019 Werner Almesberger 和 Craig Small\n"
 "\n"
 
 #: src/pstree.c:1354

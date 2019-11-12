@@ -1,16 +1,16 @@
 # French translation of PSmisc messages.
-# Copyright (C) 2018 Free Software Foundation, Inc.
+# Copyright (C) 2019 Free Software Foundation, Inc.
 # This file is distributed under the same license as the psmisc package.
 #
 # Marc Léger <sorata@users.sourceforge.net>, 2001.
 # Benno Schulenberg <benno@vertaalt.nl>, 2007.
-# Frédéric Marchal <fmarchal@perso.be>, 2018.
+# Frédéric Marchal <fmarchal@perso.be>, 2019.
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc-23.2\n"
+"Project-Id-Version: psmisc-23.3\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
 "POT-Creation-Date: 2019-10-24 21:25+1100\n"
-"PO-Revision-Date: 2018-08-16 19:56+0200\n"
+"PO-Revision-Date: 2019-10-24 18:17+0200\n"
 "Last-Translator: Frédéric Marchal <fmarchal@perso.be>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "Language: fr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"Plural-Forms:  nplurals=2; plural=(n >= 2);\n"
+"Plural-Forms: nplurals=2; plural=(n >= 2);\n"
 
 #: src/fuser.c:137
 #, c-format
@@ -603,6 +603,9 @@ msgid ""
 "              [ -A | -G | -U ] [ PID | USER ]\n"
 "   or: pstree -V\n"
 msgstr ""
+"Usage: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N type ]\n"
+"              [ -A | -G | -U ] [ PID | UTILISATEUR ]\n"
+"   ou: pstree -V\n"
 
 #: src/pstree.c:1177
 #, c-format
@@ -611,6 +614,9 @@ msgid ""
 "              [ -A | -G | -U ] [ PID | USER ]\n"
 "   or: pstree -V\n"
 msgstr ""
+"Usage: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N type ]\n"
+"              [ -A | -G | -U ] [ PID | UTILISATEUR ]\n"
+"   ou: pstree -V\n"
 
 #: src/pstree.c:1182
 #, c-format
@@ -619,6 +625,9 @@ msgid ""
 "Display a tree of processes.\n"
 "\n"
 msgstr ""
+"\n"
+"Affiche un arbre des processus.\n"
+"\n"
 
 #: src/pstree.c:1185
 #, c-format
@@ -627,6 +636,9 @@ msgid ""
 "  -A, --ascii         use ASCII line drawing characters\n"
 "  -c, --compact-not   don't compact identical subtrees\n"
 msgstr ""
+"  -a, --arguments     montrer les arguments de la ligne de commande\n"
+"  -A, --ascii         utiliser les caractères de dessin de lignes ASCII\n"
+"  -c, --compact-not   ne pas compacter des sous-arbres identiques\n"
 
 #: src/pstree.c:1189
 #, c-format
@@ -634,6 +646,8 @@ msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
 "                      (age)\n"
 msgstr ""
+"  -C, --color=TYPE    coloriser les processus par attribut\n"
+"                      (age)\n"
 
 #: src/pstree.c:1192
 #, c-format
@@ -641,6 +655,8 @@ msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
 "  -G, --vt100         use VT100 line drawing characters\n"
 msgstr ""
+"  -g, --show-pgids    montrer les ids de groupes de processus ; implique -c\n"
+"  -G, --vt100         utiliser les caractères de dessin de lignes du VT100\n"
 
 #: src/pstree.c:1195
 #, c-format
@@ -650,6 +666,11 @@ msgid ""
 "                      highlight this process and its ancestors\n"
 "  -l, --long          don't truncate long lines\n"
 msgstr ""
+"  -h, --highlight-all mettre en évidence le processus courant et ses "
+"ancêtres\n"
+"  -H PID, --highlight-pid=PID\n"
+"                      mettre en évidence ce processus et ses ancêtres\n"
+"  -l, --long          ne pas tronquer les longues lignes\n"
 
 #: src/pstree.c:1200
 #, c-format
@@ -660,6 +681,11 @@ msgid ""
 "                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 msgstr ""
+"  -n, --numeric-sort  trier la sortie par PID\n"
+"  -N TYPE, --ns-sort=TYPE\n"
+"                      trier la sortie par ce type d'espace de noms\n"
+"                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
+"  -p, --show-pids     montrer les PID ; implique -c\n"
 
 #: src/pstree.c:1206
 #, c-format
@@ -669,6 +695,10 @@ msgid ""
 "  -t, --thread-names  show full thread names\n"
 "  -T, --hide-threads  hide threads, show only processes\n"
 msgstr ""
+"  -s, --show-parents  montrer les parents du processus sélectionné\n"
+"  -S, --ns-changes    montrer les transitions d'espaces de noms\n"
+"  -t, --thread-names  montrer les noms complets des threads\n"
+"  -T, --hide-threads  cacher les threads, montrer uniquement les processus\n"
 
 #: src/pstree.c:1211
 #, c-format
@@ -677,6 +707,10 @@ msgid ""
 "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
 "  -V, --version       display version information\n"
 msgstr ""
+"  -u, --uid-changes   montrer les transitions de UID\n"
+"  -U, --unicode       utiliser les caractères UTF-8 (Unicode) pour dessiner "
+"les lignes\n"
+"  -V, --version       afficher les informations de la version\n"
 
 #: src/pstree.c:1216
 #, c-format
@@ -688,13 +722,14 @@ msgstr ""
 "                      montre les contextes de sécurité SELinux\n"
 
 #: src/pstree.c:1219
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "  PID    start at this PID; default is 1 (init)\n"
 "  USER   show only trees rooted at processes of this user\n"
 "\n"
 msgstr ""
+"\n"
 "  PID    commence à ce PID; le défaut est 1 (init)\n"
 "  USER   montre seulement les arbres nichés aux processus de cet "
 "utilisateur\n"
@@ -706,12 +741,12 @@ msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
 #: src/pstree.c:1230
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2019 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Copyright (C) 1993-2017 Werner Almesberger et Craig Small\n"
+"Copyright © 1993-2019 Werner Almesberger et Craig Small\n"
 "\n"
 
 #: src/pstree.c:1354

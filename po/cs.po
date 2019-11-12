@@ -2,13 +2,14 @@
 # Copyright (C) 2009 Free Software Foundation, Inc.
 # This file is distributed under the same license as the psmisc package.
 # Petr Pisar <petr.pisar@atlas.cz>, 2009, 2010, 2012, 2013, 2014, 2017, 2018.
+# Petr Pisar <petr.pisar@atlas.cz>, 2019.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc 23.2\n"
+"Project-Id-Version: psmisc 23.3\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
 "POT-Creation-Date: 2019-10-24 21:25+1100\n"
-"PO-Revision-Date: 2018-08-13 21:13+02:00\n"
+"PO-Revision-Date: 2019-10-31 20:53+01:00\n"
 "Last-Translator: Petr Pisar <petr.pisar@atlas.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
 "Language: cs\n"
@@ -588,6 +589,9 @@ msgid ""
 "              [ -A | -G | -U ] [ PID | USER ]\n"
 "   or: pstree -V\n"
 msgstr ""
+"Použití: pstree [-acglpsStTuZ] [-h|-H PID] [-n|-N DRUH]\n"
+"                [-A|-G|-U] [PID|UŽIVATEL]\n"
+"   nebo: pstree -V\n"
 
 #: src/pstree.c:1177
 #, c-format
@@ -596,6 +600,9 @@ msgid ""
 "              [ -A | -G | -U ] [ PID | USER ]\n"
 "   or: pstree -V\n"
 msgstr ""
+"Použití: pstree [-acglpsStTu] [-h|-H PID] [-n|-N DRUH]\n"
+"                [-A|-G|-U] [PID|UŽIVATEL]\n"
+"   nebo: pstree -V\n"
 
 #: src/pstree.c:1182
 #, c-format
@@ -604,6 +611,9 @@ msgid ""
 "Display a tree of processes.\n"
 "\n"
 msgstr ""
+"\n"
+"Zobrazí strom procesů.\n"
+"\n"
 
 #: src/pstree.c:1185
 #, c-format
@@ -612,6 +622,9 @@ msgid ""
 "  -A, --ascii         use ASCII line drawing characters\n"
 "  -c, --compact-not   don't compact identical subtrees\n"
 msgstr ""
+"  -a, --arguments      zobrazí argumenty příkazového řádku\n"
+"  -A, --ascii          použije znaky ASCII pro kreslení čar\n"
+"  -c, --compact        neslučuje identické podstromy\n"
 
 #: src/pstree.c:1189
 #, c-format
@@ -619,6 +632,8 @@ msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
 "                      (age)\n"
 msgstr ""
+"  -C, --color=DRUH     obarví procesy podle atributu\n"
+"                       (věk)\n"
 
 #: src/pstree.c:1192
 #, c-format
@@ -626,6 +641,8 @@ msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
 "  -G, --vt100         use VT100 line drawing characters\n"
 msgstr ""
+"  -g, --show-pgids     zobrazí ID skupin procesů; implikuje -c\n"
+"  -G, --vt100          použije znaky VT100 pro kreslení čar\n"
 
 #: src/pstree.c:1195
 #, c-format
@@ -635,6 +652,10 @@ msgid ""
 "                      highlight this process and its ancestors\n"
 "  -l, --long          don't truncate long lines\n"
 msgstr ""
+"  -h, --highlight-all  zvýrazní současný proces a jeho předky\n"
+"  -H PID, --highlight-pid=PID\n"
+"                       zvýrazní tento proces a jeho předky\n"
+"  -l, --long           nezkracuje dlouhé řádky\n"
 
 #: src/pstree.c:1200
 #, c-format
@@ -645,6 +666,11 @@ msgid ""
 "                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 msgstr ""
+"  -n, --numeric-sort   seřadí výstup podle PID\n"
+"  -N DRUH, --ns-sort=DRUH\n"
+"                       seřadí výstup podle druhu jmenného prostoru\n"
+"                       (cgroup, ipc, mnt, net, pid, user, uts)\n"
+"  -p, --show-pids      zobrazí PID; implikuje -c\n"
 
 #: src/pstree.c:1206
 #, c-format
@@ -654,6 +680,10 @@ msgid ""
 "  -t, --thread-names  show full thread names\n"
 "  -T, --hide-threads  hide threads, show only processes\n"
 msgstr ""
+"  -s, --show-parents   zobrazí rodiče vybraného procesu\n"
+"  -S, --ns-changes     zobrazí přechody mezi jmennými prostory\n"
+"  -t, --thread-names   zobrazí celé názvy vláken\n"
+"  -T, --hide-threads   skryje vlákna, zobrazí pouze procesy\n"
 
 #: src/pstree.c:1211
 #, c-format
@@ -662,6 +692,9 @@ msgid ""
 "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
 "  -V, --version       display version information\n"
 msgstr ""
+"  -u, --uid-changes    zobrazí přechody UID\n"
+"  -U, --unicode        použije znaky UTF-8 (Unicode) pro kreslení čar\n"
+"  -V, --version        zobrazí údaje o verzi\n"
 
 #: src/pstree.c:1216
 #, c-format
@@ -670,17 +703,18 @@ msgid ""
 "                      show SELinux security contexts\n"
 msgstr ""
 "  -Z, --security-context\n"
-"                      zobrazí bezpečnostní kontext SELinuxu\n"
+"                       zobrazí bezpečnostní kontext SELinuxu\n"
 
 #: src/pstree.c:1219
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "  PID    start at this PID; default is 1 (init)\n"
 "  USER   show only trees rooted at processes of this user\n"
 "\n"
 msgstr ""
-"  PID       začne na tomto PID; implicitní je 1 (init)\n"
+"\n"
+"  PID       začne na tomto PID; výchozí je 1 (init)\n"
 "  UŽIVATEL  zobrazí jen stromy, jejichž kořeny náleží tomuto uživateli\n"
 "\n"
 
@@ -690,12 +724,12 @@ msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
 #: src/pstree.c:1230
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2019 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Copyright © 1993–2017 Werner Almesberger a Craig Small\n"
+"Copyright © 1993–2019 Werner Almesberger a Craig Small\n"
 "\n"
 
 #: src/pstree.c:1354

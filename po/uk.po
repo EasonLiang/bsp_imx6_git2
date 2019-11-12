@@ -2,15 +2,15 @@
 # Copyright (C) 2012 Free Software Foundation, Inc.
 # This file is distributed under the same license as the psmisc package.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2011, 2012, 2013, 2014, 2016, 2018.
+# Yuri Chornoivan <yurchor@ukr.net>, 2011, 2012, 2013, 2014, 2016, 2018, 2019.
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc-23.2\n"
+"Project-Id-Version: psmisc-23.3\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
 "POT-Creation-Date: 2019-10-24 21:25+1100\n"
-"PO-Revision-Date: 2018-08-13 19:03+0200\n"
+"PO-Revision-Date: 2019-10-24 19:11+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <translation-team-uk@lists.sourceforge.net>\n"
+"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 19.11.70\n"
 
 #: src/fuser.c:137
 #, c-format
@@ -597,6 +597,9 @@ msgid ""
 "              [ -A | -G | -U ] [ PID | USER ]\n"
 "   or: pstree -V\n"
 msgstr ""
+"Користування: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N тип ]\n"
+"              [ -A | -G | -U ] [ PID | КОРИСТУВАЧ ]\n"
+"   або: pstree -V\n"
 
 #: src/pstree.c:1177
 #, c-format
@@ -605,6 +608,9 @@ msgid ""
 "              [ -A | -G | -U ] [ PID | USER ]\n"
 "   or: pstree -V\n"
 msgstr ""
+"Користування: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N тип ]\n"
+"              [ -A | -G | -U ] [ PID | КОРИСТУВАЧ ]\n"
+"   або: pstree -V\n"
 
 #: src/pstree.c:1182
 #, c-format
@@ -613,6 +619,9 @@ msgid ""
 "Display a tree of processes.\n"
 "\n"
 msgstr ""
+"\n"
+"Показати ієрархію процесів.\n"
+"\n"
 
 #: src/pstree.c:1185
 #, c-format
@@ -621,6 +630,9 @@ msgid ""
 "  -A, --ascii         use ASCII line drawing characters\n"
 "  -c, --compact-not   don't compact identical subtrees\n"
 msgstr ""
+"  -a, --arguments     показати аргументи командного рядка\n"
+"  -A, --ascii         використати символи для малювання ліній ASCII\n"
+"  -c, --compact-not   не стискати ідентичні підлеглі ієрархії\n"
 
 #: src/pstree.c:1189
 #, c-format
@@ -628,6 +640,8 @@ msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
 "                      (age)\n"
 msgstr ""
+"  -C, --color=ТИП     розфарбувати процеси за атрибутом\n"
+"                      (вік)\n"
 
 #: src/pstree.c:1192
 #, c-format
@@ -635,6 +649,9 @@ msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
 "  -G, --vt100         use VT100 line drawing characters\n"
 msgstr ""
+"  -g, --show-pgids    показати ідентифікатори груп процесів; неявно "
+"використовує -c\n"
+"  -G, --vt100         скористатися символами для малювання ліній VT100\n"
 
 #: src/pstree.c:1195
 #, c-format
@@ -644,6 +661,10 @@ msgid ""
 "                      highlight this process and its ancestors\n"
 "  -l, --long          don't truncate long lines\n"
 msgstr ""
+"  -h, --highlight-all підсвітити поточний процес і його попередники\n"
+"  -H PID, --highlight-pid=PID\n"
+"                      підсвітити вказаний процес та його попередники\n"
+"  -l, --long          не обрізати довгі рядки\n"
 
 #: src/pstree.c:1200
 #, c-format
@@ -654,6 +675,11 @@ msgid ""
 "                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 msgstr ""
+"  -n, --numeric-sort  упорядкувати виведені дані за PID\n"
+"  -N TYPE, --ns-sort=ТИП\n"
+"                      упорядкувати виведені дані за цим типом простору назв\n"
+"                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
+"  -p, --show-pids     показати PID; неявно використовує -c\n"
 
 #: src/pstree.c:1206
 #, c-format
@@ -663,6 +689,10 @@ msgid ""
 "  -t, --thread-names  show full thread names\n"
 "  -T, --hide-threads  hide threads, show only processes\n"
 msgstr ""
+"  -s, --show-parents  показати батьківські процеси вибраного процесу\n"
+"  -S, --ns-changes    показати переходи просторів назв\n"
+"  -t, --thread-names  показати назви потоків виконання повністю\n"
+"  -T, --hide-threads  приховати потоки виконання, показати лише процеси\n"
 
 #: src/pstree.c:1211
 #, c-format
@@ -671,6 +701,10 @@ msgid ""
 "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
 "  -V, --version       display version information\n"
 msgstr ""
+"  -u, --uid-changes   показати переходи uid\n"
+"  -U, --unicode       використовувати символи малювання ліній UTF-8 "
+"(Unicode)\n"
+"  -V, --version       вивести дані щодо версії\n"
 
 #: src/pstree.c:1216
 #, c-format
@@ -682,13 +716,14 @@ msgstr ""
 "                      вивести контексти захисту SELinux\n"
 
 #: src/pstree.c:1219
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "  PID    start at this PID; default is 1 (init)\n"
 "  USER   show only trees rooted at processes of this user\n"
 "\n"
 msgstr ""
+"\n"
 "  PID        розпочати з вказаного PID; типовим початковим значенням є 1 "
 "(init)\n"
 "  КОРИСТУВАЧ показати лише ієрархії з кореневими процесами цього "
@@ -701,12 +736,12 @@ msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
 #: src/pstree.c:1230
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2019 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"© Werner Almesberger та Craig Small, 1993–2017\n"
+"© Werner Almesberger та Craig Small, 1993–2019\n"
 "\n"
 
 #: src/pstree.c:1354

@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the psmisc package.
 #
 # Tomislav Krznar <tomislav.krznar@gmail.com>, 2012.
-# Božidar Putanec <bozidarp@yahoo.com>, 2016, 2018.
+# Božidar Putanec <bozidarp@yahoo.com>, 2016, 2018, 2019.
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc 23.2\n"
+"Project-Id-Version: psmisc 23.3\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
 "POT-Creation-Date: 2019-10-24 21:25+1100\n"
-"PO-Revision-Date: 2018-08-22 15:38+0100\n"
-"Last-Translator: Bozidar Putanec <bozidarp@yahoo.com>\n"
+"PO-Revision-Date: 2019-10-24 11:42-0700\n"
+"Last-Translator: Božidar Putanec <bozidarp@yahoo.com>\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Bugs: Report translation errors to the Language-Team address\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Poedit 2.2.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 # 1. https://en.wikipedia.org/wiki/Namespace
@@ -336,7 +336,7 @@ msgid ""
 "  -Z,--context REGEXP kill only process(es) having context\n"
 "                      (must precede other arguments)\n"
 msgstr ""
-"  -Z, --context REGEXP ubija samo proces(e) s odgovarajućim kontekstom\n"
+"  -Z, --context REGEXP ubije samo proces(e) s odgovarajućim kontekstom\n"
 "                        (mora prethoditi ostalim argumentima)\n"
 
 #: src/killall.c:900 src/killall.c:906
@@ -596,6 +596,9 @@ msgid ""
 "              [ -A | -G | -U ] [ PID | USER ]\n"
 "   or: pstree -V\n"
 msgstr ""
+"Uporaba: pstree [-acglpsStTuZ] [-h | -H PID] [-n | -N vrsta]\n"
+"              [-A | -G | -U] [PID | KORISNIK]\n"
+"    ili: pstree -V\n"
 
 #: src/pstree.c:1177
 #, c-format
@@ -604,6 +607,9 @@ msgid ""
 "              [ -A | -G | -U ] [ PID | USER ]\n"
 "   or: pstree -V\n"
 msgstr ""
+"Uporaba: pstree [-acglpsStTu] [-h | -H PID] [-n | -N vrsta]\n"
+"              [-A | -G | -U ] [PID | KORISNIK]\n"
+"    ili: pstree -V\n"
 
 #: src/pstree.c:1182
 #, c-format
@@ -612,6 +618,9 @@ msgid ""
 "Display a tree of processes.\n"
 "\n"
 msgstr ""
+"\n"
+"Prikaže stablo procesa.\n"
+"\n"
 
 #: src/pstree.c:1185
 #, c-format
@@ -620,6 +629,9 @@ msgid ""
 "  -A, --ascii         use ASCII line drawing characters\n"
 "  -c, --compact-not   don't compact identical subtrees\n"
 msgstr ""
+"  -a, --arguments     prikaže argumente na naredbenom retku \n"
+"  -A, --ascii         koristi ASCII znakove za crtanje linija\n"
+"  -c, --compact-not   ne suzbija identična podstabla\n"
 
 #: src/pstree.c:1189
 #, c-format
@@ -627,6 +639,8 @@ msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
 "                      (age)\n"
 msgstr ""
+"  -C, --color=VRSTA   procesi obojani prema atributu\n"
+"                      (vijek)\n"
 
 #: src/pstree.c:1192
 #, c-format
@@ -634,6 +648,8 @@ msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
 "  -G, --vt100         use VT100 line drawing characters\n"
 msgstr ""
+"  -g, --show-pgids    prikaže id-ove procesnih grupa; implicira -c\n"
+"  -G, --vt100         koristi VT100 znakove za crtanje linija\n"
 
 #: src/pstree.c:1195
 #, c-format
@@ -643,6 +659,10 @@ msgid ""
 "                      highlight this process and its ancestors\n"
 "  -l, --long          don't truncate long lines\n"
 msgstr ""
+"  -h, --highlight-all istakne trenutni proces i njegove pretke\n"
+"  -H PID, --highlight-pid=PID\n"
+"                      istakne taj proces i njegove pretke\n"
+"  -l, --long          ne kratiti dugačke linije\n"
 
 #: src/pstree.c:1200
 #, c-format
@@ -653,6 +673,10 @@ msgid ""
 "                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 msgstr ""
+"  -n, --numeric-sort  izlaz svrsta po PID-ovima\n"
+"  -N TYPE, --ns-sort=VRSTA  izlaz svrsta po toj vrsti imenskog prostora\n"
+"                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
+"  -p, --show-pids     Prikaže PID-ove; implicira -c\n"
 
 #: src/pstree.c:1206
 #, c-format
@@ -662,6 +686,10 @@ msgid ""
 "  -t, --thread-names  show full thread names\n"
 "  -T, --hide-threads  hide threads, show only processes\n"
 msgstr ""
+"  -s, --show-parents  pokaže pretke odabranih procesa\n"
+"  -S, --ns-changes    pokaže tranzicije imenskih prostora\n"
+"  -t, --thread-names  pokaže puno ime dretvi\n"
+"  -T, --hide-threads  skrije dretve, pokaže samo procese\n"
 
 #: src/pstree.c:1211
 #, c-format
@@ -670,6 +698,9 @@ msgid ""
 "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
 "  -V, --version       display version information\n"
 msgstr ""
+"  -u, --uid-changes   pokaže tranzicije UID-ova\n"
+"  -U, --unicode       koristi UTF-8 (Unicode) znakove za crtanje linija\n"
+"  -V, --version       informacije o inačici programa\n"
 
 #: src/pstree.c:1216
 #, c-format
@@ -681,14 +712,15 @@ msgstr ""
 "                      pokaže SELinux sigurnosni kontekst\n"
 
 #: src/pstree.c:1219
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "  PID    start at this PID; default is 1 (init)\n"
 "  USER   show only trees rooted at processes of this user\n"
 "\n"
 msgstr ""
-"  PID       započne s ovim PID-om; zadan je 1 (init)\n"
+"\n"
+"  PID       započne s ovim PID-om; zadano je 1 (init)\n"
 "  KORISNIK  pokaže samo stablo s korijenom u procesima ovoga KORISNIKA\n"
 "\n"
 
@@ -698,12 +730,12 @@ msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
 #: src/pstree.c:1230
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2019 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n"
+"Copyright (C) 1993-2019 Werner Almesberger and Craig Small\n"
 "\n"
 
 #: src/pstree.c:1354

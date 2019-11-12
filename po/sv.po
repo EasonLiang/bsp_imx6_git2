@@ -1,16 +1,16 @@
 # Swedish language file for psmisc.
-# Copyright © 2003, 2006, 2007, 2009, 2016, 2018 Free Software Foundation, Inc.
+# Copyright © 2003, 2006, 2007, 2009, 2016, 2018, 2019 Free Software Foundation, Inc.
 # This file is distributed under the same license as the psmisc package.
 # Joakim Mared <joakim at bfcom dot se>, 2003.
 # Daniel Nylander <po@danielnylander.se>, 2006, 2007, 2009.
-# Sebastian Rasmussen <sebras@gmail.com>, 2016, 2018.
+# Sebastian Rasmussen <sebras@gmail.com>, 2016, 2018, 2019.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc 23.2\n"
+"Project-Id-Version: psmisc 23.3\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
 "POT-Creation-Date: 2019-10-24 21:25+1100\n"
-"PO-Revision-Date: 2018-08-14 20:34+0800\n"
+"PO-Revision-Date: 2019-10-24 18:38+0200\n"
 "Last-Translator: Sebastian Rasmussen <sebras@gmail.com>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.1.1\n"
+"X-Generator: Poedit 2.2.3\n"
 
 #: src/fuser.c:137
 #, c-format
@@ -591,6 +591,10 @@ msgid ""
 "              [ -A | -G | -U ] [ PID | USER ]\n"
 "   or: pstree -V\n"
 msgstr ""
+"Användning: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N typ ]\n"
+"              [ -A | -G | -U ] [ PID | ANVÄNDARE ]\n"
+"   eller: pstree -V\n"
+"\n"
 
 #: src/pstree.c:1177
 #, c-format
@@ -599,6 +603,10 @@ msgid ""
 "              [ -A | -G | -U ] [ PID | USER ]\n"
 "   or: pstree -V\n"
 msgstr ""
+"Användning: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N typ ]\n"
+"              [ -A | -G | -U ] [ PID | ANVÄNDARE ]\n"
+"   eller: pstree -V\n"
+"\n"
 
 #: src/pstree.c:1182
 #, c-format
@@ -607,6 +615,9 @@ msgid ""
 "Display a tree of processes.\n"
 "\n"
 msgstr ""
+"\n"
+"Visa ett träd av processer.\n"
+"\n"
 
 #: src/pstree.c:1185
 #, c-format
@@ -615,6 +626,9 @@ msgid ""
 "  -A, --ascii         use ASCII line drawing characters\n"
 "  -c, --compact-not   don't compact identical subtrees\n"
 msgstr ""
+"  -a, --arguments     visa kommandoradsargument\n"
+"  -A, --ascii         använd ASCII-linjeritningstecken\n"
+"  -c, --compact-not   komprimera inte identiska underträd\n"
 
 #: src/pstree.c:1189
 #, c-format
@@ -622,6 +636,8 @@ msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
 "                      (age)\n"
 msgstr ""
+"  -C, --color=TYP     färglägg process efter attribut\n"
+"                      (ålder)\n"
 
 #: src/pstree.c:1192
 #, c-format
@@ -629,6 +645,8 @@ msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
 "  -G, --vt100         use VT100 line drawing characters\n"
 msgstr ""
+"  -g, --show-pgids    visa processgrupp ID:n; medför -c\n"
+"  -G, --vt100         använd VT100-linjeritningstecken\n"
 
 #: src/pstree.c:1195
 #, c-format
@@ -638,6 +656,11 @@ msgid ""
 "                      highlight this process and its ancestors\n"
 "  -l, --long          don't truncate long lines\n"
 msgstr ""
+"  -h, --highlight-all markera aktuell process och dess förfäder\n"
+"  -H PID, --highlight-pid=PID\n"
+"                      markera denna process och dess förfäder\n"
+"  -l, --long          korta inte ner långa rader\n"
+"\n"
 
 #: src/pstree.c:1200
 #, c-format
@@ -648,6 +671,11 @@ msgid ""
 "                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 msgstr ""
+"  -n, --numeric-sort  sortera utdata efter PID\n"
+"  -N typ, --ns-sort=TYP\n"
+"                      sortera utdata efter namnrymd\n"
+"                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
+"  -p, --show-pids     visa PID:ar; medför -c\n"
 
 #: src/pstree.c:1206
 #, c-format
@@ -657,6 +685,10 @@ msgid ""
 "  -t, --thread-names  show full thread names\n"
 "  -T, --hide-threads  hide threads, show only processes\n"
 msgstr ""
+"  -s, --show-parents  visa överordnade processer för vald process\n"
+"  -S, --ns-changes    visa namnrymdsövergångar\n"
+"  -t, --thread-names  visa fullständiga trådnamn\n"
+"  -T, --hide-threads  göm trådar, visa endast processer\n"
 
 #: src/pstree.c:1211
 #, c-format
@@ -665,6 +697,9 @@ msgid ""
 "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
 "  -V, --version       display version information\n"
 msgstr ""
+"  -u, --uid-changes   visa uid-övergångar\n"
+"  -U, --unicode       använd UTF-8-linjeritningstecken (Unicode)\n"
+"  -V, --version       visa versionsinformation\n"
 
 #: src/pstree.c:1216
 #, c-format
@@ -676,13 +711,14 @@ msgstr ""
 "                      visa SELinux-säkerhetskontexter\n"
 
 #: src/pstree.c:1219
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "  PID    start at this PID; default is 1 (init)\n"
 "  USER   show only trees rooted at processes of this user\n"
 "\n"
 msgstr ""
+"\n"
 "  PID    starta vid denna PID; standardvärde är 1 (init)\n"
 "  ANVÄNDARE   visa endast träd med denna användares\n"
 "              processer som rot\n"
@@ -694,12 +730,12 @@ msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
 #: src/pstree.c:1230
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2019 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Copyright © 1993-2017 Werner Almesberger och Craig Small\n"
+"Copyright © 1993-2019 Werner Almesberger och Craig Small\n"
 "\n"
 
 #: src/pstree.c:1354

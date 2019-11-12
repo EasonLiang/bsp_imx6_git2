@@ -10,10 +10,10 @@
 # Benno Schulenberg <benno@vertaalt.nl>, 2012, 2013, 2014, 2016, 2019.
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc-23.2\n"
+"Project-Id-Version: psmisc-23.3\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
 "POT-Creation-Date: 2019-10-24 21:25+1100\n"
-"PO-Revision-Date: 2019-06-22 09:52+0200\n"
+"PO-Revision-Date: 2019-10-27 19:08+0100\n"
 "Last-Translator: Benno Schulenberg <vertaling@coevern.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "Language: nl\n"
@@ -598,6 +598,9 @@ msgid ""
 "              [ -A | -G | -U ] [ PID | USER ]\n"
 "   or: pstree -V\n"
 msgstr ""
+"Gebruik:  pstree [-acglpsStTuZ] [-h|-H PID] [-n|-N SOORT]\n"
+"                     [-A|-G|-U] [ PID | GEBRUIKER ]\n"
+"     of:  pstree -V\n"
 
 #: src/pstree.c:1177
 #, c-format
@@ -606,6 +609,9 @@ msgid ""
 "              [ -A | -G | -U ] [ PID | USER ]\n"
 "   or: pstree -V\n"
 msgstr ""
+"Gebruik:  pstree [-acglpsStTu] [-h|-H PID] [-n|-N SOORT]\n"
+"                     [-A|-G|-U] [ PID | GEBRUIKER ]\n"
+"     of:  pstree -V\n"
 
 #: src/pstree.c:1182
 #, c-format
@@ -614,6 +620,9 @@ msgid ""
 "Display a tree of processes.\n"
 "\n"
 msgstr ""
+"\n"
+"Toont huidige processen in een boomstructuur.\n"
+"\n"
 
 #: src/pstree.c:1185
 #, c-format
@@ -622,13 +631,16 @@ msgid ""
 "  -A, --ascii         use ASCII line drawing characters\n"
 "  -c, --compact-not   don't compact identical subtrees\n"
 msgstr ""
+"  -a, --arguments      argumenten van de opdrachtregel tonen\n"
+"  -A, --ascii          ASCII-tekens voor de lijntjes gebruiken\n"
+"  -c, --compact-not    identieke subbomen niet compacteren\n"
 
 #: src/pstree.c:1189
 #, c-format
 msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
 "                      (age)\n"
-msgstr ""
+msgstr "  -C, --color=TYPE     proces kleuren volgens dit attribuut ('age')\n"
 
 #: src/pstree.c:1192
 #, c-format
@@ -636,6 +648,8 @@ msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
 "  -G, --vt100         use VT100 line drawing characters\n"
 msgstr ""
+"  -g, --show-pgids     procesgroeps-ID's tonen (impliceert '-c')\n"
+"  -G, --vt100          VT100-tekens voor de lijntjes gebruiken\n"
 
 #: src/pstree.c:1195
 #, c-format
@@ -645,6 +659,10 @@ msgid ""
 "                      highlight this process and its ancestors\n"
 "  -l, --long          don't truncate long lines\n"
 msgstr ""
+"  -h, --highlight-all  huidig proces en zijn voorouders accentueren\n"
+"  -H PID, --highlight-pid=PID\n"
+"                       dit proces en zijn voorouders accentueren\n"
+"  -l, --long           lange regels niet afkappen\n"
 
 #: src/pstree.c:1200
 #, c-format
@@ -655,6 +673,11 @@ msgid ""
 "                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 msgstr ""
+"  -n, --numeric-sort   uitvoer sorteren op PID\n"
+"  -N SOORT, --ns-sort=SOORT\n"
+"                       uitvoer sorteren op deze SOORT naamsruimte\n"
+"                         (cgroup, ipc, mnt, net, pid, user, uts)\n"
+"  -p, --show-pids      PIDs tonen (impliceert '-c')\n"
 
 #: src/pstree.c:1206
 #, c-format
@@ -664,6 +687,10 @@ msgid ""
 "  -t, --thread-names  show full thread names\n"
 "  -T, --hide-threads  hide threads, show only processes\n"
 msgstr ""
+"  -s, --show-parents   ouders van geselecteerd proces tonen\n"
+"  -S, --ns-changes     naamsruimte-overgangen tonen\n"
+"  -t, --thread-names   volledige thread-namen tonen\n"
+"  -T, --hide-threads   threads verbergen; alleen processen tonen\n"
 
 #: src/pstree.c:1211
 #, c-format
@@ -672,6 +699,9 @@ msgid ""
 "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
 "  -V, --version       display version information\n"
 msgstr ""
+"  -u, --uid-changes    UID-overgangen tonen\n"
+"  -U, --unicode        Unicode-tekens (UTF-8) voor de lijntjes gebruiken\n"
+"  -V, --version        de programmaversie tonen en stoppen\n"
 
 #: src/pstree.c:1216
 #, c-format
@@ -683,13 +713,14 @@ msgstr ""
 "                      SELinux-veiligheidscontexten tonen\n"
 
 #: src/pstree.c:1219
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "  PID    start at this PID; default is 1 (init)\n"
 "  USER   show only trees rooted at processes of this user\n"
 "\n"
 msgstr ""
+"\n"
 "  PID     bij dit proces-ID beginnen; standaard is 1 (init)\n"
 "  NAAM    alleen de bomen tonen die beginnen bij processen van deze "
 "gebruiker\n"
@@ -701,12 +732,12 @@ msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
 #: src/pstree.c:1230
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2019 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Copyright (C) 1993-2017 Werner Almesberger en Craig Small\n"
+"Copyright (C) 1993-2019 Werner Almesberger en Craig Small\n"
 "\n"
 
 #: src/pstree.c:1354

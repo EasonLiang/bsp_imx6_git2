@@ -1,14 +1,14 @@
 # Brazilian Portuguese translation of psmisc.
 # This file is distributed under the same license as the psmisc package.
-# Copyright (C) 2018 Free Software Foundation, Inc.
+# Copyright (C) 2019 Free Software Foundation, Inc.
 # Fabrício Godoy <skarllot@gmail.com>, 2009-2013.
-# Rafael Fontenelle <rafaelff@gnome.org>, 2013, 2014, 2016, 2018.
+# Rafael Fontenelle <rafaelff@gnome.org>, 2013-2019.
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc 23.2\n"
+"Project-Id-Version: psmisc 23.3\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
 "POT-Creation-Date: 2019-10-24 21:25+1100\n"
-"PO-Revision-Date: 2018-08-13 13:31-0200\n"
+"PO-Revision-Date: 2019-10-24 13:03-0200\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <ldpbr-translation@lists.sourceforge."
 "net>\n"
@@ -163,25 +163,27 @@ msgstr "O nome de arquivo especificado %s não é um ponto de montagem.\n"
 msgid "%s: Invalid option %s\n"
 msgstr "%s: Opção inválida %s\n"
 
+# "--namespace" refere-se a uma opção do fuser, não traduzir.
 #: src/fuser.c:1164
 msgid "Namespace option requires an argument."
-msgstr "A opção \"espaço de nome\" requer um argumento."
+msgstr "A opção de \"--namespace\" requer um argumento."
 
 #: src/fuser.c:1181
 msgid "Invalid namespace name"
-msgstr "Nome de espaço de nome inválido"
+msgstr "Nome de espaço de nomes inválido"
 
 #: src/fuser.c:1246
 msgid "You can only use files with mountpoint options"
-msgstr "Você pode apenas usar arquivos com opções de ponto de montagem"
+msgstr "Você pode apenas usar arquivos com opções de pontos de montagem"
 
 #: src/fuser.c:1296
 msgid "No process specification given"
 msgstr "Nenhuma especificação de processo fornecida"
 
+# "--all" e "--silent" referem-se a opções do fuser, não traduzir.
 #: src/fuser.c:1311
 msgid "all option cannot be used with silent option."
-msgstr "a opção \"detalhada\" não pode ser usada com a opção \"silenciosa\"."
+msgstr "a opção \"--all\" não pode ser usada com a opção \"--silent\"."
 
 #: src/fuser.c:1316
 msgid "You cannot search for only IPv4 and only IPv6 sockets at the same time"
@@ -339,7 +341,7 @@ msgstr "Não foi possível localizar o usuário %s\n"
 
 #: src/killall.c:961
 msgid "Invalid namespace PID"
-msgstr "PID de espaço de nome inválido"
+msgstr "PID de espaço de nomes inválido"
 
 #: src/killall.c:970
 #, c-format
@@ -467,7 +469,7 @@ msgid ""
 "Process: %-14s\t\tState: %c (%s)\n"
 "  CPU#:  %-3d\t\tTTY: %s\tThreads: %ld\n"
 msgstr ""
-"Processo: %-14s\t\tEstado: %c (%s)\n"
+"Processo: %-14s\t\tEstado:  %c (%s)\n"
 "   CPU#:  %-3d\t\tTTY: %s\tThreads: %ld\n"
 
 #: src/prtstat.c:169
@@ -522,7 +524,7 @@ msgstr ""
 "  RSS:         %-10s \t\tLimite RSS: %s\n"
 "  Início cód.: %#-10lx\t\t Fim cód. :  %#-10lx\n"
 "  Início stack:%#-10lx\n"
-"  Pont. stack (ESP): %#10lx\t   Pont. Instr. (EIP): %#10lx\n"
+"  Pont. stack (ESP): %#10lx\t\t Pont. Instr. (EIP): %#10lx\n"
 
 #: src/prtstat.c:199
 #, c-format
@@ -532,8 +534,8 @@ msgid ""
 "  Nice:   %ld \t\t RT Priority: %ld %s\n"
 msgstr ""
 "Agendamento\n"
-"  Polít.: %s\n"
-"  Nice:   %ld \t\t Priorid. RT: %ld %s\n"
+"  Política: %s\n"
+"  Nice:     %ld \t\tPrioridade RT: %ld %s\n"
 
 #: src/prtstat.c:220
 msgid "asprintf in print_stat failed.\n"
@@ -584,6 +586,9 @@ msgid ""
 "              [ -A | -G | -U ] [ PID | USER ]\n"
 "   or: pstree -V\n"
 msgstr ""
+"Uso: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N tipo ]\n"
+"            [ -A | -G | -U ] [ PID | USUÁRIO ]\n"
+" ou: pstree -V\n"
 
 #: src/pstree.c:1177
 #, c-format
@@ -592,6 +597,9 @@ msgid ""
 "              [ -A | -G | -U ] [ PID | USER ]\n"
 "   or: pstree -V\n"
 msgstr ""
+"Uso: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N tipo ]\n"
+"            [ -A | -G | -U ] [ PID | USUÁRIO ]\n"
+" ou: pstree -V\n"
 
 #: src/pstree.c:1182
 #, c-format
@@ -600,6 +608,9 @@ msgid ""
 "Display a tree of processes.\n"
 "\n"
 msgstr ""
+"\n"
+"Exibe uma árvore de processos.\n"
+"\n"
 
 #: src/pstree.c:1185
 #, c-format
@@ -608,6 +619,9 @@ msgid ""
 "  -A, --ascii         use ASCII line drawing characters\n"
 "  -c, --compact-not   don't compact identical subtrees\n"
 msgstr ""
+"  -a, --arguments     mostra argumentos de linha de comando\n"
+"  -A, --ascii         usa caracteres ASCII no desenho de linhas\n"
+"  -c, --compact-not   não comprime subárvores idênticas\n"
 
 #: src/pstree.c:1189
 #, c-format
@@ -615,6 +629,8 @@ msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
 "                      (age)\n"
 msgstr ""
+"  -C, --color=TIPO    colore processo por atributo\n"
+"                      (age)\n"
 
 #: src/pstree.c:1192
 #, c-format
@@ -622,6 +638,8 @@ msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
 "  -G, --vt100         use VT100 line drawing characters\n"
 msgstr ""
+"  -g, --show-pgids    mostra ids de grupo de processos; implica em -c\n"
+"  -G, --vt100         usa caracteres VT100 no desenho de linhas\n"
 
 #: src/pstree.c:1195
 #, c-format
@@ -631,6 +649,10 @@ msgid ""
 "                      highlight this process and its ancestors\n"
 "  -l, --long          don't truncate long lines\n"
 msgstr ""
+"  -h, --highlight-all realça o processo atual e seus ancestrais\n"
+"  -H PID, --highlight-pid=PID\n"
+"                      realça este processo e seus ancestrais\n"
+"  -l, --long          não trunca linhas longas\n"
 
 #: src/pstree.c:1200
 #, c-format
@@ -641,6 +663,11 @@ msgid ""
 "                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 msgstr ""
+"  -n, --numeric-sort  ordena saída pelo PID\n"
+"  -N TIPO, --ns-sort=TIPO\n"
+"                      ordena por este tipo de espaço de nomes\n"
+"                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
+"  -p, --show-pids     mostra PIDs; implica em -c\n"
 
 #: src/pstree.c:1206
 #, c-format
@@ -650,6 +677,10 @@ msgid ""
 "  -t, --thread-names  show full thread names\n"
 "  -T, --hide-threads  hide threads, show only processes\n"
 msgstr ""
+"  -s, --show-parents  mostra os pais do processo selecionado\n"
+"  -S, --ns-changes    mostra transições de espaço de nomes\n"
+"  -t, --thread-names  mostra nomes completos de threads\n"
+"  -T, --hide-threads  oculta threads, mostra apenas processos\n"
 
 #: src/pstree.c:1211
 #, c-format
@@ -658,6 +689,9 @@ msgid ""
 "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
 "  -V, --version       display version information\n"
 msgstr ""
+"  -u, --uid-changes   mostra transições de uid\n"
+"  -U, --unicode       usa caracteres UTF-8 (Unicode) no desenho de linhas\n"
+"  -V, --version       exibe informações da versão\n"
 
 #: src/pstree.c:1216
 #, c-format
@@ -669,13 +703,14 @@ msgstr ""
 "                      mostra contextos de segurança do SELinux\n"
 
 #: src/pstree.c:1219
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "  PID    start at this PID; default is 1 (init)\n"
 "  USER   show only trees rooted at processes of this user\n"
 "\n"
 msgstr ""
+"\n"
 "  PID    inicia deste PID; predefinido como 1 (init)\n"
 "  USR    mostra apenas árvores originadas de processos deste usuário\n"
 "\n"
@@ -686,12 +721,12 @@ msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
 #: src/pstree.c:1230
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2019 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Copyright (C) 1993-2017 Werner Almesberger e Craig Small\n"
+"Copyright (C) 1993-2019 Werner Almesberger e Craig Small\n"
 "\n"
 
 #: src/pstree.c:1354
@@ -702,12 +737,12 @@ msgstr "TERM não está definido\n"
 #: src/pstree.c:1358
 #, c-format
 msgid "Can't get terminal capabilities\n"
-msgstr "Não pôde obter as habilidades do terminal\n"
+msgstr "Não foi possível obter as habilidades do terminal\n"
 
 #: src/pstree.c:1376
 #, c-format
 msgid "procfs file for %s namespace not available\n"
-msgstr "O arquivo procfs para o namespace %s não está disponível\n"
+msgstr "O arquivo procfs para o espaço de nomes %s não está disponível\n"
 
 #: src/pstree.c:1429
 #, c-format

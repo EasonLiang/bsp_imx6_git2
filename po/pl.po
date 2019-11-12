@@ -1,14 +1,14 @@
 # Polish translations for psmisc.
-# Copyright (C) 2004, 2005, 2007, 2009, 2010, 2012, 2013, 2014, 2016, 2018 Free Software Foundation, Inc.
+# Copyright (C) 2004, 2005, 2007, 2009, 2010, 2012, 2013, 2014, 2016, 2018, 2019 Free Software Foundation, Inc.
 # This file is distributed under the same license as the psmisc package.
-# Jakub Bogusz <qboosh@pld-linux.org>, 2003-2018.
+# Jakub Bogusz <qboosh@pld-linux.org>, 2003-2019.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc 23.2\n"
+"Project-Id-Version: psmisc 23.3\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
 "POT-Creation-Date: 2019-10-24 21:25+1100\n"
-"PO-Revision-Date: 2018-08-20 16:25+0200\n"
+"PO-Revision-Date: 2019-10-25 21:02+0200\n"
 "Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "Language: pl\n"
@@ -591,6 +591,9 @@ msgid ""
 "              [ -A | -G | -U ] [ PID | USER ]\n"
 "   or: pstree -V\n"
 msgstr ""
+"Składnia: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N typ ]\n"
+"                 [ -A | -G | -U ] [ PID | UŻYTKOWNIK ]\n"
+"     lub: pstree -V\n"
 
 #: src/pstree.c:1177
 #, c-format
@@ -599,6 +602,9 @@ msgid ""
 "              [ -A | -G | -U ] [ PID | USER ]\n"
 "   or: pstree -V\n"
 msgstr ""
+"Składnia: pstree [-acglpsStTu] [-h | -HPID ] [ -n | -N typ]\n"
+"                 [ -A | -G | -U ] [ PID | UŻYTKOWNIK ]\n"
+"     lub: pstree -V\n"
 
 #: src/pstree.c:1182
 #, c-format
@@ -607,6 +613,9 @@ msgid ""
 "Display a tree of processes.\n"
 "\n"
 msgstr ""
+"\n"
+"Wyświetlanie drzewa procesów.\n"
+"\n"
 
 #: src/pstree.c:1185
 #, c-format
@@ -615,6 +624,9 @@ msgid ""
 "  -A, --ascii         use ASCII line drawing characters\n"
 "  -c, --compact-not   don't compact identical subtrees\n"
 msgstr ""
+"  -a, --arguments     wyświetlenie argumentów linii poleceń\n"
+"  -A, --ascii         użycie znaków ramek ASCII\n"
+"  -c, --compact       bez scalania identycznych poddrzew\n"
 
 #: src/pstree.c:1189
 #, c-format
@@ -622,6 +634,8 @@ msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
 "                      (age)\n"
 msgstr ""
+"  -C, --color=TYP     kolorowanie procesów wg atrybutu\n"
+"                      (wiek)\n"
 
 #: src/pstree.c:1192
 #, c-format
@@ -629,6 +643,8 @@ msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
 "  -G, --vt100         use VT100 line drawing characters\n"
 msgstr ""
+"  -g, --show-pgids    wyświetlanie identyfikatorów grup procesów; włącza -c\n"
+"  -G, --vt100         użycie znaków ramek VT100\n"
 
 #: src/pstree.c:1195
 #, c-format
@@ -638,6 +654,9 @@ msgid ""
 "                      highlight this process and its ancestors\n"
 "  -l, --long          don't truncate long lines\n"
 msgstr ""
+"  -H PID, --highlight-pid=PID\n"
+"                      podświetlenie podanego procesu i jego przodków\n"
+"  -l, --long          bez ucinania długich linii\n"
 
 #: src/pstree.c:1200
 #, c-format
@@ -648,6 +667,11 @@ msgid ""
 "                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 msgstr ""
+"  -n, --numeric-sort  sortowanie wyjścia wg PID-u\n"
+"  -N TYP, --ns-sort=TYP\n"
+"                      sortowanie wg podanego typu przestrzeni\n"
+"                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
+"  -p, --show-pids     wyświetlanie PID-ów; włącza także -c\n"
 
 #: src/pstree.c:1206
 #, c-format
@@ -657,6 +681,10 @@ msgid ""
 "  -t, --thread-names  show full thread names\n"
 "  -T, --hide-threads  hide threads, show only processes\n"
 msgstr ""
+"  -s, --show-parents  wyświetlanie rodziców wybranego procesu\n"
+"  -S, --ns-changes    wyświetlanie zmian przestrzeni nazw\n"
+"  -t, --thread-names  wyświetlanie pełnych nazw wątków\n"
+"  -T, --hide-threads  ukrycie wątków, wyświetlanie jedynie procesów\n"
 
 #: src/pstree.c:1211
 #, c-format
@@ -665,6 +693,9 @@ msgid ""
 "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
 "  -V, --version       display version information\n"
 msgstr ""
+"  -u, --uid-changes   wyświetlanie zmian uidów\n"
+"  -U, --unicode       użycie znaków ramek UTF-8 (Unicode)\n"
+"  -V, --version       wyświetlenie informacji o wersji\n"
 
 #: src/pstree.c:1216
 #, c-format
@@ -676,15 +707,16 @@ msgstr ""
 "                      wyświetlanie kontekstów bezpieczeństwa SELinuksa\n"
 
 #: src/pstree.c:1219
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "  PID    start at this PID; default is 1 (init)\n"
 "  USER   show only trees rooted at processes of this user\n"
 "\n"
 msgstr ""
+"\n"
 "  PID    rozpoczęcie od tego PID-u, domyślnie 1 (init)\n"
-" UŻYTKOWNIK  tylko drzewa zaczynające się od procesów tego użytkownika\n"
+"  UŻYTKOWNIK  tylko drzewa zaczynające się od procesów tego użytkownika\n"
 "\n"
 
 #: src/pstree.c:1227
@@ -693,12 +725,12 @@ msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
 #: src/pstree.c:1230
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2019 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Copyright (C) 1993-2017 Werner Almesberger i Craig Small\n"
+"Copyright (C) 1993-2019 Werner Almesberger i Craig Small\n"
 "\n"
 
 #: src/pstree.c:1354
@@ -735,63 +767,3 @@ msgstr "Naciśnięcie return zamknie program\n"
 #, c-format
 msgid "%s: unknown signal; %s -l lists signals.\n"
 msgstr "%s: nieznany sygnał; %s -l wypisuje sygnały.\n"
-
-#~ msgid ""
-#~ "Usage: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N type ]\n"
-#~ "Usage: pstree [-acglpsStu] [ -h | -H PID ] [ -n | -N type ]\n"
-#~ "              [ -A | -G | -U ] [ PID | USER ]\n"
-#~ "       pstree -V\n"
-#~ "Display a tree of processes.\n"
-#~ "\n"
-#~ "  -a, --arguments     show command line arguments\n"
-#~ "  -A, --ascii         use ASCII line drawing characters\n"
-#~ "  -c, --compact       don't compact identical subtrees\n"
-#~ "  -h, --highlight-all highlight current process and its ancestors\n"
-#~ "  -H PID,\n"
-#~ "  --highlight-pid=PID highlight this process and its ancestors\n"
-#~ "  -g, --show-pgids    show process group ids; implies -c\n"
-#~ "  -G, --vt100         use VT100 line drawing characters\n"
-#~ "  -l, --long          don't truncate long lines\n"
-#~ "  -n, --numeric-sort  sort output by PID\n"
-#~ "  -N type,\n"
-#~ "  --ns-sort=type      sort by namespace type (cgroup, ipc, mnt, net, "
-#~ "pid,\n"
-#~ "                                              user, uts)\n"
-#~ "  -p, --show-pids     show PIDs; implies -c\n"
-#~ "  -s, --show-parents  show parents of the selected process\n"
-#~ "  -S, --ns-changes    show namespace transitions\n"
-#~ "  -t, --thread-names  show full thread names\n"
-#~ "  -T, --hide-threads  hide threads, show only processes\n"
-#~ "  -u, --uid-changes   show uid transitions\n"
-#~ "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
-#~ "  -V, --version       display version information\n"
-#~ msgstr ""
-#~ "Składnia: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N typ ]\n"
-#~ "Składnia: pstree [-acglpsStu] [-h | -HPID ] [ -n | -N typ]\n"
-#~ "                 [ -A | -G | -U ] [ PID | UŻYTKOWNIK ]\n"
-#~ "          pstree -V\n"
-#~ "Wyświetlanie drzewa procesów.\n"
-#~ "\n"
-#~ "  -a, --arguments     wyświetlenie argumentów linii poleceń\n"
-#~ "  -A, --ascii         użycie znaków ramek ASCII\n"
-#~ "  -c, --compact       nie scalanie identycznych poddrzew\n"
-#~ "  -h, --highlight-all podświetlenie bieżącego procesu i jego przodków\n"
-#~ "  -H PID,\n"
-#~ "  --highlight-pid=PID podświetlenie podanego procesu i jego przodków\n"
-#~ "  -g, --show-pgids    wyświetlanie identyfikatorów grup procesów; włącza -"
-#~ "c\n"
-#~ "  -G, --vt100         użycie znaków ramek VT100\n"
-#~ "  -l, --long          nie obcinanie długich linii\n"
-#~ "  -n, --numeric-sort  sortowanie wyjścia wg PID-u\n"
-#~ "  -N typ,\n"
-#~ "  --ns-sort=typ       sortowanie wg przestrzeni (cgroup, ipc, mnt, net, "
-#~ "pid,\n"
-#~ "                                                 user, uts)\n"
-#~ "  -p, --show-pids     wyświetlanie PID-ów; włącza także -c\n"
-#~ "  -s, --show-parents  wyświetlanie rodziców wybranego procesu\n"
-#~ "  -S, --ns-changes    wyświetlanie zmian przestrzeni nazw\n"
-#~ "  -t, --thread-names  wyświetlanie pełnych nazw wątków\n"
-#~ "  -T, --hide-threads  ukrycie wątków, wyświetlanie jedynie procesów\n"
-#~ "  -u, --uid-changes   wyświetlanie zmian uidów\n"
-#~ "  -U, --unicode       użycie znaków ramek UTF-8 (Unicode)\n"
-#~ "  -V, --version       wyświetlenie informacji o wersji\n"

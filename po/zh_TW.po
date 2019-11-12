@@ -1,15 +1,15 @@
 # Traditional Chinese Messages for psmisc.
-# Copyright (C) 2008 Free Software Foundation, Inc.
+# Copyright (C) 2019 Free Software Foundation, Inc.
 # This file is distributed under the same license as the psmisc package.
 #
 # Wei-Lun Chao <bluebat@member.fsf.org>, 2009, 2013, 2015.
-# pan93412 <pan93412@gmail.com>, 2018.
+# pan93412 <pan93412@gmail.com>, 2018, 2019.
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc 23.2\n"
+"Project-Id-Version: psmisc 23.3\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
 "POT-Creation-Date: 2019-10-24 21:25+1100\n"
-"PO-Revision-Date: 2018-09-17 00:13+0800\n"
+"PO-Revision-Date: 2019-10-24 23:52+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
 "Language: zh_TW\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 19.08.2\n"
 
 #: src/fuser.c:137
 #, c-format
@@ -590,6 +590,9 @@ msgid ""
 "              [ -A | -G | -U ] [ PID | USER ]\n"
 "   or: pstree -V\n"
 msgstr ""
+"用法:  pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N 類型 ]\n"
+"              [ -A | -G | -U ] [ PID | 使用者 ]\n"
+"  或:  pstree -V\n"
 
 #: src/pstree.c:1177
 #, c-format
@@ -598,6 +601,9 @@ msgid ""
 "              [ -A | -G | -U ] [ PID | USER ]\n"
 "   or: pstree -V\n"
 msgstr ""
+"用法:  pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N 類型 ]\n"
+"              [ -A | -G | -U ] [ PID | 使用者 ]\n"
+"  或:  pstree -V\n"
 
 #: src/pstree.c:1182
 #, c-format
@@ -606,6 +612,9 @@ msgid ""
 "Display a tree of processes.\n"
 "\n"
 msgstr ""
+"\n"
+"顯示行程的樹狀圖。\n"
+"\n"
 
 #: src/pstree.c:1185
 #, c-format
@@ -614,13 +623,16 @@ msgid ""
 "  -A, --ascii         use ASCII line drawing characters\n"
 "  -c, --compact-not   don't compact identical subtrees\n"
 msgstr ""
+"  -a, --arguments     顯示指令列參數\n"
+"  -A, --ascii         使用 ASCII 行繪製字元\n"
+"  -c, --compact-not   不合併完全相同的子樹\n"
 
 #: src/pstree.c:1189
 #, c-format
 msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
 "                      (age)\n"
-msgstr ""
+msgstr "  -C, --color=類型    依屬性 (age) 為行程上色\n"
 
 #: src/pstree.c:1192
 #, c-format
@@ -628,6 +640,8 @@ msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
 "  -G, --vt100         use VT100 line drawing characters\n"
 msgstr ""
+"  -g, --show-pgids    顯示行程的群組 ID；隱含 -c\n"
+"  -G, --vt100         使用 VT100 行繪製字元\n"
 
 #: src/pstree.c:1195
 #, c-format
@@ -637,6 +651,10 @@ msgid ""
 "                      highlight this process and its ancestors\n"
 "  -l, --long          don't truncate long lines\n"
 msgstr ""
+"  -h, --highlight-all 標示目前及上級行程\n"
+"  -H PID, --highlight-pid=PID\n"
+"                      標示這個及上級行程\n"
+"  -l, --long          不截短長行\n"
 
 #: src/pstree.c:1200
 #, c-format
@@ -647,6 +665,11 @@ msgid ""
 "                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 msgstr ""
+"  -n, --numeric-sort  依 PID 排序輸出\n"
+"  -N 類型, --ns-sort=類型\n"
+"                      依此命名空間類型排序輸出\n"
+"                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
+"  -p, --show-pids     顯示 PID；隱含 -c\n"
 
 #: src/pstree.c:1206
 #, c-format
@@ -656,6 +679,10 @@ msgid ""
 "  -t, --thread-names  show full thread names\n"
 "  -T, --hide-threads  hide threads, show only processes\n"
 msgstr ""
+"  -s, --show-parents  顯示選取行程的上級\n"
+"  -S, --ns-changes    顯示命名空間轉換\n"
+"  -t, --thread-names  顯示完整執行緒名稱\n"
+"  -T, --hide-threads  隱藏執行緒，只顯示行程\n"
 
 #: src/pstree.c:1211
 #, c-format
@@ -664,6 +691,9 @@ msgid ""
 "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
 "  -V, --version       display version information\n"
 msgstr ""
+"  -u, --uid-changes   顯示使用者 ID (UID) 轉換\n"
+"  -U, --unicode       使用 UTF-8 (Unicode) 行繪製字元\n"
+"  -V, --version       顯示版本資訊\n"
 
 #: src/pstree.c:1216
 #, c-format
@@ -675,15 +705,16 @@ msgstr ""
 "                      顯示 SELinux 安全性上下文\n"
 
 #: src/pstree.c:1219
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "  PID    start at this PID; default is 1 (init)\n"
 "  USER   show only trees rooted at processes of this user\n"
 "\n"
 msgstr ""
+"\n"
 "  PID    從這個 PID 開始；預設是 1 (init)\n"
-"  使用者  只顯示源自此使用者行程的樹狀結構\n"
+"  使用者 只顯示源自此使用者行程的樹狀結構\n"
 "\n"
 
 #: src/pstree.c:1227
@@ -692,12 +723,12 @@ msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
 #: src/pstree.c:1230
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2019 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"著作權 © 1993-2017 Werner Almesberger 和 Craig Small\n"
+"著作權 © 1993-2019 Werner Almesberger 和 Craig Small\n"
 "\n"
 
 #: src/pstree.c:1354
