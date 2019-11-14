@@ -1030,8 +1030,9 @@ static void read_proc(void)
 #ifdef WITH_SELINUX
         if (selinux_enabled)
           if (getpidcon(pid, &scontext) < 0) {
-            perror(path);
-            exit(1);
+	      (void) fclose(file);
+	      free(path);
+	      continue;
           }
 #endif                /*WITH_SELINUX */
         if (stat(path, &st) < 0) {
