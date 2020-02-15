@@ -1415,7 +1415,7 @@ int main(int argc, char **argv)
                 show_scontext = 1;
             else
                 fprintf(stderr,
-                        "Warning: -Z ignored. Requires anx SELinux enabled kernel\n");
+                        "Warning: -Z ignored. Requires an SELinux enabled kernel\n");
             break;
 #endif                                /*WITH_SELINUX */
         default:
