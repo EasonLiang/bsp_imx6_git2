@@ -605,8 +605,10 @@ int parse_inet(struct names *this_name, struct ip_connections **ip_list)
 		     getaddrinfo(NULL, lcl_port_str, &hints, &res)) != 0) {
 			fprintf(stderr, _("Cannot resolve local port %s: %s\n"),
 				lcl_port_str, gai_strerror(errcode));
+			free(lcl_port_str);
 			return -1;
 		}
+		free(lcl_port_str);
 		if (res == NULL)
 			return -1;
 		switch (res->ai_family) {
@@ -624,12 +626,10 @@ int parse_inet(struct names *this_name, struct ip_connections **ip_list)
 			fprintf(stderr, _("Unknown local port AF %d\n"),
 				res->ai_family);
 			freeaddrinfo(res);
-            free(lcl_port_str);
 			return -1;
 		}
 		freeaddrinfo(res);
 	}
-	free(lcl_port_str);
 	res = NULL;
 	if (rmt_addr_str == NULL && rmt_port_str == NULL) {
 		add_ip_conn(ip_list, protocol, this_name, ntohs(lcl_port), 0,
