@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc-23.3\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2019-10-24 21:25+1100\n"
+"POT-Creation-Date: 2020-02-11 11:11+1100\n"
 "PO-Revision-Date: 2019-10-27 19:08+0100\n"
 "Last-Translator: Benno Schulenberg <vertaling@coevern.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -114,7 +114,7 @@ msgstr ""
 "\n"
 
 #: src/fuser.c:173 src/killall.c:809 src/peekfd.c:195 src/prtstat.c:68
-#: src/pstree.c:1232
+#: src/pstree.c:1234
 #, c-format
 msgid ""
 "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
@@ -586,12 +586,12 @@ msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
 msgstr ""
 "/proc is niet aangekoppeld, kan status van /proc/self/stat niet bepalen.\n"
 
-#: src/pstree.c:1138
+#: src/pstree.c:1140
 #, c-format
 msgid "%s is empty (not mounted ?)\n"
 msgstr "%s is leeg -- misschien niet aangekoppeld?\n"
 
-#: src/pstree.c:1172
+#: src/pstree.c:1174
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -602,7 +602,7 @@ msgstr ""
 "                     [-A|-G|-U] [ PID | GEBRUIKER ]\n"
 "     of:  pstree -V\n"
 
-#: src/pstree.c:1177
+#: src/pstree.c:1179
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -613,7 +613,7 @@ msgstr ""
 "                     [-A|-G|-U] [ PID | GEBRUIKER ]\n"
 "     of:  pstree -V\n"
 
-#: src/pstree.c:1182
+#: src/pstree.c:1184
 #, c-format
 msgid ""
 "\n"
@@ -624,7 +624,7 @@ msgstr ""
 "Toont huidige processen in een boomstructuur.\n"
 "\n"
 
-#: src/pstree.c:1185
+#: src/pstree.c:1187
 #, c-format
 msgid ""
 "  -a, --arguments     show command line arguments\n"
@@ -635,14 +635,14 @@ msgstr ""
 "  -A, --ascii          ASCII-tekens voor de lijntjes gebruiken\n"
 "  -c, --compact-not    identieke subbomen niet compacteren\n"
 
-#: src/pstree.c:1189
+#: src/pstree.c:1191
 #, c-format
 msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
 "                      (age)\n"
 msgstr "  -C, --color=TYPE     proces kleuren volgens dit attribuut ('age')\n"
 
-#: src/pstree.c:1192
+#: src/pstree.c:1194
 #, c-format
 msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
@@ -651,7 +651,7 @@ msgstr ""
 "  -g, --show-pgids     procesgroeps-ID's tonen (impliceert '-c')\n"
 "  -G, --vt100          VT100-tekens voor de lijntjes gebruiken\n"
 
-#: src/pstree.c:1195
+#: src/pstree.c:1197
 #, c-format
 msgid ""
 "  -h, --highlight-all highlight current process and its ancestors\n"
@@ -664,7 +664,7 @@ msgstr ""
 "                       dit proces en zijn voorouders accentueren\n"
 "  -l, --long           lange regels niet afkappen\n"
 
-#: src/pstree.c:1200
+#: src/pstree.c:1202
 #, c-format
 msgid ""
 "  -n, --numeric-sort  sort output by PID\n"
@@ -679,7 +679,7 @@ msgstr ""
 "                         (cgroup, ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids      PIDs tonen (impliceert '-c')\n"
 
-#: src/pstree.c:1206
+#: src/pstree.c:1208
 #, c-format
 msgid ""
 "  -s, --show-parents  show parents of the selected process\n"
@@ -692,7 +692,7 @@ msgstr ""
 "  -t, --thread-names   volledige thread-namen tonen\n"
 "  -T, --hide-threads   threads verbergen; alleen processen tonen\n"
 
-#: src/pstree.c:1211
+#: src/pstree.c:1213
 #, c-format
 msgid ""
 "  -u, --uid-changes   show uid transitions\n"
@@ -703,7 +703,7 @@ msgstr ""
 "  -U, --unicode        Unicode-tekens (UTF-8) voor de lijntjes gebruiken\n"
 "  -V, --version        de programmaversie tonen en stoppen\n"
 
-#: src/pstree.c:1216
+#: src/pstree.c:1218
 #, c-format
 msgid ""
 "  -Z, --security-context\n"
@@ -712,7 +712,7 @@ msgstr ""
 "  -Z, --security-context\n"
 "                      SELinux-veiligheidscontexten tonen\n"
 
-#: src/pstree.c:1219
+#: src/pstree.c:1221
 #, c-format
 msgid ""
 "\n"
@@ -726,12 +726,12 @@ msgstr ""
 "gebruiker\n"
 "\n"
 
-#: src/pstree.c:1227
+#: src/pstree.c:1229
 #, c-format
 msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
-#: src/pstree.c:1230
+#: src/pstree.c:1232
 #, c-format
 msgid ""
 "Copyright (C) 1993-2019 Werner Almesberger and Craig Small\n"
@@ -740,32 +740,32 @@ msgstr ""
 "Copyright (C) 1993-2019 Werner Almesberger en Craig Small\n"
 "\n"
 
-#: src/pstree.c:1354
+#: src/pstree.c:1356
 #, c-format
 msgid "TERM is not set\n"
 msgstr "Omgevingsvariabele TERM heeft geen waarde.\n"
 
-#: src/pstree.c:1358
+#: src/pstree.c:1360
 #, c-format
 msgid "Can't get terminal capabilities\n"
 msgstr "Kan terminalcapaciteiten niet bepalen\n"
 
-#: src/pstree.c:1376
+#: src/pstree.c:1378
 #, c-format
 msgid "procfs file for %s namespace not available\n"
 msgstr "Het 'procfs'-bestand voor de '%s'-naamsruimte is niet beschikbaar\n"
 
-#: src/pstree.c:1429
+#: src/pstree.c:1431
 #, c-format
 msgid "No such user name: %s\n"
 msgstr "Geen bestaande gebruikersnaam: %s\n"
 
-#: src/pstree.c:1455
+#: src/pstree.c:1457
 #, c-format
 msgid "No processes found.\n"
 msgstr "Geen processen gevonden.\n"
 
-#: src/pstree.c:1463
+#: src/pstree.c:1465
 #, c-format
 msgid "Press return to close\n"
 msgstr "Druk op Enter om af te sluiten\n"
