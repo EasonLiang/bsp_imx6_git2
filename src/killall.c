@@ -345,11 +345,12 @@ load_process_name_and_age(char *comm, double *process_age_sec,
         return -1;
     }
     fclose(file);
-    startcomm = strchr(buf, '(') + 1;
-    endcomm = strrchr(startcomm, ')');
+    if ( NULL == ( startcomm = strchr(buf, '(')))
+       return -1;
+    startcomm++;
+    if ( NULL == ( endcomm = strrchr(startcomm, ')')))
+	return -1;
     lencomm = endcomm - startcomm;
-    if (lencomm < 0)
-        lencomm = 0;
     if (lencomm > COMM_LEN -1)
         lencomm = COMM_LEN -1;
     strncpy(comm, startcomm, lencomm);
