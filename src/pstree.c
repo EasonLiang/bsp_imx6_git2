@@ -935,8 +935,7 @@ static char* get_threadname(const pid_t pid, const int tid, const char *comm)
     FILE *file;
     char *thread_comm, *endcomm, *threadname;
     char *path = NULL;
-    size_t len = 0;
-    int nbytes;
+    int len, nbytes;
     char readbuf[BUFSIZ + 1];
 
     if (! (threadname = malloc(COMM_LEN + 2 + 1))) {
