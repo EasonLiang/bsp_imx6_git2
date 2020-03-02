@@ -415,7 +415,8 @@ int main(int argc, char **argv)
 						if (remove_duplicates) {
 							if (lastbuf)
 								free(lastbuf);
-							lastbuf = malloc(regs.REG_PARAM3);
+							if ( NULL == (lastbuf = malloc(regs.REG_PARAM3)))
+							    perror("lastbuf malloc");
 							last_buf_size = regs.REG_PARAM3;
 						}
 
