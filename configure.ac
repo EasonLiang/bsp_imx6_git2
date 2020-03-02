@@ -15,6 +15,17 @@ AC_PROG_CXX
 AC_PROG_LN_S
 AC_PROG_CC
 AC_PROG_CC_STDC
+
+AC_DEFUN([PSMISC_PROG_PO4A], [
+  AC_REQUIRE([AM_NLS])
+  AC_CHECK_PROGS([PO4A], [po4a])
+  AS_IF([test "$USE_NLS" = "yes" && test -n "$PO4A"], [
+    USE_PO4A=yes
+  ], [
+    USE_PO4A=no
+  ])
+  AC_SUBST([USE_PO4A])
+])
 PSMISC_PROG_PO4A
 
 dnl checks for options
