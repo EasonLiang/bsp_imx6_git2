@@ -13,6 +13,7 @@ SUBDIRS = \
 	  doc \
 	  po \
 	  icons \
+	  man-po \
 	  testsuite
 
 bin_PROGRAMS = \

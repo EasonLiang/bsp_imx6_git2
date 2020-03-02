@@ -29,6 +29,7 @@ icons/Makefile
 icons/Makefile.in
 INSTALL
 install-sh
+man-po/man.stamp
 Makefile
 Makefile.in
 missing

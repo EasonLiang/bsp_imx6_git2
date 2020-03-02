@@ -15,6 +15,7 @@ AC_PROG_CXX
 AC_PROG_LN_S
 AC_PROG_CC
 AC_PROG_CC_STDC
+PSMISC_PROG_PO4A
 
 dnl checks for options
 # SELinux support - off by default
@@ -199,5 +200,6 @@ AC_CONFIG_FILES([Makefile
 		 doc/Makefile
 		 icons/Makefile
 		 po/Makefile.in
+		 man-po/Makefile
 		 testsuite/Makefile])
 AC_OUTPUT
