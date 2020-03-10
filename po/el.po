@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc-23.2\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2020-02-11 11:11+1100\n"
+"POT-Creation-Date: 2020-03-11 06:54+1100\n"
 "PO-Revision-Date: 2019-04-29 14:36+0200\n"
 "Last-Translator: Lefteris Dimitroulakis <ledimitro@gmail.com>\n"
 "Language-Team: Greek <team@lists.gnome.gr>\n"
@@ -97,17 +97,15 @@ msgstr ""
 msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
-#: src/fuser.c:171 src/killall.c:807
-#, c-format
+#: src/fuser.c:171 src/killall.c:808 src/pstree.c:1231
+#, fuzzy, c-format
 msgid ""
-"Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n"
+"Copyright (C) 1993-2020 Werner Almesberger and Craig Small\n"
 "\n"
-msgstr ""
-"Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n"
-"\n"
+msgstr "Copyright (C) 1993-2009 Werner Almesberger και Craig Small\n"
 
-#: src/fuser.c:173 src/killall.c:809 src/peekfd.c:195 src/prtstat.c:68
-#: src/pstree.c:1234
+#: src/fuser.c:173 src/killall.c:810 src/peekfd.c:195 src/prtstat.c:68
+#: src/pstree.c:1233
 #, c-format
 msgid ""
 "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
@@ -145,7 +143,7 @@ msgstr "Αδύνατον να προσδιορίσω %s: %s\n"
 msgid "Cannot resolve local port %s: %s\n"
 msgstr "Δεν μπορώ να βρω την τοπική θύρα %s: %s\n"
 
-#: src/fuser.c:624
+#: src/fuser.c:626
 #, c-format
 msgid "Unknown local port AF %d\n"
 msgstr "Άγνωστη τοπική θύρα AF %d\n"
@@ -252,22 +250,22 @@ msgstr "killall: Δεν μπορώ να πάρω UID από την κατάστ�
 msgid "killall: Bad regular expression: %s\n"
 msgstr "killall: Κακή κανονική έκφραση: %s\n"
 
-#: src/killall.c:445
+#: src/killall.c:446
 #, c-format
 msgid "killall: skipping partial match %s(%d)\n"
 msgstr "killall: παράβλεψη μερικού ταιριάσματος %s(%d)\n"
 
-#: src/killall.c:706
+#: src/killall.c:707
 #, c-format
 msgid "Killed %s(%s%d) with signal %d\n"
 msgstr "Τερματίστηκε %s(%s%d) με το σήμα %d\n"
 
-#: src/killall.c:725
+#: src/killall.c:726
 #, c-format
 msgid "%s: no process found\n"
 msgstr "%s: δεν βρέθηκε διεργασία\n"
 
-#: src/killall.c:767
+#: src/killall.c:768
 #, c-format
 msgid ""
 "Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
@@ -278,12 +276,12 @@ msgstr ""
 "eIgiqrvw ]\n"
 "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
 
-#: src/killall.c:771
+#: src/killall.c:772
 #, c-format
 msgid "Usage: killall [OPTION]... [--] NAME...\n"
 msgstr "Χρήση: killall [ΕΠΙΛΟΓΗ]... [--] ΟΝΟΜΑ...\n"
 
-#: src/killall.c:774
+#: src/killall.c:775
 #, c-format
 msgid ""
 "       killall -l, --list\n"
@@ -326,7 +324,7 @@ msgstr ""
 "  -n,--ns PID   ταίριασμα διεργασιών που ανήκουν στα ίδια namespaces\n"
 "                     ως PID\n"
 
-#: src/killall.c:795
+#: src/killall.c:796
 #, c-format
 msgid ""
 "  -Z,--context REGEXP kill only process(es) having context\n"
@@ -335,30 +333,30 @@ msgstr ""
 "  -Z,--context REGEXP τερματίζει μόνο την/τις διεργασία(ες) με context\n"
 "                      (πρέπει να προηγείται των άλλων ορισμάτων)\n"
 
-#: src/killall.c:900 src/killall.c:906
+#: src/killall.c:901 src/killall.c:907
 msgid "Invalid time format"
 msgstr "Μη έγκυρο φορμά χρόνου"
 
-#: src/killall.c:926
+#: src/killall.c:927
 #, c-format
 msgid "Cannot find user %s\n"
 msgstr "Δεν μπορώ να βρω το χρήστη %s\n"
 
-#: src/killall.c:961
+#: src/killall.c:962
 msgid "Invalid namespace PID"
 msgstr "Μη έγκυρο namespace PID"
 
-#: src/killall.c:970
+#: src/killall.c:971
 #, c-format
 msgid "Bad regular expression: %s\n"
 msgstr "Κακή κανονική έκφραση: %s\n"
 
-#: src/killall.c:1011
+#: src/killall.c:1012
 #, c-format
 msgid "killall: Maximum number of names is %d\n"
 msgstr "killall: Μέγιστος αριθμός ονομάτων είναι %d\n"
 
-#: src/killall.c:1016
+#: src/killall.c:1017
 #, c-format
 msgid "killall: %s lacks process entries (not mounted ?)\n"
 msgstr "killall: %s lacks process entries (not mounted ?)\n"
@@ -430,9 +428,9 @@ msgid "prtstat (PSmisc) %s\n"
 msgstr "prtstat (PSmisc) %s\n"
 
 #: src/prtstat.c:66
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"Copyright (C) 2009-2017 Craig Small\n"
+"Copyright (C) 2009-2020 Craig Small\n"
 "\n"
 msgstr ""
 "Copyright (C) 2009-2017 Craig Small\n"
@@ -579,12 +577,12 @@ msgstr ""
 "/proc δεν είναι προσαρτημένο, αδύνατον να πάρω τα στατιστικά από το /proc/"
 "self/stat.\n"
 
-#: src/pstree.c:1140
+#: src/pstree.c:1139
 #, c-format
 msgid "%s is empty (not mounted ?)\n"
 msgstr "%s είναι άδειο (μή προσαρτημένο ;)\n"
 
-#: src/pstree.c:1174
+#: src/pstree.c:1173
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -592,7 +590,7 @@ msgid ""
 "   or: pstree -V\n"
 msgstr ""
 
-#: src/pstree.c:1179
+#: src/pstree.c:1178
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -600,7 +598,7 @@ msgid ""
 "   or: pstree -V\n"
 msgstr ""
 
-#: src/pstree.c:1184
+#: src/pstree.c:1183
 #, c-format
 msgid ""
 "\n"
@@ -608,7 +606,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/pstree.c:1187
+#: src/pstree.c:1186
 #, c-format
 msgid ""
 "  -a, --arguments     show command line arguments\n"
@@ -616,21 +614,21 @@ msgid ""
 "  -c, --compact-not   don't compact identical subtrees\n"
 msgstr ""
 
-#: src/pstree.c:1191
+#: src/pstree.c:1190
 #, c-format
 msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
 "                      (age)\n"
 msgstr ""
 
-#: src/pstree.c:1194
+#: src/pstree.c:1193
 #, c-format
 msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
 "  -G, --vt100         use VT100 line drawing characters\n"
 msgstr ""
 
-#: src/pstree.c:1197
+#: src/pstree.c:1196
 #, c-format
 msgid ""
 "  -h, --highlight-all highlight current process and its ancestors\n"
@@ -639,7 +637,7 @@ msgid ""
 "  -l, --long          don't truncate long lines\n"
 msgstr ""
 
-#: src/pstree.c:1202
+#: src/pstree.c:1201
 #, c-format
 msgid ""
 "  -n, --numeric-sort  sort output by PID\n"
@@ -649,7 +647,7 @@ msgid ""
 "  -p, --show-pids     show PIDs; implies -c\n"
 msgstr ""
 
-#: src/pstree.c:1208
+#: src/pstree.c:1207
 #, c-format
 msgid ""
 "  -s, --show-parents  show parents of the selected process\n"
@@ -658,7 +656,7 @@ msgid ""
 "  -T, --hide-threads  hide threads, show only processes\n"
 msgstr ""
 
-#: src/pstree.c:1213
+#: src/pstree.c:1212
 #, c-format
 msgid ""
 "  -u, --uid-changes   show uid transitions\n"
@@ -666,7 +664,7 @@ msgid ""
 "  -V, --version       display version information\n"
 msgstr ""
 
-#: src/pstree.c:1218
+#: src/pstree.c:1217
 #, c-format
 msgid ""
 "  -Z, --security-context\n"
@@ -675,7 +673,7 @@ msgstr ""
 "  -Z, --security-context\n"
 "                      show SELinux security contexts\n"
 
-#: src/pstree.c:1221
+#: src/pstree.c:1220
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -687,46 +685,37 @@ msgstr ""
 "    USER   εμφάνιση μόνο δέντρων rooted at processes of this user\n"
 "\n"
 
-#: src/pstree.c:1229
+#: src/pstree.c:1228
 #, c-format
 msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
-#: src/pstree.c:1232
-#, fuzzy, c-format
-msgid ""
-"Copyright (C) 1993-2019 Werner Almesberger and Craig Small\n"
-"\n"
-msgstr ""
-"Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n"
-"\n"
-
-#: src/pstree.c:1356
+#: src/pstree.c:1355
 #, c-format
 msgid "TERM is not set\n"
 msgstr "Η μεταβλητή TERM δεν έχει καθοριστεί\n"
 
-#: src/pstree.c:1360
+#: src/pstree.c:1359
 #, c-format
 msgid "Can't get terminal capabilities\n"
 msgstr "Δεν μπορώ να πάρω τις ικανότητες τερματικού\n"
 
-#: src/pstree.c:1378
+#: src/pstree.c:1377
 #, c-format
 msgid "procfs file for %s namespace not available\n"
 msgstr "το αρχείο procfs για %s δεν είναι διαθέσιμο\n"
 
-#: src/pstree.c:1431
+#: src/pstree.c:1430
 #, c-format
 msgid "No such user name: %s\n"
 msgstr "Δεν υπάρχει τέτοιο όνομα χρήστη: %s\n"
 
-#: src/pstree.c:1457
+#: src/pstree.c:1456
 #, c-format
 msgid "No processes found.\n"
 msgstr "Δεν βρέθηκαν διεργασίες.\n"
 
-#: src/pstree.c:1465
+#: src/pstree.c:1464
 #, c-format
 msgid "Press return to close\n"
 msgstr "Πάτησε return για κλείσιμο\n"
@@ -735,6 +724,21 @@ msgstr "Πάτησε return για κλείσιμο\n"
 #, c-format
 msgid "%s: unknown signal; %s -l lists signals.\n"
 msgstr "%s: άγνωστο σήμα, %s -l εμφανίζει όλα τα σήματα.\n"
+
+#~ msgid ""
+#~ "Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n"
+#~ "\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "Copyright (C) 1993-2019 Werner Almesberger and Craig Small\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n"
+#~ "\n"
 
 #~ msgid ""
 #~ "Usage: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -801,8 +805,3 @@ msgstr "%s: άγνωστο σήμα, %s -l εμφανίζει όλα τα σήμ
 #~ msgstr ""
 #~ "Copyright (C) 1993-2014 Werner Almesberger and Craig Small\n"
 #~ "\n"
-
-#~ msgid ""
-#~ "Copyright (C) 1993-2009 Werner Almesberger and Craig Small\n"
-#~ "\n"
-#~ msgstr "Copyright (C) 1993-2009 Werner Almesberger και Craig Small\n"

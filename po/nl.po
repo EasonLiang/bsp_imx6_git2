@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc-23.3\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2020-02-11 11:11+1100\n"
+"POT-Creation-Date: 2020-03-11 06:54+1100\n"
 "PO-Revision-Date: 2019-10-27 19:08+0100\n"
 "Last-Translator: Benno Schulenberg <vertaling@coevern.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -104,17 +104,17 @@ msgstr ""
 msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
-#: src/fuser.c:171 src/killall.c:807
-#, c-format
+#: src/fuser.c:171 src/killall.c:808 src/pstree.c:1231
+#, fuzzy, c-format
 msgid ""
-"Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n"
+"Copyright (C) 1993-2020 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
 "Copyright (C) 1993-2017 Werner Almesberger en Craig Small\n"
 "\n"
 
-#: src/fuser.c:173 src/killall.c:809 src/peekfd.c:195 src/prtstat.c:68
-#: src/pstree.c:1234
+#: src/fuser.c:173 src/killall.c:810 src/peekfd.c:195 src/prtstat.c:68
+#: src/pstree.c:1233
 #, c-format
 msgid ""
 "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
@@ -152,7 +152,7 @@ msgstr "Kan status van %s niet bepalen: %s\n"
 msgid "Cannot resolve local port %s: %s\n"
 msgstr "Kan lokale poort %s nergens toe herleiden: %s\n"
 
-#: src/fuser.c:624
+#: src/fuser.c:626
 #, c-format
 msgid "Unknown local port AF %d\n"
 msgstr "Onbekende lokale poort AF %d\n"
@@ -255,22 +255,22 @@ msgstr "killall: Kan uit processtatus geen UID bepalen\n"
 msgid "killall: Bad regular expression: %s\n"
 msgstr "killall: Ongeldige reguliere expressie: %s\n"
 
-#: src/killall.c:445
+#: src/killall.c:446
 #, c-format
 msgid "killall: skipping partial match %s(%d)\n"
 msgstr "killall: Overgeslagen: gedeeltelijke overeenkomst %s(%d)\n"
 
-#: src/killall.c:706
+#: src/killall.c:707
 #, c-format
 msgid "Killed %s(%s%d) with signal %d\n"
 msgstr "Proces %s(%s%d) is afgebroken met signaal %d\n"
 
-#: src/killall.c:725
+#: src/killall.c:726
 #, c-format
 msgid "%s: no process found\n"
 msgstr "%s: geen proces gevonden\n"
 
-#: src/killall.c:767
+#: src/killall.c:768
 #, c-format
 msgid ""
 "Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
@@ -281,12 +281,12 @@ msgstr ""
 "egIiqrvw]\n"
 "               [-s SIGNAAL | -SIGNAAL] NAAM...\n"
 
-#: src/killall.c:771
+#: src/killall.c:772
 #, c-format
 msgid "Usage: killall [OPTION]... [--] NAME...\n"
 msgstr "Gebruik:  killall [OPTIE...] [--] NAAM...\n"
 
-#: src/killall.c:774
+#: src/killall.c:775
 #, c-format
 msgid ""
 "       killall -l, --list\n"
@@ -330,7 +330,7 @@ msgstr ""
 "                         behoren als PID\n"
 "\n"
 
-#: src/killall.c:795
+#: src/killall.c:796
 #, c-format
 msgid ""
 "  -Z,--context REGEXP kill only process(es) having context\n"
@@ -339,30 +339,30 @@ msgstr ""
 "  -Z,--context REGEXP  alleen processen met deze context afbreken\n"
 "                         (dient aan andere argumenten vooraf te gaan)\n"
 
-#: src/killall.c:900 src/killall.c:906
+#: src/killall.c:901 src/killall.c:907
 msgid "Invalid time format"
 msgstr "Ongeldige tijdopmaak"
 
-#: src/killall.c:926
+#: src/killall.c:927
 #, c-format
 msgid "Cannot find user %s\n"
 msgstr "Kan gebruiker %s niet vinden\n"
 
-#: src/killall.c:961
+#: src/killall.c:962
 msgid "Invalid namespace PID"
 msgstr "Ongeldige PID voor naamsruimte"
 
-#: src/killall.c:970
+#: src/killall.c:971
 #, c-format
 msgid "Bad regular expression: %s\n"
 msgstr "Ongeldige reguliere expressie: %s\n"
 
-#: src/killall.c:1011
+#: src/killall.c:1012
 #, c-format
 msgid "killall: Maximum number of names is %d\n"
 msgstr "killall: Het maximum aantal namen is %d\n"
 
-#: src/killall.c:1016
+#: src/killall.c:1017
 #, c-format
 msgid "killall: %s lacks process entries (not mounted ?)\n"
 msgstr "killall: %s bevat geen procesitems -- misschien niet aangekoppeld?\n"
@@ -438,9 +438,9 @@ msgid "prtstat (PSmisc) %s\n"
 msgstr "prtstat (PSmisc) %s\n"
 
 #: src/prtstat.c:66
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"Copyright (C) 2009-2017 Craig Small\n"
+"Copyright (C) 2009-2020 Craig Small\n"
 "\n"
 msgstr ""
 "Copyright (C) 2009-2017 Craig Small\n"
@@ -586,12 +586,12 @@ msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
 msgstr ""
 "/proc is niet aangekoppeld, kan status van /proc/self/stat niet bepalen.\n"
 
-#: src/pstree.c:1140
+#: src/pstree.c:1139
 #, c-format
 msgid "%s is empty (not mounted ?)\n"
 msgstr "%s is leeg -- misschien niet aangekoppeld?\n"
 
-#: src/pstree.c:1174
+#: src/pstree.c:1173
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -602,7 +602,7 @@ msgstr ""
 "                     [-A|-G|-U] [ PID | GEBRUIKER ]\n"
 "     of:  pstree -V\n"
 
-#: src/pstree.c:1179
+#: src/pstree.c:1178
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -613,7 +613,7 @@ msgstr ""
 "                     [-A|-G|-U] [ PID | GEBRUIKER ]\n"
 "     of:  pstree -V\n"
 
-#: src/pstree.c:1184
+#: src/pstree.c:1183
 #, c-format
 msgid ""
 "\n"
@@ -624,7 +624,7 @@ msgstr ""
 "Toont huidige processen in een boomstructuur.\n"
 "\n"
 
-#: src/pstree.c:1187
+#: src/pstree.c:1186
 #, c-format
 msgid ""
 "  -a, --arguments     show command line arguments\n"
@@ -635,14 +635,14 @@ msgstr ""
 "  -A, --ascii          ASCII-tekens voor de lijntjes gebruiken\n"
 "  -c, --compact-not    identieke subbomen niet compacteren\n"
 
-#: src/pstree.c:1191
+#: src/pstree.c:1190
 #, c-format
 msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
 "                      (age)\n"
 msgstr "  -C, --color=TYPE     proces kleuren volgens dit attribuut ('age')\n"
 
-#: src/pstree.c:1194
+#: src/pstree.c:1193
 #, c-format
 msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
@@ -651,7 +651,7 @@ msgstr ""
 "  -g, --show-pgids     procesgroeps-ID's tonen (impliceert '-c')\n"
 "  -G, --vt100          VT100-tekens voor de lijntjes gebruiken\n"
 
-#: src/pstree.c:1197
+#: src/pstree.c:1196
 #, c-format
 msgid ""
 "  -h, --highlight-all highlight current process and its ancestors\n"
@@ -664,7 +664,7 @@ msgstr ""
 "                       dit proces en zijn voorouders accentueren\n"
 "  -l, --long           lange regels niet afkappen\n"
 
-#: src/pstree.c:1202
+#: src/pstree.c:1201
 #, c-format
 msgid ""
 "  -n, --numeric-sort  sort output by PID\n"
@@ -679,7 +679,7 @@ msgstr ""
 "                         (cgroup, ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids      PIDs tonen (impliceert '-c')\n"
 
-#: src/pstree.c:1208
+#: src/pstree.c:1207
 #, c-format
 msgid ""
 "  -s, --show-parents  show parents of the selected process\n"
@@ -692,7 +692,7 @@ msgstr ""
 "  -t, --thread-names   volledige thread-namen tonen\n"
 "  -T, --hide-threads   threads verbergen; alleen processen tonen\n"
 
-#: src/pstree.c:1213
+#: src/pstree.c:1212
 #, c-format
 msgid ""
 "  -u, --uid-changes   show uid transitions\n"
@@ -703,7 +703,7 @@ msgstr ""
 "  -U, --unicode        Unicode-tekens (UTF-8) voor de lijntjes gebruiken\n"
 "  -V, --version        de programmaversie tonen en stoppen\n"
 
-#: src/pstree.c:1218
+#: src/pstree.c:1217
 #, c-format
 msgid ""
 "  -Z, --security-context\n"
@@ -712,7 +712,7 @@ msgstr ""
 "  -Z, --security-context\n"
 "                      SELinux-veiligheidscontexten tonen\n"
 
-#: src/pstree.c:1221
+#: src/pstree.c:1220
 #, c-format
 msgid ""
 "\n"
@@ -726,46 +726,37 @@ msgstr ""
 "gebruiker\n"
 "\n"
 
-#: src/pstree.c:1229
+#: src/pstree.c:1228
 #, c-format
 msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
-#: src/pstree.c:1232
-#, c-format
-msgid ""
-"Copyright (C) 1993-2019 Werner Almesberger and Craig Small\n"
-"\n"
-msgstr ""
-"Copyright (C) 1993-2019 Werner Almesberger en Craig Small\n"
-"\n"
-
-#: src/pstree.c:1356
+#: src/pstree.c:1355
 #, c-format
 msgid "TERM is not set\n"
 msgstr "Omgevingsvariabele TERM heeft geen waarde.\n"
 
-#: src/pstree.c:1360
+#: src/pstree.c:1359
 #, c-format
 msgid "Can't get terminal capabilities\n"
 msgstr "Kan terminalcapaciteiten niet bepalen\n"
 
-#: src/pstree.c:1378
+#: src/pstree.c:1377
 #, c-format
 msgid "procfs file for %s namespace not available\n"
 msgstr "Het 'procfs'-bestand voor de '%s'-naamsruimte is niet beschikbaar\n"
 
-#: src/pstree.c:1431
+#: src/pstree.c:1430
 #, c-format
 msgid "No such user name: %s\n"
 msgstr "Geen bestaande gebruikersnaam: %s\n"
 
-#: src/pstree.c:1457
+#: src/pstree.c:1456
 #, c-format
 msgid "No processes found.\n"
 msgstr "Geen processen gevonden.\n"
 
-#: src/pstree.c:1465
+#: src/pstree.c:1464
 #, c-format
 msgid "Press return to close\n"
 msgstr "Druk op Enter om af te sluiten\n"
@@ -775,6 +766,13 @@ msgstr "Druk op Enter om af te sluiten\n"
 msgid "%s: unknown signal; %s -l lists signals.\n"
 msgstr ""
 "Onbekend signaal: %s -- '%s -l' toont een lijst van mogelijke signalen.\n"
+
+#~ msgid ""
+#~ "Copyright (C) 1993-2019 Werner Almesberger and Craig Small\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Copyright (C) 1993-2019 Werner Almesberger en Craig Small\n"
+#~ "\n"
 
 #~ msgid ""
 #~ "Usage: pstree [-acglpsStuZ] [ -h | -H PID ] [ -n | -N type ]\n"

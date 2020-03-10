@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc 22.2pre1\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2020-02-11 11:11+1100\n"
+"POT-Creation-Date: 2020-03-11 06:54+1100\n"
 "PO-Revision-Date: 2006-03-07 11:49+0200\n"
 "Last-Translator: Anton Zinoviev <zinoviev@debian.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
@@ -95,17 +95,17 @@ msgstr ""
 msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
-#: src/fuser.c:171 src/killall.c:807
+#: src/fuser.c:171 src/killall.c:808 src/pstree.c:1231
 #, fuzzy, c-format
 msgid ""
-"Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n"
+"Copyright (C) 1993-2020 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
 "Copyright © 1993-2005 Werner Almesberger и Craig Small\n"
 "\n"
 
-#: src/fuser.c:173 src/killall.c:809 src/peekfd.c:195 src/prtstat.c:68
-#: src/pstree.c:1234
+#: src/fuser.c:173 src/killall.c:810 src/peekfd.c:195 src/prtstat.c:68
+#: src/pstree.c:1233
 #, c-format
 msgid ""
 "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
@@ -143,7 +143,7 @@ msgstr "Не може да се достигне %s: %s\n"
 msgid "Cannot resolve local port %s: %s\n"
 msgstr "Не може да се определи локалният порт %s: %s\n"
 
-#: src/fuser.c:624
+#: src/fuser.c:626
 #, c-format
 msgid "Unknown local port AF %d\n"
 msgstr "Непознат вид адрес на локалния порт %d (unknown local port AF)\n"
@@ -251,22 +251,22 @@ msgstr ""
 msgid "killall: Bad regular expression: %s\n"
 msgstr "Неправилен регулярен израз: %s\n"
 
-#: src/killall.c:445
+#: src/killall.c:446
 #, fuzzy, c-format
 msgid "killall: skipping partial match %s(%d)\n"
 msgstr "пропуска се частичнотото съвпадение %s(%d)\n"
 
-#: src/killall.c:706
+#: src/killall.c:707
 #, c-format
 msgid "Killed %s(%s%d) with signal %d\n"
 msgstr "%s(%s%d) се убива със сигнал %d\n"
 
-#: src/killall.c:725
+#: src/killall.c:726
 #, fuzzy, c-format
 msgid "%s: no process found\n"
 msgstr "%s: никой процес не е убит\n"
 
-#: src/killall.c:767
+#: src/killall.c:768
 #, fuzzy, c-format
 msgid ""
 "Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
@@ -276,12 +276,12 @@ msgstr ""
 "Използване: killall [-Z КОНТЕКСТ] [-u ПОТРЕБ] [ -eIgiqrvw ] [ -СИГНАЛ ] "
 "ИМЕ...\n"
 
-#: src/killall.c:771
+#: src/killall.c:772
 #, c-format
 msgid "Usage: killall [OPTION]... [--] NAME...\n"
 msgstr "Използвване: killall [ОПЦИЯ]... [--] ИМЕ...\n"
 
-#: src/killall.c:774
+#: src/killall.c:775
 #, fuzzy, c-format
 msgid ""
 "       killall -l, --list\n"
@@ -322,7 +322,7 @@ msgstr ""
 "  -V,--version        извежда информация за версията\n"
 "  -w,--wait           чака докато процесът умре\n"
 
-#: src/killall.c:795
+#: src/killall.c:796
 #, c-format
 msgid ""
 "  -Z,--context REGEXP kill only process(es) having context\n"
@@ -332,32 +332,32 @@ msgstr ""
 "сигурност\n"
 "                      (трябва да предхожда останалите аргументи)\n"
 
-#: src/killall.c:900 src/killall.c:906
+#: src/killall.c:901 src/killall.c:907
 msgid "Invalid time format"
 msgstr ""
 
-#: src/killall.c:926
+#: src/killall.c:927
 #, c-format
 msgid "Cannot find user %s\n"
 msgstr "Не може да бъде намерен потребител с име %s\n"
 
-#: src/killall.c:961
+#: src/killall.c:962
 #, fuzzy
 msgid "Invalid namespace PID"
 msgstr "Неправилен вид имена"
 
-#: src/killall.c:970
+#: src/killall.c:971
 #, c-format
 msgid "Bad regular expression: %s\n"
 msgstr "Неправилен регулярен израз: %s\n"
 
-#: src/killall.c:1011
+#: src/killall.c:1012
 #, fuzzy, c-format
 msgid "killall: Maximum number of names is %d\n"
 msgstr "Максималният брой имена е %d\n"
 
 # Мисля, че става въпрос за /proc (Антон Зиновиев)
-#: src/killall.c:1016
+#: src/killall.c:1017
 #, fuzzy, c-format
 msgid "killall: %s lacks process entries (not mounted ?)\n"
 msgstr "%s е празна (не е монтирана?)\n"
@@ -414,7 +414,7 @@ msgstr "pstree (PSmisc) %s\n"
 #: src/prtstat.c:66
 #, fuzzy, c-format
 msgid ""
-"Copyright (C) 2009-2017 Craig Small\n"
+"Copyright (C) 2009-2020 Craig Small\n"
 "\n"
 msgstr ""
 "Copyright © 1993-2005 Werner Almesberger и Craig Small\n"
@@ -539,12 +539,12 @@ msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
 msgstr ""
 
 # Мисля, че става въпрос за /proc (Антон Зиновиев)
-#: src/pstree.c:1140
+#: src/pstree.c:1139
 #, c-format
 msgid "%s is empty (not mounted ?)\n"
 msgstr "%s е празна (не е монтирана?)\n"
 
-#: src/pstree.c:1174
+#: src/pstree.c:1173
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -552,7 +552,7 @@ msgid ""
 "   or: pstree -V\n"
 msgstr ""
 
-#: src/pstree.c:1179
+#: src/pstree.c:1178
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -560,7 +560,7 @@ msgid ""
 "   or: pstree -V\n"
 msgstr ""
 
-#: src/pstree.c:1184
+#: src/pstree.c:1183
 #, c-format
 msgid ""
 "\n"
@@ -568,7 +568,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/pstree.c:1187
+#: src/pstree.c:1186
 #, c-format
 msgid ""
 "  -a, --arguments     show command line arguments\n"
@@ -576,21 +576,21 @@ msgid ""
 "  -c, --compact-not   don't compact identical subtrees\n"
 msgstr ""
 
-#: src/pstree.c:1191
+#: src/pstree.c:1190
 #, c-format
 msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
 "                      (age)\n"
 msgstr ""
 
-#: src/pstree.c:1194
+#: src/pstree.c:1193
 #, c-format
 msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
 "  -G, --vt100         use VT100 line drawing characters\n"
 msgstr ""
 
-#: src/pstree.c:1197
+#: src/pstree.c:1196
 #, c-format
 msgid ""
 "  -h, --highlight-all highlight current process and its ancestors\n"
@@ -599,7 +599,7 @@ msgid ""
 "  -l, --long          don't truncate long lines\n"
 msgstr ""
 
-#: src/pstree.c:1202
+#: src/pstree.c:1201
 #, c-format
 msgid ""
 "  -n, --numeric-sort  sort output by PID\n"
@@ -609,7 +609,7 @@ msgid ""
 "  -p, --show-pids     show PIDs; implies -c\n"
 msgstr ""
 
-#: src/pstree.c:1208
+#: src/pstree.c:1207
 #, c-format
 msgid ""
 "  -s, --show-parents  show parents of the selected process\n"
@@ -618,7 +618,7 @@ msgid ""
 "  -T, --hide-threads  hide threads, show only processes\n"
 msgstr ""
 
-#: src/pstree.c:1213
+#: src/pstree.c:1212
 #, c-format
 msgid ""
 "  -u, --uid-changes   show uid transitions\n"
@@ -626,14 +626,14 @@ msgid ""
 "  -V, --version       display version information\n"
 msgstr ""
 
-#: src/pstree.c:1218
+#: src/pstree.c:1217
 #, fuzzy, c-format
 msgid ""
 "  -Z, --security-context\n"
 "                      show SELinux security contexts\n"
 msgstr "    -Z     показва контекста на сигурност за SELinux\n"
 
-#: src/pstree.c:1221
+#: src/pstree.c:1220
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -645,46 +645,37 @@ msgstr ""
 "    ПОТРЕБ    показва само поддърветата, основани от този потребител\n"
 "\n"
 
-#: src/pstree.c:1229
+#: src/pstree.c:1228
 #, c-format
 msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
-#: src/pstree.c:1232
-#, fuzzy, c-format
-msgid ""
-"Copyright (C) 1993-2019 Werner Almesberger and Craig Small\n"
-"\n"
-msgstr ""
-"Copyright © 1993-2005 Werner Almesberger и Craig Small\n"
-"\n"
-
-#: src/pstree.c:1356
+#: src/pstree.c:1355
 #, c-format
 msgid "TERM is not set\n"
 msgstr "Не е зададена стойност на TERM\n"
 
-#: src/pstree.c:1360
+#: src/pstree.c:1359
 #, c-format
 msgid "Can't get terminal capabilities\n"
 msgstr "Не може да се определят възможностите на терминала\n"
 
-#: src/pstree.c:1378
+#: src/pstree.c:1377
 #, c-format
 msgid "procfs file for %s namespace not available\n"
 msgstr ""
 
-#: src/pstree.c:1431
+#: src/pstree.c:1430
 #, c-format
 msgid "No such user name: %s\n"
 msgstr "Няма такъв потребител: %s\n"
 
-#: src/pstree.c:1457
+#: src/pstree.c:1456
 #, c-format
 msgid "No processes found.\n"
 msgstr "Не е намерен нито един процес.\n"
 
-#: src/pstree.c:1465
+#: src/pstree.c:1464
 #, c-format
 msgid "Press return to close\n"
 msgstr "Натиснете Return, за да се завърши\n"
@@ -693,6 +684,14 @@ msgstr "Натиснете Return, за да се завърши\n"
 #, c-format
 msgid "%s: unknown signal; %s -l lists signals.\n"
 msgstr "%s: непознат сигнал; %s -l извежда познатите сигнали.\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "Copyright (C) 1993-2019 Werner Almesberger and Craig Small\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Copyright © 1993-2005 Werner Almesberger и Craig Small\n"
+#~ "\n"
 
 #~ msgid ""
 #~ "Usage: pidof [ -eg ] NAME...\n"
