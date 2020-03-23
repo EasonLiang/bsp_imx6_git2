@@ -1,6 +1,8 @@
 /*
  * Copyright (C) 2005-2007 Opened Hand Ltd.
  *
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ *
  * Author: Ross Burton <ross@openedhand.com>
  *
  * This program is free software; you can redistribute it and/or modify
