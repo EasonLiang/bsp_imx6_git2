@@ -40,21 +40,21 @@ case $i in
 esac
 done
 
-if ! type "valgrind" > /dev/null; then
+if ! type "valgrind" > /dev/null 2>&1; then
   VALGRIND=""
   VALGRIND_ARGS=""
 fi
 
 echo "Testing ${BZIP2} in directory ${TESTS_DIR}"
 if [ "$VALGRIND" != "" ]; then
-  echo "  using valgrind"
+  echo "Using valgrind: Yes"
 else
-  echo "  NOT using valgrind"
+  echo "Using valgrind: No"
 fi
 if [[ ${IGNORE_MD5} -eq 0 ]]; then
-  echo "  checking md5 sums"
+  echo "Checking md5 sums: Yes"
 else
-  echo "  NOT checking md5 sums"
+  echo "Checking md5 sums: No"
 fi
 
 # Remove any left over tesfilecopies from previous runs first.
@@ -73,19 +73,18 @@ while IFS= read -r -d '' bzfile; do
   bzcopy="${copy}.bz2"
   md5file="${file}.md5"
 
-  echo "Processing ${bzfile}"
-
   # Decompress it.
-  echo "  Decompress..."
   rm -f "${file}"
   ${VALGRIND} ${VALGRIND_ARGS} ${BZIP2} -k -d -q ${bzfile} \
-    || { echo "!!! bad decompress result $?";
+    && { echo "PASS: ${bzfile} Decompress"; } \
+    || { echo "FAIL: ${bzfile} Decompress";
          badtests=("${badtests[@]}" $"${bzfile} bad decompress result")
          nogood=$[${nogood}+1]; continue; }
 
   if [[ ${IGNORE_MD5} -ne 1 ]]; then
-    md5sum --check --status ${md5file} < ${file} \
-      || { echo "!!! md5sum doesn't match decompressed file";
+    md5sum -c ${md5file} < ${file} > /dev/null \
+      && { echo "PASS: ${bzfile} md5sum Matched"; } \
+      || { echo "FAIL: ${bzfile} md5sum Matched";
            badtests=("${badtests[@]}" $"${file} md5sum doesn't match")
            nogood=$[${nogood}+1]; continue; }
   fi
@@ -93,20 +92,21 @@ while IFS= read -r -d '' bzfile; do
   # Compress and decompress a copy
   mv "${file}" "${copy}"
   rm -f "${bzcopy}"
-  echo "  Recompress..."
   ${VALGRIND} ${VALGRIND_ARGS} ${BZIP2} -z -q -s ${copy} \
-    || { echo "!!! bad compress result $?";
+    && { echo "PASS: ${bzfile} Recompress "; } \
+    || { echo "FAIL: ${bzfile} Recompress";
          badtests=("${badtests[@]}" $"${copy} bad result")
          nogood=$[${nogood}+1]; continue; }
-  echo "  Redecompress..."
   ${VALGRIND} ${VALGRIND_ARGS} ${BZIP2} -d -q -s ${bzcopy} \
-    || { echo "!!! bad (re)decompress result $?";
+    && { echo "PASS: ${bzfile} Redecompress"; } \
+    || { echo "FAIL: ${bzfile} Redecompress";
          badtests=("${badtests[@]}" $"${bzcopy} bad result")
          nogood=$[${nogood}+1]; continue; }
 
   if [[ ${IGNORE_MD5} -ne 1 ]]; then
-    md5sum --check --status ${md5file} < ${copy} \
-      || { echo "!!! md5sum doesn't match (re)decompressed file";
+    md5sum -c ${md5file} < ${copy} > /dev/null \
+      && { echo "PASS: ${bzfile} md5sum ReMatched"; } \
+      || { echo "FAIL: ${bzfile} md5sum ReMatched";
            badtests=("${badtests[@]}" $"${copy} md5sum doesn't match")
            nogood=$[${nogood}+1]; continue; }
   fi
@@ -114,16 +114,17 @@ while IFS= read -r -d '' bzfile; do
   rm "${copy}"
 
   # Now do it all again in "small" mode.
-  echo "  Decompress (small)..."
   rm -f "${file}"
   ${VALGRIND} ${VALGRIND_ARGS} ${BZIP2} -k -d -q -s ${bzfile} \
-    || { echo "!!! bad decompress result $?";
+    && { echo "PASS: ${bzfile} Decompress (small)"; } \
+    || { echo "FAIL: ${bzfile} Decompress (small)";
          badtests=("${badtests[@]}" $"${bzfile} bad decompress result")
          nogood=$[${nogood}+1]; continue; }
 
   if [[ ${IGNORE_MD5} -ne 1 ]]; then
-    md5sum --check --status ${md5file} < ${file} \
-      || { echo "!!! md5sum doesn't match decompressed file";
+    md5sum -c ${md5file} < ${file} > /dev/null \
+      && { echo "PASS: ${bzfile} Md5sum Matched (small)"; } \
+      || { echo "FAIL: ${bzfile} Md5sum Matched (small)";
            badtests=("${badtests[@]}" $"${file} md5sum doesn't match")
            nogood=$[${nogood}+1]; continue; }
   fi
@@ -131,20 +132,21 @@ while IFS= read -r -d '' bzfile; do
   # Compress and decompress a copy
   mv "${file}" "${copy}"
   rm -f "${bzcopy}"
-  echo "  Recompress (small)..."
   ${VALGRIND} ${VALGRIND_ARGS} ${BZIP2} -z -q -s ${copy} \
-    || { echo "!!! bad compress result $?";
+    && { echo "PASS: ${bzfile} Recompress (small)"; } \
+    || { echo "FAIL: ${bzfile} Recompress (small)";
          badtests=("${badtests[@]}" $"${copy} bad result")
          nogood=$[${nogood}+1]; continue; }
-  echo "  Redecompress (small)..."
   ${VALGRIND} ${VALGRIND_ARGS} ${BZIP2} -d -q -s ${bzcopy} \
-    || { echo "!!! bad (re)decompress result $?";
+    && { echo "PASS: ${bzfile} Redecompress (small)"; } \
+    || { echo "FAIL: ${bzfile} Redecompress (small)";
          badtests=("${badtests[@]}" $"${bzcopy} bad result")
          nogood=$[${nogood}+1]; continue; }
 
   if [[ ${IGNORE_MD5} -ne 1 ]]; then
-    md5sum --check --status ${md5file} < ${copy} \
-      || { echo "!!! md5sum doesn't match (re)decompressed file";
+    md5sum -c ${md5file} < ${copy} > /dev/null \
+      && { echo "PASS: ${bzfile} md5sum ReMatched (small)"; } \
+      || { echo "FAIL: ${bzfile} md5sum ReMatched (small)";
            badtests=("${badtests[@]}" $"${copy} md5sum doesn't match")
            nogood=$[${nogood}+1]; continue; }
   fi
@@ -169,14 +171,11 @@ nobad=0
 badbad=0
 while IFS= read -r -d '' badfile; do
 
-  echo "Processing ${badfile}"
-
-  echo "  Trying to decompress..."
-  ${VALGRIND} ${VALGRIND_ARGS} ${BZIP2} -k -d -q ${badfile}
+  ${VALGRIND} ${VALGRIND_ARGS} ${BZIP2} -k -d -q ${badfile} > /dev/null 2>&1
   ret=$?
 
   if [[ ${ret} -eq 0 ]]; then
-    echo "!!! badness not detected"
+    echo "FAIL: badness not detected in ${badfile}"
     nobad=$[${nobad}+1]
     badtests=("${badtests[@]}" $"${badfile} badness not detected")
     continue
@@ -185,18 +184,19 @@ while IFS= read -r -d '' badfile; do
   # Assumes "normal" badness is detected by exit code 1 or 2.
   # A crash or valgrind issue will be reported with something else.
   if [[ ${ret} != 1 ]] && [[ ${ret} != 2 ]]; then
-    echo "!!! baddness caused baddness in ${BZIP2}"
+    echo "FAIL: baddness caused baddness in ${BZIP2} for ${badfile}"
     badbad=$[${badbad}+1]
     badtests=("${badtests[@]}" $"${badfile} badness caused baddness")
     continue
+  else
+    echo "PASS: Correctly found data integrity errors in ${badfile}"
   fi
 
-  echo "  Trying to decompress (small)..."
-  ${VALGRIND} ${VALGRIND_ARGS} ${BZIP2} -k -d -q -s ${badfile}
+  ${VALGRIND} ${VALGRIND_ARGS} ${BZIP2} -k -d -q -s ${badfile} > /dev/null 2>&1
   ret=$?
 
   if [[ ${ret} -eq 0 ]]; then
-    echo "!!! badness not detected"
+    echo "FAIL: badness not detected in ${badfile} (small)"
     nobad=$[${nobad}+1]
     badtests=("${badtests[@]}" $"${badfile} badness not detected")
     continue
@@ -205,10 +205,12 @@ while IFS= read -r -d '' badfile; do
   # Assumes "normal" badness is detected by exit code 1 or 2.
   # A crash or valgrind issue will be reported with something else.
   if [[ ${ret} != 1 ]] && [[ ${ret} != 2 ]]; then
-    echo "!!! baddness caused baddness in ${BZIP2}"
+    echo "FAIL: baddness caused baddness in ${BZIP2} for ${badfile} (small)"
     badbad=$[${badbad}+1]
     badtests=("${badtests[@]}" $"${badfile} badness caused baddness")
     continue
+  else
+    echo "PASS: Correctly found data integrity errors in ${badfile} (small)"
   fi
 
 done < <(find ${TESTS_DIR} -type f -name \*\.bz2.bad -print0)
@@ -232,7 +234,7 @@ if [[ ${results} -eq 0 ]]; then
   echo "All tests passed"
   exit 0
 else
-  echo "Bad results, look for !!! in the logs above"
+  echo "Bad results, look for FAIL and !!! in the logs above"
   printf ' - %s\n' "${badtests[@]}"
   exit 1
 fi
