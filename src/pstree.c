@@ -571,8 +571,12 @@ static void set_args(PROC * this, const char *args, int size)
     }
     this->argc = 0;
     for (i = 0; i < size - 1; i++)
-        if (!args[i])
+        if (!args[i]) {
             this->argc++;
+            /* now skip consecutive NUL */
+            while(!args[i] && (i < size -1 ))
+                i++;
+        }
     if (!this->argc)
         return;
     if (!(this->argv = malloc(sizeof(char *) * this->argc))) {
