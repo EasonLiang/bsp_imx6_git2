@@ -148,7 +148,7 @@
 
 /* Atoms, if you change these check ewmh_init() first */
 
-enum {
+typedef enum {
   WM_STATE = 0,
   WM_CHANGE_STATE,
   WM_PROTOCOLS,

@@ -46,7 +46,7 @@ typedef struct _mb_theme_param
 
 } MBThemeParam;
 
-enum {
+typedef enum {
   LAYER_GRADIENT_HORIZ = 1,
   LAYER_GRADIENT_VERT,
   LAYER_LABEL,
