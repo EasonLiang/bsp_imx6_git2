@@ -1,6 +1,7 @@
 Changes in NEXT
 ===============
 	* pstree: Do not crash on missing processes !21
+	* fuser: Get less confused about duplicate dev_id !10
 
 Changes in 23.3
 ===============

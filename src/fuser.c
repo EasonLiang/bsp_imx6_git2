@@ -56,6 +56,10 @@
 #define MAXSYMLINKS SYMLINK_MAX
 #endif
 
+#ifdef ENABLE_NLS
+#include <locale.h>
+#endif
+
 #include "fuser.h"
 #include "signals.h"
 #include "i18n.h"
@@ -63,6 +67,10 @@
 #include "comm.h"
 
 //#define DEBUG 1
+
+#ifndef PATH_MAX
+#define PATH_MAX 4096
+#endif /* PATH_MAX */
 
 #define NAME_FIELD 20		/* space reserved for file name */
 /* Function defines */
@@ -1531,12 +1539,12 @@ print_matches(struct names *names_head, const opt_type opts,
 
 static struct stat *get_pidstat(const pid_t pid, const char *filename)
 {
-	char pathname[256];
+	char pathname[PATH_MAX];
 	struct stat *st;
 
 	if ((st = (struct stat *)malloc(sizeof(struct stat))) == NULL)
 		return NULL;
-	snprintf(pathname, 256, "/proc/%d/%s", pid, filename);
+	snprintf(pathname, PATH_MAX-1, "/proc/%d/%s", pid, filename);
 	if (timeout(thestat, pathname, st, 5) != 0) {
 		free(st);
 		return NULL;
@@ -1558,6 +1566,7 @@ check_dir(const pid_t pid, const char *dirname, struct device_list *dev_head,
 	struct stat st, lst;
 	char *dirpath;
 	char filepath[PATH_MAX];
+	char real_filepath[PATH_MAX];
 
 	if (asprintf(&dirpath, "/proc/%d/%s", pid, dirname) < 0)
         return;
@@ -1596,6 +1605,15 @@ check_dir(const pid_t pid, const char *dirname, struct device_list *dev_head,
 			     dev_tmp = dev_tmp->next) {
 				if (thedev != dev_tmp->device)
 					continue;
+
+				/* check the paths match */
+				if (readlink(filepath, real_filepath, PATH_MAX-1) < 0) {
+				    if (strncmp(dev_tmp->name->filename, filepath, strlen(dev_tmp->name->filename)) != 0)
+					continue;
+				} else {
+				    if (strncmp(dev_tmp->name->filename, real_filepath, strlen(dev_tmp->name->filename)) != 0)
+					continue;
+				}
 				if (access == ACCESS_FILE
 				    && (lstat(filepath, &lst) == 0)
 				    && (lst.st_mode & S_IWUSR)) {
