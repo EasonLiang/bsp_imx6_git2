@@ -5,6 +5,7 @@
 *.so
 *.sum
 *.swp
+.version
 autom4te.cache/
 config/
 cov-int/

@@ -80,11 +80,11 @@ src_prtstat_SOURCES = src/prtstat.c src/prtstat.h
 src_prtstat_LDADD = @LIBINTL@
 nodist_src_killall_SOURCES = signames.h
 
-BUILT_SOURCES = src/signames.h
+BUILT_SOURCES = src/signames.h .version
 
 EXTRA_DIST = src/signames.c README.md misc/git-version-gen
 
-CLEANFILES = src/signames.h
+CLEANFILES = src/signames.h .version
 
 src/signames.h: src/signames.c Makefile src/$(am__dirstamp)
 		export LC_ALL=C ; \
@@ -98,10 +98,14 @@ src/signames.h: src/signames.c Makefile src/$(am__dirstamp)
 
 src/signals.c: src/signames.h
 
+.version:
+	echo $(VERSION) > $@-t && mv $@-t $@
+
 install-exec-hook:
 		cd $(DESTDIR)$(bindir) && \
 			( [ -h pstree.x11 ]  || $(LN_S) pstree pstree.x11)
-
+dist-hook:
+	echo $(VERSION) > $(distdir)/.tarball-version
 
 get-trans:
 	rsync -Lrtvz  translationproject.org::tp/latest/psmisc/  po
