@@ -12,7 +12,7 @@ run a System V init script
     Miloslav Trmac <mitr@redhat.com>,
     Petter Reinholdtsen <pere@hungry.com>
 
-:Version:   Jan 206
+:Version:   Jan 2006
 :Copyright: 2006 Red Hat, Inc.,  Petter Reinholdtsen <pere@hungry.com>
 :Licence:   GNU Public Licence v2 (GPLv2)
 
