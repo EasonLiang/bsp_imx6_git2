@@ -1,3 +1,21 @@
+init-system-helpers (1.58) unstable; urgency=medium
+
+  [ Guilhem Moulin ]
+  * Ensure dh_installsystemduser(1)-added snippets pass piuparts.
+    Claim ownership of /etc/systemd/user (like /etc/systemd/system)
+    and make `deb-systemd-helper --user unmask` remove
+    /var/lib/systemd/deb-systemd-user-helper-masked if empty
+    (like `deb-systemd-helper unmask` does for
+    /var/lib/systemd/deb-systemd-helper-masked).
+    For packages shipping user units installed with dh_installsystemduser(1).
+    (Closes: #964159)
+
+  [ Michael Biebl ]
+  * man: Fix typo in service(8) man page (Closes: #925995)
+  * update-rc.d: Consider /usr/lib/systemd/system when searching for unit files
+
+ -- Michael Biebl <biebl@debian.org>  Sun, 05 Jul 2020 11:50:05 +0200
+
 init-system-helpers (1.57) unstable; urgency=medium
 
   [ Dmitry Bogatov ]
