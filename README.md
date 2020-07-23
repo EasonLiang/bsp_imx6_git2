@@ -27,6 +27,9 @@ There is no email list, but there is both an
 [Issue Tracker](https://gitlab.com/psmisc/psmisc/-/issues) and
 [Merge Request Tracker](https://gitlab.com/psmisc/psmisc/-/merge_requests).
 
+I'm also trying out a Matrix room [#psmisc](https://matrix.to/#/#psmisc:dropbear.xyz)
+so we will see how it goes.
+
 ## Credits
 
 ### Translations
