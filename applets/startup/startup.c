@@ -9,6 +9,8 @@
  * Stefan Schmidt <stefan@openmoko.org>
  * Ross Burton <ross.burton@intel.com>
  *
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ *
  * Based on mb-applet-startup-monitor
  *
  * This program is free software; you can redistribute it and/or modify

@@ -3,6 +3,8 @@
 /*
  * (C) 2006-2013 Intel Corp
  *
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ *
  * Authors: Ross Burton <ross.burton@intel.com>
  *          Jorn Baayen <jorn@openedhand.com>
  *

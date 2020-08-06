@@ -1,6 +1,8 @@
 /*
  * (C) 2008 Intel.
  *
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ *
  * Licensed under the GPL v2 or greater.
  */
 

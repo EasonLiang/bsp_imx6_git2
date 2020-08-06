@@ -1,6 +1,8 @@
 /*
  * (C) 2006, 2007 OpenedHand Ltd.
  *
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ *
  * Authors: Jorn Baayen <jorn@openedhand.com>
  *          Ross Burton <ross@openedhand.com>
  *

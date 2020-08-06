@@ -1,3 +1,5 @@
+/* SPDX-License-Identifier: GPL-2.0-or-later */
+
 #ifndef _MB_NOTIFY_STORE
 #define _MB_NOTIFY_STORE
 

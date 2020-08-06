@@ -1,6 +1,8 @@
 /*
  * (C) 2008 OpenedHand Ltd.
  *
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ *
  * Author: Ross Burton <ross@openedhand.com>
  *
  * Licensed under the GPL v2 or greater.

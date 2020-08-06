@@ -1,6 +1,8 @@
 /* 
  * Author: Manuel Teira <manuel.teira@telefonica.net>
  *
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ *
  * Licensed under the GPL v2 or greater.
  */
 
