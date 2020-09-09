@@ -6,31 +6,35 @@
 .\" Copyright 2015 Vito Mule’.
 .\" Based on the pwdx(1) man page by Nicholas Miell.
 .\"
-.TH PSLOG 1 "September 12, 2015” "Linux" "Linux User's Manual"
+.TH PSLOG 1 "2020-09-09"Linux" "Linux User's Manual"
 .SH NAME
 pslog\- report current logs path of a process
-
 .SH SYNOPSIS
-.nf
-pslog pid...
-pslog -V
-.fi
-
+.ad l
+.B pslog
+.IR pid " \&...\&"
+.br
+.B pslog \-V
+.ad b
 .SH DESCRIPTION
-The pslog command reports the current working logs of a process.
-
-.SH "GENERAL OPTIONS"
-.TS
-l l l.
--V  show version  Displays version of program.
-.TE
-
+The
+.B pslog
+command reports the current working logs of a process.
+.SH OPTIONS
+.TP
+.B \-V
+Display version information.
 .SH "SEE ALSO"
-ps(1) pgrep(1) pwdx(1)
-
-.SH STANDARDS
-No standards apply.
-
+.BR pgrep (1),
+.BR ps (1),
+.BR pwdx (1).
 .SH AUTHOR
-Vito Mule’ <mulevito@gmail.com> wrote pslog in 2015. Please send bug
-reports to  <mulevito@gmail.com>.
+Vito Mule’
+.MT mulevito@gmail.com
+.ME
+wrote
+.B pslog
+in 2015. Please send bug reports to
+.MT mulevito@gmail.com
+.ME .
+

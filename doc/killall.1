@@ -1,12 +1,12 @@
 .\"
 .\" Copyright 1993-2002 Werner Almesberger
-.\"           2002-2018 Craig Small
+.\"           2002-2020 Craig Small
 .\" This program is free software; you can redistribute it and/or modify
 .\" it under the terms of the GNU General Public License as published by
 .\" the Free Software Foundation; either version 2 of the License, or
 .\" (at your option) any later version.
 .\"
-.TH KILLALL 1 "2018-05-06" "psmisc" "User Commands"
+.TH KILLALL 1 "2020-09-09" "psmisc" "User Commands"
 .SH NAME
 killall \- kill processes by name
 .SH SYNOPSIS
@@ -66,7 +66,7 @@ independent of their name.
 .B killall
 returns a zero return code if at least one process has been killed for
 each listed command, or no commands were listed and at least one
-process matched the -u and -Z search criteria.
+process matched the \fB\-u\fR and \fB\-Z\fR search criteria.
 .B killall
 returns non-zero otherwise.
 .PP
@@ -89,7 +89,7 @@ prints a message for each skipped entry
 if
 .B \-v
 is specified in addition to
-.BR \-e ,
+.BR \-e .
 .IP "\fB\-I\fP, \fB\-\-ignore\-case\fP"
 Do case insensitive process name match.
 .IP "\fB\-g\fP, \fB\-\-process\-group\fP"
@@ -106,7 +106,7 @@ against all namespaces.
 .IP "\fB\-o\fP, \fB\-\-older\-than\fP"
 Match only processes that are older (started before) the time
 specified.  The time is specified as a float then a unit.  The units
-are s,m,h,d,w,M,y for seconds, minutes, hours, days, weeks, Months and
+are s,m,h,d,w,M,y for seconds, minutes, hours, days, weeks, months and
 years respectively.
 .IP "\fB\-q\fP, \fB\-\-quiet\fP"
 Do not complain if no processes were killed.
@@ -164,7 +164,7 @@ may not be able to match them correctly.
 .PP
 .B killall
 has a limit of names that can be specified on the command line.  This
-figure is the size of an unsigned long multiplied by 8.  For most 32
+figure is the size of an unsigned long integer multiplied by 8.  For most 32
 bit systems the limit is 32 and similarly for a 64 bit system the limit
 is usually 64.
 .SH "SEE ALSO"

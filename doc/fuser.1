@@ -1,12 +1,12 @@
 .\"
 .\" Copyright 1993-2005 Werner Almesberger
-.\"           2005-2016 Craig Small
+.\"           2005-2020 Craig Small
 .\" This program is free software; you can redistribute it and/or modify
 .\" it under the terms of the GNU General Public License as published by
 .\" the Free Software Foundation; either version 2 of the License, or
 .\" (at your option) any later version.
 .\"
-.TH FUSER 1 "2016-04-04" "psmisc" "User Commands"
+.TH FUSER 1 "2020-09-09" "psmisc" "User Commands"
 .SH NAME
 fuser \- identify processes using files or sockets
 .SH SYNOPSIS
@@ -78,7 +78,7 @@ corresponding name space has to be selected with the
 .B \-n
 option. By default
 .B fuser
-will look in both IPv6 and IPv4 sockets.  To change the default,
+will look in both IPv6 and IPv4 sockets.  To change the default
 behavior, use the
 .B \-4
 and
@@ -101,7 +101,7 @@ Show all files specified on the command line.  By default, only files
 that are accessed by at least one process are shown.
 .TP
 .B \-c
-Same as \-m option, used for POSIX compatibility.
+Same as \fB\-m\fR option, used for POSIX compatibility.
 .TP
 .B \-f
 Silently ignored, used for POSIX compatibility.
@@ -138,7 +138,7 @@ List all known signal names.
 .I NAME
 specifies a file on a mounted file system or a block device that is
 mounted.  All processes accessing files on that file system are listed.
-If a directory file is specified, it is automatically changed to
+If a directory is specified, it is automatically changed to
 .IR NAME /.
 to use any file system that might be mounted on that directory.
 .TP
@@ -156,7 +156,7 @@ ignored if
 .B \-k
 is not present too.
 .TP
-.BI \-n " SPACE\fR, " "\-\-namespace " SPACE
+.BI \-n " NAMESPACE\fR, " "\-\-namespace " NAMESPACE
 Select a different name space.  The name spaces
 .B file
 (file names, the default),
@@ -229,9 +229,9 @@ location of the proc file system
 .B fuser \-km /home
 kills all processes accessing the file system /home in any way.
 .TP
-.BI "if fuser \-s /dev/ttyS1; then :; else " something "; fi"
+.BI "if fuser \-s /dev/ttyS1; then :; else " command "; fi"
 invokes
-.I something
+.I command
 if no other process is using /dev/ttyS1.
 .TP
 .B fuser telnet/tcp
@@ -280,12 +280,13 @@ option only works on processes.  If the user is the kernel,
 will print an advice, but take no action beyond that.
 .SH BUGS
 .PP
-fuser \-m /dev/sgX will show (or kill with the \-k flag) all processes,
+.B fuser \-m  /dev/sgX
+will show (or kill with the \fB\-k\fR flag) all processes,
 even if you don't have that device configured.  There may be other
 devices it does this for too.
 .PP
-The mount \-m option will match any file within the same device as the
-specified file, use the \-M option as well if you mean to specify only
+The mount \fB\-m\fR option will match any file within the same device as the
+specified file, use the \fB\-M\fR option as well if you mean to specify only
 the mount point.
 .SH "SEE ALSO"
 .BR kill (1),

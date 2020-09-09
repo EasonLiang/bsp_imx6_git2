@@ -1,12 +1,12 @@
 .\"
 .\" Copyright 1993-2002 Werner Almesberger
-.\"           2002-2019 Craig Small
+.\"           2002-2020 Craig Small
 .\" This program is free software; you can redistribute it and/or modify
 .\" it under the terms of the GNU General Public License as published by
 .\" the Free Software Foundation; either version 2 of the License, or
 .\" (at your option) any later version.
 .\"
-.TH PSTREE 1 "2019-10-23" "psmisc" "User Commands"
+.TH PSTREE 1 "2020-09-09" "psmisc" "User Commands"
 .SH NAME
 pstree \- display a tree of processes
 .SH SYNOPSIS
@@ -80,7 +80,7 @@ will not return until that has happened.  This is useful for when
 .B pstree
 is run in a xterminal.
 .PP
-Certain kernel or mount parameters, such as the hidepid option for procfs,
+Certain kernel or mount parameters, such as the \fIhidepid\fR option for procfs,
 will hide information for some processes. In these situations
 .B pstree
 will attempt to build the tree without this information, showing process
@@ -129,7 +129,7 @@ Display long lines.  By default, lines are truncated to either the COLUMNS
 environment variable or the display width.  If neither of these methods work,
 the default of 132 columns is used.
 .IP \fB\-n\fP
-Sort processes with the same ancestor by PID instead of by name. 
+Sort processes with the same parent by PID instead of by name. 
 (Numeric sort.)
 .IP \fB\-N\fP
 Show individual trees for each namespace of the type specified.  The
@@ -144,7 +144,7 @@ implicitly disables compaction.
 .IP \fB\-s\fP
 Show parent processes of the specified process.
 .IP \fB\-S\fP
-Show namespaces transitions.  Like \-N, the output is limited when running
+Show namespaces transitions.  Like \fB\-N\fR, the output is limited when running
 as a regular user.
 .IP \fB\-t\fP
 Show full names for threads when available.
@@ -159,12 +159,14 @@ Use UTF-8 (Unicode) line drawing characters.  Under Linux 1.1-54 and
 above, UTF-8 mode is entered on the console with
 .B echo \-e '\\033%8'
 and left with
-.B echo \-e '\\033%@'
+.BR "echo \-e '\\033%@'" .
 .IP \fB\-V\fP
 Display version information.
 .IP \fB\-Z\fP
 (SELinux) Show security context for each process.  This flag will only
-work if pstree is compiled with SELinux support.
+work if
+.B pstree
+is compiled with SELinux support.
 .SH FILES
 .TP
 /proc
