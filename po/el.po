@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc-23.2\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2020-03-11 06:54+1100\n"
+"POT-Creation-Date: 2020-09-09 21:01+1000\n"
 "PO-Revision-Date: 2019-04-29 14:36+0200\n"
 "Last-Translator: Lefteris Dimitroulakis <ledimitro@gmail.com>\n"
 "Language-Team: Greek <team@lists.gnome.gr>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Lokalize 2.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/fuser.c:137
+#: src/fuser.c:145
 #, c-format
 msgid ""
 "Usage: fuser [-fIMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE]\n"
@@ -70,7 +70,7 @@ msgstr ""
 "    -w,--writeonly    τερματισμός μόνο των διεργασιών με άδεια εγγραφής\n"
 "    -V,--version        εμφάνιση πληροφοριών έκδοσης\n"
 
-#: src/fuser.c:158
+#: src/fuser.c:166
 #, c-format
 msgid ""
 "  -4,--ipv4             search IPv4 sockets only\n"
@@ -79,7 +79,7 @@ msgstr ""
 "    -4,--ipv4        αναζήτηση μόνο IPv4 sockets\n"
 "    -6,--ipv6        αναζήτηση μόνο IPv6 sockets\n"
 
-#: src/fuser.c:161
+#: src/fuser.c:169
 #, c-format
 msgid ""
 "  -                     reset options\n"
@@ -92,20 +92,20 @@ msgstr ""
 "  ονόματα udp/tcp: [local_port][,[rmt_host][,[rmt_port]]]\n"
 "\n"
 
-#: src/fuser.c:168
+#: src/fuser.c:176
 #, c-format
 msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
-#: src/fuser.c:171 src/killall.c:808 src/pstree.c:1231
+#: src/fuser.c:179 src/killall.c:808 src/pstree.c:1235
 #, fuzzy, c-format
 msgid ""
 "Copyright (C) 1993-2020 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr "Copyright (C) 1993-2009 Werner Almesberger και Craig Small\n"
 
-#: src/fuser.c:173 src/killall.c:810 src/peekfd.c:195 src/prtstat.c:68
-#: src/pstree.c:1233
+#: src/fuser.c:181 src/killall.c:810 src/peekfd.c:195 src/prtstat.c:68
+#: src/pstree.c:1237
 #, c-format
 msgid ""
 "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
@@ -118,114 +118,114 @@ msgstr ""
 "the terms of the GNU General Public License.\n"
 "For more information about these matters, see the files named COPYING.\n"
 
-#: src/fuser.c:195
+#: src/fuser.c:203
 #, c-format
 msgid "Cannot open /proc directory: %s\n"
 msgstr "Αδυναμία ανοίγματος καταλόγου /proc: %s\n"
 
-#: src/fuser.c:386 src/fuser.c:439 src/fuser.c:2058
+#: src/fuser.c:394 src/fuser.c:447 src/fuser.c:2076
 #, c-format
 msgid "Cannot allocate memory for matched proc: %s\n"
 msgstr "Αδύνατη η εκχώρηση μνήμης στην αντίστοιχη διεργασία: %s\n"
 
-#: src/fuser.c:466
+#: src/fuser.c:474
 #, c-format
 msgid "Specified filename %s does not exist.\n"
 msgstr "Το όνομα αρχείου %s δεν υπάρχει.\n"
 
-#: src/fuser.c:469
+#: src/fuser.c:477
 #, c-format
 msgid "Cannot stat %s: %s\n"
 msgstr "Αδύνατον να προσδιορίσω %s: %s\n"
 
-#: src/fuser.c:606
+#: src/fuser.c:614
 #, c-format
 msgid "Cannot resolve local port %s: %s\n"
 msgstr "Δεν μπορώ να βρω την τοπική θύρα %s: %s\n"
 
-#: src/fuser.c:626
+#: src/fuser.c:634
 #, c-format
 msgid "Unknown local port AF %d\n"
 msgstr "Άγνωστη τοπική θύρα AF %d\n"
 
-#: src/fuser.c:715
+#: src/fuser.c:723
 #, c-format
 msgid "Cannot open protocol file \"%s\": %s\n"
 msgstr "Δεν μπορώ να ανοίξω αρχείο πρωτοκόλλου \"%s\": %s\n"
 
-#: src/fuser.c:1018
+#: src/fuser.c:1026
 #, c-format
 msgid "Specified filename %s is not a mountpoint.\n"
 msgstr "Το όνομα αρχείου %s δεν αποτελεί σημείο προσάρτησης.\n"
 
-#: src/fuser.c:1110
+#: src/fuser.c:1118
 #, c-format
 msgid "%s: Invalid option %s\n"
 msgstr "%s: μη έγκυρη επιλογή %s\n"
 
-#: src/fuser.c:1164
+#: src/fuser.c:1172
 msgid "Namespace option requires an argument."
 msgstr "Η επιλογή του πίνακα ονομάτων απαιτεί όρισμα"
 
-#: src/fuser.c:1181
+#: src/fuser.c:1189
 msgid "Invalid namespace name"
 msgstr "Λάθος όνομα"
 
-#: src/fuser.c:1246
+#: src/fuser.c:1254
 msgid "You can only use files with mountpoint options"
 msgstr ""
 "Δεν μπορείτε να χρησιμοποιήσετε παρά τα αρχεία με την επιλογή σημείου "
 "προσάρτησης"
 
-#: src/fuser.c:1296
+#: src/fuser.c:1304
 msgid "No process specification given"
 msgstr "Ουδεμία προδιαγραφή διεργασίας δόθηκε"
 
-#: src/fuser.c:1311
+#: src/fuser.c:1319
 msgid "all option cannot be used with silent option."
 msgstr "Η επιλογή all δεν μπορεί να χρησιμοποιηθεί με την επιλογή silent."
 
-#: src/fuser.c:1316
+#: src/fuser.c:1324
 msgid "You cannot search for only IPv4 and only IPv6 sockets at the same time"
 msgstr ""
 "Δεν μπορείτε να ψάξετε συγχρόνως μόνο για sockets IPv4 και μόνο για sockets "
 "IPv6."
 
-#: src/fuser.c:1405
+#: src/fuser.c:1413
 #, c-format
 msgid "%*s USER        PID ACCESS COMMAND\n"
 msgstr "%*s USER        PID ACCESS COMMAND\n"
 
-#: src/fuser.c:1438 src/fuser.c:1495
+#: src/fuser.c:1446 src/fuser.c:1503
 msgid "(unknown)"
 msgstr "(άγνωστο)"
 
-#: src/fuser.c:1579 src/fuser.c:1618
+#: src/fuser.c:1588 src/fuser.c:1636
 #, c-format
 msgid "Cannot stat file %s: %s\n"
 msgstr "Αδύνατον να προσδιορίσω το αρχείο %s: %s\n"
 
-#: src/fuser.c:1711
+#: src/fuser.c:1729
 #, c-format
 msgid "Cannot open /proc/net/unix: %s\n"
 msgstr "Αδυναμία ανοίγματος του /proc/net/unix: %s\n"
 
-#: src/fuser.c:1806
+#: src/fuser.c:1824
 #, c-format
 msgid "Kill process %d ? (y/N) "
 msgstr "Kill process %d ? (y/N) "
 
-#: src/fuser.c:1842
+#: src/fuser.c:1860
 #, c-format
 msgid "Could not kill process %d: %s\n"
 msgstr "Αδύνατον να τερματίσω τη διεργασία %d: %s\n"
 
-#: src/fuser.c:1857
+#: src/fuser.c:1875
 #, c-format
 msgid "Cannot open a network socket.\n"
 msgstr "Δεν μπορώ να ανοίξω ένα δικτυακό socket.\n"
 
-#: src/fuser.c:1861
+#: src/fuser.c:1879
 #, c-format
 msgid "Cannot find socket's device number.\n"
 msgstr "Αδύνατον να βρω τον αριθμό της συσκευής του socket.\n"
@@ -577,12 +577,12 @@ msgstr ""
 "/proc δεν είναι προσαρτημένο, αδύνατον να πάρω τα στατιστικά από το /proc/"
 "self/stat.\n"
 
-#: src/pstree.c:1139
+#: src/pstree.c:1143
 #, c-format
 msgid "%s is empty (not mounted ?)\n"
 msgstr "%s είναι άδειο (μή προσαρτημένο ;)\n"
 
-#: src/pstree.c:1173
+#: src/pstree.c:1177
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -590,7 +590,7 @@ msgid ""
 "   or: pstree -V\n"
 msgstr ""
 
-#: src/pstree.c:1178
+#: src/pstree.c:1182
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -598,7 +598,7 @@ msgid ""
 "   or: pstree -V\n"
 msgstr ""
 
-#: src/pstree.c:1183
+#: src/pstree.c:1187
 #, c-format
 msgid ""
 "\n"
@@ -606,7 +606,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/pstree.c:1186
+#: src/pstree.c:1190
 #, c-format
 msgid ""
 "  -a, --arguments     show command line arguments\n"
@@ -614,21 +614,21 @@ msgid ""
 "  -c, --compact-not   don't compact identical subtrees\n"
 msgstr ""
 
-#: src/pstree.c:1190
+#: src/pstree.c:1194
 #, c-format
 msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
 "                      (age)\n"
 msgstr ""
 
-#: src/pstree.c:1193
+#: src/pstree.c:1197
 #, c-format
 msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
 "  -G, --vt100         use VT100 line drawing characters\n"
 msgstr ""
 
-#: src/pstree.c:1196
+#: src/pstree.c:1200
 #, c-format
 msgid ""
 "  -h, --highlight-all highlight current process and its ancestors\n"
@@ -637,7 +637,7 @@ msgid ""
 "  -l, --long          don't truncate long lines\n"
 msgstr ""
 
-#: src/pstree.c:1201
+#: src/pstree.c:1205
 #, c-format
 msgid ""
 "  -n, --numeric-sort  sort output by PID\n"
@@ -647,7 +647,7 @@ msgid ""
 "  -p, --show-pids     show PIDs; implies -c\n"
 msgstr ""
 
-#: src/pstree.c:1207
+#: src/pstree.c:1211
 #, c-format
 msgid ""
 "  -s, --show-parents  show parents of the selected process\n"
@@ -656,7 +656,7 @@ msgid ""
 "  -T, --hide-threads  hide threads, show only processes\n"
 msgstr ""
 
-#: src/pstree.c:1212
+#: src/pstree.c:1216
 #, c-format
 msgid ""
 "  -u, --uid-changes   show uid transitions\n"
@@ -664,7 +664,7 @@ msgid ""
 "  -V, --version       display version information\n"
 msgstr ""
 
-#: src/pstree.c:1217
+#: src/pstree.c:1221
 #, c-format
 msgid ""
 "  -Z, --security-context\n"
@@ -673,7 +673,7 @@ msgstr ""
 "  -Z, --security-context\n"
 "                      show SELinux security contexts\n"
 
-#: src/pstree.c:1220
+#: src/pstree.c:1224
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -685,37 +685,37 @@ msgstr ""
 "    USER   εμφάνιση μόνο δέντρων rooted at processes of this user\n"
 "\n"
 
-#: src/pstree.c:1228
+#: src/pstree.c:1232
 #, c-format
 msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
-#: src/pstree.c:1355
+#: src/pstree.c:1359
 #, c-format
 msgid "TERM is not set\n"
 msgstr "Η μεταβλητή TERM δεν έχει καθοριστεί\n"
 
-#: src/pstree.c:1359
+#: src/pstree.c:1363
 #, c-format
 msgid "Can't get terminal capabilities\n"
 msgstr "Δεν μπορώ να πάρω τις ικανότητες τερματικού\n"
 
-#: src/pstree.c:1377
+#: src/pstree.c:1381
 #, c-format
 msgid "procfs file for %s namespace not available\n"
 msgstr "το αρχείο procfs για %s δεν είναι διαθέσιμο\n"
 
-#: src/pstree.c:1430
+#: src/pstree.c:1434
 #, c-format
 msgid "No such user name: %s\n"
 msgstr "Δεν υπάρχει τέτοιο όνομα χρήστη: %s\n"
 
-#: src/pstree.c:1456
+#: src/pstree.c:1460
 #, c-format
 msgid "No processes found.\n"
 msgstr "Δεν βρέθηκαν διεργασίες.\n"
 
-#: src/pstree.c:1464
+#: src/pstree.c:1468
 #, c-format
 msgid "Press return to close\n"
 msgstr "Πάτησε return για κλείσιμο\n"

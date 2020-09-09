@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc 23.3\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2020-03-11 06:54+1100\n"
+"POT-Creation-Date: 2020-09-09 21:01+1000\n"
 "PO-Revision-Date: 2019-10-24 23:52+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Lokalize 19.08.2\n"
 
-#: src/fuser.c:137
+#: src/fuser.c:145
 #, c-format
 msgid ""
 "Usage: fuser [-fIMuvw] [-a|-s] [-4|-6] [-c|-m|-n SPACE]\n"
@@ -67,7 +67,7 @@ msgstr ""
 "  -w,--writeonly        只砍除有寫入權限的行程\n"
 "  -V,--version          顯示版本資訊\n"
 
-#: src/fuser.c:158
+#: src/fuser.c:166
 #, c-format
 msgid ""
 "  -4,--ipv4             search IPv4 sockets only\n"
@@ -76,7 +76,7 @@ msgstr ""
 "  -4,--ipv4             只搜尋 IPv4 通訊端\n"
 "  -6,--ipv6             只搜尋 IPv6 通訊端\n"
 
-#: src/fuser.c:161
+#: src/fuser.c:169
 #, c-format
 msgid ""
 "  -                     reset options\n"
@@ -89,12 +89,12 @@ msgstr ""
 "  udp/tcp 名稱：[本地埠號][,[遠端主機][,[遠端埠號]]]\n"
 "\n"
 
-#: src/fuser.c:168
+#: src/fuser.c:176
 #, c-format
 msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
-#: src/fuser.c:171 src/killall.c:808 src/pstree.c:1231
+#: src/fuser.c:179 src/killall.c:808 src/pstree.c:1235
 #, fuzzy, c-format
 msgid ""
 "Copyright (C) 1993-2020 Werner Almesberger and Craig Small\n"
@@ -103,8 +103,8 @@ msgstr ""
 "著作權 © 1993-2017 Werner Almesberger 和 Craig Small\n"
 "\n"
 
-#: src/fuser.c:173 src/killall.c:810 src/peekfd.c:195 src/prtstat.c:68
-#: src/pstree.c:1233
+#: src/fuser.c:181 src/killall.c:810 src/peekfd.c:195 src/prtstat.c:68
+#: src/pstree.c:1237
 #, c-format
 msgid ""
 "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
@@ -117,110 +117,110 @@ msgstr ""
 "來再次散布它。\n"
 "請參看名為 COPYING 的檔案，以獲得更多關於這些問題的資訊。\n"
 
-#: src/fuser.c:195
+#: src/fuser.c:203
 #, c-format
 msgid "Cannot open /proc directory: %s\n"
 msgstr "無法開啟 /proc 目錄：%s\n"
 
-#: src/fuser.c:386 src/fuser.c:439 src/fuser.c:2058
+#: src/fuser.c:394 src/fuser.c:447 src/fuser.c:2076
 #, c-format
 msgid "Cannot allocate memory for matched proc: %s\n"
 msgstr "無法為符合的行程配置記憶體：%s\n"
 
-#: src/fuser.c:466
+#: src/fuser.c:474
 #, c-format
 msgid "Specified filename %s does not exist.\n"
 msgstr "指定的檔名 %s 不存在。\n"
 
-#: src/fuser.c:469
+#: src/fuser.c:477
 #, c-format
 msgid "Cannot stat %s: %s\n"
 msgstr "無法顯示 %s:%s\n"
 
-#: src/fuser.c:606
+#: src/fuser.c:614
 #, c-format
 msgid "Cannot resolve local port %s: %s\n"
 msgstr "無法解析本機通訊埠 %s:%s\n"
 
-#: src/fuser.c:626
+#: src/fuser.c:634
 #, c-format
 msgid "Unknown local port AF %d\n"
 msgstr "不明的本機通訊埠 AF %d\n"
 
-#: src/fuser.c:715
+#: src/fuser.c:723
 #, c-format
 msgid "Cannot open protocol file \"%s\": %s\n"
 msgstr "無法開啟協定檔案「%s」：%s\n"
 
-#: src/fuser.c:1018
+#: src/fuser.c:1026
 #, c-format
 msgid "Specified filename %s is not a mountpoint.\n"
 msgstr "指定的檔名 %s 並非掛載點。\n"
 
-#: src/fuser.c:1110
+#: src/fuser.c:1118
 #, c-format
 msgid "%s: Invalid option %s\n"
 msgstr "%s：無效的選項 %s\n"
 
-#: src/fuser.c:1164
+#: src/fuser.c:1172
 msgid "Namespace option requires an argument."
 msgstr "命名空間選項需要一個引數。"
 
-#: src/fuser.c:1181
+#: src/fuser.c:1189
 msgid "Invalid namespace name"
 msgstr "無效的命名空間名稱"
 
-#: src/fuser.c:1246
+#: src/fuser.c:1254
 msgid "You can only use files with mountpoint options"
 msgstr "您只能使用具備掛載點選項的檔案"
 
-#: src/fuser.c:1296
+#: src/fuser.c:1304
 msgid "No process specification given"
 msgstr "沒有給定任何行程規格"
 
-#: src/fuser.c:1311
+#: src/fuser.c:1319
 msgid "all option cannot be used with silent option."
 msgstr "所有選項無法與安靜選項一起使用。"
 
-#: src/fuser.c:1316
+#: src/fuser.c:1324
 msgid "You cannot search for only IPv4 and only IPv6 sockets at the same time"
 msgstr "您無法同時只搜尋 IPv4 又只搜尋 IPv6 通訊端"
 
-#: src/fuser.c:1405
+#: src/fuser.c:1413
 #, c-format
 msgid "%*s USER        PID ACCESS COMMAND\n"
 msgstr "%*s 使用者      PID 存取命令\n"
 
-#: src/fuser.c:1438 src/fuser.c:1495
+#: src/fuser.c:1446 src/fuser.c:1503
 msgid "(unknown)"
 msgstr "(不明)"
 
-#: src/fuser.c:1579 src/fuser.c:1618
+#: src/fuser.c:1588 src/fuser.c:1636
 #, c-format
 msgid "Cannot stat file %s: %s\n"
 msgstr "無法顯示檔案 %s：%s\n"
 
-#: src/fuser.c:1711
+#: src/fuser.c:1729
 #, c-format
 msgid "Cannot open /proc/net/unix: %s\n"
 msgstr "無法開啟 /proc/net/unix：%s\n"
 
-#: src/fuser.c:1806
+#: src/fuser.c:1824
 #, c-format
 msgid "Kill process %d ? (y/N) "
 msgstr "砍除行程 %d？(y/N) "
 
-#: src/fuser.c:1842
+#: src/fuser.c:1860
 #, c-format
 msgid "Could not kill process %d: %s\n"
 msgstr "無法砍除行程 %d：%s\n"
 
-#: src/fuser.c:1857
+#: src/fuser.c:1875
 #, c-format
 msgid "Cannot open a network socket.\n"
 msgstr "無法開啟網路通訊端。\n"
 
-#: src/fuser.c:1861
+#: src/fuser.c:1879
 #, c-format
 msgid "Cannot find socket's device number.\n"
 msgstr "找不到通訊端裝置編號。\n"
@@ -578,12 +578,12 @@ msgstr "您必須提供至少一個 PID。"
 msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
 msgstr "/proc 未被掛載，無法取得 /proc/self/stat 的狀態。\n"
 
-#: src/pstree.c:1139
+#: src/pstree.c:1143
 #, c-format
 msgid "%s is empty (not mounted ?)\n"
 msgstr "%s 是空的 (尚未掛載？)\n"
 
-#: src/pstree.c:1173
+#: src/pstree.c:1177
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -594,7 +594,7 @@ msgstr ""
 "              [ -A | -G | -U ] [ PID | 使用者 ]\n"
 "  或:  pstree -V\n"
 
-#: src/pstree.c:1178
+#: src/pstree.c:1182
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -605,7 +605,7 @@ msgstr ""
 "              [ -A | -G | -U ] [ PID | 使用者 ]\n"
 "  或:  pstree -V\n"
 
-#: src/pstree.c:1183
+#: src/pstree.c:1187
 #, c-format
 msgid ""
 "\n"
@@ -616,7 +616,7 @@ msgstr ""
 "顯示行程的樹狀圖。\n"
 "\n"
 
-#: src/pstree.c:1186
+#: src/pstree.c:1190
 #, c-format
 msgid ""
 "  -a, --arguments     show command line arguments\n"
@@ -627,14 +627,14 @@ msgstr ""
 "  -A, --ascii         使用 ASCII 行繪製字元\n"
 "  -c, --compact-not   不合併完全相同的子樹\n"
 
-#: src/pstree.c:1190
+#: src/pstree.c:1194
 #, c-format
 msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
 "                      (age)\n"
 msgstr "  -C, --color=類型    依屬性 (age) 為行程上色\n"
 
-#: src/pstree.c:1193
+#: src/pstree.c:1197
 #, c-format
 msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
@@ -643,7 +643,7 @@ msgstr ""
 "  -g, --show-pgids    顯示行程的群組 ID；隱含 -c\n"
 "  -G, --vt100         使用 VT100 行繪製字元\n"
 
-#: src/pstree.c:1196
+#: src/pstree.c:1200
 #, c-format
 msgid ""
 "  -h, --highlight-all highlight current process and its ancestors\n"
@@ -656,7 +656,7 @@ msgstr ""
 "                      標示這個及上級行程\n"
 "  -l, --long          不截短長行\n"
 
-#: src/pstree.c:1201
+#: src/pstree.c:1205
 #, c-format
 msgid ""
 "  -n, --numeric-sort  sort output by PID\n"
@@ -671,7 +671,7 @@ msgstr ""
 "                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     顯示 PID；隱含 -c\n"
 
-#: src/pstree.c:1207
+#: src/pstree.c:1211
 #, c-format
 msgid ""
 "  -s, --show-parents  show parents of the selected process\n"
@@ -684,7 +684,7 @@ msgstr ""
 "  -t, --thread-names  顯示完整執行緒名稱\n"
 "  -T, --hide-threads  隱藏執行緒，只顯示行程\n"
 
-#: src/pstree.c:1212
+#: src/pstree.c:1216
 #, c-format
 msgid ""
 "  -u, --uid-changes   show uid transitions\n"
@@ -695,7 +695,7 @@ msgstr ""
 "  -U, --unicode       使用 UTF-8 (Unicode) 行繪製字元\n"
 "  -V, --version       顯示版本資訊\n"
 
-#: src/pstree.c:1217
+#: src/pstree.c:1221
 #, c-format
 msgid ""
 "  -Z, --security-context\n"
@@ -704,7 +704,7 @@ msgstr ""
 "  -Z, --security-context\n"
 "                      顯示 SELinux 安全性上下文\n"
 
-#: src/pstree.c:1220
+#: src/pstree.c:1224
 #, c-format
 msgid ""
 "\n"
@@ -717,37 +717,37 @@ msgstr ""
 "  使用者 只顯示源自此使用者行程的樹狀結構\n"
 "\n"
 
-#: src/pstree.c:1228
+#: src/pstree.c:1232
 #, c-format
 msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
-#: src/pstree.c:1355
+#: src/pstree.c:1359
 #, c-format
 msgid "TERM is not set\n"
 msgstr "TERM 尚未設定\n"
 
-#: src/pstree.c:1359
+#: src/pstree.c:1363
 #, c-format
 msgid "Can't get terminal capabilities\n"
 msgstr "無法取得終端機功能\n"
 
-#: src/pstree.c:1377
+#: src/pstree.c:1381
 #, c-format
 msgid "procfs file for %s namespace not available\n"
 msgstr "無法使用 procfs 檔案於 %s 命名空間\n"
 
-#: src/pstree.c:1430
+#: src/pstree.c:1434
 #, c-format
 msgid "No such user name: %s\n"
 msgstr "無此類使用者名稱：%s\n"
 
-#: src/pstree.c:1456
+#: src/pstree.c:1460
 #, c-format
 msgid "No processes found.\n"
 msgstr "找不到任何行程。\n"
 
-#: src/pstree.c:1464
+#: src/pstree.c:1468
 #, c-format
 msgid "Press return to close\n"
 msgstr "按下輸入鍵以關閉\n"
