@@ -479,26 +479,28 @@ static void out_newline(void)
     cur_x = 1;
 }
 
-static void reset_color(void){
-    if (color_highlight != COLOR_NONE)
-	out_string("\033[0m");
+static void reset_color(void)
+{
+    if (color_highlight != COLOR_NONE) {
+        char *str = "\033[0m";
+        while (*str) putchar(*str++);
+    }
 }
 
-static void print_proc_color(const int process_age) {
-
+static void print_proc_color(const int process_age)
+{
+    struct age_to_color *p;
     switch(color_highlight) {
-	case COLOR_AGE: {
-	    struct age_to_color *p;
-	    for(p=age_to_color; p->age_seconds != 0; p++)
-		if (process_age < p->age_seconds)
-		    break;
-	    out_string(p->color);
-			}
-	    break;
-	default:
-	    break;
-    }
+    case COLOR_AGE:
+        for(p=age_to_color; p->age_seconds != 0; p++)
+        if (process_age < p->age_seconds) break;
 
+        char *str = p->color;
+        while (*str) putchar(*str++);
+        break;
+    default:
+        break;
+    }
 }
 
 static PROC *find_proc(pid_t pid)
