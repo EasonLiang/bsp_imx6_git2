@@ -1606,13 +1606,15 @@ check_dir(const pid_t pid, const char *dirname, struct device_list *dev_head,
 				if (thedev != dev_tmp->device)
 					continue;
 
-				/* check the paths match */
-				if (readlink(filepath, real_filepath, PATH_MAX-1) < 0) {
-				    if (strncmp(dev_tmp->name->filename, filepath, strlen(dev_tmp->name->filename)) != 0)
-					continue;
-				} else {
-				    if (strncmp(dev_tmp->name->filename, real_filepath, strlen(dev_tmp->name->filename)) != 0)
-					continue;
+				/* check the paths match if it is not a block device */
+				if (! S_ISBLK(dev_tmp->name->st.st_mode)) {
+				    if (readlink(filepath, real_filepath, PATH_MAX-1) < 0) {
+					if (strncmp(dev_tmp->name->filename, filepath, strlen(dev_tmp->name->filename)) != 0)
+					    continue;
+				    } else {
+					if (strncmp(dev_tmp->name->filename, real_filepath, strlen(dev_tmp->name->filename)) != 0)
+					    continue;
+				    }
 				}
 				if (access == ACCESS_FILE
 				    && (lstat(filepath, &lst) == 0)
