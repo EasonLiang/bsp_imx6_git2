@@ -511,7 +511,7 @@ endif
 	dh_missing -a --fail-missing
 	dh_makeshlibs -p$(package-ti) -V "$(package-ti) $(sodepver)" --add-udeb=$(package-ti)-udeb -- -c4
 	dh_makeshlibs -p$(package-lib) -V "$(package-lib) $(sodepver)" -- -c4
-	dh_makeshlibs -p$(package-libw) -V "$(package-libw) $(sodepver)" -- -c4
+	dh_makeshlibs -p$(package-libw) -V "$(package-libw) $(sodepver)" --add-udeb=$(package-libw)-udeb -- -c4
 	dh_makeshlibs -p$(package-ti-legacy) -V "$(package-ti-legacy) $(sodepver)" -- -c4
 	dh_makeshlibs -p$(package-lib-legacy) -V "$(package-lib-legacy) $(sodepver)" -- -c4
 	dh_makeshlibs -p$(package-libw-legacy) -V "$(package-libw-legacy) $(sodepver)" -- -c4
@@ -530,6 +530,10 @@ endif
 	dh_installdeb -a
 	# We don't install the tic library in the libtinfo6 udeb, adjust the shlibs file
 	sed -i '/^udeb: libtic /d' debian/$(package-ti)/DEBIAN/shlibs
+	# For the ncurses udeb, we discard libformw, libmenuw and libpanelw as well
+	sed -i '/^udeb: libformw /d' debian/$(package-libw)/DEBIAN/shlibs
+	sed -i '/^udeb: libmenuw /d' debian/$(package-libw)/DEBIAN/shlibs
+	sed -i '/^udeb: libpanelw /d' debian/$(package-libw)/DEBIAN/shlibs
 	dh_md5sums -a
 	dh_builddeb -a
 

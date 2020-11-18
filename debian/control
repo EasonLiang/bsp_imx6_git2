@@ -114,6 +114,21 @@ Description: shared libraries for terminal handling (wide character support)
  This package contains the shared libraries necessary to run programs
  compiled with ncursesw, which includes support for wide characters.
 
+Package: libncursesw6-udeb
+Package-Type: udeb
+Section: debian-installer
+Architecture: any
+Priority: optional
+Depends: libtinfo6-udeb (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Build-Profiles: <!noudeb>
+Description: shared libraries for terminal handling (wide character support) - udeb
+ The ncurses library routines are a terminal-independent method of
+ updating character screens with reasonable optimization.
+ .
+ This package contains the stripped-down udeb version of shared libraries
+ necessary to run programs compiled with ncursesw, which includes support
+ for wide characters.
+
 Package: libncursesw5-dev
 Architecture: any
 Section: oldlibs
