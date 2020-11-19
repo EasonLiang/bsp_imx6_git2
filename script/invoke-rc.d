@@ -484,12 +484,6 @@ if test x${FORCE} != x || test ${RC} -eq 104 ; then
 	    fi
 
             if [ -n "$is_systemd" ]; then
-                if [ -n "$DPKG_MAINTSCRIPT_PACKAGE" ]; then
-                    # If we are called by a maintainer script, chances are good that a
-                    # new or updated sysv init script was installed.  Reload daemon to
-                    # pick up any changes.
-                    systemctl daemon-reload
-                fi
                 if [ "$SKIP_SYSTEMD_NATIVE" = yes ] ; then
                     case $(systemctl show --value --property SourcePath "${UNIT}") in
                     /etc/init.d/*)
