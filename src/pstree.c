@@ -88,6 +88,7 @@ enum ns_type {
     PIDNS,
     USERNS,
     UTSNS,
+    TIMENS,
     NUM_NS
 };
 
@@ -105,6 +106,7 @@ static const char *ns_names[] = {
     [PIDNS] = "pid",
     [USERNS] = "user",
     [UTSNS] = "uts",
+    [TIMENS] = "time",
 };
 
 typedef struct _proc {
