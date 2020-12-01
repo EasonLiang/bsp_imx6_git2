@@ -2,6 +2,7 @@ Changes in NEXT
 ===============
 	* pstree: Do not crash on missing processes !21
 	* pstree: fix layout when using -C !24
+	* pstree: add time namespace !25
 	* fuser: Get less confused about duplicate dev_id !10
 	* fuser: Only check pathname on non-block devices !31
 

@@ -1209,7 +1209,7 @@ static void usage(void)
              "  -n, --numeric-sort  sort output by PID\n"
              "  -N TYPE, --ns-sort=TYPE\n"
              "                      sort output by this namespace type\n"
-             "                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
+             "                              (cgroup, ipc, mnt, net, pid, time, user, uts)\n"
              "  -p, --show-pids     show PIDs; implies -c\n"));
     fprintf(stderr, _(
              "  -s, --show-parents  show parents of the selected process\n"
