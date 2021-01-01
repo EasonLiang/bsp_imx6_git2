@@ -13,7 +13,7 @@ Last-Update: 2019-08-07
 
 --- a/misc/terminfo.src
 +++ b/misc/terminfo.src
-@@ -7346,6 +7346,7 @@ screen-16color-bce-s|GNU Screen with 16
+@@ -7507,6 +7507,7 @@ screen-16color-bce-s|GNU Screen with 16
  
  screen-256color|GNU Screen with 256 colors,
  	use=xterm+256setaf, use=screen4,

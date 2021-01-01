@@ -4,6 +4,7 @@ ncurses (6.2+20201114-2) UNRELEASED; urgency=medium
     patchlevel.
     - Correct mlterm3 kf1-kf4 (Closes: #975322).
     - Add flash to mlterm3.
+  * Refresh Debian patches.
 
  -- Sven Joachim <svenjoac@gmx.de>  Fri, 01 Jan 2021 11:09:33 +0100
 
