@@ -1,4 +1,4 @@
-ncurses (6.2+20201114-2) UNRELEASED; urgency=medium
+ncurses (6.2+20201114-2) unstable; urgency=medium
 
   * New patch 02-fix-mlterm.diff, cherry-picked from the 20201205 upstream
     patchlevel.
@@ -6,7 +6,7 @@ ncurses (6.2+20201114-2) UNRELEASED; urgency=medium
     - Add flash to mlterm3.
   * Refresh Debian patches.
 
- -- Sven Joachim <svenjoac@gmx.de>  Fri, 01 Jan 2021 11:09:33 +0100
+ -- Sven Joachim <svenjoac@gmx.de>  Fri, 01 Jan 2021 16:02:10 +0100
 
 ncurses (6.2+20201114-1) unstable; urgency=medium
 
