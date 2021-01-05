@@ -116,7 +116,6 @@ typedef struct _proc {
     pid_t pid;
     pid_t pgid;
     uid_t uid;
-    security_context_t scontext;
     ino_t ns[NUM_NS];
     char flags;
     double age;
@@ -311,7 +310,7 @@ static void sort_by_namespace(PROC *r, enum ns_type id, struct ns_entry **root)
     }
 }
 
-static void fix_orphans(security_context_t scontext);
+static void fix_orphans(void);
 
 /*
  * Determine the correct output width, what we use is:
@@ -465,11 +464,61 @@ static int out_int(int x)
     return digits;
 }
 
-static void out_scontext(security_context_t scontext)
+/*
+ * Print the security context of the current process. This is largely lifted
+ * from pr_context from procps ps/output.c
+ */
+static void out_scontext(const PROC *current)
 {
+    static void (*ps_freecon)(char*) = 0;
+    static int (*ps_getpidcon)(pid_t pid, char **context) = 0;
+    static int selinux_enabled = 0;
+    char *context;
+
+#ifdef WITH_SELINUX
+    static int (*ps_is_selinux_enabled)(void) = 0;
+    static int tried_load = 0;
+
+    if(!ps_getpidcon && !tried_load){
+    void *handle = dlopen("libselinux.so.1", RTLD_NOW);
+    if(handle) {
+	ps_freecon = dlsym(handle, "freecon");
+	if(dlerror())
+	    ps_freecon = 0;
+	dlerror();
+	ps_getpidcon = dlsym(handle, "getpidcon");
+	if(dlerror())
+	    ps_getpidcon = 0;
+	ps_is_selinux_enabled = dlsym(handle, "is_selinux_enabled");
+	if(dlerror())
+	    ps_is_selinux_enabled = 0;
+	else
+	    selinux_enabled = ps_is_selinux_enabled();
+    }
+    tried_load++;
+    }
+#endif /* WITH_SELINUX */
+
     out_string("`");
-    out_string(scontext);
-    out_string("'");
+    
+    if (ps_getpidcon && selinux_enabled && !ps_getpidcon(current->pid, &context)) {
+	out_string(context);
+	ps_freecon(context);
+    } else {
+        FILE *file;
+        char path[50];
+        char readbuf[BUFSIZ+1];
+	int num_read;
+        snprintf(path, sizeof path, "/proc/%d/attr/current", current->pid);
+        if ( (file = fopen(path, "r")) != NULL) {
+            if (fgets(readbuf, BUFSIZ, file) != NULL) {
+		num_read = strlen(readbuf);
+		readbuf[num_read-1] = '\0';
+                out_string(readbuf);
+            }
+      }
+      out_string("'");
+    }
 }
 
 static void out_newline(void)
@@ -516,8 +565,7 @@ static PROC *find_proc(pid_t pid)
     return NULL;
 }
 
-static PROC *new_proc(const char *comm, pid_t pid, uid_t uid,
-                      security_context_t scontext)
+static PROC *new_proc(const char *comm, pid_t pid, uid_t uid)
 {
     PROC *new;
 
@@ -525,6 +573,7 @@ static PROC *new_proc(const char *comm, pid_t pid, uid_t uid,
         perror("malloc");
         exit(1);
     }
+
     strncpy(new->comm, comm, COMM_LEN+2);
     new->comm[COMM_LEN+1] = '\0';     /* make sure nul terminated*/
     new->pid = pid;
@@ -532,7 +581,6 @@ static PROC *new_proc(const char *comm, pid_t pid, uid_t uid,
     new->flags = 0;
     new->argc = 0;
     new->argv = NULL;
-    new->scontext = scontext;
     new->children = NULL;
     new->parent = NULL;
     new->next = list;
@@ -625,13 +673,12 @@ rename_proc(PROC *this, const char *comm, uid_t uid)
 
 static void
 add_proc(const char *comm, pid_t pid, pid_t ppid, pid_t pgid, uid_t uid,
-         const char *args, int size, char isthread, security_context_t scontext,
-	 double process_age_sec)
+         const char *args, int size, char isthread, double process_age_sec)
 {
     PROC *this, *parent;
 
     if (!(this = find_proc(pid)))
-        this = new_proc(comm, pid, uid, scontext);
+        this = new_proc(comm, pid, uid);
     else {
         rename_proc(this, comm, uid);
     }
@@ -644,7 +691,7 @@ add_proc(const char *comm, pid_t pid, pid_t ppid, pid_t pgid, uid_t uid,
     if (isthread)
       this->flags |= PFLAG_THREAD;
     if (!(parent = find_proc(ppid))) {
-        parent = new_proc("?", ppid, 0, scontext);
+        parent = new_proc("?", ppid, 0);
     }
     if (pid != 0) {
       add_child(parent, this);
@@ -761,7 +808,7 @@ dump_tree(PROC * current, int level, int rep, int leaf, int last,
     }
     if (show_scontext) {
         out_char(info++ ? ',' : '(');
-        out_scontext(current->scontext);
+        out_scontext(current);
     }
     if ((swapped && print_args && current->argc < 0) || (!swapped && info))
         out_char(')');
@@ -1002,12 +1049,8 @@ static void read_proc(void)
   pid_t pid, ppid, pgid;
   int fd, size;
   int empty;
-  security_context_t scontext = NULL;
   unsigned long long proc_stt_jf = 0;
   double process_age_sec = 0;
-#ifdef WITH_SELINUX
-  int selinux_enabled = is_selinux_enabled() > 0;
-#endif                /*WITH_SELINUX */
 
   if (trunc)
     buffer_size = output_width + 1;
@@ -1034,14 +1077,6 @@ static void read_proc(void)
       if ((file = fopen(path, "r")) != NULL) {
         empty = 0;
         sprintf(path, "%s/%d", PROC_BASE, pid);
-#ifdef WITH_SELINUX
-        if (selinux_enabled)
-          if (getpidcon(pid, &scontext) < 0) {
-	      (void) fclose(file);
-	      free(path);
-	      continue;
-          }
-#endif                /*WITH_SELINUX */
         if (stat(path, &st) < 0) {
           (void) fclose(file);
           free(path);
@@ -1082,11 +1117,11 @@ static void read_proc(void)
                         threadname = get_threadname(pid, thread, comm);
                         if (print_args)
                           add_proc(threadname, thread, pid, pgid, st.st_uid,
-                              threadname, strlen (threadname) + 1, 1,scontext,
+                              threadname, strlen (threadname) + 1, 1,
 			      process_age_sec);
                         else
                           add_proc(threadname, thread, pid, pgid, st.st_uid,
-                              NULL, 0, 1, scontext,
+                              NULL, 0, 1, 
 			      process_age_sec);
                         free(threadname);
                       }
@@ -1099,7 +1134,7 @@ static void read_proc(void)
 
               /* handle process */
               if (!print_args)
-                add_proc(comm, pid, ppid, pgid, st.st_uid, NULL, 0, 0, scontext,
+                add_proc(comm, pid, ppid, pgid, st.st_uid, NULL, 0, 0,
 			process_age_sec);
               else {
                 sprintf(path, "%s/%d/cmdline", PROC_BASE, pid);
@@ -1129,7 +1164,7 @@ static void read_proc(void)
                 if (size)
                   buffer[size++] = 0;
                 add_proc(comm, pid, ppid, pgid, st.st_uid,
-                     buffer, size, 0, scontext, process_age_sec);
+                     buffer, size, 0, process_age_sec);
               }
             }
           }
@@ -1140,7 +1175,7 @@ static void read_proc(void)
     }
   }
   (void) closedir(dir);
-  fix_orphans(scontext);
+  fix_orphans();
   if (print_args)
     free(buffer);
   if (empty) {
@@ -1156,12 +1191,12 @@ static void read_proc(void)
  * As we cannot be sure if it is just the root pid or others missing
  * we gather the lot
  */
-static void fix_orphans(security_context_t scontext)
+static void fix_orphans(void)
 {
     PROC *root, *walk;
 
     if (!(root = find_proc(ROOT_PID))) {
-        root = new_proc("?", ROOT_PID, 0, scontext);
+        root = new_proc("?", ROOT_PID, 0);
     }
     for (walk = list; walk; walk = walk->next) {
         if (walk->pid == 1 || walk->pid == 0)
@@ -1176,17 +1211,10 @@ static void fix_orphans(security_context_t scontext)
 
 static void usage(void)
 {
-#ifdef WITH_SELINUX
     fprintf(stderr, _(
              "Usage: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N type ]\n"
              "              [ -A | -G | -U ] [ PID | USER ]\n"
              "   or: pstree -V\n"));
-#else                                 /*WITH_SELINUX */
-    fprintf(stderr, _(
-             "Usage: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N type ]\n"
-             "              [ -A | -G | -U ] [ PID | USER ]\n"
-             "   or: pstree -V\n"));
-#endif                                /*WITH_SELINUX */
     fprintf(stderr, _(
              "\n"
              "Display a tree of processes.\n\n"));
@@ -1220,11 +1248,9 @@ static void usage(void)
              "  -u, --uid-changes   show uid transitions\n"
              "  -U, --unicode       use UTF-8 (Unicode) line drawing characters\n"
              "  -V, --version       display version information\n"));
-#ifdef WITH_SELINUX
     fprintf(stderr, _(
              "  -Z, --security-context\n"
-             "                      show SELinux security contexts\n"));
-#endif                                /*WITH_SELINUX */
+             "                      show security attributes\n"));
     fprintf(stderr, _("\n"
               "  PID    start at this PID; default is 1 (init)\n"
               "  USER   show only trees rooted at processes of this user\n\n"));
@@ -1276,9 +1302,7 @@ int main(int argc, char **argv)
         {"uid-changes", 0, NULL, 'u'},
         {"unicode", 0, NULL, 'U'},
         {"version", 0, NULL, 'V'},
-#ifdef WITH_SELINUX
         {"security-context", 0, NULL, 'Z'},
-#endif                                /*WITH_SELINUX */
         { 0, 0, 0, 0 }
     };
 
@@ -1321,14 +1345,9 @@ int main(int argc, char **argv)
         sym = &sym_ascii;
     }
 
-#ifdef WITH_SELINUX
     while ((c =
             getopt_long(argc, argv, "aAcC:GhH:nN:pglsStTuUVZ", options,
                         NULL)) != -1)
-#else                                /*WITH_SELINUX */
-    while ((c =
-            getopt_long(argc, argv, "aAcC:GhH:nN:pglsStTuUV", options, NULL)) != -1)
-#endif                                /*WITH_SELINUX */
         switch (c) {
         case 'a':
             print_args = 1;
@@ -1416,15 +1435,9 @@ int main(int argc, char **argv)
         case 'V':
             print_version();
             return 0;
-#ifdef WITH_SELINUX
         case 'Z':
-            if (is_selinux_enabled() > 0)
-                show_scontext = 1;
-            else
-                fprintf(stderr,
-                        "Warning: -Z ignored. Requires an SELinux enabled kernel\n");
+            show_scontext = 1;
             break;
-#endif                                /*WITH_SELINUX */
         default:
             usage();
         }
