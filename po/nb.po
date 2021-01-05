@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc 22.2pre1\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2020-09-09 21:01+1000\n"
+"POT-Creation-Date: 2021-01-05 10:22+1100\n"
 "PO-Revision-Date: 2006-03-07 12:01+0100\n"
 "Last-Translator: Trond Endrestøl <Trond.Endrestol@fagskolen.gjovik.no>\n"
 "Language-Team: Norwegian Bokmaal <i18n-nb@lister.ping.uio.no>\n"
@@ -108,7 +108,7 @@ msgstr ""
 msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
-#: src/fuser.c:179 src/killall.c:808 src/pstree.c:1235
+#: src/fuser.c:179 src/killall.c:808 src/pstree.c:1239
 #, fuzzy, c-format
 msgid ""
 "Copyright (C) 1993-2020 Werner Almesberger and Craig Small\n"
@@ -118,7 +118,7 @@ msgstr ""
 "\n"
 
 #: src/fuser.c:181 src/killall.c:810 src/peekfd.c:195 src/prtstat.c:68
-#: src/pstree.c:1237
+#: src/pstree.c:1241
 #, c-format
 msgid ""
 "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
@@ -136,7 +136,7 @@ msgstr ""
 msgid "Cannot open /proc directory: %s\n"
 msgstr "Kan ikke åpne /proc-katalogen: %s\n"
 
-#: src/fuser.c:394 src/fuser.c:447 src/fuser.c:2076
+#: src/fuser.c:394 src/fuser.c:447 src/fuser.c:2078
 #, c-format
 msgid "Cannot allocate memory for matched proc: %s\n"
 msgstr "Kan ikke allokere minne for funnet prosess: %s\n"
@@ -214,32 +214,32 @@ msgstr ""
 msgid "(unknown)"
 msgstr "(ukjent)"
 
-#: src/fuser.c:1588 src/fuser.c:1636
+#: src/fuser.c:1588 src/fuser.c:1638
 #, c-format
 msgid "Cannot stat file %s: %s\n"
 msgstr "Kan ikke kjøre stat på fila %s: %s\n"
 
-#: src/fuser.c:1729
+#: src/fuser.c:1731
 #, c-format
 msgid "Cannot open /proc/net/unix: %s\n"
 msgstr "Kan ikke åpne /proc/net/unix: %s\n"
 
-#: src/fuser.c:1824
+#: src/fuser.c:1826
 #, c-format
 msgid "Kill process %d ? (y/N) "
 msgstr "Drepe prosess %d ? (j/N) "
 
-#: src/fuser.c:1860
+#: src/fuser.c:1862
 #, c-format
 msgid "Could not kill process %d: %s\n"
 msgstr "Kunne ikke drepe prosessen %d: %s\n"
 
-#: src/fuser.c:1875
+#: src/fuser.c:1877
 #, c-format
 msgid "Cannot open a network socket.\n"
 msgstr "Kan ikke åpne en nettverkssocket.\n"
 
-#: src/fuser.c:1879
+#: src/fuser.c:1881
 #, c-format
 msgid "Cannot find socket's device number.\n"
 msgstr "Kan ikke finne socketens enhetsnummer.\n"
@@ -546,12 +546,12 @@ msgstr ""
 msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
 msgstr ""
 
-#: src/pstree.c:1143
+#: src/pstree.c:1147
 #, c-format
 msgid "%s is empty (not mounted ?)\n"
 msgstr "%s er tom (ikke montert?)\n"
 
-#: src/pstree.c:1177
+#: src/pstree.c:1181
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -559,7 +559,7 @@ msgid ""
 "   or: pstree -V\n"
 msgstr ""
 
-#: src/pstree.c:1182
+#: src/pstree.c:1186
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -567,7 +567,7 @@ msgid ""
 "   or: pstree -V\n"
 msgstr ""
 
-#: src/pstree.c:1187
+#: src/pstree.c:1191
 #, c-format
 msgid ""
 "\n"
@@ -575,7 +575,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/pstree.c:1190
+#: src/pstree.c:1194
 #, c-format
 msgid ""
 "  -a, --arguments     show command line arguments\n"
@@ -583,21 +583,21 @@ msgid ""
 "  -c, --compact-not   don't compact identical subtrees\n"
 msgstr ""
 
-#: src/pstree.c:1194
+#: src/pstree.c:1198
 #, c-format
 msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
 "                      (age)\n"
 msgstr ""
 
-#: src/pstree.c:1197
+#: src/pstree.c:1201
 #, c-format
 msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
 "  -G, --vt100         use VT100 line drawing characters\n"
 msgstr ""
 
-#: src/pstree.c:1200
+#: src/pstree.c:1204
 #, c-format
 msgid ""
 "  -h, --highlight-all highlight current process and its ancestors\n"
@@ -606,17 +606,17 @@ msgid ""
 "  -l, --long          don't truncate long lines\n"
 msgstr ""
 
-#: src/pstree.c:1205
+#: src/pstree.c:1209
 #, c-format
 msgid ""
 "  -n, --numeric-sort  sort output by PID\n"
 "  -N TYPE, --ns-sort=TYPE\n"
 "                      sort output by this namespace type\n"
-"                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
+"                              (cgroup, ipc, mnt, net, pid, time, user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 msgstr ""
 
-#: src/pstree.c:1211
+#: src/pstree.c:1215
 #, c-format
 msgid ""
 "  -s, --show-parents  show parents of the selected process\n"
@@ -625,7 +625,7 @@ msgid ""
 "  -T, --hide-threads  hide threads, show only processes\n"
 msgstr ""
 
-#: src/pstree.c:1216
+#: src/pstree.c:1220
 #, c-format
 msgid ""
 "  -u, --uid-changes   show uid transitions\n"
@@ -633,14 +633,14 @@ msgid ""
 "  -V, --version       display version information\n"
 msgstr ""
 
-#: src/pstree.c:1221
+#: src/pstree.c:1225
 #, fuzzy, c-format
 msgid ""
 "  -Z, --security-context\n"
 "                      show SELinux security contexts\n"
 msgstr "    -Z     vis SELinux sikkerhetskontekster\n"
 
-#: src/pstree.c:1224
+#: src/pstree.c:1228
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -651,37 +651,37 @@ msgstr ""
 "    PID    begynn med angitt pid, standard er 1 (init)\n"
 "    BRUKER bare vis trær med opphav fra prosesser tilhørende denne brukeren\n"
 
-#: src/pstree.c:1232
+#: src/pstree.c:1236
 #, c-format
 msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (psmisc) %s\n"
 
-#: src/pstree.c:1359
+#: src/pstree.c:1363
 #, c-format
 msgid "TERM is not set\n"
 msgstr "TERM er ikke angitt\n"
 
-#: src/pstree.c:1363
+#: src/pstree.c:1367
 #, c-format
 msgid "Can't get terminal capabilities\n"
 msgstr "Kan ikke finne ut egenskapene til terminalen\n"
 
-#: src/pstree.c:1381
+#: src/pstree.c:1385
 #, c-format
 msgid "procfs file for %s namespace not available\n"
 msgstr ""
 
-#: src/pstree.c:1434
+#: src/pstree.c:1438
 #, c-format
 msgid "No such user name: %s\n"
 msgstr "Fant ikke brukeren «%s».\n"
 
-#: src/pstree.c:1460
+#: src/pstree.c:1464
 #, c-format
 msgid "No processes found.\n"
 msgstr "Fant ingen prosesser.\n"
 
-#: src/pstree.c:1468
+#: src/pstree.c:1472
 #, c-format
 msgid "Press return to close\n"
 msgstr "Trykk på enter for å lukke.\n"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc 23.3\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2020-09-09 21:01+1000\n"
+"POT-Creation-Date: 2021-01-05 10:22+1100\n"
 "PO-Revision-Date: 2019-10-30 13:54-0400\n"
 "Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
@@ -96,7 +96,7 @@ msgstr ""
 msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
-#: src/fuser.c:179 src/killall.c:808 src/pstree.c:1235
+#: src/fuser.c:179 src/killall.c:808 src/pstree.c:1239
 #, fuzzy, c-format
 msgid ""
 "Copyright (C) 1993-2020 Werner Almesberger and Craig Small\n"
@@ -106,7 +106,7 @@ msgstr ""
 "\n"
 
 #: src/fuser.c:181 src/killall.c:810 src/peekfd.c:195 src/prtstat.c:68
-#: src/pstree.c:1237
+#: src/pstree.c:1241
 #, c-format
 msgid ""
 "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
@@ -123,7 +123,7 @@ msgstr ""
 msgid "Cannot open /proc directory: %s\n"
 msgstr "无法打开 /proc 目录: %s\n"
 
-#: src/fuser.c:394 src/fuser.c:447 src/fuser.c:2076
+#: src/fuser.c:394 src/fuser.c:447 src/fuser.c:2078
 #, c-format
 msgid "Cannot allocate memory for matched proc: %s\n"
 msgstr "无法为已找到的进程分配内存: %s\n"
@@ -196,32 +196,32 @@ msgstr "%*s 用户     进程号 权限   命令\n"
 msgid "(unknown)"
 msgstr "(未知)"
 
-#: src/fuser.c:1588 src/fuser.c:1636
+#: src/fuser.c:1588 src/fuser.c:1638
 #, c-format
 msgid "Cannot stat file %s: %s\n"
 msgstr "无法获取 %s 的文件状态: %s\n"
 
-#: src/fuser.c:1729
+#: src/fuser.c:1731
 #, c-format
 msgid "Cannot open /proc/net/unix: %s\n"
 msgstr "无法打开 /proc/net/unix: %s\n"
 
-#: src/fuser.c:1824
+#: src/fuser.c:1826
 #, c-format
 msgid "Kill process %d ? (y/N) "
 msgstr "杀死进程 %d ? (y/N) "
 
-#: src/fuser.c:1860
+#: src/fuser.c:1862
 #, c-format
 msgid "Could not kill process %d: %s\n"
 msgstr "无法杀死进程 %d: %s\n"
 
-#: src/fuser.c:1875
+#: src/fuser.c:1877
 #, c-format
 msgid "Cannot open a network socket.\n"
 msgstr "无法打开网络端口。\n"
 
-#: src/fuser.c:1879
+#: src/fuser.c:1881
 #, c-format
 msgid "Cannot find socket's device number.\n"
 msgstr "无法找到 socket 的设备号。\n"
@@ -572,12 +572,12 @@ msgstr "您必须提供至少一个 PID。"
 msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
 msgstr "/proc 未被挂载，无法取得 /proc/self/stat 的状态。\n"
 
-#: src/pstree.c:1143
+#: src/pstree.c:1147
 #, c-format
 msgid "%s is empty (not mounted ?)\n"
 msgstr "%s 是空的 (未挂载?)\n"
 
-#: src/pstree.c:1177
+#: src/pstree.c:1181
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -588,7 +588,7 @@ msgstr ""
 "              [ -A | -G | -U ] [ 进程号 | 用户 ]\n"
 "  或：pstree -V\n"
 
-#: src/pstree.c:1182
+#: src/pstree.c:1186
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -599,7 +599,7 @@ msgstr ""
 "              [ -A | -G | -U ] [ 进程号 | 用户 ]\n"
 "  或：pstree -V\n"
 
-#: src/pstree.c:1187
+#: src/pstree.c:1191
 #, c-format
 msgid ""
 "\n"
@@ -610,7 +610,7 @@ msgstr ""
 "显示进程树。\n"
 "\n"
 
-#: src/pstree.c:1190
+#: src/pstree.c:1194
 #, c-format
 msgid ""
 "  -a, --arguments     show command line arguments\n"
@@ -621,7 +621,7 @@ msgstr ""
 "  -A, --ascii         使用 ASCII 行绘制字符\n"
 "  -c, --compact-not   不要对完全相同的子树进行压缩\n"
 
-#: src/pstree.c:1194
+#: src/pstree.c:1198
 #, c-format
 msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
@@ -630,7 +630,7 @@ msgstr ""
 "  -C, --color=类型    按照指定属性对进程上色\n"
 "                      (age)\n"
 
-#: src/pstree.c:1197
+#: src/pstree.c:1201
 #, c-format
 msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
@@ -639,7 +639,7 @@ msgstr ""
 "  -g, --show-pgids    显示进程组 ID；隐含启用 -c 选项\n"
 "  -G, --vt100         使用 VT100 行绘制字符\n"
 
-#: src/pstree.c:1200
+#: src/pstree.c:1204
 #, c-format
 msgid ""
 "  -h, --highlight-all highlight current process and its ancestors\n"
@@ -652,13 +652,13 @@ msgstr ""
 "                      高亮显示指定 PID 对应的进程和其所有祖先\n"
 "  -l, --long          不要截断长行\n"
 
-#: src/pstree.c:1205
-#, c-format
+#: src/pstree.c:1209
+#, fuzzy, c-format
 msgid ""
 "  -n, --numeric-sort  sort output by PID\n"
 "  -N TYPE, --ns-sort=TYPE\n"
 "                      sort output by this namespace type\n"
-"                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
+"                              (cgroup, ipc, mnt, net, pid, time, user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 msgstr ""
 "  -n, --numeric-sort  按照 PID 对输出进行排序\n"
@@ -667,7 +667,7 @@ msgstr ""
 "                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     显示 PID；隐含启用 -c 选项\n"
 
-#: src/pstree.c:1211
+#: src/pstree.c:1215
 #, c-format
 msgid ""
 "  -s, --show-parents  show parents of the selected process\n"
@@ -680,7 +680,7 @@ msgstr ""
 "  -t, --thread-names  显示完整线程名称\n"
 "  -T, --hide-threads  隐藏线程，只显示进程\n"
 
-#: src/pstree.c:1216
+#: src/pstree.c:1220
 #, c-format
 msgid ""
 "  -u, --uid-changes   show uid transitions\n"
@@ -691,7 +691,7 @@ msgstr ""
 "  -U, --unicode       使用 UTF-8（Unicode）的行绘制字符\n"
 "  -V, --version       显示版本信息\n"
 
-#: src/pstree.c:1221
+#: src/pstree.c:1225
 #, c-format
 msgid ""
 "  -Z, --security-context\n"
@@ -700,7 +700,7 @@ msgstr ""
 "  -Z, --security-context\n"
 "                      显示 SELinux 安全上下文\n"
 
-#: src/pstree.c:1224
+#: src/pstree.c:1228
 #, c-format
 msgid ""
 "\n"
@@ -713,37 +713,37 @@ msgstr ""
 "  用户   仅显示从指定用户的进程开始的进程树\n"
 "\n"
 
-#: src/pstree.c:1232
+#: src/pstree.c:1236
 #, c-format
 msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
-#: src/pstree.c:1359
+#: src/pstree.c:1363
 #, c-format
 msgid "TERM is not set\n"
 msgstr "未设置 TERM 环境变量\n"
 
-#: src/pstree.c:1363
+#: src/pstree.c:1367
 #, c-format
 msgid "Can't get terminal capabilities\n"
 msgstr "无法获取终端功能\n"
 
-#: src/pstree.c:1381
+#: src/pstree.c:1385
 #, c-format
 msgid "procfs file for %s namespace not available\n"
 msgstr "适用 %s 命名空间的 proc 文件不可用\n"
 
-#: src/pstree.c:1434
+#: src/pstree.c:1438
 #, c-format
 msgid "No such user name: %s\n"
 msgstr "无用户名: %s\n"
 
-#: src/pstree.c:1460
+#: src/pstree.c:1464
 #, c-format
 msgid "No processes found.\n"
 msgstr "未发现进程。\n"
 
-#: src/pstree.c:1468
+#: src/pstree.c:1472
 #, c-format
 msgid "Press return to close\n"
 msgstr "按回车以关闭\n"

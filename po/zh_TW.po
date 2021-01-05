@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc 23.3\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2020-09-09 21:01+1000\n"
+"POT-Creation-Date: 2021-01-05 10:22+1100\n"
 "PO-Revision-Date: 2019-10-24 23:52+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -94,7 +94,7 @@ msgstr ""
 msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
-#: src/fuser.c:179 src/killall.c:808 src/pstree.c:1235
+#: src/fuser.c:179 src/killall.c:808 src/pstree.c:1239
 #, fuzzy, c-format
 msgid ""
 "Copyright (C) 1993-2020 Werner Almesberger and Craig Small\n"
@@ -104,7 +104,7 @@ msgstr ""
 "\n"
 
 #: src/fuser.c:181 src/killall.c:810 src/peekfd.c:195 src/prtstat.c:68
-#: src/pstree.c:1237
+#: src/pstree.c:1241
 #, c-format
 msgid ""
 "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
@@ -122,7 +122,7 @@ msgstr ""
 msgid "Cannot open /proc directory: %s\n"
 msgstr "無法開啟 /proc 目錄：%s\n"
 
-#: src/fuser.c:394 src/fuser.c:447 src/fuser.c:2076
+#: src/fuser.c:394 src/fuser.c:447 src/fuser.c:2078
 #, c-format
 msgid "Cannot allocate memory for matched proc: %s\n"
 msgstr "無法為符合的行程配置記憶體：%s\n"
@@ -195,32 +195,32 @@ msgstr "%*s 使用者      PID 存取命令\n"
 msgid "(unknown)"
 msgstr "(不明)"
 
-#: src/fuser.c:1588 src/fuser.c:1636
+#: src/fuser.c:1588 src/fuser.c:1638
 #, c-format
 msgid "Cannot stat file %s: %s\n"
 msgstr "無法顯示檔案 %s：%s\n"
 
-#: src/fuser.c:1729
+#: src/fuser.c:1731
 #, c-format
 msgid "Cannot open /proc/net/unix: %s\n"
 msgstr "無法開啟 /proc/net/unix：%s\n"
 
-#: src/fuser.c:1824
+#: src/fuser.c:1826
 #, c-format
 msgid "Kill process %d ? (y/N) "
 msgstr "砍除行程 %d？(y/N) "
 
-#: src/fuser.c:1860
+#: src/fuser.c:1862
 #, c-format
 msgid "Could not kill process %d: %s\n"
 msgstr "無法砍除行程 %d：%s\n"
 
-#: src/fuser.c:1875
+#: src/fuser.c:1877
 #, c-format
 msgid "Cannot open a network socket.\n"
 msgstr "無法開啟網路通訊端。\n"
 
-#: src/fuser.c:1879
+#: src/fuser.c:1881
 #, c-format
 msgid "Cannot find socket's device number.\n"
 msgstr "找不到通訊端裝置編號。\n"
@@ -578,12 +578,12 @@ msgstr "您必須提供至少一個 PID。"
 msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
 msgstr "/proc 未被掛載，無法取得 /proc/self/stat 的狀態。\n"
 
-#: src/pstree.c:1143
+#: src/pstree.c:1147
 #, c-format
 msgid "%s is empty (not mounted ?)\n"
 msgstr "%s 是空的 (尚未掛載？)\n"
 
-#: src/pstree.c:1177
+#: src/pstree.c:1181
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -594,7 +594,7 @@ msgstr ""
 "              [ -A | -G | -U ] [ PID | 使用者 ]\n"
 "  或:  pstree -V\n"
 
-#: src/pstree.c:1182
+#: src/pstree.c:1186
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -605,7 +605,7 @@ msgstr ""
 "              [ -A | -G | -U ] [ PID | 使用者 ]\n"
 "  或:  pstree -V\n"
 
-#: src/pstree.c:1187
+#: src/pstree.c:1191
 #, c-format
 msgid ""
 "\n"
@@ -616,7 +616,7 @@ msgstr ""
 "顯示行程的樹狀圖。\n"
 "\n"
 
-#: src/pstree.c:1190
+#: src/pstree.c:1194
 #, c-format
 msgid ""
 "  -a, --arguments     show command line arguments\n"
@@ -627,14 +627,14 @@ msgstr ""
 "  -A, --ascii         使用 ASCII 行繪製字元\n"
 "  -c, --compact-not   不合併完全相同的子樹\n"
 
-#: src/pstree.c:1194
+#: src/pstree.c:1198
 #, c-format
 msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
 "                      (age)\n"
 msgstr "  -C, --color=類型    依屬性 (age) 為行程上色\n"
 
-#: src/pstree.c:1197
+#: src/pstree.c:1201
 #, c-format
 msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
@@ -643,7 +643,7 @@ msgstr ""
 "  -g, --show-pgids    顯示行程的群組 ID；隱含 -c\n"
 "  -G, --vt100         使用 VT100 行繪製字元\n"
 
-#: src/pstree.c:1200
+#: src/pstree.c:1204
 #, c-format
 msgid ""
 "  -h, --highlight-all highlight current process and its ancestors\n"
@@ -656,13 +656,13 @@ msgstr ""
 "                      標示這個及上級行程\n"
 "  -l, --long          不截短長行\n"
 
-#: src/pstree.c:1205
-#, c-format
+#: src/pstree.c:1209
+#, fuzzy, c-format
 msgid ""
 "  -n, --numeric-sort  sort output by PID\n"
 "  -N TYPE, --ns-sort=TYPE\n"
 "                      sort output by this namespace type\n"
-"                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
+"                              (cgroup, ipc, mnt, net, pid, time, user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 msgstr ""
 "  -n, --numeric-sort  依 PID 排序輸出\n"
@@ -671,7 +671,7 @@ msgstr ""
 "                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     顯示 PID；隱含 -c\n"
 
-#: src/pstree.c:1211
+#: src/pstree.c:1215
 #, c-format
 msgid ""
 "  -s, --show-parents  show parents of the selected process\n"
@@ -684,7 +684,7 @@ msgstr ""
 "  -t, --thread-names  顯示完整執行緒名稱\n"
 "  -T, --hide-threads  隱藏執行緒，只顯示行程\n"
 
-#: src/pstree.c:1216
+#: src/pstree.c:1220
 #, c-format
 msgid ""
 "  -u, --uid-changes   show uid transitions\n"
@@ -695,7 +695,7 @@ msgstr ""
 "  -U, --unicode       使用 UTF-8 (Unicode) 行繪製字元\n"
 "  -V, --version       顯示版本資訊\n"
 
-#: src/pstree.c:1221
+#: src/pstree.c:1225
 #, c-format
 msgid ""
 "  -Z, --security-context\n"
@@ -704,7 +704,7 @@ msgstr ""
 "  -Z, --security-context\n"
 "                      顯示 SELinux 安全性上下文\n"
 
-#: src/pstree.c:1224
+#: src/pstree.c:1228
 #, c-format
 msgid ""
 "\n"
@@ -717,37 +717,37 @@ msgstr ""
 "  使用者 只顯示源自此使用者行程的樹狀結構\n"
 "\n"
 
-#: src/pstree.c:1232
+#: src/pstree.c:1236
 #, c-format
 msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
-#: src/pstree.c:1359
+#: src/pstree.c:1363
 #, c-format
 msgid "TERM is not set\n"
 msgstr "TERM 尚未設定\n"
 
-#: src/pstree.c:1363
+#: src/pstree.c:1367
 #, c-format
 msgid "Can't get terminal capabilities\n"
 msgstr "無法取得終端機功能\n"
 
-#: src/pstree.c:1381
+#: src/pstree.c:1385
 #, c-format
 msgid "procfs file for %s namespace not available\n"
 msgstr "無法使用 procfs 檔案於 %s 命名空間\n"
 
-#: src/pstree.c:1434
+#: src/pstree.c:1438
 #, c-format
 msgid "No such user name: %s\n"
 msgstr "無此類使用者名稱：%s\n"
 
-#: src/pstree.c:1460
+#: src/pstree.c:1464
 #, c-format
 msgid "No processes found.\n"
 msgstr "找不到任何行程。\n"
 
-#: src/pstree.c:1468
+#: src/pstree.c:1472
 #, c-format
 msgid "Press return to close\n"
 msgstr "按下輸入鍵以關閉\n"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc 23.3\n"
 "Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2020-09-09 21:01+1000\n"
+"POT-Creation-Date: 2021-01-05 10:22+1100\n"
 "PO-Revision-Date: 2019-10-24 18:38+0200\n"
 "Last-Translator: Sebastian Rasmussen <sebras@gmail.com>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -96,7 +96,7 @@ msgstr ""
 msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
-#: src/fuser.c:179 src/killall.c:808 src/pstree.c:1235
+#: src/fuser.c:179 src/killall.c:808 src/pstree.c:1239
 #, fuzzy, c-format
 msgid ""
 "Copyright (C) 1993-2020 Werner Almesberger and Craig Small\n"
@@ -106,7 +106,7 @@ msgstr ""
 "\n"
 
 #: src/fuser.c:181 src/killall.c:810 src/peekfd.c:195 src/prtstat.c:68
-#: src/pstree.c:1237
+#: src/pstree.c:1241
 #, c-format
 msgid ""
 "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
@@ -127,7 +127,7 @@ msgstr ""
 msgid "Cannot open /proc directory: %s\n"
 msgstr "Kan inte öppna katalogen /proc: %s\n"
 
-#: src/fuser.c:394 src/fuser.c:447 src/fuser.c:2076
+#: src/fuser.c:394 src/fuser.c:447 src/fuser.c:2078
 #, c-format
 msgid "Cannot allocate memory for matched proc: %s\n"
 msgstr "Kan inte allokera minne för matchande proc: %s\n"
@@ -200,32 +200,32 @@ msgstr "%*s ANVÄNDARE   PID ÅTKOMS KOMMANDO\n"
 msgid "(unknown)"
 msgstr "(okänd)"
 
-#: src/fuser.c:1588 src/fuser.c:1636
+#: src/fuser.c:1588 src/fuser.c:1638
 #, c-format
 msgid "Cannot stat file %s: %s\n"
 msgstr "Kan inte ta status på fil %s: %s\n"
 
-#: src/fuser.c:1729
+#: src/fuser.c:1731
 #, c-format
 msgid "Cannot open /proc/net/unix: %s\n"
 msgstr "Kan inte öppna /proc/net/unix: %s\n"
 
-#: src/fuser.c:1824
+#: src/fuser.c:1826
 #, c-format
 msgid "Kill process %d ? (y/N) "
 msgstr "Döda process %d ? (y/N) "
 
-#: src/fuser.c:1860
+#: src/fuser.c:1862
 #, c-format
 msgid "Could not kill process %d: %s\n"
 msgstr "Kunde inte döda process %d: %s\n"
 
-#: src/fuser.c:1875
+#: src/fuser.c:1877
 #, c-format
 msgid "Cannot open a network socket.\n"
 msgstr "Kan inte öppna ett nätverksuttag.\n"
 
-#: src/fuser.c:1879
+#: src/fuser.c:1881
 #, c-format
 msgid "Cannot find socket's device number.\n"
 msgstr "Kan inte hitta uttagets enhetsnummer.\n"
@@ -579,12 +579,12 @@ msgstr "Du måste tillhandahålla minst en PID."
 msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
 msgstr "/proc är inte monterad, kan inte ta status på /proc/self/stat.\n"
 
-#: src/pstree.c:1143
+#: src/pstree.c:1147
 #, c-format
 msgid "%s is empty (not mounted ?)\n"
 msgstr "%s är tom (inte monterad?)\n"
 
-#: src/pstree.c:1177
+#: src/pstree.c:1181
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -596,7 +596,7 @@ msgstr ""
 "   eller: pstree -V\n"
 "\n"
 
-#: src/pstree.c:1182
+#: src/pstree.c:1186
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -608,7 +608,7 @@ msgstr ""
 "   eller: pstree -V\n"
 "\n"
 
-#: src/pstree.c:1187
+#: src/pstree.c:1191
 #, c-format
 msgid ""
 "\n"
@@ -619,7 +619,7 @@ msgstr ""
 "Visa ett träd av processer.\n"
 "\n"
 
-#: src/pstree.c:1190
+#: src/pstree.c:1194
 #, c-format
 msgid ""
 "  -a, --arguments     show command line arguments\n"
@@ -630,7 +630,7 @@ msgstr ""
 "  -A, --ascii         använd ASCII-linjeritningstecken\n"
 "  -c, --compact-not   komprimera inte identiska underträd\n"
 
-#: src/pstree.c:1194
+#: src/pstree.c:1198
 #, c-format
 msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
@@ -639,7 +639,7 @@ msgstr ""
 "  -C, --color=TYP     färglägg process efter attribut\n"
 "                      (ålder)\n"
 
-#: src/pstree.c:1197
+#: src/pstree.c:1201
 #, c-format
 msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
@@ -648,7 +648,7 @@ msgstr ""
 "  -g, --show-pgids    visa processgrupp ID:n; medför -c\n"
 "  -G, --vt100         använd VT100-linjeritningstecken\n"
 
-#: src/pstree.c:1200
+#: src/pstree.c:1204
 #, c-format
 msgid ""
 "  -h, --highlight-all highlight current process and its ancestors\n"
@@ -662,13 +662,13 @@ msgstr ""
 "  -l, --long          korta inte ner långa rader\n"
 "\n"
 
-#: src/pstree.c:1205
-#, c-format
+#: src/pstree.c:1209
+#, fuzzy, c-format
 msgid ""
 "  -n, --numeric-sort  sort output by PID\n"
 "  -N TYPE, --ns-sort=TYPE\n"
 "                      sort output by this namespace type\n"
-"                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
+"                              (cgroup, ipc, mnt, net, pid, time, user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 msgstr ""
 "  -n, --numeric-sort  sortera utdata efter PID\n"
@@ -677,7 +677,7 @@ msgstr ""
 "                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     visa PID:ar; medför -c\n"
 
-#: src/pstree.c:1211
+#: src/pstree.c:1215
 #, c-format
 msgid ""
 "  -s, --show-parents  show parents of the selected process\n"
@@ -690,7 +690,7 @@ msgstr ""
 "  -t, --thread-names  visa fullständiga trådnamn\n"
 "  -T, --hide-threads  göm trådar, visa endast processer\n"
 
-#: src/pstree.c:1216
+#: src/pstree.c:1220
 #, c-format
 msgid ""
 "  -u, --uid-changes   show uid transitions\n"
@@ -701,7 +701,7 @@ msgstr ""
 "  -U, --unicode       använd UTF-8-linjeritningstecken (Unicode)\n"
 "  -V, --version       visa versionsinformation\n"
 
-#: src/pstree.c:1221
+#: src/pstree.c:1225
 #, c-format
 msgid ""
 "  -Z, --security-context\n"
@@ -710,7 +710,7 @@ msgstr ""
 "  -Z, --security-context\n"
 "                      visa SELinux-säkerhetskontexter\n"
 
-#: src/pstree.c:1224
+#: src/pstree.c:1228
 #, c-format
 msgid ""
 "\n"
@@ -724,37 +724,37 @@ msgstr ""
 "              processer som rot\n"
 "\n"
 
-#: src/pstree.c:1232
+#: src/pstree.c:1236
 #, c-format
 msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
-#: src/pstree.c:1359
+#: src/pstree.c:1363
 #, c-format
 msgid "TERM is not set\n"
 msgstr "TERM är inte inställd\n"
 
-#: src/pstree.c:1363
+#: src/pstree.c:1367
 #, c-format
 msgid "Can't get terminal capabilities\n"
 msgstr "Kan inte ta reda på terminalens förmågor\n"
 
-#: src/pstree.c:1381
+#: src/pstree.c:1385
 #, c-format
 msgid "procfs file for %s namespace not available\n"
 msgstr "procfs-fil för %s-namnrymd inte tillgänglig\n"
 
-#: src/pstree.c:1434
+#: src/pstree.c:1438
 #, c-format
 msgid "No such user name: %s\n"
 msgstr "Ingen sådan användare: %s\n"
 
-#: src/pstree.c:1460
+#: src/pstree.c:1464
 #, c-format
 msgid "No processes found.\n"
 msgstr "Inga processer hittades.\n"
 
-#: src/pstree.c:1468
+#: src/pstree.c:1472
 #, c-format
 msgid "Press return to close\n"
 msgstr "Tryck Retur för att stänga\n"

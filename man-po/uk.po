@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc CSVERSION\n"
 "Report-Msgid-Bugs-To: Craig Small <csmall@dropbear.xyz>\n"
-"POT-Creation-Date: 2019-11-15 10:12+1100\n"
+"POT-Creation-Date: 2021-01-05 10:22+1100\n"
 "PO-Revision-Date: 2019-05-31 16:43+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -25,10 +25,11 @@ msgid "FUSER"
 msgstr "FUSER"
 
 #. type: TH
-#: ../doc/fuser.1:9
+#: ../doc/fuser.1:9 ../doc/killall.1:9 ../doc/peekfd.1:9 ../doc/pslog.1:9
+#: ../doc/prtstat.1:9 ../doc/pstree.1:9
 #, no-wrap
-msgid "2016-04-04"
-msgstr "4 квітня 2016 року"
+msgid "2020-09-09"
+msgstr ""
 
 #. type: TH
 #: ../doc/fuser.1:9 ../doc/killall.1:9 ../doc/peekfd.1:9 ../doc/prtstat.1:9
@@ -58,7 +59,7 @@ msgstr ""
 "fuser — програма для ідентифікації процесів на основі файлів або сокетів"
 
 #. type: SH
-#: ../doc/fuser.1:12 ../doc/killall.1:12 ../doc/peekfd.1:12 ../doc/pslog.1:13
+#: ../doc/fuser.1:12 ../doc/killall.1:12 ../doc/peekfd.1:12 ../doc/pslog.1:12
 #: ../doc/prtstat.1:12 ../doc/pstree.1:12
 #, no-wrap
 msgid "SYNOPSIS"
@@ -193,10 +194,19 @@ msgstr ""
 
 #. type: Plain text
 #: ../doc/fuser.1:89
+#, fuzzy
+#| msgid ""
+#| "In order to look up processes using TCP and UDP sockets, the "
+#| "corresponding name space has to be selected with the B<-n> option. By "
+#| "default B<fuser> will look in both IPv6 and IPv4 sockets.  To change the "
+#| "default, behavior, use the B<-4> and B<-6> options.  The socket(s) can be "
+#| "specified by the local and remote port, and the remote address.  All "
+#| "fields are optional, but commas in front of missing fields must be "
+#| "present:"
 msgid ""
 "In order to look up processes using TCP and UDP sockets, the corresponding "
 "name space has to be selected with the B<-n> option. By default B<fuser> "
-"will look in both IPv6 and IPv4 sockets.  To change the default, behavior, "
+"will look in both IPv6 and IPv4 sockets.  To change the default behavior, "
 "use the B<-4> and B<-6> options.  The socket(s) can be specified by the "
 "local and remote port, and the remote address.  All fields are optional, but "
 "commas in front of missing fields must be present:"
@@ -231,8 +241,8 @@ msgstr ""
 "надіслано до stderr."
 
 #. type: SH
-#: ../doc/fuser.1:97 ../doc/killall.1:78 ../doc/peekfd.1:29 ../doc/prtstat.1:27
-#: ../doc/pstree.1:89
+#: ../doc/fuser.1:97 ../doc/killall.1:78 ../doc/peekfd.1:29 ../doc/pslog.1:23
+#: ../doc/prtstat.1:27 ../doc/pstree.1:89
 #, no-wrap
 msgid "OPTIONS"
 msgstr "ПАРАМЕТРИ"
@@ -260,7 +270,9 @@ msgstr "B<-c>"
 
 #. type: Plain text
 #: ../doc/fuser.1:105
-msgid "Same as -m option, used for POSIX compatibility."
+#, fuzzy
+#| msgid "Same as -m option, used for POSIX compatibility."
+msgid "Same as B<-m> option, used for POSIX compatibility."
 msgstr "Те саме, що і параметр -m, використовується для сумісності з POSIX."
 
 #. type: TP
@@ -346,11 +358,17 @@ msgstr "B<-m>I< НАЗВА >, B<--mount >I<НАЗВА>"
 
 #. type: Plain text
 #: ../doc/fuser.1:144
+#, fuzzy
+#| msgid ""
+#| "I<NAME> specifies a file on a mounted file system or a block device that "
+#| "is mounted.  All processes accessing files on that file system are "
+#| "listed.  If a directory file is specified, it is automatically changed to "
+#| "I<NAME>/.  to use any file system that might be mounted on that directory."
 msgid ""
 "I<NAME> specifies a file on a mounted file system or a block device that is "
 "mounted.  All processes accessing files on that file system are listed.  If "
-"a directory file is specified, it is automatically changed to I<NAME>/.  to "
-"use any file system that might be mounted on that directory."
+"a directory is specified, it is automatically changed to I<NAME>/.  to use "
+"any file system that might be mounted on that directory."
 msgstr ""
 "I<НАЗВА> визначає файл на змонтованій файловій системі або блоковий "
 "пристрій, який змонтовано. Буде виведено список усіх процесів, які отримали "
@@ -392,8 +410,9 @@ msgstr ""
 
 #. type: TP
 #: ../doc/fuser.1:158
-#, no-wrap
-msgid "B<-n>I< SPACE>, B<--namespace >I<SPACE>"
+#, fuzzy, no-wrap
+#| msgid "B<-n>I< SPACE>, B<--namespace >I<SPACE>"
+msgid "B<-n>I< NAMESPACE>, B<--namespace >I<NAMESPACE>"
 msgstr "B<-n>I< ПРОСТІР>, B<--namespace >I<ПРОСТІР>"
 
 #. type: Plain text
@@ -484,7 +503,8 @@ msgid "B<-V>, B<--version>"
 msgstr "B<-V>, B<--version>"
 
 #. type: Plain text
-#: ../doc/fuser.1:211 ../doc/killall.1:125 ../doc/pstree.1:165
+#: ../doc/fuser.1:211 ../doc/killall.1:125 ../doc/pslog.1:27
+#: ../doc/pstree.1:167
 msgid "Display version information."
 msgstr "Показати інформацію щодо версії."
 
@@ -531,19 +551,19 @@ msgstr "Скинути усі параметри і встановити тип�
 
 #. type: SH
 #: ../doc/fuser.1:223 ../doc/killall.1:143 ../doc/peekfd.1:44
-#: ../doc/prtstat.1:35 ../doc/pstree.1:168
+#: ../doc/prtstat.1:35 ../doc/pstree.1:172
 #, no-wrap
 msgid "FILES"
 msgstr "ФАЙЛИ"
 
 #. type: TP
-#: ../doc/fuser.1:224 ../doc/killall.1:144 ../doc/pstree.1:169
+#: ../doc/fuser.1:224 ../doc/killall.1:144 ../doc/pstree.1:173
 #, no-wrap
 msgid "/proc"
 msgstr "/proc"
 
 #. type: Plain text
-#: ../doc/fuser.1:227 ../doc/killall.1:147 ../doc/pstree.1:172
+#: ../doc/fuser.1:227 ../doc/killall.1:147 ../doc/pstree.1:176
 msgid "location of the proc file system"
 msgstr "розташування файлової системи процесів"
 
@@ -568,13 +588,16 @@ msgstr ""
 
 #. type: TP
 #: ../doc/fuser.1:231
-#, no-wrap
-msgid "B<if fuser -s /dev/ttyS1; then :; else >I<something>B<; fi>"
+#, fuzzy, no-wrap
+#| msgid "B<if fuser -s /dev/ttyS1; then :; else >I<something>B<; fi>"
+msgid "B<if fuser -s /dev/ttyS1; then :; else >I<command>B<; fi>"
 msgstr "B<if fuser -s /dev/ttyS1; then :; else >I<щось там>B<; fi>"
 
 #. type: Plain text
 #: ../doc/fuser.1:236
-msgid "invokes I<something> if no other process is using /dev/ttyS1."
+#, fuzzy
+#| msgid "invokes I<something> if no other process is using /dev/ttyS1."
+msgid "invokes I<command> if no other process is using /dev/ttyS1."
 msgstr ""
 "викликає I<щось там>, якщо жоден інший процес не використовує /dev/ttyS1."
 
@@ -675,27 +698,37 @@ msgstr ""
 "завершення роботи процесу."
 
 #. type: SH
-#: ../doc/fuser.1:281 ../doc/peekfd.1:57 ../doc/pstree.1:172
+#: ../doc/fuser.1:281 ../doc/peekfd.1:57 ../doc/pstree.1:176
 #, no-wrap
 msgid "BUGS"
 msgstr "ВАДИ"
 
 #. type: Plain text
-#: ../doc/fuser.1:286
+#: ../doc/fuser.1:287
+#, fuzzy
+#| msgid ""
+#| "fuser -m /dev/sgX will show (or kill with the -k flag) all processes, "
+#| "even if you don't have that device configured.  There may be other "
+#| "devices it does this for too."
 msgid ""
-"fuser -m /dev/sgX will show (or kill with the -k flag) all processes, even "
-"if you don't have that device configured.  There may be other devices it "
-"does this for too."
+"B<fuser -m /dev/sgX> will show (or kill with the B<-k> flag) all processes, "
+"even if you don't have that device configured.  There may be other devices "
+"it does this for too."
 msgstr ""
 "fuser -m /dev/sgX покаже (або завершить роботу, якщо було вказано параметр -"
 "k) усі процеси, навіть якщо пристрій не налаштовано. Можуть бути і інші "
 "пристрої, для яких така команда теж працюватиме."
 
 #. type: Plain text
-#: ../doc/fuser.1:290
+#: ../doc/fuser.1:291
+#, fuzzy
+#| msgid ""
+#| "The mount -m option will match any file within the same device as the "
+#| "specified file, use the -M option as well if you mean to specify only the "
+#| "mount point."
 msgid ""
-"The mount -m option will match any file within the same device as the "
-"specified file, use the -M option as well if you mean to specify only the "
+"The mount B<-m> option will match any file within the same device as the "
+"specified file, use the B<-M> option as well if you mean to specify only the "
 "mount point."
 msgstr ""
 "Якщо буде вказано параметр монтування -m, програма працюватиме із усіма "
@@ -704,14 +737,14 @@ msgstr ""
 "самої точки монтування."
 
 #. type: SH
-#: ../doc/fuser.1:290 ../doc/killall.1:170 ../doc/peekfd.1:64 ../doc/pslog.1:28
-#: ../doc/pstree.1:174
+#: ../doc/fuser.1:291 ../doc/killall.1:170 ../doc/peekfd.1:64 ../doc/pslog.1:27
+#: ../doc/pstree.1:178
 #, no-wrap
 msgid "SEE ALSO"
 msgstr "ТАКОЖ ПЕРЕГЛЯНЬТЕ"
 
 #. type: Plain text
-#: ../doc/fuser.1:296
+#: ../doc/fuser.1:297
 msgid ""
 "B<kill>(1), B<killall>(1), B<lsof>(8), B<pkill>(1), B<ps>(1), B<kill>(2)."
 msgstr ""
@@ -722,12 +755,6 @@ msgstr ""
 #, no-wrap
 msgid "KILLALL"
 msgstr "KILLALL"
-
-#. type: TH
-#: ../doc/killall.1:9
-#, no-wrap
-msgid "2018-05-06"
-msgstr "6 травня 2018 року"
 
 #. type: Plain text
 #: ../doc/killall.1:12
@@ -795,11 +822,17 @@ msgstr ""
 
 #. type: Plain text
 #: ../doc/killall.1:72
+#, fuzzy
+#| msgid ""
+#| "B<killall> returns a zero return code if at least one process has been "
+#| "killed for each listed command, or no commands were listed and at least "
+#| "one process matched the -u and -Z search criteria.  B<killall> returns "
+#| "non-zero otherwise."
 msgid ""
 "B<killall> returns a zero return code if at least one process has been "
 "killed for each listed command, or no commands were listed and at least one "
-"process matched the -u and -Z search criteria.  B<killall> returns non-zero "
-"otherwise."
+"process matched the B<-u> and B<-Z> search criteria.  B<killall> returns non-"
+"zero otherwise."
 msgstr ""
 "B<killall> повертає нульовий код, якщо було завершено роботу принаймні "
 "одного процесу для кожної з команд зі списку або у списку не було команд, а "
@@ -823,13 +856,21 @@ msgstr "B<-e>, B<--exact>"
 
 #. type: Plain text
 #: ../doc/killall.1:93
+#, fuzzy
+#| msgid ""
+#| "Require an exact match for very long names.  If a command name is longer "
+#| "than 15 characters, the full name may be unavailable (i.e.  it is swapped "
+#| "out).  In this case, B<killall> will kill everything that matches within "
+#| "the first 15 characters.  With B<-e>, such entries are skipped.  "
+#| "B<killall> prints a message for each skipped entry if B<-v> is specified "
+#| "in addition to B<-e>,"
 msgid ""
 "Require an exact match for very long names.  If a command name is longer "
 "than 15 characters, the full name may be unavailable (i.e.  it is swapped "
 "out).  In this case, B<killall> will kill everything that matches within the "
 "first 15 characters.  With B<-e>, such entries are skipped.  B<killall> "
 "prints a message for each skipped entry if B<-v> is specified in addition to "
-"B<-e>,"
+"B<-e>."
 msgstr ""
 "Вимагати точної відповідності для дуже довгих назв. Якщо довжина назви "
 "команди перевищує 15 символів, повна назва може бути недоступною (тобто її "
@@ -901,10 +942,15 @@ msgstr "B<-o>, B<--older-than>"
 
 #. type: Plain text
 #: ../doc/killall.1:111
+#, fuzzy
+#| msgid ""
+#| "Match only processes that are older (started before) the time specified.  "
+#| "The time is specified as a float then a unit.  The units are s,m,h,d,w,M,"
+#| "y for seconds, minutes, hours, days, weeks, Months and years respectively."
 msgid ""
 "Match only processes that are older (started before) the time specified.  "
 "The time is specified as a float then a unit.  The units are s,m,h,d,w,M,y "
-"for seconds, minutes, hours, days, weeks, Months and years respectively."
+"for seconds, minutes, hours, days, weeks, months and years respectively."
 msgstr ""
 "Обробляти лише процеси, які є старішими вказаного моменту часу (тобто ті "
 "процеси, які запущено до вказаного моменту часу). Час має бути вказано у "
@@ -1066,11 +1112,17 @@ msgstr ""
 
 #. type: Plain text
 #: ../doc/killall.1:170
+#, fuzzy
+#| msgid ""
+#| "B<killall> has a limit of names that can be specified on the command "
+#| "line.  This figure is the size of an unsigned long multiplied by 8.  For "
+#| "most 32 bit systems the limit is 32 and similarly for a 64 bit system the "
+#| "limit is usually 64."
 msgid ""
 "B<killall> has a limit of names that can be specified on the command line.  "
-"This figure is the size of an unsigned long multiplied by 8.  For most 32 "
-"bit systems the limit is 32 and similarly for a 64 bit system the limit is "
-"usually 64."
+"This figure is the size of an unsigned long integer multiplied by 8.  For "
+"most 32 bit systems the limit is 32 and similarly for a 64 bit system the "
+"limit is usually 64."
 msgstr ""
 "У B<killall> передбачено обмеження розміру назв, які може бути вказано у "
 "рядку команди. Розмір визначається розміром «довгого» цілого числа без "
@@ -1091,12 +1143,6 @@ msgstr ""
 #, no-wrap
 msgid "PEEKFD"
 msgstr "PEEKFD"
-
-#. type: TH
-#: ../doc/peekfd.1:9
-#, no-wrap
-msgid "2012-07-28"
-msgstr "28 липня 2012 року"
 
 #. type: Plain text
 #: ../doc/peekfd.1:12
@@ -1240,14 +1286,19 @@ msgstr "До stderr може бути спрямовано такі діагно
 
 #. type: TP
 #: ../doc/peekfd.1:53
-#, no-wrap
-msgid "B<Error attaching to pid ...>"
+#, fuzzy, no-wrap
+#| msgid "B<Error attaching to pid ...>"
+msgid "B<Error attaching to pid E<lt>PIDE<gt>>"
 msgstr "B<Error attaching to pid ...>"
 
 #. type: Plain text
 #: ../doc/peekfd.1:57
+#, fuzzy
+#| msgid ""
+#| "An unknown error occurred while attempted to attach to a process..  you "
+#| "may need to be root."
 msgid ""
-"An unknown error occurred while attempted to attach to a process..  you may "
+"An unknown error occurred while attempted to attach to a process, you may "
 "need to be root."
 msgstr ""
 "Сталася помилка під час спроби приєднатися до процесу. Ймовірно, вам "
@@ -1262,7 +1313,7 @@ msgstr ""
 "ви ведете спостереження, несподівано завершить роботу."
 
 #. type: SH
-#: ../doc/peekfd.1:60 ../doc/pslog.1:34
+#: ../doc/peekfd.1:60 ../doc/pslog.1:31
 #, no-wrap
 msgid "AUTHOR"
 msgstr "АВТОР"
@@ -1286,12 +1337,6 @@ msgstr "PSLOG"
 #. type: TH
 #: ../doc/pslog.1:9
 #, no-wrap
-msgid "September 12, 2015” "
-msgstr "12 вересня 2015 року"
-
-#. type: TH
-#: ../doc/pslog.1:9
-#, no-wrap
 msgid "Linux\""
 msgstr "Linux"
 
@@ -1308,53 +1353,46 @@ msgstr ""
 "pslog — програма для визначення шляху до файла журналу вказаного процесу"
 
 #. type: Plain text
-#: ../doc/pslog.1:17
-#, no-wrap
-msgid ""
-"pslog pid...\n"
-"pslog -V\n"
+#: ../doc/pslog.1:16
+msgid "B<pslog> I<pid> \\&...\""
 msgstr ""
-"pslog pid...\n"
-"pslog -V\n"
 
 #. type: Plain text
-#: ../doc/pslog.1:21
-msgid "The pslog command reports the current working logs of a process."
+#: ../doc/pslog.1:18
+#, fuzzy
+#| msgid "B<fuser -V>"
+msgid "B<pslog -V>"
+msgstr "B<fuser -V>"
+
+#. type: Plain text
+#: ../doc/pslog.1:23
+#, fuzzy
+#| msgid "The pslog command reports the current working logs of a process."
+msgid "The B<pslog> command reports the current working logs of a process."
 msgstr "Програма pslog визначає поточний файл журналу для вказаного процесу."
 
-#. type: SH
-#: ../doc/pslog.1:22
+#. type: IP
+#: ../doc/pslog.1:24 ../doc/pstree.1:165
 #, no-wrap
-msgid "GENERAL OPTIONS"
-msgstr "ЗАГАЛЬНІ ПАРАМЕТРИ"
-
-#. type: tbl table
-#: ../doc/pslog.1:25
-#, no-wrap
-msgid "-V  show version  Displays version of program."
-msgstr "-V  вивести версію  Виводить дані щодо версії програми."
+msgid "B<-V>"
+msgstr "B<-V>"
 
 #. type: Plain text
-#: ../doc/pslog.1:30
-msgid "ps(1) pgrep(1) pwdx(1)"
-msgstr "ps(1) pgrep(1) pwdx(1)"
-
-#. type: SH
 #: ../doc/pslog.1:31
-#, no-wrap
-msgid "STANDARDS"
-msgstr "СТАНДАРТИ"
+#, fuzzy
+#| msgid "B<ps>(1), B<top>(1)."
+msgid "B<pgrep>(1), B<ps>(1), B<pwdx>(1)."
+msgstr "B<ps>(1), B<top>(1)."
 
 #. type: Plain text
-#: ../doc/pslog.1:33
-msgid "No standards apply."
-msgstr "Стандарти не застосовувалися."
-
-#. type: Plain text
-#: ../doc/pslog.1:36
+#: ../doc/pslog.1:40
+#, fuzzy
+#| msgid ""
+#| "Vito Mule’ E<lt>mulevito@gmail.comE<gt> wrote pslog in 2015. Please send "
+#| "bug reports to E<lt>mulevito@gmail.comE<gt>."
 msgid ""
-"Vito Mule’ E<lt>mulevito@gmail.comE<gt> wrote pslog in 2015. Please send bug "
-"reports to E<lt>mulevito@gmail.comE<gt>."
+"Vito Muleâ E<.MT mulevito@gmail.com> E<.ME> wrote B<pslog> in 2015. Please "
+"send bug reports to E<.MT mulevito@gmail.com> E<.ME .>"
 msgstr ""
 "Pslog створено Vito Mule’ E<lt>mulevito@gmail.comE<gt> у 2015 році. Будь "
 "ласка, повідомляйте про вади на адресу E<lt>mulevito@gmail.comE<gt>."
@@ -1364,12 +1402,6 @@ msgstr ""
 #, no-wrap
 msgid "PRTSTAT"
 msgstr "PRTSTAT"
-
-#. type: TH
-#: ../doc/prtstat.1:9
-#, no-wrap
-msgid "2016-06-18"
-msgstr "18 червня 2016 року"
 
 #. type: Plain text
 #: ../doc/prtstat.1:12
@@ -1426,7 +1458,9 @@ msgstr "/proc/E<lt>PIDE<gt>/stat"
 
 #. type: Plain text
 #: ../doc/prtstat.1:40
-msgid "source of the information B<prtstat> uses"
+#, fuzzy
+#| msgid "source of the information B<prtstat> uses"
+msgid "source of the information B<prtstat> uses."
 msgstr "джерело відомостей, яке використовує B<prtstat>"
 
 #. type: TH
@@ -1434,12 +1468,6 @@ msgstr "джерело відомостей, яке використовує B<p
 #, no-wrap
 msgid "PSTREE"
 msgstr "PSTREE"
-
-#. type: TH
-#: ../doc/pstree.1:9
-#, no-wrap
-msgid "2019-10-23"
-msgstr ""
 
 #. type: Plain text
 #: ../doc/pstree.1:12
@@ -1557,11 +1585,17 @@ msgstr ""
 
 #. type: Plain text
 #: ../doc/pstree.1:88
+#, fuzzy
+#| msgid ""
+#| "Certain kernel or mount parameters, such as the hidepid option for "
+#| "procfs, will hide information for some processes. In these situations "
+#| "B<pstree> will attempt to build the tree without this information, "
+#| "showing process names as question marks."
 msgid ""
-"Certain kernel or mount parameters, such as the hidepid option for procfs, "
-"will hide information for some processes. In these situations B<pstree> will "
-"attempt to build the tree without this information, showing process names as "
-"question marks."
+"Certain kernel or mount parameters, such as the I<hidepid> option for "
+"procfs, will hide information for some processes. In these situations "
+"B<pstree> will attempt to build the tree without this information, showing "
+"process names as question marks."
 msgstr ""
 "Використання певних ядер та параметрів монтування, зокрема параметра hidepid "
 "для procfs, може призвести до приховування даних щодо деяких процесів. У "
@@ -1707,8 +1741,12 @@ msgstr "B<-n>"
 
 #. type: Plain text
 #: ../doc/pstree.1:134
+#, fuzzy
+#| msgid ""
+#| "Sort processes with the same ancestor by PID instead of by name.  "
+#| "(Numeric sort.)"
 msgid ""
-"Sort processes with the same ancestor by PID instead of by name.  (Numeric "
+"Sort processes with the same parent by PID instead of by name.  (Numeric "
 "sort.)"
 msgstr ""
 "Упорядкувати процеси із однаковим попередником за PID, а не за назвою. "
@@ -1721,12 +1759,18 @@ msgid "B<-N>"
 msgstr "B<-N>"
 
 #. type: Plain text
-#: ../doc/pstree.1:139
+#: ../doc/pstree.1:141
+#, fuzzy
+#| msgid ""
+#| "Show individual trees for each namespace of the type specified.  The "
+#| "available types are: ipc, mnt, net, pid, user, uts.  Regular users don't "
+#| "have access to other users' processes information, so the output will be "
+#| "limited."
 msgid ""
 "Show individual trees for each namespace of the type specified.  The "
-"available types are: ipc, mnt, net, pid, user, uts.  Regular users don't "
-"have access to other users' processes information, so the output will be "
-"limited."
+"available types are: I<ipc>, I<mnt>, I<net>, I<pid>, I<time>, I<user>, "
+"I<uts>.  Regular users don't have access to other users' processes "
+"information, so the output will be limited."
 msgstr ""
 "Показувати окремі ієрархії для кожного простору назв визначеного типу. "
 "Можливими значеннями типу є такі: ipc, mnt, net, pid, user, uts. Звичайні "
@@ -1734,13 +1778,13 @@ msgstr ""
 "виведені дані будуть доволі обмеженими."
 
 #. type: IP
-#: ../doc/pstree.1:139
+#: ../doc/pstree.1:141
 #, no-wrap
 msgid "B<-p>"
 msgstr "B<-p>"
 
 #. type: Plain text
-#: ../doc/pstree.1:144
+#: ../doc/pstree.1:146
 msgid ""
 "Show PIDs.  PIDs are shown as decimal numbers in parentheses after each "
 "process name.  B<-p> implicitly disables compaction."
@@ -1749,61 +1793,65 @@ msgstr ""
 "процесу. Використання параметра B<-p> неявним чином вимикає ущільнення."
 
 #. type: IP
-#: ../doc/pstree.1:144
+#: ../doc/pstree.1:146
 #, no-wrap
 msgid "B<-s>"
 msgstr "B<-s>"
 
 #. type: Plain text
-#: ../doc/pstree.1:146
+#: ../doc/pstree.1:148
 msgid "Show parent processes of the specified process."
 msgstr "Показати батьківські процеси вказаного процесу."
 
 #. type: IP
-#: ../doc/pstree.1:146
+#: ../doc/pstree.1:148
 #, no-wrap
 msgid "B<-S>"
 msgstr "B<-S>"
 
 #. type: Plain text
-#: ../doc/pstree.1:149
+#: ../doc/pstree.1:151
+#, fuzzy
+#| msgid ""
+#| "Show namespaces transitions.  Like -N, the output is limited when running "
+#| "as a regular user."
 msgid ""
-"Show namespaces transitions.  Like -N, the output is limited when running as "
-"a regular user."
+"Show namespaces transitions.  Like B<-N>, the output is limited when running "
+"as a regular user."
 msgstr ""
 "Показати переходи просторів назв. Подібний до -N. Якщо команду віддано від "
 "імені звичайного користувача, виведені дані будуть доволі обмеженими."
 
 #. type: IP
-#: ../doc/pstree.1:149
+#: ../doc/pstree.1:151
 #, no-wrap
 msgid "B<-t>"
 msgstr "B<-t>"
 
 #. type: Plain text
-#: ../doc/pstree.1:151
+#: ../doc/pstree.1:153
 msgid "Show full names for threads when available."
 msgstr "Показувати повні назви гілок, якщо такі доступні."
 
 #. type: IP
-#: ../doc/pstree.1:151
+#: ../doc/pstree.1:153
 #, no-wrap
 msgid "B<-T>"
 msgstr "B<-T>"
 
 #. type: Plain text
-#: ../doc/pstree.1:153
+#: ../doc/pstree.1:155
 msgid "Hide threads and only show processes."
 msgstr "Приховати гілки і показати лише процеси."
 
 #. type: IP
-#: ../doc/pstree.1:153
+#: ../doc/pstree.1:155
 #, no-wrap
 msgid "B<-u>"
 msgstr "B<-u>"
 
 #. type: Plain text
-#: ../doc/pstree.1:157
+#: ../doc/pstree.1:159
 msgid ""
 "Show uid transitions.  Whenever the uid of a process differs from the uid of "
 "its parent, the new uid is shown in parentheses after the process name."
@@ -1812,17 +1860,22 @@ msgstr ""
 "процесу, новий uid буде показано у дужках після назви процесу."
 
 #. type: IP
-#: ../doc/pstree.1:157
+#: ../doc/pstree.1:159
 #, no-wrap
 msgid "B<-U>"
 msgstr "B<-U>"
 
 #. type: Plain text
-#: ../doc/pstree.1:163
+#: ../doc/pstree.1:165
+#, fuzzy
+#| msgid ""
+#| "Use UTF-8 (Unicode) line drawing characters.  Under Linux 1.1-54 and "
+#| "above, UTF-8 mode is entered on the console with B<echo -e '\\033%8'> and "
+#| "left with B<echo -e '\\033%@'>"
 msgid ""
 "Use UTF-8 (Unicode) line drawing characters.  Under Linux 1.1-54 and above, "
 "UTF-8 mode is entered on the console with B<echo -e '\\033%8'> and left with "
-"B<echo -e '\\033%@'>"
+"B<echo -e '\\033%@'>."
 msgstr ""
 "Використовувати для малювання ліній символи UTF-8 (Unicode). У Linux 1.1-54 "
 "та новіших версіях до режиму UTF-8 у консолі можна увійти за допомогою "
@@ -1830,32 +1883,67 @@ msgstr ""
 "B<echo -e '\\033%@'>"
 
 #. type: IP
-#: ../doc/pstree.1:163
-#, no-wrap
-msgid "B<-V>"
-msgstr "B<-V>"
-
-#. type: IP
-#: ../doc/pstree.1:165
+#: ../doc/pstree.1:167
 #, no-wrap
 msgid "B<-Z>"
 msgstr "B<-Z>"
 
 #. type: Plain text
-#: ../doc/pstree.1:168
+#: ../doc/pstree.1:172
+#, fuzzy
+#| msgid ""
+#| "(SELinux) Show security context for each process.  This flag will only "
+#| "work if pstree is compiled with SELinux support."
 msgid ""
 "(SELinux) Show security context for each process.  This flag will only work "
-"if pstree is compiled with SELinux support."
+"if B<pstree> is compiled with SELinux support."
 msgstr ""
 "(SELinux) Показати контекст безпеки для кожного процесу. Цей прапорець "
 "працюватиме, лише якщо pstree зібрано із підтримкою SELinux."
 
 #. type: Plain text
-#: ../doc/pstree.1:174
+#: ../doc/pstree.1:178
 msgid "Some character sets may be incompatible with the VT100 characters."
 msgstr "Деякі набори символів можуть бути несумісні із набором символів VT100."
 
 #. type: Plain text
-#: ../doc/pstree.1:176
+#: ../doc/pstree.1:180
 msgid "B<ps>(1), B<top>(1)."
 msgstr "B<ps>(1), B<top>(1)."
+
+#~ msgid "2016-04-04"
+#~ msgstr "4 квітня 2016 року"
+
+#~ msgid "2018-05-06"
+#~ msgstr "6 травня 2018 року"
+
+#~ msgid "2012-07-28"
+#~ msgstr "28 липня 2012 року"
+
+#~ msgid "September 12, 2015” "
+#~ msgstr "12 вересня 2015 року"
+
+#~ msgid ""
+#~ "pslog pid...\n"
+#~ "pslog -V\n"
+#~ msgstr ""
+#~ "pslog pid...\n"
+#~ "pslog -V\n"
+
+#~ msgid "GENERAL OPTIONS"
+#~ msgstr "ЗАГАЛЬНІ ПАРАМЕТРИ"
+
+#~ msgid "-V  show version  Displays version of program."
+#~ msgstr "-V  вивести версію  Виводить дані щодо версії програми."
+
+#~ msgid "ps(1) pgrep(1) pwdx(1)"
+#~ msgstr "ps(1) pgrep(1) pwdx(1)"
+
+#~ msgid "STANDARDS"
+#~ msgstr "СТАНДАРТИ"
+
+#~ msgid "No standards apply."
+#~ msgstr "Стандарти не застосовувалися."
+
+#~ msgid "2016-06-18"
+#~ msgstr "18 червня 2016 року"
