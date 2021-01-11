@@ -70,7 +70,7 @@ src_fuser_SOURCES += src/timeout.c src/timeout.h
 endif
 src_fuser_LDADD = @LIBINTL@
 src_killall_SOURCES = src/killall.c src/comm.h src/signals.c src/signals.h src/i18n.h
-src_killall_LDADD = @LIBINTL@ @SELINUX_LIB@
+src_killall_LDADD = @LIBINTL@ @DL_LIB@
 src_peekfd_SOURCES = src/peekfd.c
 src_peekfd_LDADD = @LIBINTL@
 src_pslog_SOURCES = src/pslog.c

@@ -48,6 +48,7 @@
 #include "comm.h"
 
 #ifdef WITH_SELINUX
+#include <dlfcn.h>
 #include <selinux/selinux.h>
 #else
 typedef void* security_context_t; /* DUMMY to remove most ifdefs */
@@ -470,30 +471,30 @@ static int out_int(int x)
  */
 static void out_scontext(const PROC *current)
 {
-    static void (*ps_freecon)(char*) = 0;
-    static int (*ps_getpidcon)(pid_t pid, char **context) = 0;
+    static void (*my_freecon)(char*) = 0;
+    static int (*my_getpidcon)(pid_t pid, char **context) = 0;
     static int selinux_enabled = 0;
     char *context;
 
 #ifdef WITH_SELINUX
-    static int (*ps_is_selinux_enabled)(void) = 0;
+    static int (*my_is_selinux_enabled)(void) = 0;
     static int tried_load = 0;
 
-    if(!ps_getpidcon && !tried_load){
+    if(!my_getpidcon && !tried_load){
     void *handle = dlopen("libselinux.so.1", RTLD_NOW);
     if(handle) {
-	ps_freecon = dlsym(handle, "freecon");
+	my_freecon = dlsym(handle, "freecon");
 	if(dlerror())
-	    ps_freecon = 0;
+	    my_freecon = 0;
 	dlerror();
-	ps_getpidcon = dlsym(handle, "getpidcon");
+	my_getpidcon = dlsym(handle, "getpidcon");
 	if(dlerror())
-	    ps_getpidcon = 0;
-	ps_is_selinux_enabled = dlsym(handle, "is_selinux_enabled");
+	    my_getpidcon = 0;
+	my_is_selinux_enabled = dlsym(handle, "is_selinux_enabled");
 	if(dlerror())
-	    ps_is_selinux_enabled = 0;
+	    my_is_selinux_enabled = 0;
 	else
-	    selinux_enabled = ps_is_selinux_enabled();
+	    selinux_enabled = my_is_selinux_enabled();
     }
     tried_load++;
     }
@@ -501,9 +502,9 @@ static void out_scontext(const PROC *current)
 
     out_string("`");
     
-    if (ps_getpidcon && selinux_enabled && !ps_getpidcon(current->pid, &context)) {
+    if (my_getpidcon && selinux_enabled && !my_getpidcon(current->pid, &context)) {
 	out_string(context);
-	ps_freecon(context);
+	my_freecon(context);
     } else {
         FILE *file;
         char path[50];

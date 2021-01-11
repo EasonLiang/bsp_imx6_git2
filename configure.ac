@@ -30,6 +30,7 @@ PSMISC_PROG_PO4A
 
 dnl checks for options
 # SELinux support - off by default
+DL_LIB=
 AC_SUBST([WITH_SELINUX])
 AC_ARG_ENABLE([selinux],
   [AS_HELP_STRING([--enable-selinux], [Enable Security-Enhanced Linux features])],
@@ -37,10 +38,13 @@ AC_ARG_ENABLE([selinux],
   [enable_selinux="no"])
 if test "$enable_selinux" = "yes"; then
   AC_DEFINE([WITH_SELINUX], [1], [Use Security-Enhanced Linux features])
-  AC_CHECK_LIB([selinux], [getfilecon], [SELINUX_LIB=-lselinux], [
-     AC_MSG_ERROR([Cannot find selinux static library]) ])
+  AC_SEARCH_LIBS([dlopen], [dl], [],
+		 [AC_MSG_ERROR([dynamic linking unavailable, circumvent with --disable-selinux])])
+  if test "x$ac_cv_search_dlopen" != "xnone required"; then
+      DL_LIB="$ac_cv_search_dlopen"
+  fi
 fi
-AC_SUBST([SELINUX_LIB])
+AC_SUBST([DL_LIB])
 
 # Call fork before all stat calls to stop hanging on NFS mounts
 AC_SUBST([WITH_TIMEOUT_STAT])

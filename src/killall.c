@@ -2,7 +2,7 @@
  * killall.c - kill processes by name or list PIDs
  *
  * Copyright (C) 1993-2002 Werner Almesberger
- * Copyright (C) 2002-2020 Craig Small <csmall@dropbear.xyz>
+ * Copyright (C) 2002-2021 Craig Small <csmall@dropbear.xyz>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,6 +45,7 @@
 #include <assert.h>
 
 #ifdef WITH_SELINUX
+#include <dlfcn.h>
 #include <selinux/selinux.h>
 #endif /*WITH_SELINUX*/
 
@@ -256,6 +257,60 @@ match_process_uid(pid_t pid, uid_t uid)
     }
     return re;
 }
+
+/* Match on the given scontext to the process context
+ * Return 0 on a match
+ */
+static int
+match_process_context(const pid_t pid, const regex_t *scontext)
+{
+    static void (*my_freecon)(char*) = NULL;
+    static int (*my_getpidcon)(pid_t pid, char **context) = NULL;
+    static int selinux_enabled = 0;
+    char *lcontext;
+    int retval = 1;
+
+#ifdef WITH_SELINUX
+    static int tried_load = 0;
+    static int (*my_is_selinux_enabled)(void) = NULL;
+
+    if(!my_getpidcon && !tried_load){
+        void *handle = dlopen("libselinux.so.1", RTLD_NOW);
+        if(handle) {
+            my_freecon = dlsym(handle, "freecon");
+        if(dlerror())
+            my_freecon = NULL;
+        my_getpidcon = dlsym(handle, "getpidcon");
+        if(dlerror())
+            my_getpidcon = NULL;
+        my_is_selinux_enabled = dlsym(handle, "is_selinux_enabled");
+        if(dlerror())
+            my_is_selinux_enabled = 0;
+        else
+            selinux_enabled = my_is_selinux_enabled();
+        }
+    tried_load++;
+    }
+#endif /* WITH_SELINUX */
+
+    if (my_getpidcon && selinux_enabled && !my_getpidcon(pid, &lcontext)) {
+        retval = (regexec(scontext, lcontext, 0, NULL, 0) ==0);
+	my_freecon(lcontext);
+    } else {
+        FILE *file;
+        char path[50];
+        char readbuf[BUFSIZ+1];
+        snprintf(path, sizeof path, "/proc/%d/attr/current", pid);
+        if ( (file = fopen(path, "r")) != NULL) {
+            if (fgets(readbuf, BUFSIZ, file) != NULL) {
+                retval = (regexec(scontext, readbuf, 0, NULL, 0)==0);
+             }
+	    fclose(file);
+        }
+    }
+    return retval;
+}
+
 
 static void
 free_regexp_list(regex_t *reglist, int names)
@@ -536,14 +591,9 @@ static int match_process_name(
     return (0 == strcmp2 (match_name, proc_comm, ignore_case));
 }
 
-#ifdef WITH_SELINUX
 static int
 kill_all(int signal, int name_count, char **namelist, struct passwd *pwent, 
          regex_t *scontext )
-#else  /*WITH_SELINUX*/
-static int
-kill_all (int signal, int name_count, char **namelist, struct passwd *pwent)
-#endif /*WITH_SELINUX*/
 {
     struct stat st;
     NAMEINFO *name_info = NULL;
@@ -556,9 +606,6 @@ kill_all (int signal, int name_count, char **namelist, struct passwd *pwent)
     unsigned long found;
     regex_t *reglist = NULL;
     long ns_ino = 0;
-#ifdef WITH_SELINUX
-    security_context_t lcontext=NULL;
-#endif /*WITH_SELINUX*/
 
     if (opt_ns_pid)
         ns_ino = get_ns(opt_ns_pid, PIDNS);
@@ -599,19 +646,9 @@ kill_all (int signal, int name_count, char **namelist, struct passwd *pwent)
         if (opt_ns_pid && ns_ino && ns_ino != get_ns(pid_table[i], PIDNS))
             continue;
 
-#ifdef WITH_SELINUX
-        /* match by SELinux context */
-        if (scontext) 
-        {
-            if (getpidcon(pid_table[i], &lcontext) < 0)
-                continue;
-            if (regexec(scontext, lcontext, 0, NULL, 0) != 0) {
-                freecon(lcontext);
-                continue;
-            }
-            freecon(lcontext);
-        }
-#endif /*WITH_SELINUX*/
+	if (scontext && match_process_context(pid_table[i], scontext) == 0)
+	    continue;
+
         length = load_process_name_and_age(comm, &process_age_sec, pid_table[i], (younger_than||older_than));
         if (length < 0)
             continue;
@@ -763,14 +800,8 @@ usage (const char *msg)
 {
     if (msg != NULL)
         fprintf(stderr, "%s\n", msg);
-#ifdef WITH_SELINUX
-    fprintf(stderr, _(
-                      "Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -eIgiqrvw ]\n"
-                      "               [ -s SIGNAL | -SIGNAL ] NAME...\n"));
-#else  /*WITH_SELINUX*/
     fprintf(stderr, _(
                       "Usage: killall [OPTION]... [--] NAME...\n"));
-#endif /*WITH_SELINUX*/
     fprintf(stderr, _(
                       "       killall -l, --list\n"
                       "       killall -V, --version\n\n"
@@ -791,11 +822,9 @@ usage (const char *msg)
                       "  -n,--ns PID         match processes that belong to the same namespaces\n"
                       "                      as PID\n"));
 
-#ifdef WITH_SELINUX
     fprintf(stderr, _(
                       "  -Z,--context REGEXP kill only process(es) having context\n"
                       "                      (must precede other arguments)\n"));
-#endif /*WITH_SELINUX*/
     fputc('\n', stderr);
     exit(1);
 }
@@ -805,7 +834,7 @@ void print_version()
 {
     fprintf(stderr, "killall (PSmisc) %s\n", VERSION);
     fprintf(stderr, _(
-                      "Copyright (C) 1993-2020 Werner Almesberger and Craig Small\n\n"));
+                      "Copyright (C) 1993-2021 Werner Almesberger and Craig Small\n\n"));
     fprintf(stderr, _(
                       "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
                       "This is free software, and you are welcome to redistribute it under\n"
@@ -853,9 +882,7 @@ main (int argc, char **argv)
         {"verbose", 0, NULL, 'v'},
         {"wait", 0, NULL, 'w'},
         {"ns", 1, NULL, 'n' },
-#ifdef WITH_SELINUX
         {"context", 1, NULL, 'Z'},
-#endif /*WITH_SELINUX*/
         {"version", 0, NULL, 'V'},
         {0,0,0,0 }};
 
@@ -866,12 +893,10 @@ main (int argc, char **argv)
     bindtextdomain(PACKAGE, LOCALEDIR);
     textdomain(PACKAGE);
 #endif
-#ifdef WITH_SELINUX
-    security_context_t scontext = NULL;
+    char *scontext = NULL;
     regex_t scontext_reg;
 
     if ( argc < 2 ) usage(NULL); /* do the obvious thing... */
-#endif /*WITH_SELINUX*/
 
     name = strrchr (*argv, '/');
     if (name)
@@ -882,11 +907,7 @@ main (int argc, char **argv)
 
 
     opterr = 0;
-#ifdef WITH_SELINUX
     while ( (optc = getopt_long_only(argc,argv,"egy:o:ilqrs:u:vwZ:VIn:",options,NULL)) != -1) {
-#else
-        while ( (optc = getopt_long_only(argc,argv,"egy:o:ilqrs:u:vwVIn:",options,NULL)) != -1) {
-#endif
             switch (optc) {
             case 'e':
                 exact = 1;
@@ -963,18 +984,13 @@ main (int argc, char **argv)
                 opt_ns_pid = (pid_t) num;
             }
                 break;
-#ifdef WITH_SELINUX
             case 'Z': 
-                if (is_selinux_enabled()>0) {
-                    scontext=optarg;
-                    if (regcomp(&scontext_reg, scontext, REG_EXTENDED|REG_NOSUB) != 0) {
-                        fprintf(stderr, _("Bad regular expression: %s\n"), scontext);
-                        exit (1);
-                    }
-                } else 
-                    fprintf(stderr, "Warning: -Z (--context) ignored. Requires an SELinux enabled kernel\n");
+                scontext=optarg;
+                if (regcomp(&scontext_reg, scontext, REG_EXTENDED|REG_NOSUB) != 0) {
+                    fprintf(stderr, _("Bad regular expression: %s\n"), scontext);
+                    exit (1);
+                }
                 break;
-#endif /*WITH_SELINUX*/
             case '?':
                 if (skip_error == optind)
                     break;
@@ -1001,11 +1017,7 @@ main (int argc, char **argv)
             }
         }
         myoptind = optind;
-#ifdef WITH_SELINUX
         if ((argc - myoptind < 1) && pwent==NULL && scontext==NULL) 
-#else
-            if ((argc - myoptind < 1) && pwent==NULL)      
-#endif
                 usage(NULL);
 
         if (argc - myoptind > MAX_NAMES) {
@@ -1019,10 +1031,6 @@ main (int argc, char **argv)
             exit (1);
         }
         argv = argv + myoptind;
-#ifdef WITH_SELINUX
         return kill_all(sig_num,argc - myoptind, argv, pwent, 
                         scontext ? &scontext_reg : NULL);
-#else  /*WITH_SELINUX*/
-        return kill_all(sig_num,argc - myoptind, argv, pwent);
-#endif /*WITH_SELINUX*/
     }

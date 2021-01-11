@@ -1,5 +1,6 @@
 Changes in NEXT
 ===============
+        * killall: Dynamically link to selinux and use security attributes
 	* pstree: Do not crash on missing processes !21
 	* pstree: fix layout when using -C !24
 	* pstree: add time namespace !25
