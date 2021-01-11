@@ -4,8 +4,8 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_INIT([psmisc],
 	m4_esyscmd([misc/git-version-gen .tarball-version]),
 	,,,[https://www.gitlab.com/psmisc/psmisc])
-AM_INIT_AUTOMAKE([foreign 1.11 dejagnu subdir-objects -Wall -Wno-portability tar-pax no-dist-gzip dist-xz])
-AM_SILENT_RULES([no])
+AM_INIT_AUTOMAKE([foreign 1.11 subdir-objects -Wall -Wno-portability tar-pax no-dist-gzip dist-xz])
+AM_SILENT_RULES([yes])
 AC_CONFIG_SRCDIR([src/comm.h])
 AC_CONFIG_HEADERS([config.h])
 

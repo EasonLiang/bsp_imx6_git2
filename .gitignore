@@ -7,7 +7,7 @@
 *.swp
 .version
 autom4te.cache/
-config/
+^/config/
 cov-int/
 m4/
 ABOUT-NLS

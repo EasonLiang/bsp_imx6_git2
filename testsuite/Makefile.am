@@ -10,4 +10,8 @@ if WANT_FUSER
 endif
 
 
-EXTRA_DIST =
+EXTRA_DIST = \
+    config/unix.exp \
+    fuser.test/fuser.exp \
+    pslog.test/pslog.exp \
+    killall.test/killall.exp
