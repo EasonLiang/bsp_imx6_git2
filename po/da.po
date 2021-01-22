@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: psmisc 23.2\n"
-"Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2021-01-05 10:22+1100\n"
+"Report-Msgid-Bugs-To: csmall@dropbear.xyz\n"
+"POT-Creation-Date: 2021-01-22 17:49+1100\n"
 "PO-Revision-Date: 2018-08-14 18:11+0200\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -97,7 +97,7 @@ msgstr ""
 msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
-#: src/fuser.c:179 src/killall.c:808 src/pstree.c:1239
+#: src/fuser.c:179 src/pstree.c:1266
 #, fuzzy, c-format
 msgid ""
 "Copyright (C) 1993-2020 Werner Almesberger and Craig Small\n"
@@ -106,8 +106,8 @@ msgstr ""
 "Ophavsret 1993-2017 Werner Almesberger og Craig Small\n"
 "\n"
 
-#: src/fuser.c:181 src/killall.c:810 src/peekfd.c:195 src/prtstat.c:68
-#: src/pstree.c:1241
+#: src/fuser.c:181 src/killall.c:839 src/peekfd.c:195 src/prtstat.c:68
+#: src/pstree.c:1268
 #, c-format
 msgid ""
 "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
@@ -229,57 +229,47 @@ msgstr "Kan ikke åbne en netværkssokkel.\n"
 msgid "Cannot find socket's device number.\n"
 msgstr "Kan ikke finde sokkels enhedsnummer.\n"
 
-#: src/killall.c:108
+#: src/killall.c:109
 #, c-format
 msgid "Kill %s(%s%d) ? (y/N) "
 msgstr "Dræb %s(%s%d) ? (j/N) "
 
-#: src/killall.c:111
+#: src/killall.c:112
 #, c-format
 msgid "Signal %s(%s%d) ? (y/N) "
 msgstr "Signal %s(%s%d) ? (j/N) "
 
-#: src/killall.c:254
+#: src/killall.c:255
 #, c-format
 msgid "killall: Cannot get UID from process status\n"
 msgstr "killall: Kan ikke hente UID fra status for proces\n"
 
-#: src/killall.c:289
+#: src/killall.c:344
 #, c-format
 msgid "killall: Bad regular expression: %s\n"
 msgstr "killall: Ugyldigt regulært udtryk: %s\n"
 
-#: src/killall.c:446
+#: src/killall.c:501
 #, c-format
 msgid "killall: skipping partial match %s(%d)\n"
 msgstr "killall: springer over delvist match %s(%d)\n"
 
-#: src/killall.c:707
+#: src/killall.c:744
 #, c-format
 msgid "Killed %s(%s%d) with signal %d\n"
 msgstr "Dræbte %s(%s%d) med signal %d\n"
 
-#: src/killall.c:726
+#: src/killall.c:763
 #, c-format
 msgid "%s: no process found\n"
 msgstr "%s: ingen proces fundet\n"
 
-#: src/killall.c:768
-#, c-format
-msgid ""
-"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
-"eIgiqrvw ]\n"
-"               [ -s SIGNAL | -SIGNAL ] NAME...\n"
-msgstr ""
-"Brug: killall [-Z KONTEKST ] [-u BRUGER] [ -y TIDSPUNKT ] [ -o TIDSPUNKT ]\n"
-"                [ -eIgiqrvw ] [ -s SIGNAL | -SIGNAL ] NAVN...\n"
-
-#: src/killall.c:772
+#: src/killall.c:804
 #, c-format
 msgid "Usage: killall [OPTION]... [--] NAME...\n"
 msgstr "Brug: killall [TILVALG]... [--] NAVN...\n"
 
-#: src/killall.c:775
+#: src/killall.c:806
 #, c-format
 msgid ""
 "       killall -l, --list\n"
@@ -322,7 +312,7 @@ msgstr ""
 "  -n,--ns PID         match processer som tilhører det samme navnerum\n"
 "                      som PID\n"
 
-#: src/killall.c:796
+#: src/killall.c:826
 #, c-format
 msgid ""
 "  -Z,--context REGEXP kill only process(es) having context\n"
@@ -331,30 +321,39 @@ msgstr ""
 "  -Z,--context REGUDTRYK dræb kun proces(ser) som har kontekst\n"
 "                         (skal stå før andre argumenter)\n"
 
-#: src/killall.c:901 src/killall.c:907
+#: src/killall.c:837
+#, fuzzy, c-format
+msgid ""
+"Copyright (C) 1993-2021 Werner Almesberger and Craig Small\n"
+"\n"
+msgstr ""
+"Ophavsret 1993-2017 Werner Almesberger og Craig Small\n"
+"\n"
+
+#: src/killall.c:922 src/killall.c:928
 msgid "Invalid time format"
 msgstr "Ugyldigt tidsformat"
 
-#: src/killall.c:927
+#: src/killall.c:948
 #, c-format
 msgid "Cannot find user %s\n"
 msgstr "Kan ikke finde brugeren %s\n"
 
-#: src/killall.c:962
+#: src/killall.c:983
 msgid "Invalid namespace PID"
 msgstr "Ugyldig PID for navneområde"
 
-#: src/killall.c:971
+#: src/killall.c:990
 #, c-format
 msgid "Bad regular expression: %s\n"
 msgstr "Ugyldigt regulært udtryk: %s\n"
 
-#: src/killall.c:1012
+#: src/killall.c:1024
 #, c-format
 msgid "killall: Maximum number of names is %d\n"
 msgstr "killall: Maksimalt antal navne er %d\n"
 
-#: src/killall.c:1017
+#: src/killall.c:1029
 #, c-format
 msgid "killall: %s lacks process entries (not mounted ?)\n"
 msgstr "killall: %s mangler proceselementer (ikke monteret)?\n"
@@ -576,12 +575,12 @@ msgstr "Du skal mindst angive én PID."
 msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
 msgstr "/proc er ikke monteret, kan ikke udføre stat for /proc/self/stat.\n"
 
-#: src/pstree.c:1147
+#: src/pstree.c:1183
 #, c-format
 msgid "%s is empty (not mounted ?)\n"
 msgstr "%s er tom (ikke monteret)?\n"
 
-#: src/pstree.c:1181
+#: src/pstree.c:1216
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -589,15 +588,7 @@ msgid ""
 "   or: pstree -V\n"
 msgstr ""
 
-#: src/pstree.c:1186
-#, c-format
-msgid ""
-"Usage: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N type ]\n"
-"              [ -A | -G | -U ] [ PID | USER ]\n"
-"   or: pstree -V\n"
-msgstr ""
-
-#: src/pstree.c:1191
+#: src/pstree.c:1220
 #, c-format
 msgid ""
 "\n"
@@ -605,7 +596,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/pstree.c:1194
+#: src/pstree.c:1223
 #, c-format
 msgid ""
 "  -a, --arguments     show command line arguments\n"
@@ -613,21 +604,21 @@ msgid ""
 "  -c, --compact-not   don't compact identical subtrees\n"
 msgstr ""
 
-#: src/pstree.c:1198
+#: src/pstree.c:1227
 #, c-format
 msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
 "                      (age)\n"
 msgstr ""
 
-#: src/pstree.c:1201
+#: src/pstree.c:1230
 #, c-format
 msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
 "  -G, --vt100         use VT100 line drawing characters\n"
 msgstr ""
 
-#: src/pstree.c:1204
+#: src/pstree.c:1233
 #, c-format
 msgid ""
 "  -h, --highlight-all highlight current process and its ancestors\n"
@@ -636,7 +627,7 @@ msgid ""
 "  -l, --long          don't truncate long lines\n"
 msgstr ""
 
-#: src/pstree.c:1209
+#: src/pstree.c:1238
 #, c-format
 msgid ""
 "  -n, --numeric-sort  sort output by PID\n"
@@ -646,7 +637,7 @@ msgid ""
 "  -p, --show-pids     show PIDs; implies -c\n"
 msgstr ""
 
-#: src/pstree.c:1215
+#: src/pstree.c:1244
 #, c-format
 msgid ""
 "  -s, --show-parents  show parents of the selected process\n"
@@ -655,7 +646,7 @@ msgid ""
 "  -T, --hide-threads  hide threads, show only processes\n"
 msgstr ""
 
-#: src/pstree.c:1220
+#: src/pstree.c:1249
 #, c-format
 msgid ""
 "  -u, --uid-changes   show uid transitions\n"
@@ -663,16 +654,16 @@ msgid ""
 "  -V, --version       display version information\n"
 msgstr ""
 
-#: src/pstree.c:1225
-#, c-format
+#: src/pstree.c:1253
+#, fuzzy, c-format
 msgid ""
 "  -Z, --security-context\n"
-"                      show SELinux security contexts\n"
+"                      show security attributes\n"
 msgstr ""
 "  -Z, --security-context\n"
 "                      vis  SELinux-sikkerhedskontekster\n"
 
-#: src/pstree.c:1228
+#: src/pstree.c:1255
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -684,37 +675,37 @@ msgstr ""
 "  USER   vis kun træstrukturer som har denne bruger som rod\n"
 "\n"
 
-#: src/pstree.c:1236
+#: src/pstree.c:1263
 #, c-format
 msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
-#: src/pstree.c:1363
+#: src/pstree.c:1383
 #, c-format
 msgid "TERM is not set\n"
 msgstr "TERM er ikke angivet\n"
 
-#: src/pstree.c:1367
+#: src/pstree.c:1387
 #, c-format
 msgid "Can't get terminal capabilities\n"
 msgstr "Kan ikke skaffe oplysninger om terminalens funktioner\n"
 
-#: src/pstree.c:1385
+#: src/pstree.c:1405
 #, c-format
 msgid "procfs file for %s namespace not available\n"
 msgstr "procfs-fil for %s-navnerum er ikke tilgængelig\n"
 
-#: src/pstree.c:1438
+#: src/pstree.c:1452
 #, c-format
 msgid "No such user name: %s\n"
 msgstr "Brugernavnet findes ikke: %s\n"
 
-#: src/pstree.c:1464
+#: src/pstree.c:1478
 #, c-format
 msgid "No processes found.\n"
 msgstr "Fandt ingen processer.\n"
 
-#: src/pstree.c:1472
+#: src/pstree.c:1486
 #, c-format
 msgid "Press return to close\n"
 msgstr "Tryk retur for at lukke\n"
@@ -723,6 +714,15 @@ msgstr "Tryk retur for at lukke\n"
 #, c-format
 msgid "%s: unknown signal; %s -l lists signals.\n"
 msgstr "%s: ukendt signal; %s -l viser signaler.\n"
+
+#~ msgid ""
+#~ "Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
+#~ "eIgiqrvw ]\n"
+#~ "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
+#~ msgstr ""
+#~ "Brug: killall [-Z KONTEKST ] [-u BRUGER] [ -y TIDSPUNKT ] [ -o "
+#~ "TIDSPUNKT ]\n"
+#~ "                [ -eIgiqrvw ] [ -s SIGNAL | -SIGNAL ] NAVN...\n"
 
 #, fuzzy
 #~ msgid ""

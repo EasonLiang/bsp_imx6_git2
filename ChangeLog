@@ -1,4 +1,4 @@
-Changes in NEXT
+Changes in 23.4
 ===============
         * killall: Dynamically link to selinux and use security attributes
 	* pstree: Do not crash on missing processes !21

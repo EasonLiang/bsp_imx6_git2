@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: psmisc-23.3\n"
-"Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2021-01-05 10:22+1100\n"
+"Report-Msgid-Bugs-To: csmall@dropbear.xyz\n"
+"POT-Creation-Date: 2021-01-22 17:49+1100\n"
 "PO-Revision-Date: 2019-10-24 19:11+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -99,7 +99,7 @@ msgstr ""
 msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
-#: src/fuser.c:179 src/killall.c:808 src/pstree.c:1239
+#: src/fuser.c:179 src/pstree.c:1266
 #, fuzzy, c-format
 msgid ""
 "Copyright (C) 1993-2020 Werner Almesberger and Craig Small\n"
@@ -108,8 +108,8 @@ msgstr ""
 "© Werner Almesberger та Craig Small, 1993–2009\n"
 "\n"
 
-#: src/fuser.c:181 src/killall.c:810 src/peekfd.c:195 src/prtstat.c:68
-#: src/pstree.c:1241
+#: src/fuser.c:181 src/killall.c:839 src/peekfd.c:195 src/prtstat.c:68
+#: src/pstree.c:1268
 #, c-format
 msgid ""
 "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
@@ -231,58 +231,47 @@ msgstr "Не вдалося відкрити сокет мережі.\n"
 msgid "Cannot find socket's device number.\n"
 msgstr "Не вдалося визначити номер пристрою сокета.\n"
 
-#: src/killall.c:108
+#: src/killall.c:109
 #, c-format
 msgid "Kill %s(%s%d) ? (y/N) "
 msgstr "Завершити роботу %s(%s%d)? (y (так) або N (ні)) "
 
-#: src/killall.c:111
+#: src/killall.c:112
 #, c-format
 msgid "Signal %s(%s%d) ? (y/N) "
 msgstr "Надіслати сигнал %s(%s%d)? (y (так) або N (ні)) "
 
-#: src/killall.c:254
+#: src/killall.c:255
 #, c-format
 msgid "killall: Cannot get UID from process status\n"
 msgstr "killall: не вдалося отримати UID з даних щодо стану процесу\n"
 
-#: src/killall.c:289
+#: src/killall.c:344
 #, c-format
 msgid "killall: Bad regular expression: %s\n"
 msgstr "killall: помилковий формальний вираз: %s\n"
 
-#: src/killall.c:446
+#: src/killall.c:501
 #, c-format
 msgid "killall: skipping partial match %s(%d)\n"
 msgstr "killall: пропускаємо частковий відповідник %s(%d)\n"
 
-#: src/killall.c:707
+#: src/killall.c:744
 #, c-format
 msgid "Killed %s(%s%d) with signal %d\n"
 msgstr "Завершено роботу %s(%s%d) за допомогою сигналу %d\n"
 
-#: src/killall.c:726
+#: src/killall.c:763
 #, c-format
 msgid "%s: no process found\n"
 msgstr "%s: процес не знайдено\n"
 
-#: src/killall.c:768
-#, c-format
-msgid ""
-"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
-"eIgiqrvw ]\n"
-"               [ -s SIGNAL | -SIGNAL ] NAME...\n"
-msgstr ""
-"Використання: killall [-Z КОНТЕКСТ] [-u КОРИСТУВАЧ] [ -y ЧАС ] [ -o ЧАС ] [ -"
-"eIgiqrvw ]\n"
-"                      [ -s СИГНАЛ | -СИГНАЛ ] НАЗВА...\n"
-
-#: src/killall.c:772
+#: src/killall.c:804
 #, c-format
 msgid "Usage: killall [OPTION]... [--] NAME...\n"
 msgstr "Використання: killall [ПАРАМЕТР]... [--] НАЗВА...\n"
 
-#: src/killall.c:775
+#: src/killall.c:806
 #, c-format
 msgid ""
 "       killall -l, --list\n"
@@ -330,7 +319,7 @@ msgstr ""
 "назв,\n"
 "                       що і PID\n"
 
-#: src/killall.c:796
+#: src/killall.c:826
 #, c-format
 msgid ""
 "  -Z,--context REGEXP kill only process(es) having context\n"
@@ -340,30 +329,39 @@ msgstr ""
 "контекстом\n"
 "                      (слід вказувати перед іншими аргументами)\n"
 
-#: src/killall.c:901 src/killall.c:907
+#: src/killall.c:837
+#, fuzzy, c-format
+msgid ""
+"Copyright (C) 1993-2021 Werner Almesberger and Craig Small\n"
+"\n"
+msgstr ""
+"© Werner Almesberger та Craig Small, 1993–2009\n"
+"\n"
+
+#: src/killall.c:922 src/killall.c:928
 msgid "Invalid time format"
 msgstr "Некоректний формат визначення часу"
 
-#: src/killall.c:927
+#: src/killall.c:948
 #, c-format
 msgid "Cannot find user %s\n"
 msgstr "Не вдалося знайти користувача %s\n"
 
-#: src/killall.c:962
+#: src/killall.c:983
 msgid "Invalid namespace PID"
 msgstr "Некоректний PID простору назв"
 
-#: src/killall.c:971
+#: src/killall.c:990
 #, c-format
 msgid "Bad regular expression: %s\n"
 msgstr "Помилковий формальний вираз: %s\n"
 
-#: src/killall.c:1012
+#: src/killall.c:1024
 #, c-format
 msgid "killall: Maximum number of names is %d\n"
 msgstr "killall: максимальною кількістю назв є %d\n"
 
-#: src/killall.c:1017
+#: src/killall.c:1029
 #, c-format
 msgid "killall: %s lacks process entries (not mounted ?)\n"
 msgstr "killall: %s не містить записів процесів (не змонтовано?)\n"
@@ -585,12 +583,12 @@ msgstr "Вам слід вказати принаймні одне значен�
 msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
 msgstr "/proc не змонтовано, виконання обробки /proc/self/stat неможливе.\n"
 
-#: src/pstree.c:1147
+#: src/pstree.c:1183
 #, c-format
 msgid "%s is empty (not mounted ?)\n"
 msgstr "%s є порожнім (не змонтовано?)\n"
 
-#: src/pstree.c:1181
+#: src/pstree.c:1216
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -601,18 +599,7 @@ msgstr ""
 "              [ -A | -G | -U ] [ PID | КОРИСТУВАЧ ]\n"
 "   або: pstree -V\n"
 
-#: src/pstree.c:1186
-#, c-format
-msgid ""
-"Usage: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N type ]\n"
-"              [ -A | -G | -U ] [ PID | USER ]\n"
-"   or: pstree -V\n"
-msgstr ""
-"Користування: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N тип ]\n"
-"              [ -A | -G | -U ] [ PID | КОРИСТУВАЧ ]\n"
-"   або: pstree -V\n"
-
-#: src/pstree.c:1191
+#: src/pstree.c:1220
 #, c-format
 msgid ""
 "\n"
@@ -623,7 +610,7 @@ msgstr ""
 "Показати ієрархію процесів.\n"
 "\n"
 
-#: src/pstree.c:1194
+#: src/pstree.c:1223
 #, c-format
 msgid ""
 "  -a, --arguments     show command line arguments\n"
@@ -634,7 +621,7 @@ msgstr ""
 "  -A, --ascii         використати символи для малювання ліній ASCII\n"
 "  -c, --compact-not   не стискати ідентичні підлеглі ієрархії\n"
 
-#: src/pstree.c:1198
+#: src/pstree.c:1227
 #, c-format
 msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
@@ -643,7 +630,7 @@ msgstr ""
 "  -C, --color=ТИП     розфарбувати процеси за атрибутом\n"
 "                      (вік)\n"
 
-#: src/pstree.c:1201
+#: src/pstree.c:1230
 #, c-format
 msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
@@ -653,7 +640,7 @@ msgstr ""
 "використовує -c\n"
 "  -G, --vt100         скористатися символами для малювання ліній VT100\n"
 
-#: src/pstree.c:1204
+#: src/pstree.c:1233
 #, c-format
 msgid ""
 "  -h, --highlight-all highlight current process and its ancestors\n"
@@ -666,7 +653,7 @@ msgstr ""
 "                      підсвітити вказаний процес та його попередники\n"
 "  -l, --long          не обрізати довгі рядки\n"
 
-#: src/pstree.c:1209
+#: src/pstree.c:1238
 #, fuzzy, c-format
 msgid ""
 "  -n, --numeric-sort  sort output by PID\n"
@@ -681,7 +668,7 @@ msgstr ""
 "                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     показати PID; неявно використовує -c\n"
 
-#: src/pstree.c:1215
+#: src/pstree.c:1244
 #, c-format
 msgid ""
 "  -s, --show-parents  show parents of the selected process\n"
@@ -694,7 +681,7 @@ msgstr ""
 "  -t, --thread-names  показати назви потоків виконання повністю\n"
 "  -T, --hide-threads  приховати потоки виконання, показати лише процеси\n"
 
-#: src/pstree.c:1220
+#: src/pstree.c:1249
 #, c-format
 msgid ""
 "  -u, --uid-changes   show uid transitions\n"
@@ -706,16 +693,16 @@ msgstr ""
 "(Unicode)\n"
 "  -V, --version       вивести дані щодо версії\n"
 
-#: src/pstree.c:1225
-#, c-format
+#: src/pstree.c:1253
+#, fuzzy, c-format
 msgid ""
 "  -Z, --security-context\n"
-"                      show SELinux security contexts\n"
+"                      show security attributes\n"
 msgstr ""
 "  -Z, --security-context\n"
 "                      вивести контексти захисту SELinux\n"
 
-#: src/pstree.c:1228
+#: src/pstree.c:1255
 #, c-format
 msgid ""
 "\n"
@@ -730,37 +717,37 @@ msgstr ""
 "користувача\n"
 "\n"
 
-#: src/pstree.c:1236
+#: src/pstree.c:1263
 #, c-format
 msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
-#: src/pstree.c:1363
+#: src/pstree.c:1383
 #, c-format
 msgid "TERM is not set\n"
 msgstr "Не встановлено змінної TERM\n"
 
-#: src/pstree.c:1367
+#: src/pstree.c:1387
 #, c-format
 msgid "Can't get terminal capabilities\n"
 msgstr "Не вдалося отримати дані щодо можливостей термінала\n"
 
-#: src/pstree.c:1385
+#: src/pstree.c:1405
 #, c-format
 msgid "procfs file for %s namespace not available\n"
 msgstr "файл procfs для простору назв %s недоступний\n"
 
-#: src/pstree.c:1438
+#: src/pstree.c:1452
 #, c-format
 msgid "No such user name: %s\n"
 msgstr "Користувача з таким іменем не існує: %s\n"
 
-#: src/pstree.c:1464
+#: src/pstree.c:1478
 #, c-format
 msgid "No processes found.\n"
 msgstr "Не знайдено жодного процесу.\n"
 
-#: src/pstree.c:1472
+#: src/pstree.c:1486
 #, c-format
 msgid "Press return to close\n"
 msgstr "Натисніть Enter, щоб закрити.\n"
@@ -770,6 +757,24 @@ msgstr "Натисніть Enter, щоб закрити.\n"
 msgid "%s: unknown signal; %s -l lists signals.\n"
 msgstr ""
 "%s: невідомий сигнал; щоб отримати список сигналів віддайте команду %s -l .\n"
+
+#~ msgid ""
+#~ "Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
+#~ "eIgiqrvw ]\n"
+#~ "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
+#~ msgstr ""
+#~ "Використання: killall [-Z КОНТЕКСТ] [-u КОРИСТУВАЧ] [ -y ЧАС ] [ -o ЧАС ] "
+#~ "[ -eIgiqrvw ]\n"
+#~ "                      [ -s СИГНАЛ | -СИГНАЛ ] НАЗВА...\n"
+
+#~ msgid ""
+#~ "Usage: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N type ]\n"
+#~ "              [ -A | -G | -U ] [ PID | USER ]\n"
+#~ "   or: pstree -V\n"
+#~ msgstr ""
+#~ "Користування: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N тип ]\n"
+#~ "              [ -A | -G | -U ] [ PID | КОРИСТУВАЧ ]\n"
+#~ "   або: pstree -V\n"
 
 #~ msgid ""
 #~ "Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n"

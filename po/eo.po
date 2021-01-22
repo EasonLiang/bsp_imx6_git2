@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: psmisc 23.2\n"
-"Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2021-01-05 10:22+1100\n"
+"Report-Msgid-Bugs-To: csmall@dropbear.xyz\n"
+"POT-Creation-Date: 2021-01-22 17:49+1100\n"
 "PO-Revision-Date: 2019-01-26 21:17+0100\n"
 "Last-Translator: Felipe Castro <fefcas@gmail.com>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
@@ -93,7 +93,7 @@ msgstr ""
 msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
-#: src/fuser.c:179 src/killall.c:808 src/pstree.c:1239
+#: src/fuser.c:179 src/pstree.c:1266
 #, fuzzy, c-format
 msgid ""
 "Copyright (C) 1993-2020 Werner Almesberger and Craig Small\n"
@@ -102,8 +102,8 @@ msgstr ""
 "Kopirajto (C) 1993-2009 Werner Almesberger kaj Craig Small\n"
 "\n"
 
-#: src/fuser.c:181 src/killall.c:810 src/peekfd.c:195 src/prtstat.c:68
-#: src/pstree.c:1241
+#: src/fuser.c:181 src/killall.c:839 src/peekfd.c:195 src/prtstat.c:68
+#: src/pstree.c:1268
 #, c-format
 msgid ""
 "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
@@ -225,57 +225,47 @@ msgstr "Ne eblas malfermi retan ingon.\n"
 msgid "Cannot find socket's device number.\n"
 msgstr "Ne eblas trovi aparat-numeron de ingo.\n"
 
-#: src/killall.c:108
+#: src/killall.c:109
 #, c-format
 msgid "Kill %s(%s%d) ? (y/N) "
 msgstr "Ĉu mortigi %s(%s%d) ? (y/N) "
 
-#: src/killall.c:111
+#: src/killall.c:112
 #, c-format
 msgid "Signal %s(%s%d) ? (y/N) "
 msgstr "Ĉu signali %s(%s%d) ? (y/N) "
 
-#: src/killall.c:254
+#: src/killall.c:255
 #, c-format
 msgid "killall: Cannot get UID from process status\n"
 msgstr "killall: Ne eblas preni UID el procez-stato\n"
 
-#: src/killall.c:289
+#: src/killall.c:344
 #, c-format
 msgid "killall: Bad regular expression: %s\n"
 msgstr "killall: Malĝusta regulesprimo: %s\n"
 
-#: src/killall.c:446
+#: src/killall.c:501
 #, c-format
 msgid "killall: skipping partial match %s(%d)\n"
 msgstr "killall: preterpasas ne-kompletan kongruon %s(%d)\n"
 
-#: src/killall.c:707
+#: src/killall.c:744
 #, c-format
 msgid "Killed %s(%s%d) with signal %d\n"
 msgstr "Ni mortigis %s(%s%d) per signalo %d\n"
 
-#: src/killall.c:726
+#: src/killall.c:763
 #, c-format
 msgid "%s: no process found\n"
 msgstr "%s: neniu procezo trovite\n"
 
-#: src/killall.c:768
-#, c-format
-msgid ""
-"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
-"eIgiqrvw ]\n"
-"               [ -s SIGNAL | -SIGNAL ] NAME...\n"
-msgstr ""
-"Uzmaniero: killall [-Z KUNTEKSTO] [-u UZANTO] [ -y TEMPO ] [ -o TEMPO ]\n"
-"                   [ -eIgiqrvw ][ -s SIGNALO | -SIGNALO ] NOMO...\n"
-
-#: src/killall.c:772
+#: src/killall.c:804
 #, c-format
 msgid "Usage: killall [OPTION]... [--] NAME...\n"
 msgstr "Uzmaniero: killall [ELEKTILO]... [--] NOMO...\n"
 
-#: src/killall.c:775
+#: src/killall.c:806
 #, c-format
 msgid ""
 "       killall -l, --list\n"
@@ -318,7 +308,7 @@ msgstr ""
 "  -n,--ns PID         kongrui al procezoj kiuj apartenas al la samaj\n"
 "                      nomspacoj ol PID\n"
 
-#: src/killall.c:796
+#: src/killall.c:826
 #, c-format
 msgid ""
 "  -Z,--context REGEXP kill only process(es) having context\n"
@@ -327,30 +317,39 @@ msgstr ""
 "  -Z,--context REGEXP mortigi nur procezo(j)n kiuj havu kuntekston\n"
 "                      (devas veni antaŭ aliaj argumentoj)\n"
 
-#: src/killall.c:901 src/killall.c:907
+#: src/killall.c:837
+#, fuzzy, c-format
+msgid ""
+"Copyright (C) 1993-2021 Werner Almesberger and Craig Small\n"
+"\n"
+msgstr ""
+"Kopirajto (C) 1993-2009 Werner Almesberger kaj Craig Small\n"
+"\n"
+
+#: src/killall.c:922 src/killall.c:928
 msgid "Invalid time format"
 msgstr "Malvalida tempo-formo"
 
-#: src/killall.c:927
+#: src/killall.c:948
 #, c-format
 msgid "Cannot find user %s\n"
 msgstr "Ne eblas trovi la uzanton %s\n"
 
-#: src/killall.c:962
+#: src/killall.c:983
 msgid "Invalid namespace PID"
 msgstr "Malvalida PID de nomspaco"
 
-#: src/killall.c:971
+#: src/killall.c:990
 #, c-format
 msgid "Bad regular expression: %s\n"
 msgstr "Malĝusta regul-esprimo: %s\n"
 
-#: src/killall.c:1012
+#: src/killall.c:1024
 #, c-format
 msgid "killall: Maximum number of names is %d\n"
 msgstr "killall: Maksimuma nombro da nomoj estas %d\n"
 
-#: src/killall.c:1017
+#: src/killall.c:1029
 #, c-format
 msgid "killall: %s lacks process entries (not mounted ?)\n"
 msgstr "killall: %s malhavas procezajn informojn (ĉu ne muntita ?)\n"
@@ -570,12 +569,12 @@ msgstr "Vi devas provizi minimume unu PID."
 msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
 msgstr "/proc ne estas muntita, ni ne povas apliki stat en /proc/self/stat.\n"
 
-#: src/pstree.c:1147
+#: src/pstree.c:1183
 #, c-format
 msgid "%s is empty (not mounted ?)\n"
 msgstr "%s estas malplena (ĉu ne muntita ?)\n"
 
-#: src/pstree.c:1181
+#: src/pstree.c:1216
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -583,15 +582,7 @@ msgid ""
 "   or: pstree -V\n"
 msgstr ""
 
-#: src/pstree.c:1186
-#, c-format
-msgid ""
-"Usage: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N type ]\n"
-"              [ -A | -G | -U ] [ PID | USER ]\n"
-"   or: pstree -V\n"
-msgstr ""
-
-#: src/pstree.c:1191
+#: src/pstree.c:1220
 #, c-format
 msgid ""
 "\n"
@@ -599,7 +590,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/pstree.c:1194
+#: src/pstree.c:1223
 #, c-format
 msgid ""
 "  -a, --arguments     show command line arguments\n"
@@ -607,21 +598,21 @@ msgid ""
 "  -c, --compact-not   don't compact identical subtrees\n"
 msgstr ""
 
-#: src/pstree.c:1198
+#: src/pstree.c:1227
 #, c-format
 msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
 "                      (age)\n"
 msgstr ""
 
-#: src/pstree.c:1201
+#: src/pstree.c:1230
 #, c-format
 msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
 "  -G, --vt100         use VT100 line drawing characters\n"
 msgstr ""
 
-#: src/pstree.c:1204
+#: src/pstree.c:1233
 #, c-format
 msgid ""
 "  -h, --highlight-all highlight current process and its ancestors\n"
@@ -630,7 +621,7 @@ msgid ""
 "  -l, --long          don't truncate long lines\n"
 msgstr ""
 
-#: src/pstree.c:1209
+#: src/pstree.c:1238
 #, c-format
 msgid ""
 "  -n, --numeric-sort  sort output by PID\n"
@@ -640,7 +631,7 @@ msgid ""
 "  -p, --show-pids     show PIDs; implies -c\n"
 msgstr ""
 
-#: src/pstree.c:1215
+#: src/pstree.c:1244
 #, c-format
 msgid ""
 "  -s, --show-parents  show parents of the selected process\n"
@@ -649,7 +640,7 @@ msgid ""
 "  -T, --hide-threads  hide threads, show only processes\n"
 msgstr ""
 
-#: src/pstree.c:1220
+#: src/pstree.c:1249
 #, c-format
 msgid ""
 "  -u, --uid-changes   show uid transitions\n"
@@ -657,16 +648,16 @@ msgid ""
 "  -V, --version       display version information\n"
 msgstr ""
 
-#: src/pstree.c:1225
-#, c-format
+#: src/pstree.c:1253
+#, fuzzy, c-format
 msgid ""
 "  -Z, --security-context\n"
-"                      show SELinux security contexts\n"
+"                      show security attributes\n"
 msgstr ""
 "  -Z, --security-context\n"
 "                      montri sekurecajn kuntekstojn SELinux\n"
 
-#: src/pstree.c:1228
+#: src/pstree.c:1255
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -678,37 +669,37 @@ msgstr ""
 "  UZANTO montri nur arbojn kiuj havas radikojn ĉe procezoj de tiu ĉi uzanto\n"
 "\n"
 
-#: src/pstree.c:1236
+#: src/pstree.c:1263
 #, c-format
 msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
-#: src/pstree.c:1363
+#: src/pstree.c:1383
 #, c-format
 msgid "TERM is not set\n"
 msgstr "TERM ne estas difinita\n"
 
-#: src/pstree.c:1367
+#: src/pstree.c:1387
 #, c-format
 msgid "Can't get terminal capabilities\n"
 msgstr "Ne eblas koni la kapablojn de la terminalo\n"
 
-#: src/pstree.c:1385
+#: src/pstree.c:1405
 #, c-format
 msgid "procfs file for %s namespace not available\n"
 msgstr "la dosiero procfs por nomspaco %s ne disponeblas\n"
 
-#: src/pstree.c:1438
+#: src/pstree.c:1452
 #, c-format
 msgid "No such user name: %s\n"
 msgstr "Neniu uzant-nomo tia: %s\n"
 
-#: src/pstree.c:1464
+#: src/pstree.c:1478
 #, c-format
 msgid "No processes found.\n"
 msgstr "Neniu procezo trovite.\n"
 
-#: src/pstree.c:1472
+#: src/pstree.c:1486
 #, c-format
 msgid "Press return to close\n"
 msgstr "Premu la enigklavon por fermi\n"
@@ -717,6 +708,14 @@ msgstr "Premu la enigklavon por fermi\n"
 #, c-format
 msgid "%s: unknown signal; %s -l lists signals.\n"
 msgstr "%s: nekonata signalo; %s -l listigas la signalojn.\n"
+
+#~ msgid ""
+#~ "Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
+#~ "eIgiqrvw ]\n"
+#~ "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
+#~ msgstr ""
+#~ "Uzmaniero: killall [-Z KUNTEKSTO] [-u UZANTO] [ -y TEMPO ] [ -o TEMPO ]\n"
+#~ "                   [ -eIgiqrvw ][ -s SIGNALO | -SIGNALO ] NOMO...\n"
 
 #~ msgid ""
 #~ "Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n"

@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: psmisc 23.3\n"
-"Report-Msgid-Bugs-To: csmall@enc.com.au\n"
-"POT-Creation-Date: 2021-01-05 10:22+1100\n"
+"Report-Msgid-Bugs-To: csmall@dropbear.xyz\n"
+"POT-Creation-Date: 2021-01-22 17:49+1100\n"
 "PO-Revision-Date: 2019-10-30 13:54-0400\n"
 "Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
@@ -96,7 +96,7 @@ msgstr ""
 msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
-#: src/fuser.c:179 src/killall.c:808 src/pstree.c:1239
+#: src/fuser.c:179 src/pstree.c:1266
 #, fuzzy, c-format
 msgid ""
 "Copyright (C) 1993-2020 Werner Almesberger and Craig Small\n"
@@ -105,8 +105,8 @@ msgstr ""
 "Copyright © 1993-2012 Werner Almesberger 和 Craig Small\n"
 "\n"
 
-#: src/fuser.c:181 src/killall.c:810 src/peekfd.c:195 src/prtstat.c:68
-#: src/pstree.c:1241
+#: src/fuser.c:181 src/killall.c:839 src/peekfd.c:195 src/prtstat.c:68
+#: src/pstree.c:1268
 #, c-format
 msgid ""
 "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
@@ -226,58 +226,47 @@ msgstr "无法打开网络端口。\n"
 msgid "Cannot find socket's device number.\n"
 msgstr "无法找到 socket 的设备号。\n"
 
-#: src/killall.c:108
+#: src/killall.c:109
 #, c-format
 msgid "Kill %s(%s%d) ? (y/N) "
 msgstr "杀死 %s(%s%d) ? (y/N) "
 
-#: src/killall.c:111
+#: src/killall.c:112
 #, c-format
 msgid "Signal %s(%s%d) ? (y/N) "
 msgstr "信号 %s(%s%d) ? (y/N) "
 
-#: src/killall.c:254
+#: src/killall.c:255
 #, c-format
 msgid "killall: Cannot get UID from process status\n"
 msgstr "killall: 无法从进程状态获取用户ID(UID)\n"
 
-#: src/killall.c:289
+#: src/killall.c:344
 #, c-format
 msgid "killall: Bad regular expression: %s\n"
 msgstr "killall: 不当的正则表达式: %s\n"
 
-#: src/killall.c:446
+#: src/killall.c:501
 #, c-format
 msgid "killall: skipping partial match %s(%d)\n"
 msgstr "killall: 跳过部分符合的部分 %s(%d)\n"
 
-#: src/killall.c:707
+#: src/killall.c:744
 #, c-format
 msgid "Killed %s(%s%d) with signal %d\n"
 msgstr "%s(%s%d) 被信号 %d 杀死\n"
 
-#: src/killall.c:726
+#: src/killall.c:763
 #, c-format
 msgid "%s: no process found\n"
 msgstr "%s: 未找到进程\n"
 
-#: src/killall.c:768
-#, c-format
-msgid ""
-"Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
-"eIgiqrvw ]\n"
-"               [ -s SIGNAL | -SIGNAL ] NAME...\n"
-msgstr ""
-"用法：killall [ -Z 上下文 ] [ -u 用户名 ] [ -y 时间 ] [ -o 时间 ] [ -"
-"eIgiqrvw ]\n"
-"              [ -s 信号 | -信号 ] 程序名...\n"
-
-#: src/killall.c:772
+#: src/killall.c:804
 #, c-format
 msgid "Usage: killall [OPTION]... [--] NAME...\n"
 msgstr "用法: killall [选项]... [--] 进程名...\n"
 
-#: src/killall.c:775
+#: src/killall.c:806
 #, c-format
 msgid ""
 "       killall -l, --list\n"
@@ -319,7 +308,7 @@ msgstr ""
 "  -w,--wait           等待进程死亡\n"
 "  -n,--ns 进程号      匹配与指定<进程号>具有相同命名空间的进程\n"
 
-#: src/killall.c:796
+#: src/killall.c:826
 #, c-format
 msgid ""
 "  -Z,--context REGEXP kill only process(es) having context\n"
@@ -328,30 +317,39 @@ msgstr ""
 "  -Z,--context 正则表达式 仅杀死含有指定上下文的进程\n"
 "                          (必须在其他参数前使用)\n"
 
-#: src/killall.c:901 src/killall.c:907
+#: src/killall.c:837
+#, fuzzy, c-format
+msgid ""
+"Copyright (C) 1993-2021 Werner Almesberger and Craig Small\n"
+"\n"
+msgstr ""
+"Copyright © 1993-2012 Werner Almesberger 和 Craig Small\n"
+"\n"
+
+#: src/killall.c:922 src/killall.c:928
 msgid "Invalid time format"
 msgstr "无效的时间格式"
 
-#: src/killall.c:927
+#: src/killall.c:948
 #, c-format
 msgid "Cannot find user %s\n"
 msgstr "无法找到用户 %s\n"
 
-#: src/killall.c:962
+#: src/killall.c:983
 msgid "Invalid namespace PID"
 msgstr "无效的命名空间进程号（PID）"
 
-#: src/killall.c:971
+#: src/killall.c:990
 #, c-format
 msgid "Bad regular expression: %s\n"
 msgstr "错误的正则表达式: %s\n"
 
-#: src/killall.c:1012
+#: src/killall.c:1024
 #, c-format
 msgid "killall: Maximum number of names is %d\n"
 msgstr "killall: 最大名字数量是 %d\n"
 
-#: src/killall.c:1017
+#: src/killall.c:1029
 #, c-format
 msgid "killall: %s lacks process entries (not mounted ?)\n"
 msgstr "killall: %s 不含进程信息项 (未挂载?)\n"
@@ -572,12 +570,12 @@ msgstr "您必须提供至少一个 PID。"
 msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
 msgstr "/proc 未被挂载，无法取得 /proc/self/stat 的状态。\n"
 
-#: src/pstree.c:1147
+#: src/pstree.c:1183
 #, c-format
 msgid "%s is empty (not mounted ?)\n"
 msgstr "%s 是空的 (未挂载?)\n"
 
-#: src/pstree.c:1181
+#: src/pstree.c:1216
 #, c-format
 msgid ""
 "Usage: pstree [-acglpsStTuZ] [ -h | -H PID ] [ -n | -N type ]\n"
@@ -588,18 +586,7 @@ msgstr ""
 "              [ -A | -G | -U ] [ 进程号 | 用户 ]\n"
 "  或：pstree -V\n"
 
-#: src/pstree.c:1186
-#, c-format
-msgid ""
-"Usage: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N type ]\n"
-"              [ -A | -G | -U ] [ PID | USER ]\n"
-"   or: pstree -V\n"
-msgstr ""
-"用法：pstree [-acglpsStTu] [ -h | -H 进程号 ] [ -n | -N 类型 ]\n"
-"              [ -A | -G | -U ] [ 进程号 | 用户 ]\n"
-"  或：pstree -V\n"
-
-#: src/pstree.c:1191
+#: src/pstree.c:1220
 #, c-format
 msgid ""
 "\n"
@@ -610,7 +597,7 @@ msgstr ""
 "显示进程树。\n"
 "\n"
 
-#: src/pstree.c:1194
+#: src/pstree.c:1223
 #, c-format
 msgid ""
 "  -a, --arguments     show command line arguments\n"
@@ -621,7 +608,7 @@ msgstr ""
 "  -A, --ascii         使用 ASCII 行绘制字符\n"
 "  -c, --compact-not   不要对完全相同的子树进行压缩\n"
 
-#: src/pstree.c:1198
+#: src/pstree.c:1227
 #, c-format
 msgid ""
 "  -C, --color=TYPE    color process by attribute\n"
@@ -630,7 +617,7 @@ msgstr ""
 "  -C, --color=类型    按照指定属性对进程上色\n"
 "                      (age)\n"
 
-#: src/pstree.c:1201
+#: src/pstree.c:1230
 #, c-format
 msgid ""
 "  -g, --show-pgids    show process group ids; implies -c\n"
@@ -639,7 +626,7 @@ msgstr ""
 "  -g, --show-pgids    显示进程组 ID；隐含启用 -c 选项\n"
 "  -G, --vt100         使用 VT100 行绘制字符\n"
 
-#: src/pstree.c:1204
+#: src/pstree.c:1233
 #, c-format
 msgid ""
 "  -h, --highlight-all highlight current process and its ancestors\n"
@@ -652,7 +639,7 @@ msgstr ""
 "                      高亮显示指定 PID 对应的进程和其所有祖先\n"
 "  -l, --long          不要截断长行\n"
 
-#: src/pstree.c:1209
+#: src/pstree.c:1238
 #, fuzzy, c-format
 msgid ""
 "  -n, --numeric-sort  sort output by PID\n"
@@ -667,7 +654,7 @@ msgstr ""
 "                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
 "  -p, --show-pids     显示 PID；隐含启用 -c 选项\n"
 
-#: src/pstree.c:1215
+#: src/pstree.c:1244
 #, c-format
 msgid ""
 "  -s, --show-parents  show parents of the selected process\n"
@@ -680,7 +667,7 @@ msgstr ""
 "  -t, --thread-names  显示完整线程名称\n"
 "  -T, --hide-threads  隐藏线程，只显示进程\n"
 
-#: src/pstree.c:1220
+#: src/pstree.c:1249
 #, c-format
 msgid ""
 "  -u, --uid-changes   show uid transitions\n"
@@ -691,16 +678,16 @@ msgstr ""
 "  -U, --unicode       使用 UTF-8（Unicode）的行绘制字符\n"
 "  -V, --version       显示版本信息\n"
 
-#: src/pstree.c:1225
-#, c-format
+#: src/pstree.c:1253
+#, fuzzy, c-format
 msgid ""
 "  -Z, --security-context\n"
-"                      show SELinux security contexts\n"
+"                      show security attributes\n"
 msgstr ""
 "  -Z, --security-context\n"
 "                      显示 SELinux 安全上下文\n"
 
-#: src/pstree.c:1228
+#: src/pstree.c:1255
 #, c-format
 msgid ""
 "\n"
@@ -713,37 +700,37 @@ msgstr ""
 "  用户   仅显示从指定用户的进程开始的进程树\n"
 "\n"
 
-#: src/pstree.c:1236
+#: src/pstree.c:1263
 #, c-format
 msgid "pstree (PSmisc) %s\n"
 msgstr "pstree (PSmisc) %s\n"
 
-#: src/pstree.c:1363
+#: src/pstree.c:1383
 #, c-format
 msgid "TERM is not set\n"
 msgstr "未设置 TERM 环境变量\n"
 
-#: src/pstree.c:1367
+#: src/pstree.c:1387
 #, c-format
 msgid "Can't get terminal capabilities\n"
 msgstr "无法获取终端功能\n"
 
-#: src/pstree.c:1385
+#: src/pstree.c:1405
 #, c-format
 msgid "procfs file for %s namespace not available\n"
 msgstr "适用 %s 命名空间的 proc 文件不可用\n"
 
-#: src/pstree.c:1438
+#: src/pstree.c:1452
 #, c-format
 msgid "No such user name: %s\n"
 msgstr "无用户名: %s\n"
 
-#: src/pstree.c:1464
+#: src/pstree.c:1478
 #, c-format
 msgid "No processes found.\n"
 msgstr "未发现进程。\n"
 
-#: src/pstree.c:1472
+#: src/pstree.c:1486
 #, c-format
 msgid "Press return to close\n"
 msgstr "按回车以关闭\n"
@@ -752,6 +739,24 @@ msgstr "按回车以关闭\n"
 #, c-format
 msgid "%s: unknown signal; %s -l lists signals.\n"
 msgstr "%s: 未知的信号; %s -l 显示信号列表。\n"
+
+#~ msgid ""
+#~ "Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
+#~ "eIgiqrvw ]\n"
+#~ "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
+#~ msgstr ""
+#~ "用法：killall [ -Z 上下文 ] [ -u 用户名 ] [ -y 时间 ] [ -o 时间 ] [ -"
+#~ "eIgiqrvw ]\n"
+#~ "              [ -s 信号 | -信号 ] 程序名...\n"
+
+#~ msgid ""
+#~ "Usage: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N type ]\n"
+#~ "              [ -A | -G | -U ] [ PID | USER ]\n"
+#~ "   or: pstree -V\n"
+#~ msgstr ""
+#~ "用法：pstree [-acglpsStTu] [ -h | -H 进程号 ] [ -n | -N 类型 ]\n"
+#~ "              [ -A | -G | -U ] [ 进程号 | 用户 ]\n"
+#~ "  或：pstree -V\n"
 
 # GPL Howto 说了，不要翻译 Copyright.
 #~ msgid ""
