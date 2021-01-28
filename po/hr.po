@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the psmisc package.
 #
 # Tomislav Krznar <tomislav.krznar@gmail.com>, 2012.
-# Božidar Putanec <bozidarp@yahoo.com>, 2016, 2018, 2019.
+# Božidar Putanec <bozidarp@yahoo.com>, 2016, 2018, 2019, 2021.
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc 23.3\n"
+"Project-Id-Version: psmisc 23.4rc1\n"
 "Report-Msgid-Bugs-To: csmall@dropbear.xyz\n"
-"POT-Creation-Date: 2021-01-22 17:49+1100\n"
-"PO-Revision-Date: 2019-10-24 11:42-0700\n"
+"POT-Creation-Date: 2021-01-22 17:54+1100\n"
+"PO-Revision-Date: 2021-01-24 17:56-0800\n"
 "Last-Translator: Božidar Putanec <bozidarp@yahoo.com>\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
 "Language: hr\n"
@@ -17,9 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 2.2.4\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 2.4.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 # 1. https://en.wikipedia.org/wiki/Namespace
@@ -53,8 +52,7 @@ msgstr ""
 "               [-k [-i] [-SIGNAL]] IME...\n"
 "         fuser -l\n"
 "         fuser -V\n"
-"Prikaže procese koji koriste navedene datoteke, utičnice ili datotečne "
-"sustave.\n"
+"Prikaže procese koji koriste navedene datoteke, utičnice ili datotečne sustave.\n"
 "\n"
 "  -a, --all              pokaže i nekorištene datoteke\n"
 "  -i, --interactive      pita prije ubijanja (ignorira se bez -k)\n"
@@ -64,8 +62,7 @@ msgstr ""
 "  -m, --mount            pokaže sve procese koji koriste navedene\n"
 "                           datotečne sustave ili blokovske uređaje\n"
 "  -M, --ismountpoint     izvrši zahtjev samo ako je IME točka montiranja\n"
-"  -n, --namespace PROSTOR  traži u ovom imenskom PROSTORU (file, udp ili "
-"tcp)\n"
+"  -n, --namespace PROSTOR  traži u ovom imenskom PROSTORU (file, udp ili tcp)\n"
 "  -s, --silent           tihi rad (bez ispisa)\n"
 "  -SIGNAL                pošalje SIGNAL umjesto SIGKILL\n"
 "  -u, --user             pokaže korisničke oznake (ID)\n"
@@ -101,12 +98,12 @@ msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
 #: src/fuser.c:179 src/pstree.c:1266
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2020 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Copyright © 1993-2009 Werner Almesberger i Craig Small\n"
+"Copyright (C) 1993-2020 Werner Almesberger and Craig Small\n"
 "\n"
 
 #: src/fuser.c:181 src/killall.c:839 src/peekfd.c:195 src/prtstat.c:68
@@ -171,7 +168,7 @@ msgstr "%s: Nevaljana opcija %s\n"
 
 #: src/fuser.c:1172
 msgid "Namespace option requires an argument."
-msgstr "Opcija imenskog prostora (namespace) zahtijeva argument"
+msgstr "Opcija imenskog prostora (namespace) zahtijeva argument."
 
 #: src/fuser.c:1189
 msgid "Invalid namespace name"
@@ -179,8 +176,7 @@ msgstr "Nevaljano ime imenskog prostora (namespace)"
 
 #: src/fuser.c:1254
 msgid "You can only use files with mountpoint options"
-msgstr ""
-"Smijete koristiti samo datoteke uz opcije točke montiranja (mountpoint)"
+msgstr "Smijete koristiti samo datoteke uz opcije točke montiranja (mountpoint)"
 
 #: src/fuser.c:1304
 msgid "No process specification given"
@@ -188,7 +184,7 @@ msgstr "Nije navedena specifikacija procesa"
 
 #: src/fuser.c:1319
 msgid "all option cannot be used with silent option."
-msgstr "Opcija all (-a) ne može se koristiti uz opciju silent (-s)"
+msgstr "Opcija all (-a) ne može se koristiti uz opciju silent (-s)."
 
 #: src/fuser.c:1324
 msgid "You cannot search for only IPv4 and only IPv6 sockets at the same time"
@@ -329,12 +325,12 @@ msgstr ""
 "                        (mora prethoditi ostalim argumentima)\n"
 
 #: src/killall.c:837
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2021 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Copyright © 1993-2009 Werner Almesberger i Craig Small\n"
+"Copyright (C) 1993-2021 Werner Almesberger and Craig Small\n"
 "\n"
 
 #: src/killall.c:922 src/killall.c:928
@@ -391,10 +387,8 @@ msgid ""
 "    -8, --eight-bit-clean        output 8 bit clean streams.\n"
 "    -n, --no-headers             don't display read/write from fd headers.\n"
 "    -c, --follow                 peek at any new child processes too.\n"
-"    -t, --tgid                   peek at all threads where tgid equals "
-"<pid>.\n"
-"    -d, --duplicates-removed     remove duplicate read/writes from the "
-"output.\n"
+"    -t, --tgid                   peek at all threads where tgid equals <pid>.\n"
+"    -d, --duplicates-removed     remove duplicate read/writes from the output.\n"
 "    -V, --version                prints version info.\n"
 "    -h, --help                   prints this help.\n"
 "\n"
@@ -402,11 +396,9 @@ msgid ""
 msgstr ""
 "Uporaba: peekfd [-8] [-n] [-c] [-d] [-V] [-h] <pid> [<fd> ..]\n"
 "    -8, --eight-bit-clean        producira čisti 8-bitni izlaz\n"
-"    -n, --no-headers             ne prikazuje čitanje i pisanje iz fd "
-"zaglavlja\n"
+"    -n, --no-headers             ne prikazuje čitanje i pisanje iz fd zaglavlja\n"
 "    -c, --follow                 također gleda svaki novi dijete-proces\n"
-"    -t, --tgid                   gleda sve dretve za koje je tgid jednak "
-"<pid>\n"
+"    -t, --tgid                   gleda sve dretve za koje je tgid jednak <pid>\n"
 "    -d, --duplicates-removed     uklanja sve duplikate na izlazu\n"
 "    -V, --version                informacije o ovoj inačici\n"
 "    -h, --help                   ova pomoć\n"
@@ -434,12 +426,12 @@ msgid "prtstat (PSmisc) %s\n"
 msgstr "prtstat (PSmisc) %s\n"
 
 #: src/prtstat.c:66
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 2009-2020 Craig Small\n"
 "\n"
 msgstr ""
-"Copyright (C) 2009-2017 Craig Small\n"
+"Copyright (C) 2009-2020 Craig Small\n"
 "\n"
 
 #: src/prtstat.c:78
@@ -547,7 +539,7 @@ msgstr ""
 
 #: src/prtstat.c:220
 msgid "asprintf in print_stat failed.\n"
-msgstr "Neuspješni asprintf() u print_stat()\n"
+msgstr "asprintf() u print_stat() nije uspjela\n"
 
 #: src/prtstat.c:225
 #, c-format
@@ -652,7 +644,7 @@ msgstr ""
 "  -l, --long          ne kratiti dugačke linije\n"
 
 #: src/pstree.c:1238
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -n, --numeric-sort  sort output by PID\n"
 "  -N TYPE, --ns-sort=TYPE\n"
@@ -660,10 +652,10 @@ msgid ""
 "                              (cgroup, ipc, mnt, net, pid, time, user, uts)\n"
 "  -p, --show-pids     show PIDs; implies -c\n"
 msgstr ""
-"  -n, --numeric-sort  izlaz svrsta po PID-ovima\n"
+"  -n, --numeric-sort  izlaz svrsta po PID-u\n"
 "  -N TYPE, --ns-sort=VRSTA  izlaz svrsta po toj vrsti imenskog prostora\n"
-"                              (cgroup, ipc, mnt, net, pid, user, uts)\n"
-"  -p, --show-pids     Prikaže PID-ove; implicira -c\n"
+"                              (cgroup, ipc, mnt, net, pid, time, user, uts)\n"
+"  -p, --show-pids     prikaže PID-ove; implicira -c\n"
 
 #: src/pstree.c:1244
 #, c-format
@@ -690,13 +682,13 @@ msgstr ""
 "  -V, --version       informacije o inačici programa\n"
 
 #: src/pstree.c:1253
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -Z, --security-context\n"
 "                      show security attributes\n"
 msgstr ""
 "  -Z, --security-context\n"
-"                      pokaže SELinux sigurnosni kontekst\n"
+"                      prikaže sigurnosne atribute\n"
 
 #: src/pstree.c:1255
 #, c-format
@@ -752,12 +744,10 @@ msgid "%s: unknown signal; %s -l lists signals.\n"
 msgstr "%s: nepoznati signal; %s -l ispisuje signale\n"
 
 #~ msgid ""
-#~ "Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
-#~ "eIgiqrvw ]\n"
+#~ "Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -eIgiqrvw ]\n"
 #~ "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
 #~ msgstr ""
-#~ "Uporaba: killall [-Z KONTEKST] [-u KORISNIK] [-y TIME] [-o TIME] [-"
-#~ "eIgiqrvw]\n"
+#~ "Uporaba: killall [-Z KONTEKST] [-u KORISNIK] [-y TIME] [-o TIME] [-eIgiqrvw]\n"
 #~ "                 [-s -SIGNAL | -SIGNAL] IME...\n"
 
 #~ msgid ""
@@ -768,13 +758,6 @@ msgstr "%s: nepoznati signal; %s -l ispisuje signale\n"
 #~ "Uporaba: pstree [-acglpsStTu] [-h | -H PID] [-n | -N vrsta]\n"
 #~ "              [-A | -G | -U ] [PID | KORISNIK]\n"
 #~ "    ili: pstree -V\n"
-
-#~ msgid ""
-#~ "Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Copyright (C) 1993-2017 Werner Almesberger and Craig Small\n"
-#~ "\n"
 
 #~ msgid ""
 #~ "Copyright (C) 1993-2019 Werner Almesberger and Craig Small\n"
@@ -801,8 +784,7 @@ msgstr "%s: nepoznati signal; %s -l ispisuje signale\n"
 #~ "  -l, --long          don't truncate long lines\n"
 #~ "  -n, --numeric-sort  sort output by PID\n"
 #~ "  -N type,\n"
-#~ "  --ns-sort=type      sort by namespace type (cgroup, ipc, mnt, net, "
-#~ "pid,\n"
+#~ "  --ns-sort=type      sort by namespace type (cgroup, ipc, mnt, net, pid,\n"
 #~ "                                              user, uts)\n"
 #~ "  -p, --show-pids     show PIDs; implies -c\n"
 #~ "  -s, --show-parents  show parents of the selected process\n"
