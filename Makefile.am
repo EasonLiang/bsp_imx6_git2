@@ -109,3 +109,4 @@ dist-hook:
 
 get-trans:
 	rsync -Lrtvz  translationproject.org::tp/latest/psmisc/  po
+	rsync -Lrtvz  translationproject.org::tp/latest/psmisc-man/  man-po
