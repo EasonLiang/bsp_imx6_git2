@@ -7,5 +7,6 @@ fi
 
 find . -name '*.c' |
 	sort |
-	sed 's|^./||' > po/POTFILES.in
+	sed 's|^./||
+/^psmisc-/d' > po/POTFILES.in
 
