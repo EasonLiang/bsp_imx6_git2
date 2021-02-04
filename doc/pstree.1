@@ -16,7 +16,7 @@ pstree \- display a tree of processes
 .RB [ \-c  , \ \-\-compact\-not ]
 .RB [ \-C  , \ \-\-color\ \fIattr\fB ]
 .RB [ \-g  , \ \-\-show\-pgids ]
-.RB [ \-h  , \ \-\-highlight\-all  , \ \-H \fIpid\fB  , \ \-\-highlight\-pid\ \fIpid\fB ]
+.RB [ \-h  , \ \-\-highlight\-all  , \ \-H \fI\ pid\fB  \fR, \fB\ \-\-highlight\-pid\ \fIpid\fB \fR]
 .RB [ \-l  , \ \-\-long ]
 .RB [ \-n  , \ \-\-numeric\-sort ]
 .RB [ \-N  , \ \-\-ns\-sort\ \fIns\fB ]
@@ -28,10 +28,10 @@ pstree \- display a tree of processes
 .RB [ \-u  , \ \-\-uid\-changes ]
 .RB [ \-Z  , \ \-\-security\-context ]
 .RB [ \-A  , \ \-\-ascii  , \ \-G  , \ \-\-vt100  , \ \-U  , \ \-\-unicode ]
-.RB [ \fIpid\fB  , \ \fIuser\fB]
+.RB [ \fIpid\fB  , \ \fIuser\fR]
 .br
 .B pstree
-.RB \-V  , \ \-\-version
+.BR \-V  , \ \-\-version
 .ad b
 .SH DESCRIPTION
 .B pstree
@@ -99,7 +99,7 @@ Disable compaction of identical subtrees.  By default, subtrees are
 compacted whenever possible.
 .IP \fB\-C\fP
 Color the process name by given attribute. Currently \fBpstree\fR
-only accepts \fIage\fR which colors by process age.
+only accepts the value \fBage\fR which colors by process age.
 Processes newer than 60 seconds are green,
 newer than an hour yellow and the remaining red.
 .IP \fB\-g\fP

@@ -24,7 +24,7 @@ killall \- kill processes by name
 .RB [ \-q , \ \-\-quiet ]
 .RB [ \-r , \ \-\-regexp ]
 .RB [ \-s , \ \-\-signal
-.IR SIGNAL ,\  -SIGNAL ]
+.IR SIGNAL ,\ \fB\- \fISIGNAL\fR ]
 .RB [ \-u , \ \-\-user
 .IR user ]
 .RB [ \-v , \ \-\-verbose ]
@@ -32,15 +32,15 @@ killall \- kill processes by name
 .RB [ \-y , \ \-\-younger\-than
 .IR TIME ]
 .RB [ \-I , \ \-\-ignore-case ]
-.RB [ \-V, \ \-\-version ]
+.RB [ \-V , \ \-\-version ]
 .RB [ \-\- ]
-.I name ...
+.IR name " ..."
 .br
 .B killall
 .RB \-l
 .br
 .B killall
-.RB \-V, \ \-\-version
+.BR \-V , \ \-\-version
 .ad b
 .SH DESCRIPTION
 .B killall
@@ -113,7 +113,7 @@ Do not complain if no processes were killed.
 .IP "\fB\-r\fP, \fB\-\-regexp\fP"
 Interpret process name pattern as a POSIX extended regular expression, per
 .BR regex (3).
-.IP "\fB\-s\fP, \fB\-\-signal\fP, \fB\-SIGNAL\fP"
+.IP "\fB\-s\fP, \fB\-\-signal\fP, \fB\-\fISIGNAL\fP"
 Send this signal instead of SIGTERM.
 .IP "\fB\-u\fP, \fB\-\-user\fP"
 Kill only processes the specified user owns.  Command names are
