@@ -56,10 +56,8 @@ psmisc.pot:
 update-po:
 	$(PO4A_V) $(PO4A) $(PO4A_OPTS) --force $(srcdir)/po4a.cfg
 
-install-data-local: install-data-local-@USE_PO4A@
 
-install-data-local-no:
-install-data-local-yes:
+install-data-local:
 	for lang in $(LINGUAS); do \
 		files=""; \
 		for trans in $(notdir $(dist_man_MANS)); do \
@@ -75,10 +73,7 @@ install-data-local-yes:
 			dist_man_MANS="$$files"; \
 	done
 
-uninstall-local: uninstall-local-@USE_PO4A@
-
-uninstall-local-no:
-uninstall-local-yes:
+uninstall-local:
 	for lang in $(LINGUAS); do \
 		files=""; \
 		for trans in $(notdir $(dist_man_MANS)); do \
