@@ -32,6 +32,7 @@ INSTALL
 install-sh
 man-po/man.stamp
 man-po/??/*
+man-po/??_??/*
 Makefile
 Makefile.in
 missing
