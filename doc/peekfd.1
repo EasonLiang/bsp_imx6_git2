@@ -19,8 +19,7 @@ peekfd \- peek at file descriptors of running processes
 .RB [ \-h , \-\-help ]
 .I pid
 .RI [ fd ]
-.RI [ fd ]
-.B ...
+.RI [ fd "] ..."
 .SH DESCRIPTION
 .B peekfd
 attaches to a running process and intercepts all reads and writes to
@@ -42,7 +41,7 @@ Display a version string.
 .IP -h
 Display a help message.
 .SH FILES
-.I /proc/*/fd
+.BI /proc/ * /fd
 .RS
 Not used but useful for the user to look at to get good file descriptor
 numbers.
@@ -51,7 +50,7 @@ None.
 .SH DIAGNOSTICS
 The following diagnostics may be issued on stderr:
 .TP
-.B Error attaching to pid <PID>
+.BI "Error attaching to pid " <PID>
 An unknown error occurred while attempted to attach to a process, you
 may need to be root.
 .SH BUGS

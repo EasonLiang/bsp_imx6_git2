@@ -24,7 +24,7 @@ fuser \- identify processes using files or sockets
 .RB [ \-\c
 .IR SIGNAL ]
 ]
-.IR name " \&...\&"
+.IR name " ..."
 .br
 .B fuser \-l
 .br
@@ -134,12 +134,12 @@ and never on the file names even on network based file systems.
 .BR \-l ", " \-\-list\-signals
 List all known signal names.
 .TP
-.BI -m " NAME \fR, " "\-\-mount " NAME
+.BI -m " NAME\fR, " "\-\-mount " NAME
 .I NAME
 specifies a file on a mounted file system or a block device that is
 mounted.  All processes accessing files on that file system are listed.
 If a directory is specified, it is automatically changed to
-.IR NAME /.
+.IR NAME /
 to use any file system that might be mounted on that directory.
 .TP
 .BR \-M ", " \-\-ismountpoint
@@ -195,7 +195,6 @@ option is not used.
 Append the user name of the process owner to each PID.
 .TP
 .BR \-v ", " \-\-verbose
-
 Verbose mode.  Processes are shown in a
 .BR  ps -like
 style.  The fields PID, USER and COMMAND are similar to

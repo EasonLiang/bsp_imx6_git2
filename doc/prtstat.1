@@ -16,13 +16,13 @@ prtstat \- print statistics of a process
 .I pid
 .br
 .B prtstat
-.RB \-V | \-\-version
+.BR \-V | \-\-version
 .ad b
 .SH DESCRIPTION
 .B prtstat
 prints the statistics of the specified process.  This information comes
 from the
-.I /proc/PID/stat
+.BI /proc/ pid /stat
 file.
 .SH OPTIONS
 .TP
@@ -34,7 +34,7 @@ Show the version information for
 .BR prtstat .
 .SH FILES
 .TP
-/proc/<PID>/stat
+.BI /proc/ pid /stat
 source of the information
 .B prtstat
 uses.
