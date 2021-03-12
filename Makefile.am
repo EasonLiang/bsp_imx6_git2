@@ -88,7 +88,7 @@ CLEANFILES = src/signames.h .version
 
 src/signames.h: src/signames.c Makefile src/$(am__dirstamp)
 		export LC_ALL=C ; \
-		@CPP@ -dM $< |\
+		@CPP@ @CPPFLAGS@ -dM $< |\
 		tr -s '\t ' ' ' | sort -n -k 3 | sed \
 	's:#define SIG\([A-Z][A-Z]*[0-9]*\) \([0-9][0-9]*\).*$\:{\ \2,"\1" },:p;d' | \
 		  grep -v '[0-9][0-9][0-9]' >$@ || \
