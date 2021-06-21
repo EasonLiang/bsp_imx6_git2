@@ -1,3 +1,7 @@
+Changes in NEXT
+===============
+        * pstree: Check for process with show_parents #38
+
 Changes in 23.4
 ===============
         * killall: Dynamically link to selinux and use security attributes

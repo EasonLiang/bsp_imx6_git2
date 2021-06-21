@@ -2,7 +2,7 @@
  * pstree.c - display process tree
  *
  * Copyright (C) 1993-2002 Werner Almesberger
- * Copyright (C) 2002-2020 Craig Small <csmall@dropbear.xyz>
+ * Copyright (C) 2002-2021 Craig Small <csmall@dropbear.xyz>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1263,7 +1263,7 @@ void print_version()
     fprintf(stderr, _("pstree (PSmisc) %s\n"), VERSION);
     fprintf(stderr,
             _
-            ("Copyright (C) 1993-2020 Werner Almesberger and Craig Small\n\n"));
+            ("Copyright (C) 1993-2021 Werner Almesberger and Craig Small\n\n"));
     fprintf(stderr,
             _("PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
               "This is free software, and you are welcome to redistribute it under\n"
@@ -1462,7 +1462,13 @@ int main(int argc, char **argv)
         current->flags |= PFLAG_HILIGHT;
 
     if(show_parents && pid_set == 1) {
-      trim_tree_by_parent(find_proc(pid));
+      PROC *child_proc;
+
+      if ( (child_proc = find_proc(pid)) == NULL) {
+	      fprintf(stderr, _("Process %d not found.\n"), pid);
+	      return 1;
+      }
+      trim_tree_by_parent(child_proc);
 
       pid = ROOT_PID;
     }
