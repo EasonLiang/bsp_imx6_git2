@@ -1,6 +1,7 @@
 Changes in NEXT
 ===============
         * pstree: Check for process with show_parents #38
+	* pstree: Don't disable compaction with show pgids #34
 
 Changes in 23.4
 ===============

@@ -1413,7 +1413,6 @@ int main(int argc, char **argv)
             break;
         case 'g':
             pgids = 1;
-            compact = 0;
             break;
         case 's':
             show_parents = 1;
