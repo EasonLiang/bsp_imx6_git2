@@ -298,11 +298,10 @@ Section: misc
 Priority: standard
 Multi-Arch: foreign
 Depends: ncurses-base (>= 6.1+20190713), ${misc:Depends}
-Replaces: suckless-tools (<< 39), dvtm (<< 0.15-3), alacritty (<< 0.3.4~)
+Replaces: dvtm (<< 0.15-3), alacritty (<< 0.3.4~)
 Breaks: libtinfo5 (<< 6.1), libslang2 (<< 2.3.1a-3), libunibilium0 (<< 2),
         libunibilium4 (<< 2.0.0-3), bash-static (<< 4.4.18-1.1),
-        zsh-static (<< 5.4.2-4), libmono-corlib4.5-cil (<< 4.6.2.7+dfsg-2),
-	suckless-tools (<< 39), dvtm (<< 0.15-3)
+        zsh-static (<< 5.4.2-4), libmono-corlib4.5-cil (<< 4.6.2.7+dfsg-2), dvtm (<< 0.15-3)
 Description: additional terminal type definitions
  The ncurses library routines are a terminal-independent method of
  updating character screens with reasonable optimization.
@@ -349,7 +348,6 @@ Priority: optional
 Pre-Depends: ${misc:Pre-Depends}
 Multi-Arch: same
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Breaks: dialog (<< 1.2-20130523)
 Build-Profiles: <!pkg.ncurses.nolegacy>
 Description: shared low-level terminfo library (legacy version)
  The ncurses library routines are a terminal-independent method of

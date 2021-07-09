@@ -1,3 +1,12 @@
+ncurses (6.2+20201114-3) UNRELEASED; urgency=medium
+
+  * Remove constraints unnecessary since stretch:
+    + ncurses-term: Drop versioned constraint on suckless-tools in Replaces.
+    + ncurses-term: Drop versioned constraint on suckless-tools in Breaks.
+    + libtinfo5: Drop versioned constraint on dialog in Breaks.
+
+ -- Debian Janitor <janitor@jelmer.uk>  Fri, 09 Jul 2021 16:54:25 -0000
+
 ncurses (6.2+20201114-2) unstable; urgency=medium
 
   * New patch 02-fix-mlterm.diff, cherry-picked from the 20201205 upstream
