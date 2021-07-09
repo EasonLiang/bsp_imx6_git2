@@ -426,7 +426,7 @@ load_process_name_and_age(char *comm, double *process_age_sec,
 }
 
 static int
-load_proc_cmdline(const pid_t pid, const char *comm, char **command, int *got_long)
+load_proc_cmdline(const pid_t pid, const char *comm, const int check_comm_length, char **command, int *got_long)
 {
     FILE *file;
     char *path, *p, *command_buf;
@@ -482,7 +482,7 @@ load_proc_cmdline(const pid_t pid, const char *comm, char **command, int *got_lo
         }
         p = strrchr(command_buf,'/');
         p = p ? p+1 : command_buf;
-        if (strncmp(p, comm, COMM_LEN-1) == 0) {
+        if (strncmp(p, comm, check_comm_length) == 0) {
             okay = 1;
             if (!(*command = strdup(p))) {
                 free(command_buf);
@@ -664,8 +664,9 @@ kill_all(int signal, int name_count, char **namelist, struct passwd *pwent,
             free(command);
             command = NULL;
         }
-        if (length == COMM_LEN - 1)
-            if (load_proc_cmdline(pid_table[i], comm, &command, &got_long) < 0)
+
+        if (length == COMM_LEN - 1 || length == OLD_COMM_LEN - 1)
+            if (load_proc_cmdline(pid_table[i], comm, length, &command, &got_long) < 0)
                 continue;
 
         /* match by process name */
