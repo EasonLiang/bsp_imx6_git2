@@ -564,8 +564,7 @@ static int match_process_name(
     {
         if (got_long)
         {
-            return (0 == strncmp2 (match_name, proc_cmdline, OLD_COMM_LEN - 1,
-                                   ignore_case));
+            return (0 == strcmp2 (match_name, proc_cmdline, ignore_case));
         } else {
             return (0 == strncmp2 (match_name, proc_comm, OLD_COMM_LEN - 1,
                                    ignore_case));
@@ -576,8 +575,7 @@ static int match_process_name(
     {
         if (got_long)
         {
-            return (0 == strncmp2 (match_name, proc_cmdline, COMM_LEN - 1,
-                                   ignore_case));
+            return (0 == strcmp2 (match_name, proc_cmdline, ignore_case));
         } else {
             return (0 == strncmp2 (match_name, proc_comm, COMM_LEN - 1,
                                    ignore_case));
