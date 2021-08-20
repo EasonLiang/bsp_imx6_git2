@@ -66,6 +66,9 @@ my $result = GetOptions(
 );
 
 my $policyhelper = '/usr/sbin/policy-rc.d';
+if (length $ENV{DPKG_ROOT}) {
+    $policyhelper = $ENV{DPKG_ROOT} . $policyhelper;
+}
 my @units = @ARGV;
 my $action = shift @units;
 if (-x $policyhelper) {

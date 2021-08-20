@@ -15,7 +15,11 @@ sub check_fakechroot_running() {
 }
 
 sub test_setup() {
-    my $tmpdir = tempdir( CLEANUP => 1 );
+    if (length $ENV{TEST_DPKG_ROOT}) {
+        print STDERR "test_setup() with DPKG_ROOT\n";
+        $ENV{DPKG_ROOT} = tempdir( CLEANUP => 1 );
+        return;
+    }
 
     if ( !check_fakechroot_running ) {
 	print STDERR "you have to run this script inside fakechroot and fakeroot:\n";
@@ -25,6 +29,9 @@ sub test_setup() {
 
     # Set up a chroot that contains everything necessary to run
     # deb-systemd-helper under fakechroot.
+    print STDERR "test_setup() with fakechroot\n";
+
+    my $tmpdir = tempdir( CLEANUP => 1 );
     mkdir "$tmpdir/dev";
     0 == system 'mknod', "$tmpdir/dev/null", 'c', '1', '3' or die "cannot mknod: $?";
     mkdir "$tmpdir/tmp";
@@ -110,10 +117,24 @@ sub slurp {
 sub state_file_entries {
     my ($path) = @_;
     my $bytes = slurp($path);
-    return split("\n", $bytes);
+    my $dpkg_root = $ENV{DPKG_ROOT} // '';
+    return map { "$dpkg_root$_" } split("\n", $bytes);
 }
 
-my $dsh = "/usr/bin/deb-systemd-helper";
+my $dsh = '';
+if ( length $ENV{TEST_INSTALLED} ) {
+    # if we are to test the installed version of deb-systemd-helper then even
+    # in DPKG_ROOT mode, we want to run /usr/bin/deb-systemd-helper
+    $dsh = "/usr/bin/deb-systemd-helper";
+} else {
+    if ( length $ENV{TEST_DPKG_ROOT} ) {
+        # when testing deb-systemd-helper from source, then in DPKG_ROOT mode,
+        # we take the script from the source directory
+        $dsh = "$FindBin::Bin/../script/deb-systemd-helper";
+    } else {
+        $dsh = "/usr/bin/deb-systemd-helper";
+    }
+}
 $ENV{'DPKG_MAINTSCRIPT_PACKAGE'} = 'deb-systemd-helper-test';
 
 sub dsh {

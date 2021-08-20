@@ -14,6 +14,8 @@ use helpers;
 
 test_setup();
 
+my $dpkg_root = $ENV{DPKG_ROOT} // '';
+
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃ Create two unit files with random names; one refers to the other (Also=). ┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
@@ -32,9 +34,9 @@ my ($fh2, $random_unit2) = tempfile('unitXXXXX',
 close($fh2);
 $random_unit2 = basename($random_unit2);
 
-my $servicefile_path1 = "/lib/systemd/system/$random_unit1";
-my $servicefile_path2 = "/lib/systemd/system/$random_unit2";
-make_path('/lib/systemd/system');
+my $servicefile_path1 = "$dpkg_root/lib/systemd/system/$random_unit1";
+my $servicefile_path2 = "$dpkg_root/lib/systemd/system/$random_unit2";
+make_path("$dpkg_root/lib/systemd/system");
 open($fh1, '>', $servicefile_path1);
 print $fh1 <<EOT;
 [Unit]
@@ -74,14 +76,14 @@ isnt_debian_installed($random_unit2);
 
 unless ($ENV{'TEST_ON_REAL_SYSTEM'}) {
     # This might already exist if we don't start from a fresh directory
-    ok(! -d '/etc/systemd/system/multi-user.target.wants',
+    ok(! -d "$dpkg_root/etc/systemd/system/multi-user.target.wants",
        'multi-user.target.wants does not exist yet');
 }
 
 my $retval = dsh('enable', $random_unit1);
-my %links = map { (basename($_), readlink($_)) }
-    ("/etc/systemd/system/multi-user.target.wants/$random_unit1",
-     "/etc/systemd/system/multi-user.target.wants/$random_unit2");
+my %links = map { (basename($_), $dpkg_root . readlink($_)) }
+    ("$dpkg_root/etc/systemd/system/multi-user.target.wants/$random_unit1",
+     "$dpkg_root/etc/systemd/system/multi-user.target.wants/$random_unit2");
 is_deeply(
     \%links,
     {
@@ -90,9 +92,9 @@ is_deeply(
     },
     'All expected links present');
 
-my $alias_path = '/etc/systemd/system/alias2.service';
+my $alias_path = "$dpkg_root/etc/systemd/system/alias2.service";
 ok(-l $alias_path, 'alias created');
-is(readlink($alias_path), $servicefile_path2,
+is($dpkg_root . readlink($alias_path), $servicefile_path2,
     'alias points to the correct service file');
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

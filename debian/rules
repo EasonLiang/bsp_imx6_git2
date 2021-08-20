@@ -40,10 +40,17 @@ override_dh_gencontrol:
 
 override_dh_auto_test:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	# test with fakechroot
 	set -eu; \
 	for test in t/*.t; do \
-	    echo "======== $$(basename $$test) ======="; \
+	    echo "======== $$(basename $$test) (fakechroot) ======="; \
 	    fakechroot fakeroot perl $$test; \
+	done
+	# test with DPKG_ROOT
+	set -eu; \
+	for test in t/*.t; do \
+	    echo "======== $$(basename $$test) (DPKG_ROOT) ======="; \
+	    TEST_DPKG_ROOT=1 perl $$test; \
 	done
 endif
 
