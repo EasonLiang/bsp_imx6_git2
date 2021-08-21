@@ -10,6 +10,10 @@ ncurses (6.2+20201114-3) UNRELEASED; urgency=medium
   * Introduce a libncursesw6-udeb package, needed by newer nano versions
     (Closes: #976275).
 
+  [ Sven Joachim ]
+  * Add new upstream signing key 19882D92DDA4C400C22C0D56CC2AF4472167BE03
+    to debian/upstream/signing-key.asc.
+
  -- Debian Janitor <janitor@jelmer.uk>  Fri, 09 Jul 2021 16:54:25 -0000
 
 ncurses (6.2+20201114-2) unstable; urgency=medium
