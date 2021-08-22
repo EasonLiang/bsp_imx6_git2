@@ -1,4 +1,4 @@
-ncurses (6.2+20201114-3) UNRELEASED; urgency=medium
+ncurses (6.2+20201114-3) unstable; urgency=medium
 
   [ Debian Janitor ]
   * Remove constraints unnecessary since stretch:
@@ -14,7 +14,7 @@ ncurses (6.2+20201114-3) UNRELEASED; urgency=medium
   * Add new upstream signing key 19882D92DDA4C400C22C0D56CC2AF4472167BE03
     to debian/upstream/signing-key.asc.
 
- -- Debian Janitor <janitor@jelmer.uk>  Fri, 09 Jul 2021 16:54:25 -0000
+ -- Sven Joachim <svenjoac@gmx.de>  Sun, 22 Aug 2021 08:29:53 +0200
 
 ncurses (6.2+20201114-2) unstable; urgency=medium
 
