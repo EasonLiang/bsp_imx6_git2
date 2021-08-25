@@ -209,7 +209,7 @@ sub record_in_statefile {
         close($infh);
     }
     print $outfh $service_link unless $line_exists;
-    close($outfh);
+    close($outfh) or error("unable to close $tmpname");
 
     debug "Renaming temp file $tmpname to state file $dsh_state";
     rename($tmpname, $dsh_state) or
@@ -358,8 +358,8 @@ sub make_systemd_links {
         # and still only enable unit files on the initial installation
         # of a package.
         make_path(dirname($statefile));
-        open(my $fh, '>>', $statefile);
-        close($fh);
+        open(my $fh, '>>', $statefile) or error("Failed to create/touch $statefile");
+        close($fh) or error("Failed to create/touch $statefile");
     }
 
 }
@@ -391,7 +391,7 @@ sub update_state {
         assertnotdpkgroot($link->{src}, "update_state");
         print $outfh $link->{src} . "\n";
     }
-    close($outfh);
+    close($outfh) or error("Failed to close $tmpname");
 
     debug "Renaming temp file $tmpname to state file $dsh_state";
     rename($tmpname, $dsh_state) or
@@ -522,8 +522,8 @@ sub mask_service {
     # installation time. We cannot unconditionally unmask because that would
     # interfere with the user’s decision to mask a service.
     make_path(dirname($statefile));
-    open(my $fh, '>>', $statefile);
-    close($fh);
+    open(my $fh, '>>', $statefile) or error("Failed to create/touch $statefile");
+    close($fh) or error("Failed to create/touch $statefile");
 }
 
 sub unmask_service {
