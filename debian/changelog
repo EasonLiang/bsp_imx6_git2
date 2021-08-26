@@ -1,3 +1,9 @@
+ncurses (6.2+20201114-4) unstable; urgency=medium
+
+  * Source-only upload for migration to testing, no changes.
+
+ -- Sven Joachim <svenjoac@gmx.de>  Thu, 26 Aug 2021 18:39:10 +0200
+
 ncurses (6.2+20201114-3) unstable; urgency=medium
 
   [ Debian Janitor ]
