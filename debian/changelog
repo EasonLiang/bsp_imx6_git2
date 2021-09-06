@@ -16,6 +16,7 @@ ncurses (6.2+20210905-1) UNRELEASED; urgency=low
   * Take over terminfo entries from the deceased Debian packages
     jfbterm, kon2, libiterm1 and tn5250 in ncurses-term.
   * Update list of terminfo entries shipped by other Debian packages.
+  * Update years in debian/copyright.
 
  -- Sven Joachim <svenjoac@gmx.de>  Mon, 06 Sep 2021 19:18:17 +0200
 
