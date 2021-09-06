@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright 2018-2019,2020 Thomas E. Dickey                                *
+ * Copyright 2018-2020,2021 Thomas E. Dickey                                *
  * Copyright 1998-2017,2018 Free Software Foundation, Inc.                  *
  *                                                                          *
  * Permission is hereby granted, free of charge, to any person obtaining a  *
@@ -49,7 +49,7 @@
 #include <parametrized.h>
 #include <transform.h>
 
-MODULE_ID("$Id: tic.c,v 1.290 2020/11/14 18:16:33 tom Exp $")
+MODULE_ID("$Id: tic.c,v 1.302 2021/09/04 10:29:59 tom Exp $")
 
 #define STDIN_NAME "<stdin>"
 
@@ -116,8 +116,6 @@ free_namelist(char **src)
 static void
 cleanup(void)
 {
-    int rc;
-
 #if NO_LEAKS
     free_namelist(namelst);
     _nc_leaks_dump_entry();
@@ -125,6 +123,8 @@ cleanup(void)
     if (tmp_fp != 0)
 	fclose(tmp_fp);
     if (to_remove != 0) {
+	int rc;
+
 #if HAVE_REMOVE
 	rc = remove(to_remove);
 #else
@@ -304,10 +304,12 @@ put_translate(int c)
 /* emit a comment char, translating terminfo names to termcap names */
 {
     static bool in_name = FALSE;
-    static size_t have, used;
-    static char *namebuf, *suffix;
+    static size_t used;
 
     if (in_name) {
+	static size_t have;
+	static char *namebuf, *suffix;
+
 	if (used + 1 >= have) {
 	    have += 132;
 	    if ((namebuf = typeRealloc(char, have, namebuf)) == 0)
@@ -371,12 +373,10 @@ stripped(char *src)
 	src++;
 
     if (*src != '\0') {
-	size_t len;
-
 	if ((dst = strdup(src)) == NULL) {
 	    failed("strdup");
 	} else {
-	    len = strlen(dst);
+	    size_t len = strlen(dst);
 	    while (--len != 0 && isspace(UChar(dst[len])))
 		dst[len] = '\0';
 	}
@@ -400,7 +400,7 @@ open_tempfile(char *filename)
     }
 #else
     if (tmpnam(filename) != 0)
-	result = fopen(filename, "w");
+	result = safe_fopen(filename, "w");
 #endif
     return result;
 }
@@ -410,7 +410,7 @@ copy_input(FILE *source, const char *filename, char *alt_file)
 {
     char my_altfile[PATH_MAX];
     FILE *result = 0;
-    FILE *target = 0;
+    FILE *target;
     int ch;
 
     if (alt_file == 0)
@@ -442,7 +442,7 @@ copy_input(FILE *source, const char *filename, char *alt_file)
 	 * the one that we were writing on before starting to read from the
 	 * second stream.
 	 */
-	result = fopen(alt_file, "r+");
+	result = safe_fopen(alt_file, "r+");
 	fclose(target);
 	to_remove = strdup(alt_file);
     }
@@ -458,7 +458,7 @@ open_input(const char *filename, char *alt_file)
 
     if (!strcmp(filename, "-")) {
 	fp = copy_input(stdin, STDIN_NAME, alt_file);
-    } else if (stat(filename, &sb) < 0) {
+    } else if (stat(filename, &sb) == -1) {
 	fprintf(stderr, "%s: %s %s\n", _nc_progname, filename, strerror(errno));
 	ExitProgram(EXIT_FAILURE);
     } else if ((mode = (sb.st_mode & S_IFMT)) == S_IFDIR
@@ -466,7 +466,7 @@ open_input(const char *filename, char *alt_file)
 	fprintf(stderr, "%s: %s is not a file\n", _nc_progname, filename);
 	ExitProgram(EXIT_FAILURE);
     } else {
-	fp = fopen(filename, "r");
+	fp = safe_fopen(filename, "r");
 
 	if (fp == 0) {
 	    fprintf(stderr, "%s: Can't open %s\n", _nc_progname, filename);
@@ -554,9 +554,10 @@ matches(char **needle, const char *haystack)
 /* does entry in needle list match |-separated field in haystack? */
 {
     bool code = FALSE;
-    size_t n;
 
     if (needle != 0) {
+	size_t n;
+
 	for (n = 0; needle[n] != 0; n++) {
 	    if (_nc_name_match(haystack, needle[n], "|")) {
 		code = TRUE;
@@ -877,7 +878,7 @@ main(int argc, char *argv[])
      * One problem with immedhook is it means we can't do -e.  Problem
      * is that we can't guarantee that for each terminal listed, all the
      * terminals it depends on will have been kept in core for reference
-     * resolution -- in fact it's certain the primitive types at the end
+     * resolution -- in fact it is certain the primitive types at the end
      * of reference chains *won't* be in core unless they were explicitly
      * in the select list themselves.
      */
@@ -1306,13 +1307,12 @@ keypad_final(const char *string)
 static long
 keypad_index(const char *string)
 {
-    char *test;
-    const char *list = "PQRSwxymtuvlqrsPpn";	/* app-keypad except "Enter" */
     int ch;
     long result = -1;
 
     if ((ch = keypad_final(string)) != '\0') {
-	test = (strchr) (list, ch);
+	const char *list = "PQRSwxymtuvlqrsPpn";	/* app-keypad except "Enter" */
+	char *test = (strchr) (list, ch);
 	if (test != 0)
 	    result = (long) (test - list);
     }
@@ -1329,8 +1329,6 @@ static void
 check_ansi_cursor(char *list[4])
 {
     int j, k;
-    int want;
-    size_t suffix;
     bool skip[4];
     bool repeated = FALSE;
 
@@ -1348,6 +1346,7 @@ check_ansi_cursor(char *list[4])
     if (!repeated) {
 	char *up = list[1];
 	size_t prefix = (size_t) csi_length(up);
+	size_t suffix;
 
 	if (prefix) {
 	    suffix = prefix;
@@ -1362,6 +1361,8 @@ check_ansi_cursor(char *list[4])
 		skip[2] = TRUE;
 
 	    for (j = 0; j < 4; ++j) {
+		int want;
+
 		if (skip[j] || strlen(list[j]) == 1)
 		    continue;
 		if (memcmp(list[j], up, prefix)) {
@@ -1533,9 +1534,7 @@ check_keypad(TERMTYPE2 *tp)
 	char final[MAX_KP + 1];
 	long list[MAX_KP];
 	int increase = 0;
-	int j, k, kk;
-	long last;
-	long test;
+	int j;
 
 	final[0] = keypad_final(key_a1);
 	final[1] = keypad_final(key_a3);
@@ -1568,10 +1567,17 @@ check_keypad(TERMTYPE2 *tp)
 		++increase;
 	    }
 	}
+
 	if (increase != (MAX_KP - 1)) {
+	    long last;
+
 	    show[0] = '\0';
 
 	    for (j = 0, last = -1; j < MAX_KP; ++j) {
+		int k;
+		int kk;
+		long test;
+
 		for (k = 0, kk = -1, test = 100; k < 5; ++k) {
 		    if (list[k] > last &&
 			list[k] < test) {
@@ -1711,6 +1717,7 @@ check_screen(TERMTYPE2 *tp)
 	int have_bce = back_color_erase;
 	bool have_kmouse = FALSE;
 	bool use_sgr_39_49 = FALSE;
+	const char *name_39_49 = "orig_pair or orig_colors";
 	char *name = _nc_first_name(tp->term_names);
 	bool is_screen = !strncmp(name, "screen", 6);
 	bool screen_base = (is_screen
@@ -1728,10 +1735,15 @@ check_screen(TERMTYPE2 *tp)
 	if (VALID_STRING(key_mouse)) {
 	    have_kmouse = !strcmp("\033[M", key_mouse);
 	}
-	if (VALID_STRING(orig_colors)) {
-	    use_sgr_39_49 = uses_SGR_39_49(orig_colors);
-	} else if (VALID_STRING(orig_pair)) {
-	    use_sgr_39_49 = uses_SGR_39_49(orig_pair);
+	if (have_bce) {
+	    if (VALID_STRING(orig_pair)) {
+		name_39_49 = "orig_pair";
+		use_sgr_39_49 = uses_SGR_39_49(orig_pair);
+	    }
+	    if (!use_sgr_39_49 && VALID_STRING(orig_colors)) {
+		name_39_49 = "orig_colors";
+		use_sgr_39_49 = uses_SGR_39_49(orig_colors);
+	    }
 	}
 
 	if (have_XM && have_XT) {
@@ -1746,10 +1758,14 @@ check_screen(TERMTYPE2 *tp)
 		    _nc_warning("expected kmous capability with XT");
 		}
 	    }
-	    if (!have_bce && max_colors > 0)
-		_nc_warning("expected bce capability with XT");
-	    if (!use_sgr_39_49 && have_bce && max_colors > 0)
-		_nc_warning("expected orig_colors capability with XT to have 39/49 parameters");
+	    if (max_colors > 0) {
+		if (!have_bce) {
+		    _nc_warning("expected bce capability with XT");
+		} else if (!use_sgr_39_49) {
+		    _nc_warning("expected %s capability with XT "
+				"to have 39/49 parameters", name_39_49);
+		}
+	    }
 	    if (VALID_STRING(to_status_line))
 		_nc_warning("\"tsl\" capability is redundant, given XT");
 	} else {
@@ -1906,19 +1922,63 @@ is_user_capability(const char *name)
     return result;
 }
 
+static bool
+line_capability(const char *name)
+{
+    bool result = FALSE;
+    static const char *table[] =
+    {
+	"csr",			/* change_scroll_region          */
+	"clear",		/* clear_screen                  */
+	"ed",			/* clr_eos                       */
+	"cwin",			/* create_window                 */
+	"cup",			/* cursor_address                */
+	"cud1",			/* cursor_down                   */
+	"home",			/* cursor_home                   */
+	"mrcup",		/* cursor_mem_address            */
+	"ll",			/* cursor_to_ll                  */
+	"cuu1",			/* cursor_up                     */
+	"dl1",			/* delete_line                   */
+	"hd",			/* down_half_line                */
+	"flash",		/* flash_screen                  */
+	"ff",			/* form_feed                     */
+	"il1",			/* insert_line                   */
+	"nel",			/* newline                       */
+	"dl",			/* parm_delete_line              */
+	"cud",			/* parm_down_cursor              */
+	"indn",			/* parm_index                    */
+	"il",			/* parm_insert_line              */
+	"rin",			/* parm_rindex                   */
+	"cuu",			/* parm_up_cursor                */
+	"mc0",			/* print_screen                  */
+	"vpa",			/* row_address                   */
+	"ind",			/* scroll_forward                */
+	"ri",			/* scroll_reverse                */
+	"hu",			/* up_half_line                  */
+    };
+    size_t n;
+    for (n = 0; n < SIZEOF(table); ++n) {
+	if (!strcmp(name, table[n])) {
+	    result = TRUE;
+	    break;
+	}
+    }
+    return result;
+}
+
 /*
  * Make a quick sanity check for the parameters which are used in the given
  * strings.  If there are no "%p" tokens, then there should be no other "%"
  * markers.
  */
 static void
-check_params(TERMTYPE2 *tp, const char *name, char *value, int extended)
+check_params(TERMTYPE2 *tp, const char *name, const char *value, int extended)
 {
     int expected = expected_params(name);
     int actual = 0;
     int n;
     bool params[1 + NUM_PARM];
-    char *s = value;
+    const char *s = value;
 
 #ifdef set_top_margin_parm
     if (!strcmp(name, "smgbp")
@@ -1984,10 +2044,11 @@ check_params(TERMTYPE2 *tp, const char *name, char *value, int extended)
      * may not have been fully translated.  Also, tparm does its own analysis.
      * Report differences here.
      */
+    _nc_reset_tparm(NULL);
     if (actual >= 0) {
 	char *p_is_s[NUM_PARM];
 	int popcount;
-	int analyzed = _nc_tparm_analyze(value, p_is_s, &popcount);
+	int analyzed = _nc_tparm_analyze(NULL, value, p_is_s, &popcount);
 	if (analyzed < popcount) {
 	    analyzed = popcount;
 	}
@@ -2005,52 +2066,32 @@ check_params(TERMTYPE2 *tp, const char *name, char *value, int extended)
 		_nc_warning("tparm analyzed %d parameters for %s, expected %d",
 			    analyzed, name, actual);
 	    }
-	}
-    }
-}
+	} else if (expected > 0
+		   && actual == expected
+		   && guess_tparm_type(expected, p_is_s) == Numbers) {
+	    int limit = 1;
 
-static bool
-line_capability(const char *name)
-{
-    bool result = FALSE;
-    static const char *table[] =
-    {
-	"csr",			/* change_scroll_region          */
-	"clear",		/* clear_screen                  */
-	"ed",			/* clr_eos                       */
-	"cwin",			/* create_window                 */
-	"cup",			/* cursor_address                */
-	"cud1",			/* cursor_down                   */
-	"home",			/* cursor_home                   */
-	"mrcup",		/* cursor_mem_address            */
-	"ll",			/* cursor_to_ll                  */
-	"cuu1",			/* cursor_up                     */
-	"dl1",			/* delete_line                   */
-	"hd",			/* down_half_line                */
-	"flash",		/* flash_screen                  */
-	"ff",			/* form_feed                     */
-	"il1",			/* insert_line                   */
-	"nel",			/* newline                       */
-	"dl",			/* parm_delete_line              */
-	"cud",			/* parm_down_cursor              */
-	"indn",			/* parm_index                    */
-	"il",			/* parm_insert_line              */
-	"rin",			/* parm_rindex                   */
-	"cuu",			/* parm_up_cursor                */
-	"mc0",			/* print_screen                  */
-	"vpa",			/* row_address                   */
-	"ind",			/* scroll_forward                */
-	"ri",			/* scroll_reverse                */
-	"hu",			/* up_half_line                  */
-    };
-    size_t n;
-    for (n = 0; n < SIZEOF(table); ++n) {
-	if (!strcmp(name, table[n])) {
-	    result = TRUE;
-	    break;
+	    if (!strcmp(name, "setf")
+		|| !strcmp(name, "setb")
+		|| !strcmp(name, "setaf")
+		|| !strcmp(name, "setab")) {
+		if ((limit = max_colors) > 256)
+		    limit = 256;
+	    } else if (line_capability(name)) {
+		limit = 24;
+	    } else if (is_user_capability(name) < 0) {
+		limit = 80;
+	    }
+	    for (n = 0; n < limit; ++n) {
+		_nc_reset_tparm(NULL);
+		(void) TPARM_9(value, n, n, n, n, n, n, n, n, n);
+		if (_nc_tparm_err)
+		    _nc_warning("problem%s in tparm(%s, %d, ...)",
+				(_nc_tparm_err == 1) ? "" : "s",
+				name, n);
+	    }
 	}
     }
-    return result;
 }
 
 /*
@@ -2087,7 +2128,6 @@ check_delays(TERMTYPE2 *tp, const char *name, const char *value)
 	if (p[0] == '$' && p[1] == '<') {
 	    const char *base = p + 2;
 	    const char *mark = 0;
-	    bool maybe = TRUE;
 	    bool mixed = FALSE;
 	    int proportional = 0;
 	    int mandatory = 0;
@@ -2107,20 +2147,17 @@ check_delays(TERMTYPE2 *tp, const char *name, const char *value)
 		    if (mark == 0)
 			mark = q;
 		} else if (!(isalnum(UChar(*q)) || strchr("+-.", *q) != 0)) {
-		    maybe = FALSE;
 		    break;
 		} else if (proportional || mandatory) {
 		    mixed = TRUE;
 		}
 	    }
 	    last = *q ? (q + 1) : q;
-	    if (*q == '\0') {
-		maybe = FALSE;	/* just an isolated "$<" */
-	    } else if (maybe) {
+	    if (*q != '\0') {
 		float check_f;
 		char check_c;
 		int rc = sscanf(base, "%f%c", &check_f, &check_c);
-		if ((rc != 2) || (check_c != *mark) || mixed) {
+		if ((rc != 2) || (mark != NULL && (check_c != *mark)) || mixed) {
 		    _nc_warning("syntax error in %s delay '%.*s'", name,
 				(int) (q - base), base);
 		} else if (*name == 'k') {
@@ -2161,7 +2198,7 @@ check_delays(TERMTYPE2 *tp, const char *name, const char *value)
 	     */
 	    if ((p = skip_DECSCNM(value, &flag)) != 0 &&
 		flag > 0 &&
-		(q = skip_DECSCNM(p, &flag)) != 0 &&
+		skip_DECSCNM(p, &flag) != 0 &&
 		flag == 0) {
 		_nc_warning("expected a delay in %s", name);
 	    }
@@ -2194,8 +2231,9 @@ check_1_infotocap(const char *name, NCURSES_CONST char *value, int count)
 	next += strlen(next) + 1;
     }
 
+    _nc_reset_tparm(NULL);
     expect = tparm_type(name);
-    nparam = _nc_tparm_analyze(value, p_is_s, &ignored);
+    nparam = _nc_tparm_analyze(NULL, value, p_is_s, &ignored);
     actual = guess_tparm_type(nparam, p_is_s);
 
     if (expect != actual) {
@@ -2203,6 +2241,7 @@ check_1_infotocap(const char *name, NCURSES_CONST char *value, int count)
 	actual = Other;
     }
 
+    _nc_reset_tparm(NULL);
     switch (actual) {
     case Num_Str:
 	result = TPARM_2(value, numbers[1], strings[2]);
@@ -2373,7 +2412,7 @@ check_infotocap(TERMTYPE2 *tp, int i, const char *value)
 		  : ((*value == 'k')
 		     ? 0
 		     : has_params(value, FALSE)));
-    char *ti_value;
+    char *ti_value = NULL;
     char *tc_value;
     bool embedded;
 
@@ -2391,8 +2430,8 @@ check_infotocap(TERMTYPE2 *tp, int i, const char *value)
 	    || !strcmp(name, "setb")
 	    || !strcmp(name, "setaf")
 	    || !strcmp(name, "setab")) {
-	    if ((limit = max_colors) > 16)
-		limit = 16;
+	    if ((limit = max_colors) > 256)
+		limit = 256;
 	}
 	for (count = 0; count < limit; ++count) {
 	    char *ti_check = check_1_infotocap(name, ti_value, count);
@@ -2421,6 +2460,7 @@ check_infotocap(TERMTYPE2 *tp, int i, const char *value)
 			name, ti_value, tc_value);
 	}
     }
+    free(ti_value);
 }
 
 static char *
@@ -2670,11 +2710,11 @@ static void
 check_conflict(TERMTYPE2 *tp)
 {
     bool conflict = FALSE;
-    unsigned j, k;
 
     if (!(_nc_syntax == SYN_TERMCAP && capdump)) {
 	char *check = calloc((size_t) (NUM_STRINGS(tp) + 1), sizeof(char));
 	NAME_VALUE *given = get_fkey_list(tp);
+	unsigned j, k;
 
 	if (check == 0)
 	    failed("check_conflict");

@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright 2020 Thomas E. Dickey                                          *
+ * Copyright 2020,2021 Thomas E. Dickey                                     *
  * Copyright 1998-2005,2010 Free Software Foundation, Inc.                  *
  *                                                                          *
  * Permission is hereby granted, free of charge, to any person obtaining a  *
@@ -38,12 +38,12 @@
 
 #include "menu.priv.h"
 
-MODULE_ID("$Id: m_items.c,v 1.19 2020/05/24 01:40:20 anonymous.maarten Exp $")
+MODULE_ID("$Id: m_items.c,v 1.21 2021/06/17 21:20:30 tom Exp $")
 
 /*---------------------------------------------------------------------------
-|   Facility      :  libnmenu  
+|   Facility      :  libnmenu
 |   Function      :  int set_menu_items(MENU *menu, ITEM **items)
-|   
+|
 |   Description   :  Sets the item pointer array connected to menu.
 |
 |   Return Values :  E_OK           - success
@@ -54,7 +54,7 @@ MODULE_ID("$Id: m_items.c,v 1.19 2020/05/24 01:40:20 anonymous.maarten Exp $")
 |                                     passed to the function
 +--------------------------------------------------------------------------*/
 MENU_EXPORT(int)
-set_menu_items(MENU * menu, ITEM ** items)
+set_menu_items(MENU *menu, ITEM **items)
 {
   T((T_CALLED("set_menu_items(%p,%p)"), (void *)menu, (void *)items));
 
@@ -78,31 +78,31 @@ set_menu_items(MENU * menu, ITEM ** items)
 }
 
 /*---------------------------------------------------------------------------
-|   Facility      :  libnmenu  
+|   Facility      :  libnmenu
 |   Function      :  ITEM **menu_items(const MENU *menu)
-|   
+|
 |   Description   :  Returns a pointer to the item pointer array of the menu
 |
 |   Return Values :  NULL on error
 +--------------------------------------------------------------------------*/
 MENU_EXPORT(ITEM **)
-menu_items(const MENU * menu)
+menu_items(const MENU *menu)
 {
   T((T_CALLED("menu_items(%p)"), (const void *)menu));
-  returnItemPtr(menu ? menu->items : (ITEM **) 0);
+  returnItemPtr(menu ? menu->items : (ITEM **)0);
 }
 
 /*---------------------------------------------------------------------------
-|   Facility      :  libnmenu  
+|   Facility      :  libnmenu
 |   Function      :  int item_count(const MENU *menu)
-|   
+|
 |   Description   :  Get the number of items connected to the menu. If the
-|                    menu pointer is NULL we return -1.         
+|                    menu pointer is NULL we return -1.
 |
 |   Return Values :  Number of items or -1 to indicate error.
 +--------------------------------------------------------------------------*/
 MENU_EXPORT(int)
-item_count(const MENU * menu)
+item_count(const MENU *menu)
 {
   T((T_CALLED("item_count(%p)"), (const void *)menu));
   returnCode(menu ? menu->nitems : -1);

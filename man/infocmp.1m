@@ -1,6 +1,6 @@
 '\" t
 .\"***************************************************************************
-.\" Copyright 2018-2019,2020 Thomas E. Dickey                                *
+.\" Copyright 2018-2020,2021 Thomas E. Dickey                                *
 .\" Copyright 1998-2017,2018 Free Software Foundation, Inc.                  *
 .\"                                                                          *
 .\" Permission is hereby granted, free of charge, to any person obtaining a  *
@@ -28,7 +28,7 @@
 .\" authorization.                                                           *
 .\"***************************************************************************
 .\"
-.\" $Id: infocmp.1m,v 1.77 2020/07/25 20:37:39 tom Exp $
+.\" $Id: infocmp.1m,v 1.79 2021/08/15 20:01:31 tom Exp $
 .TH @INFOCMP@ 1M ""
 .ie \n(.g .ds `` \(lq
 .el       .ds `` ``
@@ -476,7 +476,7 @@ Omit the \*(``Reconstructed from\*('' comment for source listings.
 \fB\-R\fR\fIsubset\fR
 Restrict output to a given subset.
 This option is for use with archaic
-versions of terminfo like those on SVr1, Ultrix, or HP/UX that do not support
+versions of terminfo like those on SVr1, Ultrix, or HP-UX that do not support
 the full set of SVR4/XSI Curses terminfo; and variants such as AIX
 that have their own extensions incompatible with SVr4/XSI.
 .RS
@@ -574,7 +574,7 @@ In addition, he added a few new features such as:
 the \fB\-e\fP option, to support \fIfallback\fP
 (compiled-in) terminal descriptions
 .bP
-the \fB\-i\fP option, to help with analysis 
+the \fB\-i\fP option, to help with analysis
 .PP
 Later, Thomas Dickey added the \fB\-x\fP (user-defined capabilities)
 option, and the \fB\-E\fP option to support fallback entries with

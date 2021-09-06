@@ -1,5 +1,5 @@
 dnl***************************************************************************
-dnl Copyright 2018-2019,2020 Thomas E. Dickey                                *
+dnl Copyright 2018-2020,2021 Thomas E. Dickey                                *
 dnl Copyright 1998-2017,2018 Free Software Foundation, Inc.                  *
 dnl                                                                          *
 dnl Permission is hereby granted, free of charge, to any person obtaining a  *
@@ -29,7 +29,7 @@ dnl***************************************************************************
 dnl
 dnl Author: Thomas E. Dickey 1995-on
 dnl
-dnl $Id: configure.in,v 1.725 2020/09/18 22:54:36 tom Exp $
+dnl $Id: configure.in,v 1.736 2021/07/18 22:17:57 tom Exp $
 dnl Process this file with autoconf to produce a configure script.
 dnl
 dnl For additional information, see
@@ -37,8 +37,8 @@ dnl     https://invisible-island.net/autoconf/
 dnl     https://invisible-island.net/autoconf/my-autoconf.html
 dnl
 dnl ---------------------------------------------------------------------------
-AC_PREREQ(2.52.20200111)
-AC_REVISION($Revision: 1.725 $)
+AC_PREREQ(2.52.20210101)
+AC_REVISION($Revision: 1.736 $)
 AC_INIT(ncurses/base/lib_initscr.c)
 AC_CONFIG_HEADER(include/ncurses_cfg.h:include/ncurses_cfg.hin)
 
@@ -144,7 +144,7 @@ else
 fi
 
 CF_GXX_VERSION
-case $GXX_VERSION in
+case "$GXX_VERSION" in
 ([[1-9]][[0-9]].*)
 	;;
 (1.*|2.[[0-6]]*)
@@ -183,7 +183,7 @@ AC_ARG_WITH(progs,
 	[cf_with_progs=yes])
 AC_MSG_RESULT($cf_with_progs)
 
-if test -f $srcdir/tack/tack.h; then
+if test -f "$srcdir/tack/tack.h" ; then
 	if test "x$cross_compiling" = xyes ; then
 		CF_VERBOSE(ignoring tack because we are cross-compiling)
 		cf_with_tack=no
@@ -221,7 +221,6 @@ modules_to_build="$modules_to_build panel menu form"
 AC_ARG_PROGRAM
 
 CF_PROG_AWK
-CF_PROG_EGREP
 CF_PROG_INSTALL
 CF_PROG_LINT
 CF_PROG_LN_S
@@ -281,6 +280,7 @@ fi
 
 # do this after mixed-case option (tags/TAGS is not as important as tic).
 AC_PROG_MAKE_SET
+CF_MAKE_PHONY
 CF_MAKE_TAGS
 CF_MAKEFLAGS
 
@@ -312,7 +312,7 @@ CF_HELP_MESSAGE(Build-Tools Needed to Compile Temporary Applications for Cross-c
 # options.  The configure script is oriented toward identifying the host
 # compiler, etc., but we need a build compiler to generate parts of the source.
 
-case $cf_cv_system_name in
+case "$cf_cv_system_name" in
 (*-msvc*)
 	LDFLAGS="$LDFLAGS user32.lib"
 	export LDFLAGS
@@ -451,7 +451,7 @@ fi
 AC_SUBST(CXX_G_OPT)
 
 AC_MSG_CHECKING(for default loader flags)
-case $DFT_LWR_MODEL in
+case "$DFT_LWR_MODEL" in
 (libtool) LD_MODEL=''   ;;
 (normal)  LD_MODEL=''   ;;
 (debug)   LD_MODEL=$CC_G_OPT ;;
@@ -461,7 +461,7 @@ esac
 AC_SUBST(LD_MODEL)dnl		the type of link (e.g., -g or -pg)
 AC_MSG_RESULT($LD_MODEL)
 
-case $DFT_LWR_MODEL in
+case "$DFT_LWR_MODEL" in
 (shared)
 CF_ENABLE_RPATH
 AC_MSG_CHECKING(if shared libraries should be relinked during install)
@@ -476,8 +476,8 @@ esac
 # we will build libraries one-level down.
 rel_builddir=..
 CF_SHARED_OPTS
-for model in $cf_list_models; do
-	case $model in
+for model in $cf_list_models ; do
+	case "$model" in
 	(libtool)
 		CF_WITH_LIBTOOL_OPTS
 		CF_WITH_EXPORT_SYMS
@@ -490,7 +490,7 @@ for model in $cf_list_models; do
 		AC_MSG_CHECKING(if current CFLAGS link properly)
 		AC_TRY_LINK(
 			[#include <stdio.h>],
-			[printf("Hello work\n");],
+			[printf("Hello work\\n");],
 			[cf_cflags_work=yes],
 			[cf_cflags_work=no])
 		AC_MSG_RESULT($cf_cflags_work)
@@ -554,7 +554,7 @@ fi
 ### Depending on the system, someone may use rpath to build ncurses but not
 # want users of the package to rely upon that feature.  Give those people an
 # option to suppress that detail from EXTRA_LDFLAGS.
-EXTRA_PKG_LDFLAGS="$EXTRA_LDFLAGS"
+EXTRA_PKG_LDFLAGS="$LDFLAGS $EXTRA_LDFLAGS"
 if test -n "$EXTRA_PKG_LDFLAGS"
 then
 	AC_MSG_CHECKING(if you want to disable extra LDFLAGS for package-scripts)
@@ -577,7 +577,7 @@ EXTRA_SUFFIX=
 AC_ARG_WITH(extra-suffix,
 	[  --with-extra-suffix=X   append extra suffix to header/library paths],
 	[case x$withval in
-	(no)
+	(xno)
 		;;
 	(xyes|x)
 		EXTRA_SUFFIX=$cf_cv_abi_version
@@ -605,7 +605,7 @@ AC_ARG_ENABLE(database,
 	[use_database=yes])
 AC_MSG_RESULT($use_database)
 
-case $host_os in
+case "$host_os" in
 (os2*)
 	TERMINFO_SRC='${top_srcdir}/misc/emx.src'
 	;;
@@ -685,7 +685,7 @@ AC_ARG_WITH(xterm-new,
 	[  --without-xterm-new     specify if xterm terminfo should be old version],
 	[with_xterm_new=$withval],
 	[with_xterm_new=yes])
-case $with_xterm_new in
+case "$with_xterm_new" in
 (no) with_xterm_new=xterm-old;;
 (*)	 with_xterm_new=xterm-new;;
 esac
@@ -845,13 +845,21 @@ AC_ARG_ENABLE(home-terminfo,
 AC_MSG_RESULT($with_home_terminfo)
 test "x$with_home_terminfo" = "xyes" && AC_DEFINE(USE_HOME_TERMINFO,1,[Define to 1 if $HOME/.terminfo feature is wanted])
 
-AC_MSG_CHECKING(if you want to use restricted environment when running as root)
+AC_MSG_CHECKING(if you want to permit root to use ncurses environment variables)
 AC_ARG_ENABLE(root-environ,
-	[  --disable-root-environ  restrict environment when running as root],
+	[  --disable-root-environ  restrict root use of ncurses environment variables],
 	[with_root_environ=$enableval],
 	[with_root_environ=yes])
 AC_MSG_RESULT($with_root_environ)
-test "x$with_root_environ" = xyes && AC_DEFINE(USE_ROOT_ENVIRON,1,[Define to 1 if environment should be restricted for root user])
+test "x$with_root_environ" = xyes && AC_DEFINE(USE_ROOT_ENVIRON,1,[Define to 1 if root is allowed to use ncurses environment])
+
+AC_MSG_CHECKING(if you want to permit setuid programs to access all files)
+AC_ARG_ENABLE(root-environ,
+	[  --disable-root-access   restrict file-access when running setuid],
+	[with_root_access=$enableval],
+	[with_root_access=yes])
+AC_MSG_RESULT($with_root_access)
+test "x$with_root_access" = xyes && AC_DEFINE(USE_ROOT_ACCESS,1,[Define to 1 if setuid is allowed all file-access])
 
 ###   Use option --enable-symlinks to make tic use symlinks, not hard links
 ###   to reduce storage requirements for the terminfo database.
@@ -1011,18 +1019,18 @@ else
 	with_tic_depends=no
 fi
 
-###   use option --disable-wattr-macros to suppress wattr* macros from curses.h
-AC_MSG_CHECKING(if you want to suppress wattr* macros to help with ncurses5/ncurses6 transition)
+###   use option --enable-wattr-macros to enable wattr* macros in curses.h
+AC_MSG_CHECKING(if you want to enable wattr* macros)
 AC_ARG_ENABLE(wattr-macros,
-	[  --disable-wattr-macros  suppress wattr* macros to help with ncurses5/ncurses6 transition],
+	[  --enable-wattr-macros   enable wattr* macros],
 	[with_wattr_macros=$enableval],
-	[with_wattr_macros=yes])
+	[with_wattr_macros=no])
 if [[ "x$with_wattr_macros" != xyes ]]; then
 	NCURSES_WATTR_MACROS=0
-	AC_MSG_RESULT(yes)
+	AC_MSG_RESULT(no)
 else
 	NCURSES_WATTR_MACROS=1
-	AC_MSG_RESULT(no)
+	AC_MSG_RESULT(yes)
 fi
 AC_SUBST(NCURSES_WATTR_MACROS)
 
@@ -1555,7 +1563,7 @@ else
 fi
 AC_SUBST(NCURSES_WGETCH_EVENTS)
 
-case $cf_cv_system_name in
+case "$cf_cv_system_name" in
 (*mingw32*|*mingw64*|*-msvc*)
 	AC_MSG_CHECKING(if you want experimental-Windows driver)
 	AC_ARG_ENABLE(exp-win32,
@@ -1616,7 +1624,7 @@ AC_SUBST(INSTALL_OPT_P)
 ###	use option --enable-warnings to turn on all gcc warnings
 CF_ENABLE_WARNINGS(Wno-unknown-pragmas Wswitch-enum,yes)
 
-if test "x$with_warnings" = "xyes"; then
+if test "x$enable_warnings" = "xyes"; then
  	CF_ADD_ADAFLAGS(-gnatg)
 	if test "x$cf_with_cxx" = xyes ; then
 		CF_GXX_WARNINGS(Wno-unused)
@@ -1686,7 +1694,7 @@ AC_SUBST(ADA_TRACE)
 CF_DISABLE_GNAT_PROJECTS
 
 ###	Checks for libraries.
-case $cf_cv_system_name in
+case "$cf_cv_system_name" in
 (*mingw32*|*mingw64*)
 	if test "x$with_exp_win32" = xyes ; then
 	CPPFLAGS="$CPPFLAGS -DWINVER=0x0600 -DWIN32_LEAN_AND_MEAN"
@@ -1751,7 +1759,7 @@ AC_C_CONST
 CF_C_INLINE(NCURSES_INLINE,1200)
 CF_SIG_ATOMIC_T
 
-if test $NCURSES_CHTYPE = auto ; then
+if test "$NCURSES_CHTYPE" = auto ; then
 	CF_TYPEOF_CHTYPE
 else
 	cf_cv_typeof_chtype=$NCURSES_CHTYPE
@@ -1765,7 +1773,7 @@ test ".$cf_cv_unsigned_literals" = .yes && cf_cv_1UL="${cf_cv_1UL}U"
 test ".$cf_cv_typeof_chtype"    = .long && cf_cv_1UL="${cf_cv_1UL}L"
 AC_SUBST(cf_cv_1UL)
 
-if test $NCURSES_MMASK_T = auto ; then
+if test "$NCURSES_MMASK_T" = auto ; then
 	cf_cv_typeof_mmask_t=long
 else
 	cf_cv_typeof_mmask_t=$NCURSES_MMASK_T
@@ -1793,6 +1801,7 @@ select \
 setbuf \
 setbuffer \
 setenv \
+setfsuid \
 setvbuf \
 sigaction \
 sigvec \
@@ -1869,7 +1878,7 @@ if test "$with_hashed_db" != no ; then
 fi
 
 dnl We'll do our own -g libraries, unless the user's overridden via $CFLAGS
-if test -z "$cf_user_CFLAGS" && test "$with_no_leaks" = no ; then
+if test -z "$cf_user_CFLAGS" && test "$enable_leaks" = yes ; then
 	CF_STRIP_G_OPT(CFLAGS)
 	CF_STRIP_G_OPT(CXXFLAGS)
 fi
@@ -1883,7 +1892,7 @@ if test -n "$CXX" ; then
 	CF_STDCPP_LIBRARY
 	CF_PROG_CC_C_O(CXX,[$CXXFLAGS $CPPFLAGS])
 
-	case $GXX_VERSION in
+	case "$GXX_VERSION" in
 	(1.*|2.[[0-6]]*|[[1-9]][[0-9]].*)
 		cf_cxx_library=yes
 		;;
@@ -1940,11 +1949,11 @@ AC_SUBST(CXXLIBS)
 # specify the type of bool in a configure-script option and postpone
 # integration with the C++ compiler provided that the types are compatible.
 USE_CXX_BOOL=1
-if test $cf_cv_cc_bool_type = 1
+if test "$cf_cv_cc_bool_type" = 1
 then
 	# oops: C has a bool.  Unlikely, but C++ could differ.
 	USE_CXX_BOOL=0
-elif test $cf_cv_builtin_bool = 0
+elif test "$cf_cv_builtin_bool" = 0
 then
 	# C++ has no bool
 	USE_CXX_BOOL=0
@@ -2053,7 +2062,7 @@ LIB_SUBSETS="${LIB_SUBSETS}base"
 # base library (so it resides in base).
 if test "$with_term_driver" != no ; then
 	LIB_SUBSETS="${LIB_SUBSETS}+port_drivers"
-	case $cf_cv_system_name in
+	case "$cf_cv_system_name" in
 	(*mingw32*|*mingw64*)
 		if test "x$with_exp_win32" = xyes ; then
 			LIB_SUBSETS="${LIB_SUBSETS}+port_tinfo+port_win32"
@@ -2067,7 +2076,7 @@ if test "$with_term_driver" != no ; then
 		;;
 	esac
 elif test "x$with_exp_win32" = xyes ; then
-	case $cf_cv_system_name in
+	case "$cf_cv_system_name" in
 	(*mingw32*|*mingw64*)
 		LIB_SUBSETS="${LIB_SUBSETS}+port_win32"
 		;;
@@ -2119,8 +2128,8 @@ fi
 
 # do not want -ldl in build except as needed for -lncurses dependency
 if test "x$with_dlsym" = xyes ; then
-if test $DFT_LWR_MODEL = shared || \
-   test $DFT_LWR_MODEL = libtool ; then
+if test "$DFT_LWR_MODEL" = shared || \
+   test "$DFT_LWR_MODEL" = libtool ; then
 	CF_REMOVE_LIB(LIBS,$LIBS,dl)
 fi
 fi
@@ -2148,9 +2157,9 @@ if test "$with_ticlib" != no ; then
 
 	if test "x$with_ticlib" != xyes ; then
 		TICS_NAME=$with_ticlib
-		TICS_SUFFIX="`echo ${DFT_LIB_SUFFIX}|sed -e "s/^${USE_LIB_SUFFIX}//"`"
-		TICS_ARG_SUFFIX="${with_ticlib}`echo ${USE_ARG_SUFFIX}|sed -e "s/^${LIB_SUFFIX}//"`"
-		TICS_DEP_SUFFIX="${with_ticlib}`echo ${DFT_DEP_SUFFIX}|sed -e "s/^${LIB_SUFFIX}//"`"
+		TICS_SUFFIX="`echo "${DFT_LIB_SUFFIX}" |sed -e "s/^${USE_LIB_SUFFIX}//"`"
+		TICS_ARG_SUFFIX="${with_ticlib}`echo "${USE_ARG_SUFFIX}" |sed -e "s/^${LIB_SUFFIX}//"`"
+		TICS_DEP_SUFFIX="${with_ticlib}`echo "${DFT_DEP_SUFFIX}" |sed -e "s/^${LIB_SUFFIX}//"`"
 		TICS_LIB_SUFFIX="${with_ticlib}"
 	else
 		TICS_SUFFIX=${DFT_LIB_SUFFIX}
@@ -2175,9 +2184,9 @@ if test "$with_termlib" != no ; then
 
 	if test "x$with_termlib" != xyes ; then
 		TINFO_NAME=$with_termlib
-		TINFO_SUFFIX="`echo ${DFT_LIB_SUFFIX}|sed -e "s/^${USE_LIB_SUFFIX}//"`"
-		TINFO_ARG_SUFFIX="${with_termlib}`echo ${USE_ARG_SUFFIX}|sed -e "s/^${LIB_SUFFIX}//"`"
-		TINFO_DEP_SUFFIX="${with_termlib}`echo ${DFT_DEP_SUFFIX}|sed -e "s/^${LIB_SUFFIX}//"`"
+		TINFO_SUFFIX="`echo "${DFT_LIB_SUFFIX}" |sed -e "s/^${USE_LIB_SUFFIX}//"`"
+		TINFO_ARG_SUFFIX="${with_termlib}`echo "${USE_ARG_SUFFIX}" |sed -e "s/^${LIB_SUFFIX}//"`"
+		TINFO_DEP_SUFFIX="${with_termlib}`echo "${DFT_DEP_SUFFIX}" |sed -e "s/^${LIB_SUFFIX}//"`"
 		TINFO_LIB_SUFFIX="${with_termlib}"
 	else
 		TINFO_SUFFIX=${DFT_LIB_SUFFIX}
@@ -2225,7 +2234,7 @@ else
 fi
 
 if test "$DFT_LWR_MODEL" = shared ; then
-	case $cf_cv_system_name in
+	case "$cf_cv_system_name" in
 	(cygwin*|msys*)
 		# "lib" files have ".dll.a" suffix, "cyg"or "msys-" files have ".dll"
 		TINFO_SUFFIX=.dll
@@ -2251,7 +2260,7 @@ fi
 TINFO_LDFLAGS2=`echo "$TINFO_LDFLAGS" | sed -e 's,-L\.\./,-L../../,'`
 AC_SUBST(TINFO_LDFLAGS2)
 
-case $DFT_LWR_MODEL in
+case "$DFT_LWR_MODEL" in
 (normal|debug|profile)
 	CF_LDFLAGS_STATIC
 	;;
@@ -2261,8 +2270,8 @@ AC_MSG_CHECKING(where we will install curses.h)
 AC_SUBST(includesubdir)
 includesubdir=
 if test "$with_overwrite" = no && \
- ( test "x$includedir" = 'x${prefix}/include' || \
-   test "x$includedir" = "x${prefix}/include" )
+ { test "x$includedir" = 'x${prefix}/include' || \
+   test "x$includedir" = "x${prefix}/include"; }
 then
 	includesubdir="/ncurses${USE_LIB_SUFFIX}"
 fi
@@ -2280,7 +2289,7 @@ WITH_OVERWRITE=$with_overwrite
 
 ### At least on MinGW a shared library build without libtool
 ### requires adding the additional libs to the link list.
-case $cf_cv_system_name in
+case "$cf_cv_system_name" in
 (*mingw32*|*mingw64*)
 	if test "$DFT_LWR_MODEL" != "libtool"; then
    	   SHLIB_LIST="$SHLIB_LIST ${LIBS}"
@@ -2358,7 +2367,7 @@ ADAHTML_DIR=../../doc/html/ada
 AC_SUBST(ADAHTML_DIR)
 
 # workaround for OS/2 (20151017)
-case $cf_cv_system_name in
+case "$cf_cv_system_name" in
 (os2*)
 	LIBTOOL_OPTS_CXX="-os2dllname ncurs++"
 	;;
@@ -2369,7 +2378,7 @@ esac
 AC_SUBST(LIBTOOL_OPTS_CXX)
 
 # workaround for g++ versus Solaris (20131116)
-case $cf_cv_system_name in
+case "$cf_cv_system_name" in
 (solaris2*)
 	case "x$CPPFLAGS" in
 	(*-D_XOPEN_SOURCE_EXTENDED*)
@@ -2469,7 +2478,7 @@ fi
 test "x$cf_with_trace" = xyes && NCURSES_INLINE=
 
 UNALTERED_SYMS=`echo "$RESULTING_SYMS" | sed -e 's/\\$/\\\\$/g'`
-if test $cf_filter_syms = yes
+if test "$cf_filter_syms" = yes
 then
 	RESULTING_SYMS=resulting.map
 fi
@@ -2500,13 +2509,13 @@ AC_OUTPUT( \
 	$SUB_MAKEFILES \
 	Makefile,[
 if test "x$cf_with_tests" != xno ; then
-	CF_PRG_RULES([$srcdir/test/mk-test.awk INSTALL=no ECHO_LINK="$ECHO_LD"], test)
+	CF_PRG_RULES(["$srcdir/test/mk-test.awk" INSTALL=no ECHO_LINK="$ECHO_LD"], test)
 fi
 CF_LIB_RULES($SRC_SUBDIRS)
 
 if test "x$cf_with_ada" = "xyes" && test "x$cf_cv_prog_gnat_correct" = "xyes"; then
 if test -z "$USE_OLD_MAKERULES" ; then
-	$AWK -f $srcdir/Ada95/mk-1st.awk <$srcdir/Ada95/src/modules >>Ada95/src/Makefile
+	$AWK -f "$srcdir/Ada95/mk-1st.awk" <"$srcdir/Ada95/src/modules" >>Ada95/src/Makefile
 fi
 fi
 ],[
@@ -2557,12 +2566,15 @@ WITH_CURSES_H="$with_curses_h"
 WITH_ECHO="${enable_echo:=yes}"
 WITH_OVERWRITE="$with_overwrite"
 cf_LIST_MODELS="$cf_list_models"
+cf_cv_VERSION_GNATMAKE=$cf_cv_VERSION_GNATMAKE
+cf_cv_VERSION_GPRBUILD=$cf_cv_VERSION_GPRBUILD
 cf_cv_abi_version="$cf_cv_abi_version"
 cf_cv_do_relink="$cf_cv_do_relink"
 cf_cv_do_reranlib="$cf_cv_do_reranlib"
 cf_cv_do_symlinks="$cf_cv_do_symlinks"
 cf_cv_enable_lp64="$cf_cv_enable_lp64"
 cf_cv_enable_opaque="$cf_cv_enable_opaque"
+cf_cv_make_PHONY="$cf_cv_make_PHONY"
 cf_cv_prog_CC_c_o=$cf_cv_prog_CC_c_o
 cf_cv_prog_CXX_c_o=$cf_cv_prog_CXX_c_o
 cf_cv_prog_gnat_correct=$cf_cv_prog_gnat_correct

@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright 2020 Thomas E. Dickey                                          *
+ * Copyright 2020,2021 Thomas E. Dickey                                     *
  * Copyright 1998-2009,2010 Free Software Foundation, Inc.                  *
  *                                                                          *
  * Permission is hereby granted, free of charge, to any person obtaining a  *
@@ -38,19 +38,19 @@
 
 #include "menu.priv.h"
 
-MODULE_ID("$Id: m_win.c,v 1.19 2020/05/24 01:40:20 anonymous.maarten Exp $")
+MODULE_ID("$Id: m_win.c,v 1.21 2021/06/17 21:20:30 tom Exp $")
 
 /*---------------------------------------------------------------------------
-|   Facility      :  libnmenu  
+|   Facility      :  libnmenu
 |   Function      :  int set_menu_win(MENU *menu, WINDOW *win)
-|   
+|
 |   Description   :  Sets the window of the menu.
 |
 |   Return Values :  E_OK               - success
 |                    E_POSTED           - menu is already posted
 +--------------------------------------------------------------------------*/
 MENU_EXPORT(int)
-set_menu_win(MENU * menu, WINDOW *win)
+set_menu_win(MENU *menu, WINDOW *win)
 {
   T((T_CALLED("set_menu_win(%p,%p)"), (void *)menu, (void *)win));
 
@@ -82,15 +82,15 @@ set_menu_win(MENU * menu, WINDOW *win)
 }
 
 /*---------------------------------------------------------------------------
-|   Facility      :  libnmenu  
+|   Facility      :  libnmenu
 |   Function      :  WINDOW* menu_win(const MENU*)
-|   
+|
 |   Description   :  Returns pointer to the window of the menu
 |
 |   Return Values :  NULL on error, otherwise pointer to window
 +--------------------------------------------------------------------------*/
 MENU_EXPORT(WINDOW *)
-menu_win(const MENU * menu)
+menu_win(const MENU *menu)
 {
   const MENU *m = Normalize_Menu(menu);
 

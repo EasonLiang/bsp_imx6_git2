@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright 2020 Thomas E. Dickey                                          *
+ * Copyright 2020,2021 Thomas E. Dickey                                     *
  * Copyright 1998-2016,2017 Free Software Foundation, Inc.                  *
  *                                                                          *
  * Permission is hereby granted, free of charge, to any person obtaining a  *
@@ -98,7 +98,7 @@
 char *ttyname(int fd);
 #endif
 
-MODULE_ID("$Id: tset.c,v 1.125 2020/09/05 22:54:47 tom Exp $")
+MODULE_ID("$Id: tset.c,v 1.128 2021/04/03 23:03:48 tom Exp $")
 
 #ifndef environ
 extern char **environ;
@@ -108,7 +108,7 @@ const char *_nc_progname = "tset";
 
 #define LOWERCASE(c) ((isalpha(UChar(c)) && isupper(UChar(c))) ? tolower(UChar(c)) : (c))
 
-static void exit_error(void) GCC_NORETURN;
+static GCC_NORETURN void exit_error(void);
 
 static int
 CaselessCmp(const char *a, const char *b)
@@ -122,7 +122,7 @@ CaselessCmp(const char *a, const char *b)
     return LOWERCASE(*a) - LOWERCASE(*b);
 }
 
-static void
+static GCC_NORETURN void
 exit_error(void)
 {
     restore_tty_settings();
@@ -132,7 +132,7 @@ exit_error(void)
     /* NOTREACHED */
 }
 
-static void
+static GCC_NORETURN void
 err(const char *fmt, ...)
 {
     va_list ap;
@@ -144,7 +144,7 @@ err(const char *fmt, ...)
     /* NOTREACHED */
 }
 
-static void
+static GCC_NORETURN void
 failed(const char *msg)
 {
     char temp[BUFSIZ];
@@ -167,7 +167,6 @@ static const char *
 askuser(const char *dflt)
 {
     static char answer[256];
-    char *p;
 
     /* We can get recalled; if so, don't continue uselessly. */
     clearerr(stdin);
@@ -176,7 +175,10 @@ askuser(const char *dflt)
 	exit_error();
 	/* NOTREACHED */
     }
+
     for (;;) {
+	char *p;
+
 	if (dflt)
 	    (void) fprintf(stderr, "Terminal type? [%s] ", dflt);
 	else
@@ -773,7 +775,6 @@ main(int argc, char **argv)
     bool opt_w = FALSE;		/* set window-size */
     TTY mode, oldmode;
 
-    my_fd = STDERR_FILENO;
     obsolete(argv);
     noinit = noset = quiet = Sflag = sflag = showterm = 0;
     while ((ch = getopt(argc, argv, "a:cd:e:Ii:k:m:p:qQrSsVw")) != -1) {

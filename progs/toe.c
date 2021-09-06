@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright 2018,2020 Thomas E. Dickey                                     *
+ * Copyright 2018-2020,2021 Thomas E. Dickey                                *
  * Copyright 1998-2013,2017 Free Software Foundation, Inc.                  *
  *                                                                          *
  * Permission is hereby granted, free of charge, to any person obtaining a  *
@@ -45,7 +45,7 @@
 #include <hashed_db.h>
 #endif
 
-MODULE_ID("$Id: toe.c,v 1.79 2020/02/02 23:34:34 tom Exp $")
+MODULE_ID("$Id: toe.c,v 1.82 2021/06/26 19:44:08 tom Exp $")
 
 #define isDotname(name) (!strcmp(name, ".") || !strcmp(name, ".."))
 
@@ -64,7 +64,7 @@ static size_t len_termdata;	/* allocated size of ptr_termdata[] */
 
 #if NO_LEAKS
 #undef ExitProgram
-static void ExitProgram(int code) GCC_NORETURN;
+static GCC_NORETURN void ExitProgram(int code);
 static void
 ExitProgram(int code)
 {
@@ -73,7 +73,7 @@ ExitProgram(int code)
 }
 #endif
 
-static void failed(const char *) GCC_NORETURN;
+static GCC_NORETURN void failed(const char *);
 
 static void
 failed(const char *msg)
@@ -127,12 +127,15 @@ compare_termdata(const void *a, const void *b)
 static void
 show_termdata(int eargc, char **eargv)
 {
-    int j, k;
-    size_t n;
-
     if (use_termdata) {
+	size_t n;
+
 	if (eargc > 1) {
+	    int j;
+
 	    for (j = 0; j < eargc; ++j) {
+		int k;
+
 		for (k = 0; k <= j; ++k) {
 		    printf("--");
 		}
@@ -149,7 +152,7 @@ show_termdata(int eargc, char **eargv)
 	     */
 	    if (eargc > 1) {
 		unsigned long check = 0;
-		k = 0;
+		int k = 0;
 		for (;;) {
 		    for (; k < ptr_termdata[n].db_index; ++k) {
 			printf("--");
@@ -532,7 +535,7 @@ typelist(int eargc, char *eargv[],
 	    if (verbosity)
 		(void) printf("#\n#%s:\n#\n", eargv[i]);
 
-	    if ((fp = fopen(eargv[i], "r")) != 0) {
+	    if ((fp = safe_fopen(eargv[i], "r")) != 0) {
 		while (fgets(buffer, sizeof(buffer), fp) != 0) {
 		    if (*buffer == '#')
 			continue;
@@ -570,7 +573,6 @@ main(int argc, char *argv[])
     bool invert_dependencies = FALSE;
     bool header = FALSE;
     char *report_file = 0;
-    unsigned i;
     int code;
     int this_opt, last_opt = '?';
     unsigned v_opt = 0;
@@ -658,11 +660,13 @@ main(int argc, char *argv[])
     /* maybe we want a reverse-dependency listing? */
     if (invert_dependencies) {
 	ENTRY *qp, *rp;
-	int matchcount;
 
 	for_entry_list(qp) {
-	    matchcount = 0;
+	    int matchcount = 0;
+
 	    for_entry_list(rp) {
+		unsigned i;
+
 		if (rp->nuses == 0)
 		    continue;
 
@@ -692,12 +696,12 @@ main(int argc, char *argv[])
 	DBDIRS state;
 	int offset;
 	int pass;
-	const char *path;
 	char **eargv = 0;
 
 	code = EXIT_FAILURE;
 	for (pass = 0; pass < 2; ++pass) {
 	    size_t count = 0;
+	    const char *path;
 
 	    _nc_first_db(&state, &offset);
 	    while ((path = _nc_next_db(&state, &offset)) != 0) {

@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright 2020 Thomas E. Dickey                                          *
+ * Copyright 2020,2021 Thomas E. Dickey                                     *
  * Copyright 1998-2004,2010 Free Software Foundation, Inc.                  *
  *                                                                          *
  * Permission is hereby granted, free of charge, to any person obtaining a  *
@@ -38,12 +38,12 @@
 
 #include "menu.priv.h"
 
-MODULE_ID("$Id: m_item_top.c,v 1.13 2020/05/24 01:40:20 anonymous.maarten Exp $")
+MODULE_ID("$Id: m_item_top.c,v 1.16 2021/06/17 21:11:08 tom Exp $")
 
 /*---------------------------------------------------------------------------
-|   Facility      :  libnmenu  
+|   Facility      :  libnmenu
 |   Function      :  int set_top_row(MENU *menu, int row)
-|   
+|
 |   Description   :  Makes the specified row the top row in the menu
 |
 |   Return Values :  E_OK             - success
@@ -51,17 +51,15 @@ MODULE_ID("$Id: m_item_top.c,v 1.13 2020/05/24 01:40:20 anonymous.maarten Exp $"
 |                    E_NOT_CONNECTED  - there are no items for the menu
 +--------------------------------------------------------------------------*/
 MENU_EXPORT(int)
-set_top_row(MENU * menu, int row)
+set_top_row(MENU *menu, int row)
 {
-  ITEM *item;
-
   T((T_CALLED("set_top_row(%p,%d)"), (void *)menu, row));
 
   if (menu)
     {
       if (menu->status & _IN_DRIVER)
 	RETURN(E_BAD_STATE);
-      if (menu->items == (ITEM **) 0)
+      if (menu->items == (ITEM **)0)
 	RETURN(E_NOT_CONNECTED);
 
       if ((row < 0) || (row > (menu->rows - menu->arows)))
@@ -72,6 +70,8 @@ set_top_row(MENU * menu, int row)
 
   if (row != menu->toprow)
     {
+      ITEM *item;
+
       if (menu->status & _LINK_NEEDED)
 	_nc_Link_Items(menu);
 
@@ -85,15 +85,15 @@ set_top_row(MENU * menu, int row)
 }
 
 /*---------------------------------------------------------------------------
-|   Facility      :  libnmenu  
+|   Facility      :  libnmenu
 |   Function      :  int top_row(const MENU *)
-|   
+|
 |   Description   :  Return the top row of the menu
 |
 |   Return Values :  The row number or ERR if there is no row
 +--------------------------------------------------------------------------*/
 MENU_EXPORT(int)
-top_row(const MENU * menu)
+top_row(const MENU *menu)
 {
   T((T_CALLED("top_row(%p)"), (const void *)menu));
   if (menu && menu->items && *(menu->items))

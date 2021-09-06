@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright 2018-2019,2020 Thomas E. Dickey                                *
+ * Copyright 2018-2020,2021 Thomas E. Dickey                                *
  * Copyright 1998-2016,2017 Free Software Foundation, Inc.                  *
  *                                                                          *
  * Permission is hereby granted, free of charge, to any person obtaining a  *
@@ -49,7 +49,7 @@
 #define CUR SP_TERMTYPE
 #endif
 
-MODULE_ID("$Id: lib_color.c,v 1.145 2020/05/27 23:55:32 tom Exp $")
+MODULE_ID("$Id: lib_color.c,v 1.147 2021/05/08 15:11:48 tom Exp $")
 
 #ifdef USE_TERM_DRIVER
 #define CanChange      InfoOf(SP_PARM).canchange
@@ -252,20 +252,21 @@ init_direct_colors(NCURSES_SP_DCL0)
 {
     static NCURSES_CONST char name[] = "RGB";
 
-    int n;
-    const char *s;
-    int width;
     rgb_bits_t *result = &(SP_PARM->_direct_color);
 
     result->value = 0;
 
     if (COLORS >= 8) {
+	int n;
+	const char *s;
+	int width;
+
 	/* find the number of bits needed for the maximum color value */
 	for (width = 0; (1 << width) - 1 < (COLORS - 1); ++width) {
 	    ;
 	}
 
-	if ((n = tigetflag(name)) > 0) {
+	if (tigetflag(name) > 0) {
 	    n = (width + 2) / 3;
 	    result->bits.red = UChar(n);
 	    result->bits.green = UChar(n);
@@ -360,7 +361,6 @@ NCURSES_EXPORT(int)
 NCURSES_SP_NAME(start_color) (NCURSES_SP_DCL0)
 {
     int result = ERR;
-    int maxpairs = 0, maxcolors = 0;
 
     T((T_CALLED("start_color(%p)"), (void *) SP_PARM));
 
@@ -369,8 +369,8 @@ NCURSES_SP_NAME(start_color) (NCURSES_SP_DCL0)
     } else if (SP_PARM->_coloron) {
 	result = OK;
     } else {
-	maxpairs = MaxPairs;
-	maxcolors = MaxColors;
+	int maxpairs = MaxPairs;
+	int maxcolors = MaxColors;
 	if (reset_color_pair(NCURSES_SP_ARG) != TRUE) {
 	    set_foreground_color(NCURSES_SP_ARGx
 				 default_fg(NCURSES_SP_ARG),
@@ -840,52 +840,57 @@ _nc_color_content(SCREEN *sp, int color, int *r, int *g, int *b)
        (void *) g,
        (void *) b));
 
-    if (sp == 0)
-	returnCode(result);
+    if (sp != 0) {
+	maxcolors = MaxColors;
 
-    maxcolors = MaxColors;
+	if (color >= 0 && OkColorHi(color) && sp->_coloron) {
+	    int c_r, c_g, c_b;
 
-    if (color < 0 || !OkColorHi(color) || !sp->_coloron) {
-	result = ERR;
-    } else {
-	int c_r, c_g, c_b;
-
-	if (sp->_direct_color.value) {
-	    rgb_bits_t *work = &(sp->_direct_color);
+	    if (sp->_direct_color.value) {
+		rgb_bits_t *work = &(sp->_direct_color);
 
 #define max_direct_color(name)	((1 << work->bits.name) - 1)
 #define value_direct_color(max) (1000 * ((color >> bitoff) & max)) / max
 
-	    int max_r = max_direct_color(red);
-	    int max_g = max_direct_color(green);
-	    int max_b = max_direct_color(blue);
+		int max_r = max_direct_color(red);
+		int max_g = max_direct_color(green);
+		int max_b = max_direct_color(blue);
 
-	    int bitoff = 0;
+		int bitoff = 0;
 
-	    c_b = value_direct_color(max_b);
-	    bitoff += work->bits.blue;
+		c_b = value_direct_color(max_b);
+		bitoff += work->bits.blue;
 
-	    c_g = value_direct_color(max_g);
-	    bitoff += work->bits.green;
+		c_g = value_direct_color(max_g);
+		bitoff += work->bits.green;
 
-	    c_r = value_direct_color(max_r);
+		c_r = value_direct_color(max_r);
 
-	} else {
-	    c_r = sp->_color_table[color].red;
-	    c_g = sp->_color_table[color].green;
-	    c_b = sp->_color_table[color].blue;
+	    } else {
+		c_r = sp->_color_table[color].red;
+		c_g = sp->_color_table[color].green;
+		c_b = sp->_color_table[color].blue;
+	    }
+
+	    if (r)
+		*r = c_r;
+	    if (g)
+		*g = c_g;
+	    if (b)
+		*b = c_b;
+
+	    TR(TRACE_ATTRS, ("...color_content(%d,%d,%d,%d)",
+			     color, c_r, c_g, c_b));
+	    result = OK;
 	}
-
+    }
+    if (result != OK) {
 	if (r)
-	    *r = c_r;
+	    *r = 0;
 	if (g)
-	    *g = c_g;
+	    *g = 0;
 	if (b)
-	    *b = c_b;
-
-	TR(TRACE_ATTRS, ("...color_content(%d,%d,%d,%d)",
-			 color, c_r, c_g, c_b));
-	result = OK;
+	    *b = 0;
     }
     returnCode(result);
 }

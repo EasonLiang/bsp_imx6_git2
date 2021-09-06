@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright 2018-2019,2020 Thomas E. Dickey                                *
+ * Copyright 2018-2020,2021 Thomas E. Dickey                                *
  * Copyright 1998-2016,2017 Free Software Foundation, Inc.                  *
  *                                                                          *
  * Permission is hereby granted, free of charge, to any person obtaining a  *
@@ -85,7 +85,7 @@
 
 #include <ctype.h>
 
-MODULE_ID("$Id: tty_update.c,v 1.309 2020/05/27 23:56:32 tom Exp $")
+MODULE_ID("$Id: tty_update.c,v 1.312 2021/09/04 10:29:59 tom Exp $")
 
 /*
  * This define controls the line-breakout optimization.  Every once in a
@@ -136,7 +136,7 @@ static void TransformLine(int const lineno);
  ****************************************************************************/
 
 static void
-position_check(NCURSES_SP_DCLx int expected_y, int expected_x, char *legend)
+position_check(NCURSES_SP_DCLx int expected_y, int expected_x, const char *legend)
 /* check to see if the real cursor position matches the virtual */
 {
     char buf[20];
@@ -429,11 +429,12 @@ PutCharLR(NCURSES_SP_DCLx const ARG_CH_T ch)
 	/* we can put the char directly */
 	PutAttrChar(NCURSES_SP_ARGx ch);
     } else if (enter_am_mode && exit_am_mode) {
+	int oldcol = SP_PARM->_curscol;
 	/* we can suppress automargin */
 	NCURSES_PUTP2("exit_am_mode", exit_am_mode);
 
 	PutAttrChar(NCURSES_SP_ARGx ch);
-	SP_PARM->_curscol--;
+	SP_PARM->_curscol = oldcol;
 	position_check(NCURSES_SP_ARGx
 		       SP_PARM->_cursrow,
 		       SP_PARM->_curscol,
@@ -472,7 +473,7 @@ wrap_cursor(NCURSES_SP_DCL0)
 	 * An aggressive way to handle this would be to emit CR/LF after the
 	 * char and then assume the wrap is done, you're on the first position
 	 * of the next line, and the terminal out of its weird state.  Here
-	 * it's safe to just tell the code that the cursor is in hyperspace and
+	 * it is safe to just tell the code that the cursor is in hyperspace and
 	 * let the next mvcur() call straighten things out.
 	 */
 	SP_PARM->_curscol = -1;
@@ -822,7 +823,7 @@ TINFO_DOUPDATE(NCURSES_SP_DCL0)
     /*
      * This is the support for magic-cookie terminals.  The theory:  we scan
      * the virtual screen looking for attribute turnons.  Where we find one,
-     * check to make sure it's realizable by seeing if the required number of
+     * check to make sure it is realizable by seeing if the required number of
      * un-attributed blanks are present before and after the attributed range;
      * try to shift the range boundaries over blanks (not changing the screen
      * display) so this becomes true.  If it is, shift the beginning attribute
@@ -884,7 +885,7 @@ TINFO_DOUPDATE(NCURSES_SP_DCL0)
 		    bool end_onscreen = FALSE;
 		    int m, n = j;
 
-		    /* find end of span, if it's onscreen */
+		    /* find end of span, if it is onscreen */
 		    for (m = i; m < screen_lines(SP_PARM); m++) {
 			for (; n < screen_columns(SP_PARM); n++) {
 			    attr_t testattr =
@@ -1324,8 +1325,8 @@ TransformLine(NCURSES_SP_DCLx int const lineno)
 		newPair = GetPair(newLine[n]);
 		if (oldPair != newPair
 		    && unColor(oldLine[n]) == unColor(newLine[n])) {
-		    if (oldPair < SP_PARM->_pair_limit
-			&& newPair < SP_PARM->_pair_limit
+		    if (oldPair < SP_PARM->_pair_alloc
+			&& newPair < SP_PARM->_pair_alloc
 			&& (isSamePair(SP_PARM->_color_pairs[oldPair],
 				       SP_PARM->_color_pairs[newPair]))) {
 			SetPair(oldLine[n], GetPair(newLine[n]));

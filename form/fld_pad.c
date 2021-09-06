@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright 2020 Thomas E. Dickey                                          *
+ * Copyright 2020,2021 Thomas E. Dickey                                     *
  * Copyright 1998-2004,2010 Free Software Foundation, Inc.                  *
  *                                                                          *
  * Permission is hereby granted, free of charge, to any person obtaining a  *
@@ -33,12 +33,12 @@
 
 #include "form.priv.h"
 
-MODULE_ID("$Id: fld_pad.c,v 1.12 2020/05/24 01:40:20 anonymous.maarten Exp $")
+MODULE_ID("$Id: fld_pad.c,v 1.14 2021/06/17 21:20:30 tom Exp $")
 
 /*---------------------------------------------------------------------------
-|   Facility      :  libnform  
+|   Facility      :  libnform
 |   Function      :  int set_field_pad(FIELD *field, int ch)
-|   
+|
 |   Description   :  Set the pad character used to fill the field. This must
 |                    be a printable character.
 |
@@ -68,10 +68,10 @@ set_field_pad(FIELD *field, int ch)
 }
 
 /*---------------------------------------------------------------------------
-|   Facility      :  libnform  
+|   Facility      :  libnform
 |   Function      :  int field_pad(const FIELD *field)
-|   
-|   Description   :  Retrieve the fields pad character.
+|
+|   Description   :  Retrieve the field's pad character.
 |
 |   Return Values :  The pad character.
 +--------------------------------------------------------------------------*/

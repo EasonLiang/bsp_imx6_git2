@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright 2018-2019,2020 Thomas E. Dickey                                *
+ * Copyright 2018-2020,2021 Thomas E. Dickey                                *
  * Copyright 1998-2016,2017 Free Software Foundation, Inc.                  *
  *                                                                          *
  * Permission is hereby granted, free of charge, to any person obtaining a  *
@@ -85,7 +85,7 @@
 #define CUR SP_TERMTYPE
 #endif
 
-MODULE_ID("$Id: lib_mouse.c,v 1.191 2020/06/13 21:05:02 tom Exp $")
+MODULE_ID("$Id: lib_mouse.c,v 1.193 2021/03/20 12:56:32 tom Exp $")
 
 #include <tic.h>
 
@@ -419,13 +419,22 @@ init_xterm_mouse(SCREEN *sp)
     } else {
 	int code = tigetnum("XM");
 	switch (code) {
+#ifdef EXP_XTERM_1005
+	case 1005:
+	    /* see "xterm+sm+1005" */
+	    sp->_mouse_xtermcap = "\033[?1005;1000%?%p1%{1}%=%th%el%;";
+	    sp->_mouse_format = MF_XTERM_1005;
+	    break;
+#endif
 	case 1006:
+	    /* see "xterm+sm+1006" */
+	    sp->_mouse_xtermcap = "\033[?1006;1000%?%p1%{1}%=%th%el%;";
+	    sp->_mouse_format = MF_SGR1006;
 	    break;
 	default:
-	    code = 1000;
+	    sp->_mouse_xtermcap = "\033[?1000%?%p1%{1}%=%th%el%;";
 	    break;
 	}
-	sp->_mouse_xtermcap = "\033[?1000%?%p1%{1}%=%th%el%;";
     }
 }
 #endif
@@ -978,7 +987,7 @@ decode_X10_bstate(SCREEN *sp, MEVENT * eventp, unsigned intro)
     if (intro >= 96) {
 	if (intro >= 160) {
 	    button = (int) (intro - 152);	/* buttons 8-11 */
-	} else if (intro >= 96) {
+	} else {
 	    button = (int) (intro - 92);	/* buttons 4-7 */
 	}
     } else {

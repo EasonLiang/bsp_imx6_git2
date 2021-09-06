@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright 2018-2019,2020 Thomas E. Dickey                                *
+ * Copyright 2018-2020,2021 Thomas E. Dickey                                *
  * Copyright 1998-2016,2017 Free Software Foundation, Inc.                  *
  *                                                                          *
  * Permission is hereby granted, free of charge, to any person obtaining a  *
@@ -31,7 +31,7 @@
  *   Author:  Juergen Pfeifer, 1995,1997                                    *
  ****************************************************************************/
 
-/* $Id: form.priv.h,v 0.46 2020/05/24 01:40:20 anonymous.maarten Exp $ */
+/* $Id: form.priv.h,v 0.48 2021/06/17 21:30:22 tom Exp $ */
 
 #ifndef FORM_PRIV_H
 #define FORM_PRIV_H 1
@@ -110,7 +110,7 @@ extern FORM_EXPORT_VAR(FIELDTYPE *) _nc_Default_FieldType;
 #define Get_Form_Screen(form) CURRENT_SCREEN
 #endif
 
-/* Retrieve forms window */
+/* Retrieve form's window */
 #define Get_Form_Window(form) \
   ((form)->sub \
    ? (form)->sub \
@@ -202,12 +202,12 @@ extern FORM_EXPORT(FIELDTYPE *) _nc_TYPE_REGEXP(void);
 extern FORM_EXPORT(FIELDTYPE *) _nc_TYPE_IPV4(void);
 
 extern FORM_EXPORT(FIELDTYPE *)
-_nc_generic_fieldtype(bool (*const field_check) (FORM*, 
-						 FIELD *, 
+_nc_generic_fieldtype(bool (*const field_check) (FORM*,
+						 FIELD *,
 						 const void *),
-		      bool (*const char_check)  (int, 
-						 FORM*, 
-						 FIELD*, 
+		      bool (*const char_check)  (int,
+						 FORM*,
+						 FIELD*,
 						 const void *),
 		      bool (*const next)(FORM*,FIELD*,const void*),
 		      bool (*const prev)(FORM*,FIELD*,const void*),

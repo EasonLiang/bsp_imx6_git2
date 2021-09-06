@@ -553,6 +553,7 @@
 ./include/edit_cfg.sh
 ./include/hashed_db.h
 ./include/headers
+./include/nc_access.h
 ./include/nc_alloc.h
 ./include/nc_mingw.h
 ./include/nc_panel.h
@@ -899,6 +900,7 @@
 ./ncurses/new_pair.h
 ./ncurses/report_hashing.c
 ./ncurses/report_offsets.c
+./ncurses/term.priv.h
 ./ncurses/tinfo/MKcaptab.awk
 ./ncurses/tinfo/MKcaptab.sh
 ./ncurses/tinfo/MKcodes.awk
@@ -1094,6 +1096,7 @@
 ./test/Makefile.in
 ./test/README
 ./test/aclocal.m4
+./test/back_ground.c
 ./test/background.c
 ./test/blue.c
 ./test/bs.6

@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright 2020 Thomas E. Dickey                                          *
+ * Copyright 2020,2021 Thomas E. Dickey                                     *
  * Copyright 1998-2010,2012 Free Software Foundation, Inc.                  *
  *                                                                          *
  * Permission is hereby granted, free of charge, to any person obtaining a  *
@@ -38,7 +38,7 @@
 
 #include "menu.priv.h"
 
-MODULE_ID("$Id: m_format.c,v 1.20 2020/05/24 01:40:20 anonymous.maarten Exp $")
+MODULE_ID("$Id: m_format.c,v 1.22 2021/03/27 23:46:29 tom Exp $")
 
 #define minimum(a,b) ((a)<(b) ? (a): (b))
 
@@ -57,9 +57,8 @@ MODULE_ID("$Id: m_format.c,v 1.20 2020/05/24 01:40:20 anonymous.maarten Exp $")
 |                    E_POSTED               - the menu is already posted
 +--------------------------------------------------------------------------*/
 MENU_EXPORT(int)
-set_menu_format(MENU * menu, int rows, int cols)
+set_menu_format(MENU *menu, int rows, int cols)
 {
-  int total_rows, total_cols;
 
   T((T_CALLED("set_menu_format(%p,%d,%d)"), (void *)menu, rows, cols));
 
@@ -68,6 +67,8 @@ set_menu_format(MENU * menu, int rows, int cols)
 
   if (menu)
     {
+      int total_rows, total_cols;
+
       if (menu->status & _POSTED)
 	RETURN(E_POSTED);
 
@@ -121,7 +122,7 @@ set_menu_format(MENU * menu, int rows, int cols)
 |   Return Values :  -
 +--------------------------------------------------------------------------*/
 MENU_EXPORT(void)
-menu_format(const MENU * menu, int *rows, int *cols)
+menu_format(const MENU *menu, int *rows, int *cols)
 {
   if (rows)
     *rows = Normalize_Menu(menu)->frows;

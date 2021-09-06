@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright 2020 Thomas E. Dickey                                          *
+ * Copyright 2020,2021 Thomas E. Dickey                                     *
  * Copyright 1998-2010,2012 Free Software Foundation, Inc.                  *
  *                                                                          *
  * Permission is hereby granted, free of charge, to any person obtaining a  *
@@ -33,14 +33,14 @@
 
 #include "form.priv.h"
 
-MODULE_ID("$Id: fld_move.c,v 1.13 2020/05/24 01:40:20 anonymous.maarten Exp $")
+MODULE_ID("$Id: fld_move.c,v 1.16 2021/06/17 21:20:30 tom Exp $")
 
 /*---------------------------------------------------------------------------
-|   Facility      :  libnform  
+|   Facility      :  libnform
 |   Function      :  int move_field(FIELD *field,int frow, int fcol)
-|   
+|
 |   Description   :  Moves the disconnected field to the new location in
-|                    the forms subwindow.
+|                    the form's subwindow.
 |
 |   Return Values :  E_OK            - success
 |                    E_BAD_ARGUMENT  - invalid argument passed
@@ -57,8 +57,8 @@ move_field(FIELD *field, int frow, int fcol)
   if (field->form)
     RETURN(E_CONNECTED);
 
-  field->frow = (short) frow;
-  field->fcol = (short) fcol;
+  field->frow = (short)frow;
+  field->fcol = (short)fcol;
   RETURN(E_OK);
 }
 
