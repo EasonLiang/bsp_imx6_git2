@@ -3,6 +3,8 @@ ncurses (6.2+20210905-1) UNRELEASED; urgency=low
   * New upstream patchlevel.
   * Drop patch 02-fix-mlterm.diff, applied upstream.
   * Refresh remaining Debian patches.
+  * Update symbols files for new symbols erasewchar_sp, killwchar_sp
+    and _nc_reset_tparm.
 
  -- Sven Joachim <svenjoac@gmx.de>  Mon, 06 Sep 2021 19:18:17 +0200
 

@@ -139,6 +139,7 @@ libtinfo.so.5 libtinfo5 #MINVER#
  _nc_read_entry@NCURSES_TINFO_5.0.19991023 6
  _nc_read_file_entry@NCURSES_TINFO_5.0.19991023 6
  _nc_read_termtype@NCURSES_TINFO_5.6.20061217 6
+ _nc_reset_tparm@NCURSES_TINFO_6.2.current 6.2+20210905 1
  _nc_rootname@NCURSES_TINFO_5.3.20021019 6
  _nc_safe_strcat@NCURSES_TINFO_5.2.20001021 6
  _nc_safe_strcpy@NCURSES_TINFO_5.2.20001021 6
