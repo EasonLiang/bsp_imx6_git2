@@ -5,7 +5,7 @@ Description: Remove "rin" from screen-256color
  correctly.  So drop "rin" from screen-256color, at least until tmux
  3.0 is released.
 Bug-Debian: https://bugs.debian.org/933572
-Last-Update: 2019-08-07
+Last-Update: 2019-09-06
 
 ---
  misc/terminfo.src |    1 +
@@ -13,7 +13,7 @@ Last-Update: 2019-08-07
 
 --- a/misc/terminfo.src
 +++ b/misc/terminfo.src
-@@ -7507,6 +7507,7 @@ screen-16color-bce-s|GNU Screen with 16
+@@ -7901,6 +7901,7 @@ screen-16color-bce-s|GNU Screen with 16
  
  screen-256color|GNU Screen with 256 colors,
  	use=xterm+256setaf, use=screen4,
