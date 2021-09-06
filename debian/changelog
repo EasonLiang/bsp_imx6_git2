@@ -12,6 +12,7 @@ ncurses (6.2+20210905-1) UNRELEASED; urgency=low
     and _nc_reset_tparm.
   * Bump autoconf-dickey build dependency to (>= 2.52+20210509), as per
     test/configure.in.
+  * Ship stterm and stterm-256color terminfo entries in ncurses-term.
 
  -- Sven Joachim <svenjoac@gmx.de>  Mon, 06 Sep 2021 19:18:17 +0200
 

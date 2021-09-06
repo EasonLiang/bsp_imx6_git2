@@ -191,7 +191,7 @@ libterminfofiles=a/ansi c/cons25 c/cons25-debian c/cygwin d/dumb h/hurd l/linux 
 # Blacklist terminfo entries shipped by other Debian packages so that we do
 # not begin shipping them by accident.
 badterminfo = 5/5250 f/fbterm i/iterm i/iterm-am i/iterm-color \
-	j/jfbterm k/kon k/kon2 l/linux-5250 s/stterm s/stterm-256color
+	j/jfbterm k/kon k/kon2 l/linux-5250
 
 ifneq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
 # Force necessary configure checks which do not work when
