@@ -1,6 +1,9 @@
 ncurses (6.2+20210905-1) UNRELEASED; urgency=low
 
   * New upstream patchlevel.
+    - Extend --disable-pkg-ldflags option to also control whether
+      $LDFLAGS from the build is provided in -config and .pc files.
+      Use that option in debian/rules (Closes: #986764).
   * Drop patch 02-fix-mlterm.diff, applied upstream.
   * Refresh remaining Debian patches.
   * Update symbols files for new symbols erasewchar_sp, killwchar_sp

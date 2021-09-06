@@ -149,6 +149,7 @@ CONFARGS =	--prefix=/usr \
 		--with-versioned-syms \
 		--disable-wattr-macros \
 		--disable-relink \
+		--disable-pkg-ldflags \
 		--enable-overwrite \
 		--with-xterm-kbs=del
 
