@@ -1,4 +1,4 @@
-ncurses (6.2+20210905-1) UNRELEASED; urgency=low
+ncurses (6.2+20210905-1) unstable; urgency=low
 
   * New upstream patchlevel.
     - Extend --disable-pkg-ldflags option to also control whether
@@ -18,7 +18,7 @@ ncurses (6.2+20210905-1) UNRELEASED; urgency=low
   * Update list of terminfo entries shipped by other Debian packages.
   * Update years in debian/copyright.
 
- -- Sven Joachim <svenjoac@gmx.de>  Mon, 06 Sep 2021 19:18:17 +0200
+ -- Sven Joachim <svenjoac@gmx.de>  Thu, 09 Sep 2021 19:56:22 +0200
 
 ncurses (6.2+20201114-4) unstable; urgency=medium
 
