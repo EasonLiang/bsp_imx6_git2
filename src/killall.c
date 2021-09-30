@@ -510,7 +510,7 @@ load_proc_cmdline(const pid_t pid, const char *comm, char **command, int *got_lo
 static pid_t *
 create_pid_table(int *max_pids, int *pids)
 {
-    pid_t self, *pid_table;
+    pid_t self, *pid_table, *realloc_pid_table;
     int pid;
     DIR *dir;
     struct dirent *de;
@@ -535,11 +535,13 @@ create_pid_table(int *max_pids, int *pids)
             continue;
         if (*pids == *max_pids)
         {
-            if (!(pid_table = realloc (pid_table, 2 * *pids * sizeof (pid_t))))
+            if (!(realloc_pid_table = realloc (pid_table, 2 * *pids * sizeof (pid_t))))
             {
                 perror ("realloc");
+                free(pid_table);
                 exit (1);
             }
+            pid_table = realloc_pid_table;
             *max_pids *= 2;
         }
         pid_table[(*pids)++] = pid;
