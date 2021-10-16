@@ -1,9 +1,9 @@
-ca-certificates (20211010) UNRELEASED; urgency=medium
+ca-certificates (20211016) unstable; urgency=low
 
   [ Michael Shuler ]
   * Fix error on install when TEMPBUNDLE missing. Closes: #996005
 
- -- Michael Shuler <michael@pbandjelly.org>  Sun, 10 Oct 2021 09:10:28 -0500
+ -- Julien Cristau <jcristau@debian.org>  Sat, 16 Oct 2021 18:09:43 +0200
 
 ca-certificates (20211004) unstable; urgency=low
 
