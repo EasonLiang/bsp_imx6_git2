@@ -513,12 +513,13 @@ static void out_scontext(const PROC *current)
         snprintf(path, sizeof path, "/proc/%d/attr/current", current->pid);
         if ( (file = fopen(path, "r")) != NULL) {
             if (fgets(readbuf, BUFSIZ, file) != NULL) {
-		num_read = strlen(readbuf);
-		readbuf[num_read-1] = '\0';
+                num_read = strlen(readbuf);
+                readbuf[num_read-1] = '\0';
                 out_string(readbuf);
             }
-      }
-      out_string("'");
+            fclose(file);
+        }
+        out_string("'");
     }
 }
 
