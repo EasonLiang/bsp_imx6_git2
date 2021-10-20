@@ -20,8 +20,7 @@ Architecture: all
 Priority: required
 Essential: yes
 Multi-Arch: foreign
-Depends: perl-base (>= 5.20.1-3),
-         ${misc:Depends},
+Depends: ${misc:Depends},
          ${perl:Depends},
 Conflicts: file-rc (<< 0.8.17~),
 Description: helper tools for all init systems
@@ -45,8 +44,7 @@ Priority: important
 XB-Important: yes
 Multi-Arch: foreign
 Pre-Depends: systemd-sysv [linux-any] ${alt:sysvinit},
-Depends: init-system-helpers (>= 1.25),
-         ${misc:Depends},
+Depends: ${misc:Depends},
 Description: metapackage ensuring an init system is installed
  This package is a metapackage which allows you to select from the available
  init systems while ensuring that one of these is available on the system at
