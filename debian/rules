@@ -27,7 +27,7 @@ endif
 
 # These are important since this is a library package
 soname=6
-sodepver = (>= 6.2)
+sodepver = (>= 6.3)
 
 # Name our packages
 package-base=ncurses-base
