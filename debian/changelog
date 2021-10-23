@@ -4,6 +4,8 @@ ncurses (6.3-1) UNRELEASED; urgency=medium
   * Update symbols files and bump shlibs.
     - Update the minimal version for symbols added after the 6.2 release
       to 6.3.
+  * Drop the lintian override for ncurses-examples introduced in version
+    6.1+20181013-2, it no longer triggers.
 
  -- Sven Joachim <svenjoac@gmx.de>  Sat, 23 Oct 2021 18:06:24 +0200
 
