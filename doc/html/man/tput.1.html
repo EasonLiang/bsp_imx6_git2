@@ -28,7 +28,7 @@
   * sale, use or other dealings in this Software without prior written       *
   * authorization.                                                           *
   ****************************************************************************
-  * @Id: tput.1,v 1.70 2021/09/04 19:02:50 tom Exp @
+  * @Id: tput.1,v 1.72 2021/10/02 21:41:00 tom Exp @
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <HTML>
@@ -374,7 +374,7 @@
        ---------------------------------------------------------------------
        <STRONG>0</STRONG>           (<EM>capname</EM>  is a numeric variable that is not specified in
                    the <STRONG><A HREF="terminfo.5.html">terminfo(5)</A></STRONG> database for this  terminal  type,  e.g.
-                   <STRONG>tput</STRONG> <STRONG>-T450</STRONG> <STRONG>lines</STRONG> and <STRONG>tput</STRONG> <STRONG>-T2621</STRONG> <STRONG>xmc</STRONG>)
+                   <STRONG>tput</STRONG> <STRONG>-T450</STRONG> <STRONG>lines</STRONG> and <STRONG>tput</STRONG> <STRONG>-Thp2621</STRONG> <STRONG>xmc</STRONG>)
        <STRONG>1</STRONG>           no error message is printed, see the <STRONG>EXIT</STRONG> <STRONG>CODES</STRONG> section.
        <STRONG>2</STRONG>           usage error
        <STRONG>3</STRONG>           unknown terminal <EM>type</EM> or no <STRONG>terminfo</STRONG> database
@@ -458,6 +458,14 @@
            for the standard <EM>capname</EM> operands, and an internal library function
            to analyze nonstandard <EM>capname</EM> operands.
 
+           Besides  providing  more  reliable operation than AT&amp;T's utility, a
+           portability problem is introduced  by  this  analysis:  An  OpenBSD
+           developer  adapted  the  internal  library function from ncurses to
+           port NetBSD's  termcap-based  <STRONG>tput</STRONG>  to  terminfo.   That  had  been
+           modified  to  interpret  multiple  commands  on  a  line.  Portable
+           applications should not rely upon this feature; ncurses provides it
+           to support applications written specifically for OpenBSD.
+
        This  implementation  (unlike  others)  can  accept  both  <EM>termcap</EM>  and
        <EM>terminfo</EM> names for the <EM>capname</EM> feature, if <EM>termcap</EM> support is  compiled
        in.   However,  the  predefined  <EM>termcap</EM>  and  <EM>terminfo</EM>  names have two
@@ -537,7 +545,7 @@
 </PRE><H2><a name="h2-SEE-ALSO">SEE ALSO</a></H2><PRE>
        <STRONG><A HREF="clear.1.html">clear(1)</A></STRONG>, <STRONG>stty(1)</STRONG>, <STRONG><A HREF="tabs.1.html">tabs(1)</A></STRONG>, <STRONG><A HREF="tset.1.html">tset(1)</A></STRONG>, <STRONG><A HREF="curs_termcap.3x.html">curs_termcap(3x)</A></STRONG>, <STRONG><A HREF="terminfo.5.html">terminfo(5)</A></STRONG>.
 
-       This describes <STRONG>ncurses</STRONG> version 6.2 (patch 20210904).
+       This describes <STRONG>ncurses</STRONG> version 6.3 (patch 20211021).
 
 
 

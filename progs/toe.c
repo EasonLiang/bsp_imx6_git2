@@ -45,7 +45,7 @@
 #include <hashed_db.h>
 #endif
 
-MODULE_ID("$Id: toe.c,v 1.82 2021/06/26 19:44:08 tom Exp $")
+MODULE_ID("$Id: toe.c,v 1.86 2021/10/10 00:55:32 tom Exp $")
 
 #define isDotname(name) (!strcmp(name, ".") || !strcmp(name, ".."))
 
@@ -146,6 +146,7 @@ show_termdata(int eargc, char **eargv)
 	if (use_termdata > 1)
 	    qsort(ptr_termdata, use_termdata, sizeof(TERMDATA), compare_termdata);
 	for (n = 0; n < use_termdata; ++n) {
+	    int nk = -1;
 
 	    /*
 	     * If there is more than one database, show how they differ.
@@ -154,6 +155,11 @@ show_termdata(int eargc, char **eargv)
 		unsigned long check = 0;
 		int k = 0;
 		for (;;) {
+		    char mark = ((check == 0
+				  || (check != ptr_termdata[n].checksum))
+				 ? '*'
+				 : '+');
+
 		    for (; k < ptr_termdata[n].db_index; ++k) {
 			printf("--");
 		    }
@@ -163,11 +169,10 @@ show_termdata(int eargc, char **eargv)
 		     * from the first entry's checksum, print "*". Otherwise
 		     * it looks enough like a duplicate to print "+".
 		     */
-		    printf("%c-", ((check == 0
-				    || (check != ptr_termdata[n].checksum))
-				   ? '*'
-				   : '+'));
+		    printf("%c-", mark);
 		    check = ptr_termdata[n].checksum;
+		    if (mark == '*' && nk < 0)
+			nk = (int) n;
 
 		    ++k;
 		    if ((n + 1) >= use_termdata
@@ -182,10 +187,12 @@ show_termdata(int eargc, char **eargv)
 		}
 		printf(":\t");
 	    }
+	    if (nk < 0)
+		nk = (int) n;
 
 	    (void) printf("%-10s\t%s\n",
 			  ptr_termdata[n].term_name,
-			  ptr_termdata[n].description);
+			  ptr_termdata[nk].description);
 	}
     }
 }
@@ -245,7 +252,9 @@ make_db_name(char *dst, const char *src, unsigned limit)
 	    && !strcmp(src + size - lens, suffix)) {
 	    _nc_STRCPY(dst, src, PATH_MAX);
 	} else {
-	    _nc_SPRINTF(dst, _nc_SLIMIT(PATH_MAX) "%s%s", src, suffix);
+	    _nc_SPRINTF(dst, _nc_SLIMIT(PATH_MAX) "%.*s%s",
+			(int) (PATH_MAX - sizeof(suffix)),
+			src, suffix);
 	}
 	result = TRUE;
     }
@@ -328,6 +337,26 @@ sorthook(int db_index, int db_limit, const char *term_name, TERMTYPE2 *tp)
 }
 
 #if NCURSES_USE_TERMCAP
+/*
+ * Check if the buffer contents are printable ASCII, ensuring that we do not
+ * accidentally pick up incompatible binary content from a hashed database.
+ */
+static bool
+is_termcap(char *buffer)
+{
+    bool result = TRUE;
+    while (*buffer != '\0') {
+	int ch = UChar(*buffer++);
+	if (ch == '\t')
+	    continue;
+	if (ch < ' ' || ch > '~') {
+	    result = FALSE;
+	    break;
+	}
+    }
+    return result;
+}
+
 static void
 show_termcap(int db_index, int db_limit, char *buffer, DescHook hook)
 {
@@ -516,11 +545,13 @@ typelist(int eargc, char *eargv[],
 	    db_array[1] = 0;
 
 	    if (cgetfirst(&buffer, db_array) > 0) {
-		show_termcap(i, eargc, buffer, hook);
-		free(buffer);
-		while (cgetnext(&buffer, db_array) > 0) {
+		if (is_termcap(buffer)) {
 		    show_termcap(i, eargc, buffer, hook);
 		    free(buffer);
+		    while (cgetnext(&buffer, db_array) > 0) {
+			show_termcap(i, eargc, buffer, hook);
+			free(buffer);
+		    }
 		}
 		cgetclose();
 		continue;
@@ -537,6 +568,8 @@ typelist(int eargc, char *eargv[],
 
 	    if ((fp = safe_fopen(eargv[i], "r")) != 0) {
 		while (fgets(buffer, sizeof(buffer), fp) != 0) {
+		    if (!is_termcap(buffer))
+			break;
 		    if (*buffer == '#')
 			continue;
 		    if (isspace(*buffer))

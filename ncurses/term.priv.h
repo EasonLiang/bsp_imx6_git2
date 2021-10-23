@@ -27,7 +27,7 @@
  ****************************************************************************/
 
 /*
- * $Id: term.priv.h,v 1.4 2021/08/19 20:02:09 tom Exp $
+ * $Id: term.priv.h,v 1.6 2021/09/26 20:43:08 tom Exp $
  *
  *	term.priv.h
  *
@@ -54,6 +54,12 @@ extern "C" {
 #include <signal.h>		/* sig_atomic_t */
 #include <time.h>		/* time_t */
 #include <term.h>		/* time_t */
+
+#ifdef USE_PTHREADS
+#if USE_REENTRANT
+#include <pthread.h>
+#endif
+#endif
 
 /*
  * State of tparm().
@@ -102,11 +108,6 @@ typedef struct {
 /*
  * Internals for term.h
  */
-
-#if NCURSES_EXT_COLORS
-typedef struct termtype2  TERMTYPE2;
-#endif
-
 typedef struct term {			/* describe an actual terminal */
 	TERMTYPE	type;		/* terminal type description */
 	short		Filedes;	/* file description being written to */
@@ -118,6 +119,7 @@ typedef struct term {			/* describe an actual terminal */
 #if NCURSES_EXT_COLORS
 	TERMTYPE2	type2;		/* extended terminal type description */
 #endif
+#undef TERMINAL
 } TERMINAL;
 
 /*
