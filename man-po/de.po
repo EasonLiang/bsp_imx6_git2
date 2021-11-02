@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc-man 23.4rc1\n"
 "Report-Msgid-Bugs-To: Craig Small <csmall@dropbear.xyz>\n"
-"POT-Creation-Date: 2021-02-06 09:01+1100\n"
+"POT-Creation-Date: 2021-10-18 18:11+1100\n"
 "PO-Revision-Date: 2021-01-24 12:59+0100\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
@@ -510,7 +510,7 @@ msgstr "B<-V>, B<--version>"
 
 #. type: Plain text
 #: ../doc/fuser.1:210 ../doc/killall.1:125 ../doc/pslog.1:27
-#: ../doc/pstree.1:167
+#: ../doc/pstree.1:165
 msgid "Display version information."
 msgstr "zeigt Versionsinformationen an."
 
@@ -557,19 +557,19 @@ msgstr "setzt alle Optionen zurück und setzt das Signal auf SIGKILL."
 
 #. type: SH
 #: ../doc/fuser.1:222 ../doc/killall.1:143 ../doc/peekfd.1:43
-#: ../doc/prtstat.1:35 ../doc/pstree.1:170
+#: ../doc/prtstat.1:35 ../doc/pstree.1:168
 #, no-wrap
 msgid "FILES"
 msgstr "DATEIEN"
 
 #. type: TP
-#: ../doc/fuser.1:223 ../doc/killall.1:144 ../doc/pstree.1:171
+#: ../doc/fuser.1:223 ../doc/killall.1:144 ../doc/pstree.1:169
 #, no-wrap
 msgid "/proc"
 msgstr "/proc"
 
 #. type: Plain text
-#: ../doc/fuser.1:226 ../doc/killall.1:147 ../doc/pstree.1:174
+#: ../doc/fuser.1:226 ../doc/killall.1:147 ../doc/pstree.1:172
 msgid "location of the proc file system"
 msgstr "Ort des /proc-Dateisystems"
 
@@ -703,7 +703,7 @@ msgstr ""
 "aus."
 
 #. type: SH
-#: ../doc/fuser.1:280 ../doc/peekfd.1:56 ../doc/pstree.1:174
+#: ../doc/fuser.1:280 ../doc/peekfd.1:56 ../doc/pstree.1:172
 #, no-wrap
 msgid "BUGS"
 msgstr "FEHLER"
@@ -733,7 +733,7 @@ msgstr ""
 
 #. type: SH
 #: ../doc/fuser.1:290 ../doc/killall.1:170 ../doc/peekfd.1:63 ../doc/pslog.1:27
-#: ../doc/pstree.1:176
+#: ../doc/pstree.1:174
 #, no-wrap
 msgid "SEE ALSO"
 msgstr "SIEHE AUCH"
@@ -1371,7 +1371,7 @@ msgstr ""
 "Der Befehl B<pslog> meldet den aktuellen Protokollpfad eines Prozesses."
 
 #. type: IP
-#: ../doc/pslog.1:24 ../doc/pstree.1:165
+#: ../doc/pslog.1:24 ../doc/pstree.1:163
 #, no-wrap
 msgid "B<-V>"
 msgstr "B<-V>"
@@ -1474,7 +1474,7 @@ msgstr "PSTREE"
 #. type: TH
 #: ../doc/pstree.1:9
 #, no-wrap
-msgid "2021-01-05"
+msgid "2021-06-21"
 msgstr ""
 
 #. type: Plain text
@@ -1677,11 +1677,17 @@ msgid "B<-g>"
 msgstr "B<-g>"
 
 #. type: Plain text
-#: ../doc/pstree.1:111
+#: ../doc/pstree.1:109
+#, fuzzy
+#| msgid ""
+#| "Show PGIDs.  Process Group IDs are shown as decimal numbers in "
+#| "parentheses after each process name.  B<-g> implicitly disables "
+#| "compaction.  If both PIDs and PGIDs are displayed then PIDs are shown "
+#| "first."
 msgid ""
 "Show PGIDs.  Process Group IDs are shown as decimal numbers in parentheses "
-"after each process name.  B<-g> implicitly disables compaction.  If both "
-"PIDs and PGIDs are displayed then PIDs are shown first."
+"after each process name.  If both PIDs and PGIDs are displayed then PIDs are "
+"shown first."
 msgstr ""
 "zeigt Prozessgruppenkennungen (PGIDs) an. Die PGIDs werden als Dezimalzahlen "
 "in Klammern nach jedem der Prozessnamen angezeigt. B<-g> deaktiviert die "
@@ -1689,24 +1695,24 @@ msgstr ""
 "erscheinen die PIDs zuerst."
 
 #. type: IP
-#: ../doc/pstree.1:111
+#: ../doc/pstree.1:109
 #, no-wrap
 msgid "B<-G>"
 msgstr "B<-G>"
 
 #. type: Plain text
-#: ../doc/pstree.1:113
+#: ../doc/pstree.1:111
 msgid "Use VT100 line drawing characters."
 msgstr "verwendet VT100-Zeichen zum Darstellen von Linien."
 
 #. type: IP
-#: ../doc/pstree.1:113
+#: ../doc/pstree.1:111
 #, no-wrap
 msgid "B<-h>"
 msgstr "B<-h>"
 
 #. type: Plain text
-#: ../doc/pstree.1:117
+#: ../doc/pstree.1:115
 msgid ""
 "Highlight the current process and its ancestors.  This is a no-op if the "
 "terminal doesn't support highlighting or if neither the current process nor "
@@ -1718,13 +1724,13 @@ msgstr ""
 "liegen, der angezeigt wird."
 
 #. type: IP
-#: ../doc/pstree.1:117
+#: ../doc/pstree.1:115
 #, no-wrap
 msgid "B<-H>"
 msgstr "B<-H>"
 
 #. type: Plain text
-#: ../doc/pstree.1:127
+#: ../doc/pstree.1:125
 msgid ""
 "Like B<-h>, but highlight the specified process instead.  Unlike with B<-h>, "
 "B<pstree> fails when using B<-H> if highlighting is not available."
@@ -1734,13 +1740,13 @@ msgstr ""
 "Hervorhebung verfügbar ist."
 
 #. type: IP
-#: ../doc/pstree.1:127
+#: ../doc/pstree.1:125
 #, no-wrap
 msgid "B<-l>"
 msgstr "B<-l>"
 
 #. type: Plain text
-#: ../doc/pstree.1:131
+#: ../doc/pstree.1:129
 msgid ""
 "Display long lines.  By default, lines are truncated to either the COLUMNS "
 "environment variable or the display width.  If neither of these methods "
@@ -1752,13 +1758,13 @@ msgstr ""
 "verwendet."
 
 #. type: IP
-#: ../doc/pstree.1:131
+#: ../doc/pstree.1:129
 #, no-wrap
 msgid "B<-n>"
 msgstr "B<-n>"
 
 #. type: Plain text
-#: ../doc/pstree.1:134
+#: ../doc/pstree.1:132
 msgid ""
 "Sort processes with the same parent by PID instead of by name.  (Numeric "
 "sort.)"
@@ -1767,13 +1773,13 @@ msgstr ""
 "(numerische Sortierung)."
 
 #. type: IP
-#: ../doc/pstree.1:134
+#: ../doc/pstree.1:132
 #, no-wrap
 msgid "B<-N>"
 msgstr "B<-N>"
 
 #. type: Plain text
-#: ../doc/pstree.1:141
+#: ../doc/pstree.1:139
 msgid ""
 "Show individual trees for each namespace of the type specified.  The "
 "available types are: I<ipc>, I<mnt>, I<net>, I<pid>, I<time>, I<user>, "
@@ -1787,13 +1793,13 @@ msgstr ""
 "eingeschränkt sein."
 
 #. type: IP
-#: ../doc/pstree.1:141
+#: ../doc/pstree.1:139
 #, no-wrap
 msgid "B<-p>"
 msgstr "B<-p>"
 
 #. type: Plain text
-#: ../doc/pstree.1:146
+#: ../doc/pstree.1:144
 msgid ""
 "Show PIDs.  PIDs are shown as decimal numbers in parentheses after each "
 "process name.  B<-p> implicitly disables compaction."
@@ -1802,24 +1808,24 @@ msgstr ""
 "Prozessnamen angezeigt. B<-p> deaktiviert die Verdichtung implizit."
 
 #. type: IP
-#: ../doc/pstree.1:146
+#: ../doc/pstree.1:144
 #, no-wrap
 msgid "B<-s>"
 msgstr "B<-s>"
 
 #. type: Plain text
-#: ../doc/pstree.1:148
+#: ../doc/pstree.1:146
 msgid "Show parent processes of the specified process."
 msgstr "zeigt Elternprozesse des angegebenen Prozesses an."
 
 #. type: IP
-#: ../doc/pstree.1:148
+#: ../doc/pstree.1:146
 #, no-wrap
 msgid "B<-S>"
 msgstr "B<-S>"
 
 #. type: Plain text
-#: ../doc/pstree.1:151
+#: ../doc/pstree.1:149
 msgid ""
 "Show namespaces transitions.  Like B<-N>, the output is limited when running "
 "as a regular user."
@@ -1828,35 +1834,35 @@ msgstr ""
 "Ausführung als gewöhnlicher Benutzer eingeschränkt."
 
 #. type: IP
-#: ../doc/pstree.1:151
+#: ../doc/pstree.1:149
 #, no-wrap
 msgid "B<-t>"
 msgstr "B<-t>"
 
 #. type: Plain text
-#: ../doc/pstree.1:153
+#: ../doc/pstree.1:151
 msgid "Show full names for threads when available."
 msgstr "zeigt vollständige Namen für Threads an, sofern verfügbar."
 
 #. type: IP
-#: ../doc/pstree.1:153
+#: ../doc/pstree.1:151
 #, no-wrap
 msgid "B<-T>"
 msgstr "B<-T>"
 
 #. type: Plain text
-#: ../doc/pstree.1:155
+#: ../doc/pstree.1:153
 msgid "Hide threads and only show processes."
 msgstr "versteckt Threads und zeigt nur Prozesse an."
 
 #. type: IP
-#: ../doc/pstree.1:155
+#: ../doc/pstree.1:153
 #, no-wrap
 msgid "B<-u>"
 msgstr "B<-u>"
 
 #. type: Plain text
-#: ../doc/pstree.1:159
+#: ../doc/pstree.1:157
 msgid ""
 "Show uid transitions.  Whenever the uid of a process differs from the uid of "
 "its parent, the new uid is shown in parentheses after the process name."
@@ -1866,13 +1872,13 @@ msgstr ""
 "Prozessnamen angezeigt."
 
 #. type: IP
-#: ../doc/pstree.1:159
+#: ../doc/pstree.1:157
 #, no-wrap
 msgid "B<-U>"
 msgstr "B<-U>"
 
 #. type: Plain text
-#: ../doc/pstree.1:165
+#: ../doc/pstree.1:163
 msgid ""
 "Use UTF-8 (Unicode) line drawing characters.  Under Linux 1.1-54 and above, "
 "UTF-8 mode is entered on the console with B<echo -e '\\033%8'> and left with "
@@ -1884,25 +1890,25 @@ msgstr ""
 "wieder verlassen."
 
 #. type: IP
-#: ../doc/pstree.1:167
+#: ../doc/pstree.1:165
 #, no-wrap
 msgid "B<-Z>"
 msgstr "B<-Z>"
 
 #. type: Plain text
-#: ../doc/pstree.1:170
+#: ../doc/pstree.1:168
 msgid ""
 "Show the current security attributes of the process. For SELinux systems "
 "this will be the security context."
 msgstr ""
 
 #. type: Plain text
-#: ../doc/pstree.1:176
+#: ../doc/pstree.1:174
 msgid "Some character sets may be incompatible with the VT100 characters."
 msgstr "Einige Zeichensätze könnten zu den VT100-Zeichen inkompatibel sein."
 
 #. type: Plain text
-#: ../doc/pstree.1:179
+#: ../doc/pstree.1:177
 #, fuzzy
 #| msgid "B<ps>(1), B<top>(1)."
 msgid "B<ps>(1), B<top>(1), B<proc>(5)."

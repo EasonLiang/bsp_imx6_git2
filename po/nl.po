@@ -1,5 +1,5 @@
 # Dutch translations for psmisc.
-# Copyright (C) 2019 Free Software Foundation, Inc.
+# Copyright (C) 2021 Free Software Foundation, Inc.
 # This file is distributed under the same license as the PSmisc package.
 #
 # « Que dites-vous là, monsieur? » dit elle en colère.
@@ -7,13 +7,13 @@
 #
 # Benno Schulenberg <benno@vertaalt.nl>, 2004, 2005, 2006, 2007, 2010.
 # Erwin Poeze <erwin.poeze@gmail.com>, 2010.
-# Benno Schulenberg <benno@vertaalt.nl>, 2012, 2013, 2014, 2016, 2019.
+# Benno Schulenberg <benno@vertaalt.nl>, 2012, 2013, 2014, 2016, 2019, 2021.
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc-23.3\n"
+"Project-Id-Version: psmisc-23.4rc1\n"
 "Report-Msgid-Bugs-To: csmall@dropbear.xyz\n"
-"POT-Creation-Date: 2021-02-06 09:01+1100\n"
-"PO-Revision-Date: 2019-10-27 19:08+0100\n"
+"POT-Creation-Date: 2021-01-22 17:54+1100\n"
+"PO-Revision-Date: 2021-03-15 16:47+0100\n"
 "Last-Translator: Benno Schulenberg <vertaling@coevern.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "Language: nl\n"
@@ -56,20 +56,14 @@ msgstr ""
 "sockets of bestandssystemen\n"
 "\n"
 "  -a, --all               de ongebruikte bestanden ook noemen\n"
-"  -i, --interactive       bevestiging vragen voor afbreken (genegeerd zonder "
-"-k)\n"
-"  -I, --inode             altijd inodes gebruiken om bestanden te "
-"vergelijken\n"
-"  -k, --kill              processen afbreken die het gegeven bestand "
-"gebruiken\n"
+"  -i, --interactive       bevestiging vragen voor afbreken (genegeerd zonder -k)\n"
+"  -I, --inode             altijd inodes gebruiken om bestanden te vergelijken\n"
+"  -k, --kill              processen afbreken die het gegeven bestand gebruiken\n"
 "  -l, --list-signals      lijst van beschikbare signalen tonen\n"
-"  -m, --mount             alle processen tonen die het gegeven "
-"bestandssysteem\n"
+"  -m, --mount             alle processen tonen die het gegeven bestandssysteem\n"
 "                            of blokapparaat gebruiken\n"
-"  -M, --ismountpoint      alleen aan verzoek voldoen als NAAM aankoppelpunt "
-"is\n"
-"  -n, --namespace RUIMTE  in gegeven naamsruimte ('file', 'udp', 'tcp') "
-"zoeken\n"
+"  -M, --ismountpoint      alleen aan verzoek voldoen als NAAM aankoppelpunt is\n"
+"  -n, --namespace RUIMTE  in gegeven naamsruimte ('file', 'udp', 'tcp') zoeken\n"
 "  -s, --silent            geen uitvoer produceren\n"
 "  -SIGNAAL                dit signaal sturen in plaats van SIGKILL\n"
 "  -u, --user              de gebruiker-IDs tonen\n"
@@ -105,12 +99,12 @@ msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
 #: src/fuser.c:179 src/pstree.c:1266
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2020 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Copyright (C) 1993-2017 Werner Almesberger en Craig Small\n"
+"Copyright (C) 1993-2020 Werner Almesberger en Craig Small\n"
 "\n"
 
 #: src/fuser.c:181 src/killall.c:839 src/peekfd.c:195 src/prtstat.c:68
@@ -329,12 +323,12 @@ msgstr ""
 "                         (dient aan andere argumenten vooraf te gaan)\n"
 
 #: src/killall.c:837
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2021 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Copyright (C) 1993-2017 Werner Almesberger en Craig Small\n"
+"Copyright (C) 1993-2021 Werner Almesberger en Craig Small\n"
 "\n"
 
 #: src/killall.c:922 src/killall.c:928
@@ -391,10 +385,8 @@ msgid ""
 "    -8, --eight-bit-clean        output 8 bit clean streams.\n"
 "    -n, --no-headers             don't display read/write from fd headers.\n"
 "    -c, --follow                 peek at any new child processes too.\n"
-"    -t, --tgid                   peek at all threads where tgid equals "
-"<pid>.\n"
-"    -d, --duplicates-removed     remove duplicate read/writes from the "
-"output.\n"
+"    -t, --tgid                   peek at all threads where tgid equals <pid>.\n"
+"    -d, --duplicates-removed     remove duplicate read/writes from the output.\n"
 "    -V, --version                prints version info.\n"
 "    -h, --help                   prints this help.\n"
 "\n"
@@ -405,8 +397,7 @@ msgstr ""
 "    -8, --eight-bit-clean       8-bits-schone uitvoer produceren\n"
 "    -c, --follow                nieuwe dochterprocessen ook bekijken\n"
 "    -d, --duplicates-removed    dubbele vermeldingen onderdrukken\n"
-"    -n, --no-headers            lees-/schrijfmeldingen van descriptors "
-"weglaten\n"
+"    -n, --no-headers            lees-/schrijfmeldingen van descriptors weglaten\n"
 "    -t, --tgid                  alle threads bekijken waar de TGID == <PID>\n"
 "    -V, --version               de programmaversie tonen\n"
 "    -h, --help                  deze hulptekst tonen\n"
@@ -436,12 +427,12 @@ msgid "prtstat (PSmisc) %s\n"
 msgstr "prtstat (PSmisc) %s\n"
 
 #: src/prtstat.c:66
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 2009-2020 Craig Small\n"
 "\n"
 msgstr ""
-"Copyright (C) 2009-2017 Craig Small\n"
+"Copyright (C) 2009-2020 Craig Small\n"
 "\n"
 
 #: src/prtstat.c:78
@@ -581,8 +572,7 @@ msgstr "Er moet minstens één PID gegeven worden."
 #: src/prtstat.c:327
 #, c-format
 msgid "/proc is not mounted, cannot stat /proc/self/stat.\n"
-msgstr ""
-"/proc is niet aangekoppeld, kan status van /proc/self/stat niet bepalen.\n"
+msgstr "/proc is niet aangekoppeld, kan status van /proc/self/stat niet bepalen.\n"
 
 #: src/pstree.c:1183
 #, c-format
@@ -652,7 +642,7 @@ msgstr ""
 "  -l, --long           lange regels niet afkappen\n"
 
 #: src/pstree.c:1238
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -n, --numeric-sort  sort output by PID\n"
 "  -N TYPE, --ns-sort=TYPE\n"
@@ -663,7 +653,7 @@ msgstr ""
 "  -n, --numeric-sort   uitvoer sorteren op PID\n"
 "  -N SOORT, --ns-sort=SOORT\n"
 "                       uitvoer sorteren op deze SOORT naamsruimte\n"
-"                         (cgroup, ipc, mnt, net, pid, user, uts)\n"
+"                         (cgroup, ipc, mnt, net, pid, time, user, uts)\n"
 "  -p, --show-pids      PIDs tonen (impliceert '-c')\n"
 
 #: src/pstree.c:1244
@@ -691,13 +681,13 @@ msgstr ""
 "  -V, --version        de programmaversie tonen en stoppen\n"
 
 #: src/pstree.c:1253
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -Z, --security-context\n"
 "                      show security attributes\n"
 msgstr ""
 "  -Z, --security-context\n"
-"                      SELinux-veiligheidscontexten tonen\n"
+"                       veiligheidscontexten tonen\n"
 
 #: src/pstree.c:1255
 #, c-format
@@ -709,8 +699,7 @@ msgid ""
 msgstr ""
 "\n"
 "  PID     bij dit proces-ID beginnen; standaard is 1 (init)\n"
-"  NAAM    alleen de bomen tonen die beginnen bij processen van deze "
-"gebruiker\n"
+"  NAAM    alleen de bomen tonen die beginnen bij processen van deze gebruiker\n"
 "\n"
 
 #: src/pstree.c:1263
@@ -751,20 +740,15 @@ msgstr "Druk op Enter om af te sluiten\n"
 #: src/signals.c:84
 #, c-format
 msgid "%s: unknown signal; %s -l lists signals.\n"
-msgstr ""
-"Onbekend signaal: %s -- '%s -l' toont een lijst van mogelijke signalen.\n"
+msgstr "Onbekend signaal: %s -- '%s -l' toont een lijst van mogelijke signalen.\n"
 
-#, c-format
 #~ msgid ""
-#~ "Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -"
-#~ "eIgiqrvw ]\n"
+#~ "Usage: killall [ -Z CONTEXT ] [ -u USER ] [ -y TIME ] [ -o TIME ] [ -eIgiqrvw ]\n"
 #~ "               [ -s SIGNAL | -SIGNAL ] NAME...\n"
 #~ msgstr ""
-#~ "Gebruik:  killall [-Z CONTEXT] [-u GEBRUIKER] [-y TIJD] [-o TIJD] [-"
-#~ "egIiqrvw]\n"
+#~ "Gebruik:  killall [-Z CONTEXT] [-u GEBRUIKER] [-y TIJD] [-o TIJD] [-egIiqrvw]\n"
 #~ "               [-s SIGNAAL | -SIGNAAL] NAAM...\n"
 
-#, c-format
 #~ msgid ""
 #~ "Usage: pstree [-acglpsStTu] [ -h | -H PID ] [ -n | -N type ]\n"
 #~ "              [ -A | -G | -U ] [ PID | USER ]\n"
@@ -774,7 +758,6 @@ msgstr ""
 #~ "                     [-A|-G|-U] [ PID | GEBRUIKER ]\n"
 #~ "     of:  pstree -V\n"
 
-#, c-format
 #~ msgid ""
 #~ "Copyright (C) 1993-2019 Werner Almesberger and Craig Small\n"
 #~ "\n"
@@ -800,8 +783,7 @@ msgstr ""
 #~ "  -l, --long          don't truncate long lines\n"
 #~ "  -n, --numeric-sort  sort output by PID\n"
 #~ "  -N type,\n"
-#~ "  --ns-sort=type      sort by namespace type (cgroup, ipc, mnt, net, "
-#~ "pid,\n"
+#~ "  --ns-sort=type      sort by namespace type (cgroup, ipc, mnt, net, pid,\n"
 #~ "                                              user, uts)\n"
 #~ "  -p, --show-pids     show PIDs; implies -c\n"
 #~ "  -s, --show-parents  show parents of the selected process\n"
