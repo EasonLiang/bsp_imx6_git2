@@ -318,8 +318,7 @@ Replaces: dvtm (<< 0.15-3), alacritty (<< 0.3.4~), jfbterm (<< 0.4.7-10),
 Breaks: libtinfo5 (<< 6.1), libslang2 (<< 2.3.1a-3), libunibilium0 (<< 2),
         libunibilium4 (<< 2.0.0-3), bash-static (<< 4.4.18-1.1),
         zsh-static (<< 5.4.2-4), libmono-corlib4.5-cil (<< 4.6.2.7+dfsg-2),
-        dvtm (<< 0.15-3), jfbterm (<< 0.4.7-10),
-        kon2 (<< 0.3.9b-21), libiterm1 (<< 0.5-9), tn5250 (<< 0.17.4-3)
+        dvtm (<< 0.15-3)
 Description: additional terminal type definitions
  The ncurses library routines are a terminal-independent method of
  updating character screens with reasonable optimization.
