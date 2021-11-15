@@ -1,4 +1,4 @@
-ncurses (6.3-1) UNRELEASED; urgency=medium
+ncurses (6.3-1) unstable; urgency=medium
 
   * New upstream release.
   * Update symbols files and bump shlibs.
@@ -9,7 +9,7 @@ ncurses (6.3-1) UNRELEASED; urgency=medium
   * Do not force removal of obsolete packages which terminfo files have
     been taken over by ncurses-term (Closes: #994433).
 
- -- Sven Joachim <svenjoac@gmx.de>  Sat, 23 Oct 2021 18:06:24 +0200
+ -- Sven Joachim <svenjoac@gmx.de>  Mon, 15 Nov 2021 17:54:06 +0100
 
 ncurses (6.2+20210905-1) unstable; urgency=low
 
