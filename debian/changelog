@@ -1,3 +1,9 @@
+init-system-helpers (1.61) UNRELEASED; urgency=medium
+
+  * use fakechroot instead of unsharing the mount namespace and mounting tmpfs
+
+ -- Johannes Schauer Marin Rodrigues <josch@debian.org>  Mon, 15 Nov 2021 17:00:49 +0100
+
 init-system-helpers (1.60) unstable; urgency=medium
 
   * deb-systemd-*, update-rc.d: Don't hard-code path to systemctl binary.
