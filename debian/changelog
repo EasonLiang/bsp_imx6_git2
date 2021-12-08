@@ -1,3 +1,18 @@
+init-system-helpers (1.61) unstable; urgency=medium
+
+  * Team upload.
+  * deb-systemd-invoke: add support for starting/stopping units in user
+    instances. Right now if a package adds/removes a user unit, we cannot
+    automatically start it/stop it/restart it. systemd v250 adds the
+    ability to talk to user instances of the manager via the '--machine
+    <ID>@' option. The list of IDs can be queried by wildcard-querying
+    with 'list-units user@*'. Use this to add a --user option and let
+    callers start/stop/restart user units. Print a log message and skip it
+    if systemd < 250.
+  * Bump Standards-Version to 4.6.0, no changes
+
+ -- Luca Boccassi <bluca@debian.org>  Wed, 08 Dec 2021 14:42:38 +0000
+
 init-system-helpers (1.60) unstable; urgency=medium
 
   * deb-systemd-*, update-rc.d: Don't hard-code path to systemctl binary.
