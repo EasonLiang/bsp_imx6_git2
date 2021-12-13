@@ -123,7 +123,7 @@ for obj in objects:
             continue
 
         cert = x509.load_der_x509_certificate(obj['CKA_VALUE'])
-        if cert.not_valid_after < datetime.datetime.now():
+        if cert.not_valid_after < datetime.datetime.utcnow():
             print('!'*74)
             print('Trusted but expired certificate found: %s' % obj['CKA_LABEL'])
             print('!'*74)
