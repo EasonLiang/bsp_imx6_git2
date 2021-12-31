@@ -6,8 +6,8 @@ Uploaders: Michael Biebl <biebl@debian.org>,
            Martin Pitt <mpitt@debian.org>,
            Felipe Sateler <fsateler@debian.org>
 Build-Depends: debhelper-compat (= 13),
-               fakeroot,
-               fakechroot,
+               fakeroot <!nocheck>,
+               fakechroot <!nocheck>,
                perl:any,
                python3-docutils
 Standards-Version: 4.5.1
