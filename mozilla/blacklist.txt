@@ -10,3 +10,5 @@
 
 # Expired CA (#995432)
 "DST Root CA X3"
+"Cybertrust Global Root"
+"GlobalSign Root CA - R2"
