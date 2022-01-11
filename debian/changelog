@@ -1,10 +1,20 @@
-ca-certificates (20211017) UNRELEASED; urgency=medium
+ca-certificates (20220111) UNRELEASED; urgency=medium
 
   [ Đoàn Trần Công Danh ]
   * ca-certificates: compat with non-GNU mktemp (closes: #1000847)
 
   [ Ilya Lipnitskiy ]
   * certdata2pem.py: use UTC time when checking cert validity
+
+  [ Julien Cristau ]
+  * Update Mozilla certificate authority bundle to version 2.52
+    The following certificate authorities were added (+):
+    + "TunTrust Root CA"
+    + "HARICA TLS RSA Root CA 2021"
+    + "HARICA TLS ECC Root CA 2021"
+    The following certificate authorities were removed (-):
+    - "Cybertrust Global Root" (expired)
+    - "GlobalSign Root CA - R2" (expired)
 
  -- Julien Cristau <jcristau@debian.org>  Tue, 11 Jan 2022 14:13:46 +0100
 
