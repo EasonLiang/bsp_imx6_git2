@@ -1,3 +1,13 @@
+ca-certificates (20211017) UNRELEASED; urgency=medium
+
+  [ Đoàn Trần Công Danh ]
+  * ca-certificates: compat with non-GNU mktemp (closes: #1000847)
+
+  [ Ilya Lipnitskiy ]
+  * certdata2pem.py: use UTC time when checking cert validity
+
+ -- Julien Cristau <jcristau@debian.org>  Tue, 11 Jan 2022 14:13:46 +0100
+
 ca-certificates (20211016) unstable; urgency=low
 
   [ Michael Shuler ]
