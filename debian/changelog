@@ -4,6 +4,8 @@ ncurses (6.3-2) UNRELEASED; urgency=medium
   * Drop patch 02-debian-drop-rin-from-screen-256color.diff
     (Closes: #1003546).  Tmux users should upgrade to version 3.0 or
     higher, or set TERM to something else than screen-256color.
+  * Make ncurses-base the primary package into which the Debian FAQ
+    and TODO files are installed.
 
  -- Sven Joachim <svenjoac@gmx.de>  Sun, 16 Jan 2022 13:19:19 +0100
 
