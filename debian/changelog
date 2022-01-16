@@ -6,6 +6,8 @@ ncurses (6.3-2) UNRELEASED; urgency=medium
     higher, or set TERM to something else than screen-256color.
   * Make ncurses-base the primary package into which the Debian FAQ
     and TODO files are installed.
+  * Add libmd-dev to Build-Depends on kfreebsd-any to work around FTBFS
+    if /usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig does not exist.
 
  -- Sven Joachim <svenjoac@gmx.de>  Sun, 16 Jan 2022 13:19:19 +0100
 
