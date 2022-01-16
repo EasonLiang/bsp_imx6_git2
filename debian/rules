@@ -164,7 +164,7 @@ CONFARGS-LEGACY =	$(CONFARGS) \
 
 CONFARGS-TEST =	--prefix=/usr \
 		--build=$(DEB_BUILD_GNU_TYPE) \
-		--bindir=/usr/lib/ncurses/examples \
+		--bindir=/usr/libexec/ncurses-examples \
 		--datadir=/usr/share/ncurses-examples \
 		--disable-stripping \
 		--with-x11-rgb=/etc/X11/rgb.txt \
@@ -464,7 +464,7 @@ ifneq ($(build_examples),)
 	# Install the test programs, sparing the detour to debian/tmp.
 	$(MAKE) -C $(objdir-test) DESTDIR=$(workdir)/debian/$(package-examples) install
 	sed -i -e 's%^#!/usr/bin/env perl%#!/usr/bin/perl%' \
-		$(workdir)/debian/$(package-examples)/usr/lib/ncurses/examples/tracemunch
+		$(workdir)/debian/$(package-examples)/usr/libexec/ncurses-examples/tracemunch
 endif
 
 debian/libtermcap.so: debian/libtermcap.so.in
@@ -505,9 +505,9 @@ endif
 	dh_strip -a
 	dh_lintian -a
 	dh_link -a
-	dh_compress -p$(package-examples) usr/lib/ncurses/examples/README
+	dh_compress -p$(package-examples) usr/libexec/ncurses-examples/README
 	dh_compress -a -N$(package-examples)
-	dh_fixperms -a
+	dh_fixperms -a -Xusr/libexec/ncurses-examples/README
 	dh_missing -a --fail-missing
 	dh_makeshlibs -p$(package-ti) -V "$(package-ti) $(sodepver)" --add-udeb=$(package-ti)-udeb -- -c4
 	dh_makeshlibs -p$(package-lib) -V "$(package-lib) $(sodepver)" -- -c4
