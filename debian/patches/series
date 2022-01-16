@@ -1,5 +1,4 @@
 01-debian-no-ada-doc.diff
 02-debian-backspace.diff
-02-debian-drop-rin-from-screen-256color.diff
 02-debian-xterm.diff
 03-debian-ncursesconfig-omit-L.diff
