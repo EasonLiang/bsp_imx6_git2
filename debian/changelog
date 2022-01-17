@@ -1,4 +1,4 @@
-ncurses (6.3-2) UNRELEASED; urgency=medium
+ncurses (6.3-2) unstable; urgency=medium
 
   * Add Breaks on neovim (<< 0.6.0) to ncurses-base (Closes: #999777).
   * Drop patch 02-debian-drop-rin-from-screen-256color.diff
@@ -10,7 +10,7 @@ ncurses (6.3-2) UNRELEASED; urgency=medium
     if /usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig does not exist.
   * Install the example programs into /usr/libexec/ncurses-examples.
 
- -- Sven Joachim <svenjoac@gmx.de>  Sun, 16 Jan 2022 13:19:19 +0100
+ -- Sven Joachim <svenjoac@gmx.de>  Mon, 17 Jan 2022 18:02:04 +0100
 
 ncurses (6.3-1) unstable; urgency=medium
 
