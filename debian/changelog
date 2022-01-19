@@ -1,3 +1,10 @@
+ncurses (6.3-3) UNRELEASED; urgency=medium
+
+  * Ensure that the README file in ncurses-examples has correct
+    permissions (Closes: #1003929).
+
+ -- Sven Joachim <svenjoac@gmx.de>  Wed, 19 Jan 2022 17:41:28 +0100
+
 ncurses (6.3-2) unstable; urgency=medium
 
   * Add Breaks on neovim (<< 0.6.0) to ncurses-base (Closes: #999777).
