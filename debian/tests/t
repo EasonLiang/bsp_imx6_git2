@@ -2,6 +2,7 @@
 set -eu
 
 export TEST_ON_REAL_SYSTEM=1
+export TEST_INSTALLED=1
 
 for test in t/*.t; do
     echo "======== $(basename $test) ======="

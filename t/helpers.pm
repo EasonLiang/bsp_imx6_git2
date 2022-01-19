@@ -33,9 +33,17 @@ sub test_setup() {
     make_path("$tmpdir/lib/systemd/system/");
     make_path("$tmpdir/var/lib/systemd");
     make_path("$tmpdir/etc/systemd");
-    cp "$FindBin::Bin/../script/deb-systemd-helper",
-      "$tmpdir/usr/bin/deb-systemd-helper"
-      or die "cannot copy: $!";
+    if ( length $ENV{TEST_INSTALLED} ) {
+        # if we test the installed deb-systemd-helper we copy it from the
+        # system's installation
+        cp "/usr/bin/deb-systemd-helper", "$tmpdir/usr/bin/deb-systemd-helper"
+          or die "cannot copy: $!";
+    }
+    else {
+        cp "$FindBin::Bin/../script/deb-systemd-helper",
+          "$tmpdir/usr/bin/deb-systemd-helper"
+          or die "cannot copy: $!";
+    }
 
     # make sure that dpkg diversion messages are not translated
     local $ENV{LC_ALL} = 'C.UTF-8';
