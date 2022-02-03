@@ -368,4 +368,106 @@ $retval = dsh('purge', $random_unit);
 isnt_enabled($random_unit);
 ok(! -l $mask_path, 'mask link does not exist any more');
 
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ Verify WantedBy and Alias with template unit with DefaultInstance.        ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+($fh, $servicefile_path) = tempfile('unit\x2dXXXXX',
+    DIR    => "$dpkg_root/lib/systemd/system",
+    SUFFIX => '@.service',
+    UNLINK => 1);
+print $fh <<'EOT';
+[Unit]
+Description=template test unit
+
+[Service]
+ExecStart=/bin/sleep 1
+
+[Install]
+Alias=foo\x2dtest@.service
+Alias=foo\x2dbar@baz.service
+WantedBy=multi-user.target
+DefaultInstance=instance\x2d
+EOT
+close($fh);
+
+$random_unit = basename($servicefile_path);
+my $random_instance = $random_unit;
+$random_instance =~ s/^(.*\@)(\.\w+)$/$1instance\\x2d$2/;
+
+isnt_enabled($random_unit);
+isnt_enabled('foo\x2dtest@.service');
+isnt_enabled('foo\x2dtest@instance\x2d.service');
+isnt_enabled('foo\x2dbar@baz.service');
+isnt_enabled('foo\x2dbar@instance\x2d.service');
+
+my $template_alias_path = $dpkg_root . '/etc/systemd/system/foo\x2dtest@.service';
+my $instance_alias_path = $dpkg_root . '/etc/systemd/system/foo\x2dbar@baz.service';
+my $template_wanted_path = "$dpkg_root/etc/systemd/system/multi-user.target.wants/$random_unit";
+my $instance_wanted_path = "$dpkg_root/etc/systemd/system/multi-user.target.wants/$random_instance";
+ok(! -l $template_alias_path, 'template alias link does not exist yet');
+ok(! -l $instance_alias_path, 'instance alias link does not exist yet');
+ok(! -l $template_wanted_path, 'template wanted link does not exist yet');
+ok(! -l $instance_wanted_path, 'instance wanted link does not exist yet');
+$retval = dsh('enable', $random_unit);
+is($retval, 0, "enable command succeeded");
+is($dpkg_root . readlink($template_alias_path), $servicefile_path, 'correct template alias link');
+is($dpkg_root . readlink($instance_alias_path), $servicefile_path, 'correct instance alias link');
+ok(! -l $template_wanted_path, 'template wanted link does still not exist');
+is($dpkg_root . readlink($instance_wanted_path), $servicefile_path, 'correct instance wanted link');
+is_enabled($random_unit);
+
+$retval = dsh('disable', $random_unit);
+isnt_enabled($random_unit);
+ok(! -l $template_alias_path, 'template alias link does not exist anymore');
+ok(! -l $instance_alias_path, 'instance alias link does not exist anymore');
+ok(! -l $template_wanted_path, 'template wanted link does still not exist');
+ok(! -l $instance_wanted_path, 'instance wanted link does not exist anymore');
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃ Verify WantedBy and Alias with template unit without DefaultInstance.     ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+open($fh, '>', $servicefile_path);
+print $fh <<'EOT';
+[Unit]
+Description=template test unit
+
+[Service]
+ExecStart=/bin/sleep 1
+
+[Install]
+Alias=foo\x2dtest@.service
+Alias=foo\x2dbar@baz.service
+RequiredBy=foo\x2ddepender@.service
+EOT
+close($fh);
+
+isnt_enabled($random_unit);
+isnt_enabled('foo\x2dtest@.service');
+isnt_enabled('foo\x2dbar@baz.service');
+
+$template_alias_path = $dpkg_root . '/etc/systemd/system/foo\x2dtest@.service';
+$instance_alias_path = $dpkg_root . '/etc/systemd/system/foo\x2dbar@baz.service';
+$template_wanted_path = $dpkg_root . '/etc/systemd/system/foo\x2ddepender@.service.requires/' . $random_unit;
+$instance_wanted_path = $dpkg_root . '/etc/systemd/system/foo\x2ddepender@.service.requires/' . $random_instance;
+ok(! -l $template_alias_path, 'template alias link does not exist yet');
+ok(! -l $instance_alias_path, 'instance alias link does not exist yet');
+ok(! -l $template_wanted_path, 'template wanted link does not exist yet');
+ok(! -l $instance_wanted_path, 'instance wanted link does not exist yet');
+$retval = dsh('enable', $random_unit);
+is($retval, 0, "enable command succeeded");
+is($dpkg_root . readlink($template_alias_path), $servicefile_path, 'correct template alias link');
+is($dpkg_root . readlink($instance_alias_path), $servicefile_path, 'correct instance alias link');
+is($dpkg_root . readlink($template_wanted_path), $servicefile_path, 'correct template wanted link');
+ok(! -l $instance_wanted_path, 'instance wanted link does still not exist');
+is_enabled($random_unit);
+
+$retval = dsh('disable', $random_unit);
+isnt_enabled($random_unit);
+ok(! -l $template_alias_path, 'template alias link does not exist anymore');
+ok(! -l $instance_alias_path, 'instance alias link does not exist anymore');
+ok(! -l $template_wanted_path, 'template wanted link does still not exist');
+ok(! -l $instance_wanted_path, 'instance wanted link does not exist anymore');
+
 done_testing;

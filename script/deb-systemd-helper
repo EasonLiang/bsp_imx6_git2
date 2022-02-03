@@ -224,8 +224,10 @@ sub get_link_closure {
     assertnotdpkgroot($service_path, "get_link_closure");
 
     my @links;
+    my @wants_dirs;
 
     my $unit_name = basename($service_path);
+    my $wanted_target = $unit_name;
 
     # The keys parsed from the unit file below can only have unit names
     # as values. Since unit names can't have whitespace in systemd,
@@ -242,7 +244,7 @@ sub get_link_closure {
                 my $wants_dir = "/etc/systemd/$instance/$value";
                 $wants_dir .= '.wants' if $1 eq 'WantedBy';
                 $wants_dir .= '.requires' if $1 eq 'RequiredBy';
-                push @links, { dest => $service_path, src => "$wants_dir/$scriptname" };
+                push @wants_dirs, "$wants_dir/";
             }
         }
 
@@ -266,8 +268,17 @@ sub get_link_closure {
                 }
             }
         }
+
+        if ($line =~ /^\s*DefaultInstance=\s*(["']?+)(.+)\g1\s*$/i) {
+            $wanted_target = $2;
+            $wanted_target = $unit_name =~ s/^(.*\@)(\.\w+)$/$1$wanted_target$2/r;
+        }
     }
     close($fh);
+
+    for my $wants_dir (@wants_dirs) {
+        push @links, { dest => $service_path, src => $wants_dir . $wanted_target };
+    }
 
     return @links;
 }
