@@ -478,7 +478,7 @@ binary-arch: build-arch install-arch $(autogen-files)
 	dh_install -p$(package-bin) -Xncurses6-config -Xncursesw6-config
 	dh_install -a -N$(package-bin)
 	dh_installman -a
-	dh_installdocs -p$(package-ti) -p$(package-bin) -p$(package-examples) debian/FAQ
+	dh_installdocs -p$(package-ti) -p$(package-bin) -p$(package-examples)
 	dh_installdocs -a -N$(package-bin) -N$(package-ti) -N$(package-examples) \
 		       -N$(package-ti-legacy) -N$(package-lib-legacy) -N$(package-libw-legacy) \
 		       -N$(package-lib-32) -N$(package-libw-32) -N$(package-dev-32) -N$(package-ti-32) \
@@ -544,7 +544,7 @@ binary-indep: build-indep install-indep
 	dh_testdir
 	dh_testroot
 
-	dh_installdocs -i -Xhtml/Ada95.html -Xhtml/ada/
+	dh_installdocs -i -Xhtml/Ada95.html -Xhtml/ada/ debian/FAQ
 	dh_installchangelogs -i NEWS
 	dh_install -i
 	dh_installdirs -i
