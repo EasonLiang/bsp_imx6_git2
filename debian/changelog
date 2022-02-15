@@ -6,6 +6,7 @@ init-system-helpers (1.62) UNRELEASED; urgency=medium
   [ Luca Boccassi ]
   * deb-systemd-invoke: systemctl --machine @<UID> is now available in
     v249.10. Adjust the version check accordingly
+  * Skip build-time tests if DEB_BUILD_OPTIONS=nocheck is set
 
  -- Luca Boccassi <bluca@debian.org>  Tue, 15 Feb 2022 15:15:10 +0000
 
