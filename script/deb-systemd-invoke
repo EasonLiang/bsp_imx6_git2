@@ -86,10 +86,10 @@ if (-x $policyhelper) {
 }
 
 if (!$is_system) {
-    # '--machine <ID>@' was added in v250, before that we can't talk to arbitrary user instances
+    # '--machine <ID>@' was added in v250 and v249.10, before that we can't talk to arbitrary user instances
     my $systemctl_version = `systemctl --version --quiet | sed -n -r "s/systemd ([0-9]+) \\(.*/\\1/p"`;
     chomp ($systemctl_version);
-    if (system('dpkg', '--compare-versions', $systemctl_version, 'ge', '250') != 0) {
+    if (system('dpkg', '--compare-versions', $systemctl_version, 'ge', '249') != 0) {
             print STDERR "systemctl version $systemctl_version does not support acting on user instance, skipping\n";
             exit 0;
     }

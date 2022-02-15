@@ -1,8 +1,13 @@
 init-system-helpers (1.62) UNRELEASED; urgency=medium
 
+  [ Johannes Schauer Marin Rodrigues ]
   * use fakechroot instead of unsharing the mount namespace and mounting tmpfs
 
- -- Johannes Schauer Marin Rodrigues <josch@debian.org>  Mon, 15 Nov 2021 17:00:49 +0100
+  [ Luca Boccassi ]
+  * deb-systemd-invoke: systemctl --machine @<UID> is now available in
+    v249.10. Adjust the version check accordingly
+
+ -- Luca Boccassi <bluca@debian.org>  Tue, 15 Feb 2022 15:15:10 +0000
 
 init-system-helpers (1.61) unstable; urgency=medium
 
