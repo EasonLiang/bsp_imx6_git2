@@ -15,6 +15,8 @@ ca-certificates (20220111) UNRELEASED; urgency=medium
     The following certificate authorities were removed (-):
     - "Cybertrust Global Root" (expired)
     - "GlobalSign Root CA - R2" (expired)
+  * Drop trailing space from debconf template causing misformatting
+    (closes: #980821)
 
  -- Julien Cristau <jcristau@debian.org>  Tue, 11 Jan 2022 14:13:46 +0100
 
