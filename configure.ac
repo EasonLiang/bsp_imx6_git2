@@ -1,9 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_PREREQ([2.69])
+AC_PREREQ([2.71])
 AC_CONFIG_MACRO_DIR([m4])
-AC_INIT([psmisc],
-	m4_esyscmd([misc/git-version-gen .tarball-version]),
-	,,,[https://www.gitlab.com/psmisc/psmisc])
+AC_INIT([psmisc],[m4_esyscmd(misc/git-version-gen .tarball-version)],[],[],[],[https://www.gitlab.com/psmisc/psmisc])
 AM_INIT_AUTOMAKE([foreign 1.11 subdir-objects -Wall -Wno-portability tar-pax no-dist-gzip dist-xz])
 AM_SILENT_RULES([yes])
 AC_CONFIG_SRCDIR([src/comm.h])
@@ -14,7 +12,6 @@ AC_USE_SYSTEM_EXTENSIONS(_GNU_SOURCE)
 AC_PROG_CXX
 AC_PROG_LN_S
 AC_PROG_CC
-AC_PROG_CC_STDC
 
 AC_DEFUN([PSMISC_PROG_PO4A], [
   AC_REQUIRE([AM_NLS])
@@ -99,7 +96,7 @@ AC_SUBST([TERMCAP_LIB])
 
 dnl Checks for header files.
 AC_HEADER_DIRENT
-AC_HEADER_STDC
+
 AC_HEADER_SYS_WAIT
 AC_CHECK_HEADERS([arpa/inet.h fcntl.h langinfo.h libintl.h limits.h locale.h mntent.h netdb.h netinet/in.h stdlib.h string.h sys/ioctl.h sys/socket.h termios.h unistd.h])
 
