@@ -10,6 +10,10 @@ spawn $pslog
 expect_pass "$test" "^Usage: pslog PID\\.\\.\\."
 
 set test "pslog pid not found"
-spawn $pslog ${fake_pid}
-expect_pass "$test" "opendir: No such file or directory"
+if { [ file exists "/proc/$fake_pid" ] } {
+    untested "$test (PID exists)"
+} else {
+    spawn $pslog ${fake_pid}
+    expect_pass "$test" "opendir: No such file or directory"
+}
 

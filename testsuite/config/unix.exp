@@ -11,9 +11,10 @@ proc psmisc_v_version { tool } {
     clone_output "$toolpath version $version\n"
 }
 
-proc fuser_version {} { psmisc_v_version fuser }
+proc fuser_version {}   { psmisc_v_version fuser }
 proc killall_version {} { psmisc_v_version killall }
-proc pslog_version {} { psmisc_v_version pslog }
+proc pslog_version {}   { psmisc_v_version pslog }
+proc prtstat_version {} { psmisc_v_version prtstat }
 
 proc expect_pass { testname reg } {
     expect {
