@@ -2,7 +2,7 @@
  * killall.c - kill processes by name or list PIDs
  *
  * Copyright (C) 1993-2002 Werner Almesberger
- * Copyright (C) 2002-2021 Craig Small <csmall@dropbear.xyz>
+ * Copyright (C) 2002-2022 Craig Small <csmall@dropbear.xyz>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,6 +38,8 @@
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/syscall.h>
+#include <fcntl.h>
 #include <getopt.h>
 #include <pwd.h>
 #include <regex.h>
@@ -230,16 +232,21 @@ static int get_ns(pid_t pid, int id) {
 }
 
 static int
-match_process_uid(pid_t pid, uid_t uid)
+match_process_uid(const int pidfd, uid_t uid)
 {
     char buf[128];
     uid_t puid;
     FILE *f;
+    int fd;
     int re = -1;
 
-    snprintf (buf, sizeof buf, PROC_BASE "/%d/status", pid);
-    if (!(f = fopen (buf, "r")))
+    if ( (fd = openat(pidfd, "status", O_RDONLY, 0)) < 0)
         return 0;
+    if (!(f = fdopen (fd, "r")))
+    {
+        close(fd);
+        return 0;
+    }
 
     while (fgets(buf, sizeof buf, f))
     {
@@ -249,7 +256,7 @@ match_process_uid(pid_t pid, uid_t uid)
             break;
         }
     }
-    fclose(f);
+    close(fd);
     if (re==-1)
     {
         fprintf(stderr, _("killall: Cannot get UID from process status\n"));
@@ -311,6 +318,19 @@ match_process_context(const pid_t pid, const regex_t *scontext)
     return retval;
 }
 
+static int
+my_send_signal(
+    const int pidfd,
+    const pid_t pid,
+    const int sig)
+{
+#ifdef __NR_pidfd_send_signal
+    printf("pidfd FTW\n");
+    if (pid > 0) /* Not PGID */
+        return syscall(__NR_pidfd_send_signal, pidfd, sig, NULL, 0);
+#endif
+    return kill(pid, sig);
+}
 
 static void
 free_regexp_list(regex_t *reglist, int names)
@@ -377,29 +397,28 @@ build_nameinfo(const int names, char **namelist)
 
 static int
 load_process_name_and_age(char *comm, double *process_age_sec,
-                          const pid_t pid, int load_age)
+                          const int pidfd, int load_age)
 {
+    int fd;
     FILE *file;
-    char *path;
     char buf[1024];
     char *startcomm, *endcomm;
     unsigned lencomm;
     *process_age_sec = 0;
 
-    if (asprintf (&path, PROC_BASE "/%d/stat", pid) < 0)
+    if ( (fd = openat(pidfd, "stat", O_RDONLY, 0)) < 0)
         return -1;
-    if (!(file = fopen (path, "r")))
+    if (!(file = fdopen (fd, "r")))
     {
-        free(path);
+        close(fd);
         return -1;
     }
-    free (path);
     if (fgets(buf, 1024, file) == NULL)
     {
-        fclose(file);
+        close(fd);
         return -1;
     }
-    fclose(file);
+    close(fd);
     if ( NULL == ( startcomm = strchr(buf, '(')))
        return -1;
     startcomm++;
@@ -426,21 +445,22 @@ load_process_name_and_age(char *comm, double *process_age_sec,
 }
 
 static int
-load_proc_cmdline(const pid_t pid, const char *comm, const int check_comm_length, char **command, int *got_long)
+load_proc_cmdline(const int pidfd, const pid_t pid, const char *comm, const int check_comm_length, char **command, int *got_long)
 {
     FILE *file;
-    char *path, *p, *command_buf;
+    int fp;
+    char *p, *command_buf;
     int cmd_size = 128;
     int okay;
 
-    if (asprintf (&path, PROC_BASE "/%d/cmdline", pid) < 0)
+    if ( (fp = openat(pidfd, "cmdline", O_RDONLY, 0)) < 0)
         return -1;
-    if (!(file = fopen (path, "r")))
+
+    if (!(file = fdopen (fp, "r")))
     {
-        free (path);
+        close(fp);
         return -1;
     }
-    free(path);
 
     if ( (command_buf = (char *)malloc (cmd_size)) == NULL)
         exit(1);
@@ -491,7 +511,7 @@ load_proc_cmdline(const pid_t pid, const char *comm, const int check_comm_length
             break;
         }
     }
-    (void) fclose(file);
+    (void) close(fp);
     free(command_buf);
     command_buf = NULL;
 
@@ -597,12 +617,13 @@ kill_all(int signal, int name_count, char **namelist, struct passwd *pwent,
 {
     struct stat st;
     NAMEINFO *name_info = NULL;
-    char *path, comm[COMM_LEN];
+    char comm[COMM_LEN];
     char *command = NULL;
     pid_t *pid_table, *pid_killed;
     pid_t *pgids = NULL;
     int i, j, length, got_long, error;
     int pids, max_pids, pids_killed;
+    int pidfd = 0;
     unsigned long found;
     regex_t *reglist = NULL;
     long ns_ino = 0;
@@ -640,8 +661,16 @@ kill_all(int signal, int name_count, char **namelist, struct passwd *pwent,
         pid_t id;
         int found_name = -1;
         double process_age_sec = 0;
+        char pidpath[256];
+
+        /* Open PID directory */
+        if (pidfd > 0)
+            close(pidfd);
+        snprintf (pidpath, sizeof pidpath, PROC_BASE "/%d", pid_table[i]);
+        if ( (pidfd = open(pidpath, O_RDONLY|O_DIRECTORY)) < 0)
+            continue;
         /* match by UID */
-        if (pwent && match_process_uid(pid_table[i], pwent->pw_uid)==0)
+        if (pwent && match_process_uid(pidfd, pwent->pw_uid)==0)
             continue;
         if (opt_ns_pid && ns_ino && ns_ino != get_ns(pid_table[i], PIDNS))
             continue;
@@ -649,7 +678,7 @@ kill_all(int signal, int name_count, char **namelist, struct passwd *pwent,
 	if (scontext && match_process_context(pid_table[i], scontext) == 0)
 	    continue;
 
-        length = load_process_name_and_age(comm, &process_age_sec, pid_table[i], (younger_than||older_than));
+        length = load_process_name_and_age(comm, &process_age_sec, pidfd, (younger_than||older_than));
         if (length < 0)
             continue;
 
@@ -666,7 +695,7 @@ kill_all(int signal, int name_count, char **namelist, struct passwd *pwent,
         }
 
         if (length == COMM_LEN - 1 || length == OLD_COMM_LEN - 1)
-            if (load_proc_cmdline(pid_table[i], comm, length, &command, &got_long) < 0)
+            if (load_proc_cmdline(pidfd, pid_table[i], comm, length, &command, &got_long) < 0)
                 continue;
 
         /* match by process name */
@@ -687,9 +716,7 @@ kill_all(int signal, int name_count, char **namelist, struct passwd *pwent,
 
                 } else {
                     int ok = 1; 
-                    if (asprintf (&path, PROC_BASE "/%d/exe", pid_table[i]) < 0)
-                        continue;
-                    if (stat (path, &st) < 0) 
+                    if (fstatat(pidfd, "exe", &st, 0) < 0)
                         ok = 0;
                     else if (name_info[j].st.st_dev != st.st_dev ||
                              name_info[j].st.st_ino != st.st_ino)
@@ -701,12 +728,11 @@ kill_all(int signal, int name_count, char **namelist, struct passwd *pwent,
                         char *linkbuf = malloc(len + 1);
 
                         if (!linkbuf ||
-                            readlink(path, linkbuf, len + 1) != (ssize_t)len ||
+                            readlinkat(pidfd, "exe", linkbuf, len + 1) != (ssize_t)len ||
                             memcmp(namelist[j], linkbuf, len))
                             ok = 0;
                         free(linkbuf);
                     }
-                    free(path);
                     if (!ok)
                         continue;
                 }
@@ -739,7 +765,7 @@ kill_all(int signal, int name_count, char **namelist, struct passwd *pwent,
         }    
         if (interactive && !ask (comm, id, signal))
             continue;
-        if (kill (process_group ? -id : id, signal) >= 0)
+        if (my_send_signal (pidfd, process_group ? -id : id, signal) >= 0)
         {
             if (verbose)
                 fprintf (stderr, _("Killed %s(%s%d) with signal %d\n"), got_long ? command :
@@ -758,6 +784,8 @@ kill_all(int signal, int name_count, char **namelist, struct passwd *pwent,
     if (reglist)
         free_regexp_list(reglist, name_count);
     free(pgids);
+    if (pidfd > 0)
+        close(pidfd);
     if (!quiet)
         for (i = 0; i < name_count; i++)
             if (!(found & (1UL << i)))
@@ -835,7 +863,7 @@ void print_version()
 {
     fprintf(stderr, "killall (PSmisc) %s\n", VERSION);
     fprintf(stderr, _(
-                      "Copyright (C) 1993-2021 Werner Almesberger and Craig Small\n\n"));
+                      "Copyright (C) 1993-2022 Werner Almesberger and Craig Small\n\n"));
     fprintf(stderr, _(
                       "PSmisc comes with ABSOLUTELY NO WARRANTY.\n"
                       "This is free software, and you are welcome to redistribute it under\n"
