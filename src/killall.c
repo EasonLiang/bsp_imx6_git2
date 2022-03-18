@@ -325,7 +325,6 @@ my_send_signal(
     const int sig)
 {
 #ifdef __NR_pidfd_send_signal
-    printf("pidfd FTW\n");
     if (pid > 0) /* Not PGID */
         return syscall(__NR_pidfd_send_signal, pidfd, sig, NULL, 0);
 #endif
