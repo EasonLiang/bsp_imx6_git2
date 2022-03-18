@@ -110,3 +110,11 @@ dist-hook:
 get-trans:
 	rsync -Lrtvz  translationproject.org::tp/latest/psmisc/  po
 	rsync -Lrtvz  translationproject.org::tp/latest/psmisc-man/  man-po
+
+# Programs required for testing only
+check_PROGRAMS = \
+	src/socket_test
+
+src_socket_test_SOURCES = src/socket_test.c
+
+check: $(check_PROGRAMS)

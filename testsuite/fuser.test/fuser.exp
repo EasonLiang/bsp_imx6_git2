@@ -39,4 +39,23 @@ set test "fuser -l"
 spawn $fuser -l
 expect_pass "$test" "^(\[A-Z12\]+\\s*)+$"
 
+# Create test process to make named unix socket
+# Needs a sleep otherwise the socket won't be
+# available before the file exists comes along
+set testsocket_path [ exec mktemp -u -p /tmp ]
+make_socketproc ${testsocket_path}
+sleep 1
+
+if {[file exists ${testsocket_path} ]} {
+  set test "fuser find socket from path"
+  spawn sh -c "$fuser -v $testsocket_path"
+  expect_pass "$test" "$socketproc_pid F"
+
+  set test "fuser find socket from mount"
+  spawn sh -c "$fuser -mv /tmp"
+  expect_pass "$test" "$socketproc_pid F"
+} else {
+  unsupported "fuser tests using named sockets"
+}
+kill_socketproc
 

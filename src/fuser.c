@@ -1681,8 +1681,9 @@ static void check_dir(
                 if (thedev != dev_tmp->device)
                     continue;
 
-                /* check the paths match if it is not a block device */
-                if (! S_ISBLK(dev_tmp->name->st.st_mode))
+                /* check the paths match if it is not a block device or socket */
+                if (! S_ISBLK(dev_tmp->name->st.st_mode)
+                    && !S_ISSOCK(st.st_mode))
                 {
                     if (readlink(filepath, real_filepath, PATH_MAX-1) < 0)
                     {
