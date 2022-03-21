@@ -117,4 +117,4 @@ check_PROGRAMS = \
 
 src_socket_test_SOURCES = src/socket_test.c
 
-check: $(check_PROGRAMS)
+check: $(check_PROGRAMS) $(PROGRAMS)
