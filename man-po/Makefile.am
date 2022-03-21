@@ -26,7 +26,6 @@ PO4A_V_0 = @echo "  PO4A   $@";
 
 PO4A_OPTS = --previous --srcdir $(srcdir) --destdir $(CURDIR) --no-backups \
             --package-name $(PACKAGE) --package-version $(VERSION) \
-	    --wrap-po no \
             --msgid-bugs-address "Craig Small <csmall@dropbear.xyz>"
 
 all-local: all-local-@USE_PO4A@
