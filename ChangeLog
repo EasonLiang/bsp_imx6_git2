@@ -1,4 +1,4 @@
-Changes in NEXT
+Changes in 23.5
 ===============
 	* killall: Check truncated names !28
 	* killall: Use openat and pidfd_send_signal #37
