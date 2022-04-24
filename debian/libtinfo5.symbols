@@ -105,6 +105,7 @@ libtinfo.so.5 libtinfo5 #MINVER#
  _nc_flush@NCURSES_TINFO_5.1.20000708 6
  _nc_free_entries@NCURSES_TINFO_5.0.19991023 6
  _nc_free_termtype@NCURSES_TINFO_5.0.19991023 6
+ _nc_free_tparm@NCURSES_TINFO_5.0.19991023 6.3+20220423
  _nc_get_alias_table@NCURSES_TINFO_5.7.20081102 6
  _nc_get_hash_table@NCURSES_TINFO_5.0.19991023 6
  _nc_get_locale@NCURSES_TINFO_5.4.20040208 6

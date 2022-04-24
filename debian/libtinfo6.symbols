@@ -108,6 +108,7 @@ libtinfo.so.6 #PACKAGE# #MINVER#
  _nc_free_entries@NCURSES6_TINFO_5.0.19991023 6
  _nc_free_termtype2@NCURSES6_TINFO_6.1.20171230 6.1
  _nc_free_termtype@NCURSES6_TINFO_5.0.19991023 6
+ _nc_free_tparm@NCURSES6_TINFO_5.0.19991023 6.3+20220423
  _nc_get_alias_table@NCURSES6_TINFO_5.7.20081102 6
  _nc_get_hash_table@NCURSES6_TINFO_5.0.19991023 6
  _nc_get_locale@NCURSES6_TINFO_5.4.20040208 6
