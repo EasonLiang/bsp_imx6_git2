@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright 2018-2020,2021 Thomas E. Dickey                                *
+ * Copyright 2018-2021,2022 Thomas E. Dickey                                *
  * Copyright 2017,2018 Free Software Foundation, Inc.                       *
  *                                                                          *
  * Permission is hereby granted, free of charge, to any person obtaining a  *
@@ -27,7 +27,7 @@
  * authorization.                                                           *
  ****************************************************************************/
 /*
- * $Id: picsmap.c,v 1.139 2021/05/08 15:56:05 tom Exp $
+ * $Id: picsmap.c,v 1.145 2022/04/16 18:21:05 tom Exp $
  *
  * Author: Thomas E. Dickey
  *
@@ -797,6 +797,7 @@ match_c(const char *source, const char *pattern, ...)
     int ch;
     int *ip;
     char *cp;
+    float *fp;
     long lv;
 
     va_start(ap, pattern);
@@ -810,10 +811,13 @@ match_c(const char *source, const char *pattern, ...)
 	    continue;
 	}
 	/* %c, %d, %s are like sscanf except for special treatment of blanks */
-	if (ch == '%' && *pattern != '\0' && strchr("cdnsx", *pattern)) {
+	if (ch == '%' && *pattern != '\0' && strchr("%cdnfsx", *pattern)) {
 	    bool found = FALSE;
 	    ch = *pattern++;
 	    switch (ch) {
+	    case '%':
+		source++;
+		break;
 	    case 'c':
 		cp = va_arg(ap, char *);
 		do {
@@ -830,6 +834,29 @@ match_c(const char *source, const char *pattern, ...)
 		    source = cp;
 		} else {
 		    goto finish;
+		}
+		break;
+	    case 'f':
+		/* floating point for pixels... */
+		fp = va_arg(ap, float *);
+		lv = strtol(source, &cp, 10);
+		if (cp == 0 || cp == source)
+		    goto finish;
+		*fp = (float) lv;
+		source = cp;
+		if (*source == '.') {
+		    lv = strtol(++source, &cp, 10);
+		    if (cp == 0 || cp == source)
+			goto finish;
+		    {
+			float scale = 1.0f;
+			int digits = (int) (cp - source);
+			while (digits-- > 0) {
+			    scale *= 10.0f;
+			}
+			*fp += (float) lv / scale;
+		    }
+		    source = cp;
 		}
 		break;
 	    case 'n':
@@ -1346,11 +1373,16 @@ parse_img(const char *filename)
 		    break;
 		}
 	    } else {
-		/* subsequent lines begin "col,row: (r,g,b,a) #RGB" */
+		/*
+		 * subsequent lines begin "col,row: (r,g,b,a) #RGB".
+		 * Those r/g/b could be integers (0..255) or float-percentages.
+		 */
 		int r, g, b, nocolor;
+		float rf, gf, bf;
 		unsigned check;
 		char *t;
 		char *s = t = strchr(buffer, '#');
+		bool matched = FALSE;
 
 		if (s != 0) {
 		    /* after the "#RGB", there are differences - just ignore */
@@ -1358,19 +1390,44 @@ parse_img(const char *filename)
 			++s;
 		    *++s = '\0';
 		}
+
 		if (match_c(buffer,
 			    "%d,%d: (%d,%d,%d,%d) #%x ",
 			    &col, &row,
 			    &r, &g, &b, &nocolor,
 			    &check)) {
-		    int which, c;
+		    matched = TRUE;
+		} else if (match_c(buffer,
+				   "%d,%d: (%f%%,%f%%,%f%%,%d) #%x ",
+				   &col, &row,
+				   &rf, &gf, &bf, &nocolor,
+				   &check) ||
+			   match_c(buffer,
+				   "%d,%d: (%f%%,%f%%,%f%%) #%x ",
+				   &col, &row,
+				   &rf, &gf, &bf,
+				   &check)) {
+		    matched = TRUE;
 
-		    if ((s - t) > 8)	/* 6 hex digits vs 8 */
-			check /= 256;
-		    if (r > MaxRGB ||
-			g > MaxRGB ||
-			b > MaxRGB ||
-			check != (unsigned) ((r << 16) | (g << 8) | b)) {
+#define fp_fix(n) (int) (MaxRGB * (((n) > 100.0 ? 100.0 : (n)) / 100.0))
+
+		    r = fp_fix(rf);
+		    g = fp_fix(gf);
+		    b = fp_fix(bf);
+		}
+		if ((s - t) > 8)	/* 6 hex digits vs 8 */
+		    check /= 256;
+		if (matched) {
+		    int which, c;
+		    int want_r = (check >> 16) & 0xff;
+		    int want_g = (check >> 8) & 0xff;
+		    int want_b = (check >> 0) & 0xff;
+
+#define fp_err(tst,ref) ((tst > MaxRGB) || ((tst - ref)*(tst - ref)) > 4)
+
+		    if (fp_err(r, want_r) ||
+			fp_err(g, want_g) ||
+			fp_err(b, want_b)) {
 			okay = FALSE;
 			break;
 		    }
@@ -1470,6 +1527,7 @@ init_display(const char *palette_path, int opt_d)
     (void) opt_d;
     if (isatty(fileno(stdout))) {
 	in_curses = TRUE;
+	setlocale(LC_ALL, "");
 	initscr();
 	cbreak();
 	noecho();

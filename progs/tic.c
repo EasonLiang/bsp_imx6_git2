@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright 2018-2020,2021 Thomas E. Dickey                                *
+ * Copyright 2018-2021,2022 Thomas E. Dickey                                *
  * Copyright 1998-2017,2018 Free Software Foundation, Inc.                  *
  *                                                                          *
  * Permission is hereby granted, free of charge, to any person obtaining a  *
@@ -49,7 +49,7 @@
 #include <parametrized.h>
 #include <transform.h>
 
-MODULE_ID("$Id: tic.c,v 1.307 2021/10/05 08:07:05 tom Exp $")
+MODULE_ID("$Id: tic.c,v 1.311 2022/04/23 19:47:57 tom Exp $")
 
 #define STDIN_NAME "<stdin>"
 
@@ -644,7 +644,7 @@ show_databases(const char *outdir)
     const char *tried = 0;
 
     if (outdir == NULL) {
-	outdir = _nc_tic_dir(0);
+	outdir = _nc_tic_dir(NULL);
     }
     if ((result = valid_db_path(outdir)) != 0) {
 	printf("%s\n", result);
@@ -682,7 +682,6 @@ int
 main(int argc, char *argv[])
 {
     char my_tmpname[PATH_MAX];
-    char my_altfile[PATH_MAX];
     int v_opt = -1;
     int smart_defaults = TRUE;
     char *termcap;
@@ -933,6 +932,7 @@ main(int argc, char *argv[])
     }
 
     if (tmp_fp == NULL) {
+	char my_altfile[PATH_MAX];
 	tmp_fp = open_input(source_file, my_altfile);
 	if (!strcmp(source_file, "-")) {
 	    source_file = STDIN_NAME;
@@ -1081,7 +1081,7 @@ main(int argc, char *argv[])
 	if (total != 0)
 	    fprintf(log_fp, "%d entries written to %s\n",
 		    total,
-		    _nc_tic_dir((char *) 0));
+		    _nc_tic_dir(NULL));
 	else
 	    fprintf(log_fp, "No entries written\n");
     }
@@ -1741,6 +1741,8 @@ check_screen(TERMTYPE2 *tp)
 	} else if (have_XT && screen_base) {
 	    _nc_warning("screen's \"screen\" entries should not have XT set");
 	} else if (have_XT) {
+	    char *s;
+
 	    if (!have_kmouse && is_screen) {
 		if (VALID_STRING(key_mouse)) {
 		    _nc_warning("value of kmous inconsistent with screen's usage");
@@ -1756,7 +1758,9 @@ check_screen(TERMTYPE2 *tp)
 				"to have 39/49 parameters", name_39_49);
 		}
 	    }
-	    if (VALID_STRING(to_status_line))
+	    if (VALID_STRING(to_status_line)
+		&& (s = strchr(to_status_line, ';')) != NULL
+		&& *++s == '\0')
 		_nc_warning("\"tsl\" capability is redundant, given XT");
 	} else {
 	    if (have_kmouse
@@ -2717,12 +2721,11 @@ show_fkey_name(NAME_VALUE * data)
 static void
 check_conflict(TERMTYPE2 *tp)
 {
-    bool conflict = FALSE;
-
     if (!(_nc_syntax == SYN_TERMCAP && capdump)) {
 	char *check = calloc((size_t) (NUM_STRINGS(tp) + 1), sizeof(char));
 	NAME_VALUE *given = get_fkey_list(tp);
 	unsigned j, k;
+	bool conflict = FALSE;
 
 	if (check == NULL)
 	    failed("check_conflict");

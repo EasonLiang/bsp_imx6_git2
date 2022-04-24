@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright 2020 Thomas E. Dickey                                          *
+ * Copyright 2020,2021 Thomas E. Dickey                                     *
  * Copyright 1998-2016,2017 Free Software Foundation, Inc.                  *
  *                                                                          *
  * Permission is hereby granted, free of charge, to any person obtaining a  *
@@ -41,7 +41,7 @@
 #include <termcap.h>		/* ospeed */
 #include <tic.h>		/* VALID_STRING */
 
-MODULE_ID("$Id: lib_cur_term.c,v 1.43 2020/10/24 18:54:32 tom Exp $")
+MODULE_ID("$Id: lib_cur_term.c,v 1.45 2021/11/20 23:19:41 tom Exp $")
 
 #undef CUR
 #define CUR TerminalType(termp).
@@ -167,10 +167,17 @@ NCURSES_SP_NAME(del_curterm) (NCURSES_SP_DCLx TERMINAL *termp)
 	/* discard memory used in tgetent's cache for this terminal */
 	_nc_tgetent_leak(termp);
 #endif
+	if (--_nc_globals.terminal_count == 0) {
+	    _nc_free_tparm(termp);
+	}
+
+	free(termp->tparm_state.fmt_buff);
+	free(termp->tparm_state.out_buff);
 	free(termp);
 
 	rc = OK;
     }
+
     returnCode(rc);
 }
 

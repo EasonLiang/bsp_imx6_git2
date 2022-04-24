@@ -1,6 +1,5 @@
 /****************************************************************************
- * Copyright 2020-2021,2022 Thomas E. Dickey                                *
- * Copyright 2013-2014,2017 Free Software Foundation, Inc.                  *
+ * Copyright 2022 Thomas E. Dickey                                          *
  *                                                                          *
  * Permission is hereby granted, free of charge, to any person obtaining a  *
  * copy of this software and associated documentation files (the            *
@@ -27,125 +26,49 @@
  * authorization.                                                           *
  ****************************************************************************/
 /*
- * $Id: test_vid_puts.c,v 1.13 2022/04/16 18:27:24 tom Exp $
+ * $Id: test_unget_wch.c,v 1.3 2022/04/16 17:04:04 tom Exp $
  *
- * Demonstrate the vid_puts and vid_attr functions.
- * Thomas Dickey - 2013/01/12
+ * Demonstrate the unget_wch and unget functions.
  */
 
-#define USE_TINFO
 #include <test.priv.h>
 
-#if USE_WIDEC_SUPPORT && HAVE_SETUPTERM && HAVE_VID_PUTS
-
-static FILE *my_fp;
-static bool p_opt = FALSE;
-
-static
-TPUTS_PROTO(outc, c)
-{
-    int rc;
-
-    rc = putc(c, my_fp);
-    TPUTS_RETURN(rc);
-}
-
-static bool
-outs(const char *s)
-{
-    if (VALID_STRING(s)) {
-	tputs(s, 1, outc);
-	return TRUE;
-    }
-    return FALSE;
-}
-
-static void
-cleanup(void)
-{
-    if (cur_term != 0) {
-	outs(exit_attribute_mode);
-	if (!outs(orig_colors))
-	    outs(orig_pair);
-	outs(cursor_normal);
-    }
-}
-
-static void
-change_attr(chtype attr)
-{
-    if (p_opt) {
-	vid_puts(attr, (short) 0, (void *) 0, outc);
-    } else {
-	vid_attr(attr, (short) 0, (void *) 0);
-    }
-}
-
-static void
-test_vid_puts(void)
-{
-    fprintf(my_fp, "Name: ");
-    change_attr(A_BOLD);
-    fputs("Bold", my_fp);
-    change_attr(A_REVERSE);
-    fputs(" Reverse", my_fp);
-    change_attr(A_NORMAL);
-    fputs("\n", my_fp);
-}
-
-static void
-usage(void)
-{
-    static const char *tbl[] =
-    {
-	"Usage: test_vid_puts [options]"
-	,""
-	,"Options:"
-	,"  -e      use stderr (default stdout)"
-	,"  -n      do not initialize terminal"
-	,"  -p      use vid_puts (default vid_attr)"
-    };
-    unsigned n;
-    for (n = 0; n < SIZEOF(tbl); ++n)
-	fprintf(stderr, "%s\n", tbl[n]);
-    ExitProgram(EXIT_FAILURE);
-}
-
+#if USE_WIDEC_SUPPORT && HAVE_UNGET_WCH
 int
-main(int argc GCC_UNUSED, char *argv[]GCC_UNUSED)
+main(void)
 {
-    int ch;
-    bool no_init = FALSE;
-
-    my_fp = stdout;
-
-    while ((ch = getopt(argc, argv, "enp")) != -1) {
-	switch (ch) {
-	case 'e':
-	    my_fp = stderr;
-	    break;
-	case 'n':
-	    no_init = TRUE;
-	    break;
-	case 'p':
-	    p_opt = TRUE;
-	    break;
-	default:
-	    usage();
-	    break;
-	}
-    }
-    if (optind < argc)
-	usage();
+    int step = 0;
 
     setlocale(LC_ALL, "");
-    if (no_init) {
-	START_TRACE();
-    } else {
-	setupterm((char *) 0, fileno(my_fp), (int *) 0);
+    initscr();
+    keypad(stdscr, TRUE);
+    cbreak();
+    noecho();
+    scrollok(stdscr, TRUE);
+
+    for (;;) {
+	wint_t widechar;
+	int rc = get_wch(&widechar);
+	if (rc == KEY_CODE_YES) {
+	    printw("KEY[%d] %s\n", ++step, keyname((int) widechar));
+	    ungetch((int) widechar);
+	    printw("...[%d] %s\n", step, keyname(getch()));
+	} else if (widechar == QUIT || widechar == ESCAPE) {
+	    break;
+	} else {
+	    printw("CHR[%d] %s\n", ++step, key_name((wchar_t) widechar));
+	    unget_wch((wchar_t) widechar);
+	    rc = get_wch(&widechar);
+	    printw("%s[%d] %s\n",
+		   ((rc == KEY_CODE_YES)
+		    ? "???"
+		    : "..."),
+		   step, key_name((wchar_t) widechar));
+	}
     }
-    test_vid_puts();
-    cleanup();
+
+    endwin();
+
     ExitProgram(EXIT_SUCCESS);
 }
 
@@ -153,7 +76,7 @@ main(int argc GCC_UNUSED, char *argv[]GCC_UNUSED)
 int
 main(void)
 {
-    printf("This program requires the wide-ncurses terminfo library\n");
+    printf("This program requires the wide-ncurses library\n");
     ExitProgram(EXIT_FAILURE);
 }
 #endif

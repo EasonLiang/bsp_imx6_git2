@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright 2018-2020,2021 Thomas E. Dickey                                *
+ * Copyright 2018-2021,2022 Thomas E. Dickey                                *
  * Copyright 1998-2013,2017 Free Software Foundation, Inc.                  *
  *                                                                          *
  * Permission is hereby granted, free of charge, to any person obtaining a  *
@@ -48,12 +48,10 @@
 
 #include <tic.h>
 
-MODULE_ID("$Id: alloc_entry.c,v 1.66 2021/08/08 00:09:37 tom Exp $")
+MODULE_ID("$Id: alloc_entry.c,v 1.69 2022/04/16 22:46:53 tom Exp $")
 
 #define ABSENT_OFFSET    -1
 #define CANCELLED_OFFSET -2
-
-#define MAX_STRTAB	4096	/* documented maximum entry size */
 
 static char *stringbuf;		/* buffer for string capabilities */
 static size_t next_free;	/* next free character in stringbuf */
@@ -62,17 +60,19 @@ NCURSES_EXPORT(void)
 _nc_init_entry(ENTRY * const tp)
 /* initialize a terminal type data block */
 {
+    if (tp == NULL) {
 #if NO_LEAKS
-    if (tp == 0) {
-	if (stringbuf != 0) {
+	if (stringbuf != NULL) {
 	    FreeAndNull(stringbuf);
 	}
 	return;
-    }
+#else
+	_nc_err_abort("_nc_init_entry called without initialization");
 #endif
+    }
 
-    if (stringbuf == 0)
-	TYPE_MALLOC(char, (size_t) MAX_STRTAB, stringbuf);
+    if (stringbuf == NULL)
+	TYPE_MALLOC(char, (size_t) MAX_ENTRY_SIZE, stringbuf);
 
     next_free = 0;
 
@@ -84,7 +84,7 @@ _nc_copy_entry(ENTRY * oldp)
 {
     ENTRY *newp = typeCalloc(ENTRY, 1);
 
-    if (newp != 0) {
+    if (newp != NULL) {
 	*newp = *oldp;
 	_nc_copy_termtype2(&(newp->tterm), &(oldp->tterm));
     }
@@ -99,26 +99,28 @@ _nc_save_str(const char *string)
     size_t old_next_free = next_free;
     size_t len;
 
-    if (!VALID_STRING(string))
-	string = "";
-    len = strlen(string) + 1;
+    if (stringbuf != NULL) {
+	if (!VALID_STRING(string))
+	    string = "";
+	len = strlen(string) + 1;
 
-    if (len == 1 && next_free != 0) {
-	/*
-	 * Cheat a little by making an empty string point to the end of the
-	 * previous string.
-	 */
-	if (next_free < MAX_STRTAB) {
-	    result = (stringbuf + next_free - 1);
+	if (len == 1 && next_free != 0) {
+	    /*
+	     * Cheat a little by making an empty string point to the end of the
+	     * previous string.
+	     */
+	    if (next_free < MAX_ENTRY_SIZE) {
+		result = (stringbuf + next_free - 1);
+	    }
+	} else if (next_free + len < MAX_ENTRY_SIZE) {
+	    _nc_STRCPY(&stringbuf[next_free], string, MAX_ENTRY_SIZE);
+	    DEBUG(7, ("Saved string %s", _nc_visbuf(string)));
+	    DEBUG(7, ("at location %d", (int) next_free));
+	    next_free += len;
+	    result = (stringbuf + old_next_free);
+	} else {
+	    _nc_warning("Too much data, some is lost: %s", string);
 	}
-    } else if (next_free + len < MAX_STRTAB) {
-	_nc_STRCPY(&stringbuf[next_free], string, MAX_STRTAB);
-	DEBUG(7, ("Saved string %s", _nc_visbuf(string)));
-	DEBUG(7, ("at location %d", (int) next_free));
-	next_free += len;
-	result = (stringbuf + old_next_free);
-    } else {
-	_nc_warning("Too much data, some is lost: %s", string);
     }
     return result;
 }
@@ -130,9 +132,14 @@ _nc_wrap_entry(ENTRY * const ep, bool copy_strings)
     int offsets[MAX_ENTRY_SIZE / sizeof(short)];
     int useoffsets[MAX_USES];
     unsigned i, n;
-    unsigned nuses = ep->nuses;
-    TERMTYPE2 *tp = &(ep->tterm);
+    unsigned nuses;
+    TERMTYPE2 *tp;
 
+    if (ep == NULL || stringbuf == NULL)
+	_nc_err_abort("_nc_wrap_entry called without initialization");
+
+    nuses = ep->nuses;
+    tp = &(ep->tterm);
     if (copy_strings) {
 	next_free = 0;		/* clear static storage */
 
@@ -294,7 +301,7 @@ _nc_merge_entry(ENTRY * const target, ENTRY * const source)
 NCURSES_EXPORT(void)
 _nc_alloc_entry_leaks(void)
 {
-    if (stringbuf != 0) {
+    if (stringbuf != NULL) {
 	FreeAndNull(stringbuf);
     }
     next_free = 0;

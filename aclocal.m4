@@ -1,5 +1,5 @@
 dnl***************************************************************************
-dnl Copyright 2018-2020,2021 Thomas E. Dickey                                *
+dnl Copyright 2018-2021,2022 Thomas E. Dickey                                *
 dnl Copyright 1998-2017,2018 Free Software Foundation, Inc.                  *
 dnl                                                                          *
 dnl Permission is hereby granted, free of charge, to any person obtaining a  *
@@ -29,7 +29,7 @@ dnl***************************************************************************
 dnl
 dnl Author: Thomas E. Dickey 1995-on
 dnl
-dnl $Id: aclocal.m4,v 1.981 2021/10/17 15:14:04 tom Exp $
+dnl $Id: aclocal.m4,v 1.1004 2022/02/05 17:48:07 tom Exp $
 dnl Macros used in NCURSES auto-configuration script.
 dnl
 dnl These macros are maintained separately from NCURSES.  The copyright on
@@ -65,37 +65,55 @@ AC_CACHE_CHECK([for nl_langinfo and CODESET], am_cv_langinfo_codeset,
 	fi
 ])dnl
 dnl ---------------------------------------------------------------------------
-dnl CF_ABI_DEFAULTS version: 2 updated: 2015/06/06 13:49:58
+dnl CF_ABI_DEFAULTS version: 3 updated: 2022/01/22 19:13:38
 dnl ---------------
 dnl Provide configure-script defaults for different ncurses ABIs.
 AC_DEFUN([CF_ABI_DEFAULTS],[
 AC_REQUIRE([CF_NCURSES_WITH_ABI_VERSION])
+
+# ABI 5 defaults:
+cf_dft_ccharw_max=5
+cf_dft_chtype=auto
+cf_dft_ext_colors=no
+cf_dft_ext_const=no
+cf_dft_ext_mouse=no
+cf_dft_ext_putwin=no
+cf_dft_ext_spfuncs=no
+cf_dft_filter_syms=no
+cf_dft_interop=no
+cf_dft_mmask_t=auto
+cf_dft_opaque_curses=no
+cf_dft_ordinate_type=short
+cf_dft_signed_char=no
+cf_dft_tparm_arg=long
+cf_dft_with_lp64=no
+
+# ABI 6 defaults:
 case x$cf_cv_abi_version in
 (x[[6789]])
+	cf_dft_chtype=uint32_t
 	cf_dft_ext_colors=yes
 	cf_dft_ext_const=yes
 	cf_dft_ext_mouse=yes
 	cf_dft_ext_putwin=yes
 	cf_dft_ext_spfuncs=yes
 	cf_dft_filter_syms=yes
-	cf_dft_chtype=uint32_t
-	cf_dft_mmask_t=uint32_t
 	cf_dft_interop=yes
+	cf_dft_mmask_t=uint32_t
 	cf_dft_tparm_arg=intptr_t
 	cf_dft_with_lp64=yes
 	;;
-(*)
-	cf_dft_ext_colors=no
-	cf_dft_ext_const=no
-	cf_dft_ext_mouse=no
-	cf_dft_ext_putwin=no
-	cf_dft_ext_spfuncs=no
-	cf_dft_filter_syms=no
-	cf_dft_chtype=auto
-	cf_dft_mmask_t=auto
-	cf_dft_interop=no
-	cf_dft_tparm_arg=long
-	cf_dft_with_lp64=no
+esac
+
+# ABI 7 defaults:
+case x$cf_cv_abi_version in
+(x[[789]])
+	cf_dft_ccharw_max=6
+	cf_dft_mmask_t=uint64_t
+	cf_dft_opaque_curses=yes
+	cf_dft_ordinate_type=int
+	cf_dft_signed_char=yes
+	# also: remove the wgetch-events feature in ABI 7
 	;;
 esac
 ])dnl
@@ -1347,6 +1365,37 @@ if test "$cf_cv_check_gpm_wgetch" != yes ; then
 fi
 ])])dnl
 dnl ---------------------------------------------------------------------------
+dnl CF_CHECK_LIBSSP version: 1 updated: 2021/10/30 10:40:19
+dnl ---------------
+dnl Check if libssp is needed, e.g., to work around misconfigured libraries
+dnl used in cross-compiling to MinGW.
+AC_DEFUN([CF_CHECK_LIBSSP],[
+AC_CACHE_CHECK(if ssp library is needed,cf_cv_need_libssp,[
+AC_TRY_LINK([
+#include <sys/types.h>
+#include <dirent.h>
+],[
+       DIR *dp = opendir(".");
+],cf_cv_need_libssp=no,[
+	cf_save_LIBS="$LIBS"
+	LIBS="$LIBS -lssp"
+	AC_TRY_LINK([
+#include <sys/types.h>
+#include <dirent.h>
+	],[
+		   DIR *dp = opendir(".");
+	],cf_cv_need_libssp=yes,
+	  cf_cv_need_libssp=maybe)
+	LIBS="$cf_save_LIBS"
+])dnl
+])
+
+if test "x$cf_cv_need_libssp" = xyes
+then
+	CF_ADD_LIB(ssp)
+fi
+])dnl
+dnl ---------------------------------------------------------------------------
 dnl CF_CHECK_LIBTOOL_VERSION version: 2 updated: 2021/05/01 16:24:34
 dnl ------------------------
 dnl Show the version of libtool
@@ -2041,7 +2090,7 @@ fi
 AC_SUBST(BROKEN_LINKER)
 ])dnl
 dnl ---------------------------------------------------------------------------
-dnl CF_ENABLE_PC_FILES version: 14 updated: 2021/10/17 11:12:47
+dnl CF_ENABLE_PC_FILES version: 16 updated: 2021/11/20 12:48:37
 dnl ------------------
 dnl This is the "--enable-pc-files" option, which is available if there is a
 dnl pkg-config configuration on the local machine.
@@ -2066,11 +2115,12 @@ if test "x$enable_pc_files" != xno
 then
 	MAKE_PC_FILES=
 	case "x$PKG_CONFIG_LIBDIR" in
-	(xno|xnone|xyes)
+	(xno|xnone|xyes|x)
 		AC_MSG_WARN(no PKG_CONFIG_LIBDIR was found)
 		;;
 	(*)
-		CF_PATH_SYNTAX(PKG_CONFIG_LIBDIR)
+		cf_pkg_config_libdir="$PKG_CONFIG_LIBDIR"
+		CF_PATH_SYNTAX(cf_pkg_config_libdir)
 		;;
 	esac
 else
@@ -2391,7 +2441,7 @@ AC_DEFUN([CF_FIXUP_ADAFLAGS],[
 	AC_MSG_RESULT($ADAFLAGS)
 ])dnl
 dnl ---------------------------------------------------------------------------
-dnl CF_FIX_WARNINGS version: 3 updated: 2020/12/31 18:40:20
+dnl CF_FIX_WARNINGS version: 4 updated: 2021/12/16 18:22:31
 dnl ---------------
 dnl Warning flags do not belong in CFLAGS, CPPFLAGS, etc.  Any of gcc's
 dnl "-Werror" flags can interfere with configure-checks.  Those go into
@@ -2403,11 +2453,13 @@ if test "$GCC" = yes || test "$GXX" = yes
 then
 	case [$]$1 in
 	(*-Werror=*)
-		CF_VERBOSE(repairing $1: [$]$1)
 		cf_temp_flags=
 		for cf_temp_scan in [$]$1
 		do
 			case "x$cf_temp_scan" in
+			(x-Werror=format*)
+				CF_APPEND_TEXT(cf_temp_flags,$cf_temp_scan)
+				;;
 			(x-Werror=*)
 				CF_APPEND_TEXT(EXTRA_CFLAGS,$cf_temp_scan)
 				;;
@@ -2416,9 +2468,13 @@ then
 				;;
 			esac
 		done
-		$1="$cf_temp_flags"
-		CF_VERBOSE(... fixed [$]$1)
-		CF_VERBOSE(... extra $EXTRA_CFLAGS)
+		if test "x[$]$1" != "x$cf_temp_flags"
+		then
+			CF_VERBOSE(repairing $1: [$]$1)
+			$1="$cf_temp_flags"
+			CF_VERBOSE(... fixed [$]$1)
+			CF_VERBOSE(... extra $EXTRA_CFLAGS)
+		fi
 		;;
 	esac
 fi
@@ -2511,6 +2567,61 @@ else
 	AC_MSG_ERROR(Cannot find dlsym function)
 fi
 ])
+dnl ---------------------------------------------------------------------------
+dnl CF_FUNC_GETTTYNAM version: 1 updated: 2021/12/04 18:29:47
+dnl -----------------
+dnl Check if the 4.3BSD function getttyname exists, as well as if <ttyent.h>
+dnl defines the _PATH_TTYS symbol.  If the corresponding file exists, but the
+dnl other checks fail, just define HAVE_PATH_TTYS.
+AC_DEFUN([CF_FUNC_GETTTYNAM],[
+AC_CACHE_CHECK(if _PATH_TTYS is defined in ttyent.h,cf_cv_PATH_TTYS,[
+AC_TRY_COMPILE([
+#include <stdio.h>
+#include <ttyent.h>],[
+FILE *fp = fopen(_PATH_TTYS, "r"); (void)fp],
+	[cf_cv_PATH_TTYS=yes],
+	[cf_cv_PATH_TTYS=no])])
+
+if test $cf_cv_PATH_TTYS = no
+then
+	for cf_ttys in /etc/ttytype /etc/ttys
+	do
+		if test -f $cf_ttys
+		then
+			cf_cv_PATH_TTYS=maybe
+			AC_DEFINE(_PATH_TTYS,$cf_ttys,[define to pathname of file containing mapping from tty name to terminal type])
+			break
+		fi
+	done
+fi
+
+if test $cf_cv_PATH_TTYS != no
+then
+	AC_CACHE_CHECK(if _PATH_TTYS file exists,cf_cv_have_PATH_TTYS,[
+		AC_TRY_RUN([
+#include <stdio.h>
+#include <ttyent.h>
+int main(void) {
+	FILE *fp = fopen(_PATH_TTYS, "r");
+	${cf_cv_main_return:-return} (fp == 0);
+}],
+			[cf_cv_have_PATH_TTYS=yes],
+			[cf_cv_have_PATH_TTYS=no],
+			[cf_cv_have_PATH_TTYS=unknown])])
+	test "$cf_cv_have_PATH_TTYS" = no && cf_cv_PATH_TTYS=no
+fi
+
+if test $cf_cv_PATH_TTYS != no
+then
+	AC_DEFINE(HAVE_PATH_TTYS,1,[define to 1 if system can map tty name to terminal type])
+	AC_CACHE_CHECK(for getttynam,cf_cv_func_getttynam,[
+		AC_TRY_LINK([#include <ttyent.h>],
+		[struct ttyent *fp = getttynam("/dev/tty"); (void)fp],
+		[cf_cv_func_getttynam=yes],
+		[cf_cv_func_getttynam=no])])
+	test "$cf_cv_func_getttynam" = yes && AC_DEFINE(HAVE_GETTTYNAM)
+fi
+])dnl
 dnl ---------------------------------------------------------------------------
 dnl CF_FUNC_MEMMOVE version: 9 updated: 2017/01/21 11:06:25
 dnl ---------------
@@ -5629,7 +5740,7 @@ AC_ARG_WITH(manpage-tbl,
 AC_MSG_RESULT($MANPAGE_TBL)
 ])dnl
 dnl ---------------------------------------------------------------------------
-dnl CF_MAN_PAGES version: 51 updated: 2021/01/05 16:29:19
+dnl CF_MAN_PAGES version: 52 updated: 2022/02/05 12:31:08
 dnl ------------
 dnl Try to determine if the man-pages on the system are compressed, and if
 dnl so, what format is used.  Use this information to construct a script that
@@ -5702,7 +5813,8 @@ INSTALL_DATA="$INSTALL_DATA"
 transform="$program_transform_name"
 
 TMP=\${TMPDIR:=/tmp}/man\$\$
-trap "rm -f \$TMP" 0 1 2 3 15
+trap "rm -f \$TMP; exit 1" 1 2 3 15
+trap "rm -f \$TMP" 0
 
 form=\[$]1
 shift || exit 1
@@ -9206,7 +9318,7 @@ if test "x$with_pcre2" != xno ; then
 fi
 ])dnl
 dnl ---------------------------------------------------------------------------
-dnl CF_WITH_PKG_CONFIG_LIBDIR version: 13 updated: 2021/10/17 11:12:47
+dnl CF_WITH_PKG_CONFIG_LIBDIR version: 20 updated: 2022/01/29 17:03:42
 dnl -------------------------
 dnl Allow the choice of the pkg-config library directory to be overridden.
 dnl
@@ -9229,98 +9341,113 @@ case "$PKG_CONFIG" in
 	;;
 esac
 
+# if $PKG_CONFIG_LIBDIR is set, try to use that
 cf_search_path=`echo "$PKG_CONFIG_LIBDIR" | sed -e 's/:/ /g' -e 's,^[[ 	]]*,,'`
+
+# if the option is used, let that override.  otherwise default to "libdir"
 AC_ARG_WITH(pkg-config-libdir,
 	[  --with-pkg-config-libdir=XXX use given directory for installing pc-files],
 	[cf_search_path=$withval],
-	[test "x$PKG_CONFIG" != xnone && cf_search_path=yes])
+	[test "x$PKG_CONFIG" != xnone && test -z "$cf_search_path" && cf_search_path=libdir])
 
-case x$cf_search_path in
-(x/*)
-	;;
-(xyes)
+case "x$cf_search_path" in
+(xlibdir)
+	PKG_CONFIG_LIBDIR='${libdir}/pkgconfig'
+	AC_MSG_RESULT($PKG_CONFIG_LIBDIR)
 	cf_search_path=
-	CF_VERBOSE(auto...)
+	;;
+(x)
+	;;
+(x/*\ *)
+	PKG_CONFIG_LIBDIR=
+	;;
+(x/*)
+	PKG_CONFIG_LIBDIR="$cf_search_path"
+	AC_MSG_RESULT($PKG_CONFIG_LIBDIR)
+	cf_search_path=
+	;;
+(xyes|xauto)
+	AC_MSG_RESULT(auto)
+	cf_search_path=
 	# Look for the library directory using the same prefix as the executable
 	AC_MSG_CHECKING(for search-list)
-	if test "x$PKG_CONFIG" = xnone
+	if test "x$PKG_CONFIG" != xnone
 	then
-		cf_path=$prefix
-	else
-		cf_path=`echo "$PKG_CONFIG" | sed -e 's,/[[^/]]*/[[^/]]*$,,'`
+		# works for pkg-config since version 0.24 (2009)
+		# works for pkgconf since version 0.8.3 (2012)
+		for cf_pkg_program in \
+			`echo "$PKG_CONFIG" | sed -e 's,^.*/,,'` \
+			pkg-config \
+			pkgconf
+		do
+			cf_search_path=`"$PKG_CONFIG" --variable=pc_path "$cf_pkg_program" 2>/dev/null | tr : ' '`
+			test -n "$cf_search_path" && break
+		done
+
+		# works for pkg-config since import in 2005 of original 2001 HP code.
+		test -z "$cf_search_path" && \
 		cf_search_path=`
-		"$PKG_CONFIG" --debug --exists no-such-package 2>&1 | awk "\
-/^Scanning directory #[1-9][0-9]* '.*'$/{ \
+		"$PKG_CONFIG" --debug --exists no-such-package 2>&1 | $AWK "\
+/^Scanning directory (#[1-9][0-9]* )?'.*'$/{ \
 	sub(\"^[[^']]*'\",\"\"); \
 	sub(\"'.*\",\"\"); \
 	printf \" %s\", \\[$]0; } \
-/trying path:/{
-	sub(\"^.* trying path: \",\"\");
-	sub(\" for no-such-package.*$\",\"\");
-	printf \" %s\", \\[$]0;
-}
 { next; } \
 "`
 	fi
 
-	if test -z "$cf_search_path"
-	then
-		# If you don't like using the default architecture, you have to specify
-		# the intended library directory and corresponding compiler/linker
-		# options.
-		#
-		# This case allows for Debian's 2014-flavor of multiarch, along with
-		# the most common variations before that point.  Some other variants
-		# spell the directory differently, e.g., "pkg-config", and put it in
-		# unusual places.
-		#
-		# pkg-config has always been poorly standardized, which is ironic...
-		case x`(arch) 2>/dev/null` in
-		(*64)
-			cf_test_path="\
-				$cf_path/lib/*64-linux-gnu \
-				$cf_path/share \
-				$cf_path/lib64 \
-				$cf_path/lib32 \
-				$cf_path/lib"
-			;;
-		(*)
-			cf_test_path="\
-				$cf_path/lib/*-linux-gnu \
-				$cf_path/share \
-				$cf_path/lib32 \
-				$cf_path/lib \
-				$cf_path/libdata"
-			;;
-		esac
-		for cf_config in $cf_test_path
-		do
-			test -d "$cf_config/pkgconfig" && cf_search_path="$cf_search_path $cf_config/pkgconfig"
-		done
-	fi
-
 	AC_MSG_RESULT($cf_search_path)
-
 	;;
 (*)
+	AC_MSG_ERROR(Unexpected option value: $cf_search_path)
 	;;
 esac
 
-AC_MSG_CHECKING(for first directory)
-cf_pkg_config_path=none
-for cf_config in $cf_search_path
-do
-	if test -d "$cf_config"
-	then
-		cf_pkg_config_path=$cf_config
-		break
-	fi
-done
-AC_MSG_RESULT($cf_pkg_config_path)
+if test -n "$cf_search_path"
+then
+	AC_MSG_CHECKING(for first directory)
+	cf_pkg_config_path=none
+	for cf_config in $cf_search_path
+	do
+		if test -d "$cf_config"
+		then
+			cf_pkg_config_path=$cf_config
+			break
+		fi
+	done
+	AC_MSG_RESULT($cf_pkg_config_path)
 
-if test "x$cf_pkg_config_path" != xnone ; then
-	# limit this to the first directory found
-	PKG_CONFIG_LIBDIR="$cf_pkg_config_path"
+	if test "x$cf_pkg_config_path" != xnone ; then
+		# limit this to the first directory found
+		PKG_CONFIG_LIBDIR="$cf_pkg_config_path"
+	fi
+
+	if test -z "$PKG_CONFIG_LIBDIR" && test -n "$cf_search_path"
+	then
+		AC_MSG_CHECKING(for workaround)
+		if test "$prefix" = "NONE" ; then
+			cf_prefix="$ac_default_prefix"
+		else
+			cf_prefix="$prefix"
+		fi
+		eval cf_libdir=$libdir
+		cf_libdir=`echo "$cf_libdir" | sed -e "s,^NONE,$cf_prefix,"`
+		cf_backup=
+		for cf_config in $cf_search_path
+		do
+			case $cf_config in
+			$cf_libdir/pkgconfig)
+				PKG_CONFIG_LIBDIR=$cf_libdir/pkgconfig
+				break
+				;;
+			*)
+				test -z "$cf_backup" && cf_backup=$cf_config
+				;;
+			esac
+		done
+		test -z "$PKG_CONFIG_LIBDIR" && PKG_CONFIG_LIBDIR=$cf_backup
+		AC_MSG_RESULT($PKG_CONFIG_LIBDIR)
+	fi
 fi
 
 AC_SUBST(PKG_CONFIG_LIBDIR)

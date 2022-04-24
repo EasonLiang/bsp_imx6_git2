@@ -1,7 +1,7 @@
 #!/bin/sh
-# $Id: make_sed.sh,v 1.12 2021/06/17 21:20:30 tom Exp $
+# $Id: make_sed.sh,v 1.14 2022/02/05 20:38:54 tom Exp $
 ##############################################################################
-# Copyright 2020,2021 Thomas E. Dickey                                       #
+# Copyright 2020-2021,2022 Thomas E. Dickey                                  #
 # Copyright 1998-2005,2017 Free Software Foundation, Inc.                    #
 #                                                                            #
 # Permission is hereby granted, free of charge, to any person obtaining a    #
@@ -46,7 +46,8 @@ UPPER=upper$$
 SCRIPT=script$$
 RESULT=result$$
 rm -f $UPPER $SCRIPT $RESULT
-trap "rm -f $COL.* $INPUT $UPPER $SCRIPT $RESULT" 0 1 2 3 15
+trap "rm -f $COL.* $INPUT $UPPER $SCRIPT $RESULT; exit 1" 1 2 3 15
+trap "rm -f $COL.* $INPUT $UPPER $SCRIPT $RESULT" 0
 fgrep -v \# $1 | \
 sed	-e 's/[	][	]*/	/g' >$INPUT
 
@@ -74,16 +75,16 @@ sed	-e 's/\//\/TH /' \
 
 echo "# Do the embedded references" >>$RESULT
 sed	-e 's/</<fB/' \
-	-e 's/	/\\\\fR(/' \
+	-e 's/	/\\\\fP(/' \
 	-e 's/	/)\/fB/' \
-	-e 's/	/\\\\fR(/' \
+	-e 's/	/\\\\fP(/' \
 	-e 's/\/$/)\//' \
 	$UPPER >>$RESULT
 
-echo "# Do the \fBxxx\fR references in the .NAME section" >>$RESULT
+echo "# Do the \fBxxx\fP references in the .NAME section" >>$RESULT
 sed	-e 's/\\</^\\\\fB/' \
 	-e 's/	[^	]*	/\\\\f[RP] -\/\\\\fB/' \
-	-e 's/	.*$/\\\\fR -\//' \
+	-e 's/	.*$/\\\\fP -\//' \
 	$UPPER >>$RESULT
 
 # Finally, send the result to standard output
