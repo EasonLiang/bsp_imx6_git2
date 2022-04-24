@@ -16,16 +16,16 @@ Last-Update: 2021-09-06
 
 --- a/misc/terminfo.src
 +++ b/misc/terminfo.src
-@@ -4811,7 +4811,7 @@ xterm+nofkeys|building block for xterm f
- xterm-new|modern xterm terminal emulator,
+@@ -4881,7 +4881,7 @@ xterm+nofkeys|building block for xterm f
+ xterm-p370|xterm patch #370,
  	npc,
  	kcbt=\E[Z, kent=\EOM, nel=\EE, use=ecma+index,
 -	use=ansi+rep, use=ecma+strikeout, use=xterm+pcfkeys,
 +	use=ecma+strikeout, use=xterm+pcfkeys,
  	use=xterm+nofkeys,
  
- # This fragment is for people who cannot agree on what the backspace key
-@@ -5422,7 +5422,7 @@ xterm-24|vs100|xterms|xterm terminal emu
+ # This version reflects the current xterm features.
+@@ -5549,7 +5549,7 @@ xterm-24|vs100|xterms|xterm terminal emu
  	lines#24, use=xterm-old,
  
  # This is xterm for ncurses.
