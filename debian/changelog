@@ -1,6 +1,9 @@
 ncurses (6.3+20220423-1) UNRELEASED; urgency=medium
 
   * New upstream patchlevel.
+    - Add a limit-check to guard against corrupt terminfo data
+      (report/testcase by NCNIPC of China (CVE-2022-29458),
+      Closes: #1009870).
   * Refresh Debian patches.
   * Update symbols files.
   * Ensure that the README file in ncurses-examples has correct
