@@ -1,5 +1,6 @@
-ncurses (6.3-3) UNRELEASED; urgency=medium
+ncurses (6.3+20220423-1) UNRELEASED; urgency=medium
 
+  * New upstream patchlevel.
   * Ensure that the README file in ncurses-examples has correct
     permissions (Closes: #1003929).
   * Add a lintian override to ncurses-examples for a false positive
