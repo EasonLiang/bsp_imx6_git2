@@ -1,4 +1,5 @@
 lib/terminfo/c/cons25      usr/share/terminfo/c/cons25
+lib/terminfo/r/rxvt        usr/share/terminfo/r/rxvt
 lib/terminfo/s/sun         usr/share/terminfo/s/sun
 lib/terminfo/v/vt100       usr/share/terminfo/v/vt100
 lib/terminfo/v/vt220       usr/share/terminfo/v/vt220

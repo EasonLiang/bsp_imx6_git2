@@ -11,6 +11,8 @@ ncurses (6.3+20220423-1) UNRELEASED; urgency=medium
     permissions (Closes: #1003929).
   * Add a lintian override to ncurses-examples for a false positive
     bash-term-in-posix-shell in tput-initc.
+  * Update debian/ncurses-term.links to avoid a broken symlink
+    /usr/share/terminfo/r/rxvt-color.
 
  -- Sven Joachim <svenjoac@gmx.de>  Wed, 19 Jan 2022 17:41:28 +0100
 
