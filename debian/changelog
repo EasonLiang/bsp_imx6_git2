@@ -1,4 +1,4 @@
-ncurses (6.3+20220423-1) UNRELEASED; urgency=medium
+ncurses (6.3+20220423-1) unstable; urgency=medium
 
   * New upstream patchlevel.
     - Add a limit-check to guard against corrupt terminfo data
@@ -15,7 +15,7 @@ ncurses (6.3+20220423-1) UNRELEASED; urgency=medium
     /usr/share/terminfo/r/rxvt-color.
   * Remove libmd-dev build dependency on kfreebsd, no longer needed.
 
- -- Sven Joachim <svenjoac@gmx.de>  Wed, 19 Jan 2022 17:41:28 +0100
+ -- Sven Joachim <svenjoac@gmx.de>  Tue, 26 Apr 2022 19:52:23 +0200
 
 ncurses (6.3-2) unstable; urgency=medium
 
