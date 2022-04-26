@@ -6,7 +6,6 @@ Uploaders: Sven Joachim <svenjoac@gmx.de>
 Build-Depends: debhelper-compat (= 13),
                libgpm-dev [linux-any],
                pkg-config,
-               libmd-dev [kfreebsd-any],
                autoconf-dickey (>= 2.52+20210509),
 Build-Depends-Arch: g++-multilib [amd64 i386 powerpc ppc64 s390 sparc] <!nobiarch>
 Standards-Version: 4.5.1
