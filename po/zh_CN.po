@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: psmisc 23.5rc1\n"
 "Report-Msgid-Bugs-To: csmall@dropbear.xyz\n"
-"POT-Creation-Date: 2022-05-09 20:28+1000\n"
+"POT-Creation-Date: 2022-05-09 20:30+1000\n"
 "PO-Revision-Date: 2022-03-23 21:10+0800\n"
 "Last-Translator: Wenbin Lv <wenbin816@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
@@ -412,9 +412,9 @@ msgid "prtstat (PSmisc) %s\n"
 msgstr "prtstat (PSmisc) %s\n"
 
 #: src/prtstat.c:66
-#, c-format
+#, fuzzy, c-format
 msgid ""
-"Copyright (C) 2009-2020 Craig Small\n"
+"Copyright (C) 2009-2022 Craig Small\n"
 "\n"
 msgstr ""
 "Copyright © 2009-2020 Craig Small\n"
