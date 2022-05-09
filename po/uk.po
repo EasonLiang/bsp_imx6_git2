@@ -2,13 +2,13 @@
 # Copyright (C) 2012 Free Software Foundation, Inc.
 # This file is distributed under the same license as the psmisc package.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2011, 2012, 2013, 2014, 2016, 2018, 2019, 2021.
+# Yuri Chornoivan <yurchor@ukr.net>, 2011, 2012, 2013, 2014, 2016, 2018, 2019, 2021, 2022.
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc-23.4rc1\n"
+"Project-Id-Version: psmisc-23.5rc1\n"
 "Report-Msgid-Bugs-To: csmall@dropbear.xyz\n"
-"POT-Creation-Date: 2022-03-21 21:00+1100\n"
-"PO-Revision-Date: 2021-01-24 13:01+0200\n"
+"POT-Creation-Date: 2022-05-09 20:28+1000\n"
+"PO-Revision-Date: 2022-03-21 15:20+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -16,9 +16,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 20.11.70\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 20.12.0\n"
 
 #: src/fuser.c:152
 #, c-format
@@ -100,12 +100,12 @@ msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
 #: src/fuser.c:185 src/killall.c:865
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2022 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"© Werner Almesberger та Craig Small, 1993–2020\n"
+"© Werner Almesberger та Craig Small, 1993–2022\n"
 "\n"
 
 #: src/fuser.c:187 src/killall.c:867 src/peekfd.c:195 src/prtstat.c:68
@@ -743,9 +743,9 @@ msgid "No such user name: %s\n"
 msgstr "Користувача з таким іменем не існує: %s\n"
 
 #: src/pstree.c:1468
-#, fuzzy, c-format
+#, c-format
 msgid "Process %d not found.\n"
-msgstr "Не знайдено жодного процесу.\n"
+msgstr "Процес %d не знайдено.\n"
 
 #: src/pstree.c:1484
 #, c-format

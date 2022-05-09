@@ -1,14 +1,14 @@
 # Polish translations for psmisc.
-# Copyright (C) 2004, 2005, 2007, 2009, 2010, 2012, 2013, 2014, 2016, 2018, 2019, 2021 Free Software Foundation, Inc.
+# Copyright (C) 2004, 2005, 2007, 2009, 2010, 2012, 2013, 2014, 2016, 2018, 2019, 2021, 2022 Free Software Foundation, Inc.
 # This file is distributed under the same license as the psmisc package.
-# Jakub Bogusz <qboosh@pld-linux.org>, 2003-2021.
+# Jakub Bogusz <qboosh@pld-linux.org>, 2003-2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc 23.4rc1\n"
+"Project-Id-Version: psmisc 23.5rc1\n"
 "Report-Msgid-Bugs-To: csmall@dropbear.xyz\n"
-"POT-Creation-Date: 2022-03-21 21:00+1100\n"
-"PO-Revision-Date: 2021-01-24 20:56+0100\n"
+"POT-Creation-Date: 2022-05-09 20:28+1000\n"
+"PO-Revision-Date: 2022-03-21 21:15+0100\n"
 "Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "Language: pl\n"
@@ -95,12 +95,12 @@ msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
 #: src/fuser.c:185 src/killall.c:865
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2022 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Copyright (C) 1993-2020 Werner Almesberger i Craig Small\n"
+"Copyright (C) 1993-2022 Werner Almesberger i Craig Small\n"
 "\n"
 
 #: src/fuser.c:187 src/killall.c:867 src/peekfd.c:195 src/prtstat.c:68
@@ -732,9 +732,9 @@ msgid "No such user name: %s\n"
 msgstr "Nie ma użytkownika o takiej nazwie: %s\n"
 
 #: src/pstree.c:1468
-#, fuzzy, c-format
+#, c-format
 msgid "Process %d not found.\n"
-msgstr "Nie znaleziono procesów.\n"
+msgstr "Nie znaleziono procesu %d.\n"
 
 #: src/pstree.c:1484
 #, c-format

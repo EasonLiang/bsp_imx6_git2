@@ -3,23 +3,23 @@
 # This file is distributed under the same license as the psmisc package.
 # Wolfgang Schorer <wcc@wolfgangs.com>, 2002.
 # Benno Schulenberg <benno@vertaalt.nl>, 2007.
-# Roland Illig <roland.illig@gmx.de>, 2009-2021.
+# Roland Illig <roland.illig@gmx.de>, 2009-2022.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc 23.4rc1\n"
+"Project-Id-Version: psmisc 23.5rc1\n"
 "Report-Msgid-Bugs-To: csmall@dropbear.xyz\n"
-"POT-Creation-Date: 2022-03-21 21:00+1100\n"
-"PO-Revision-Date: 2021-01-24 12:40+0100\n"
+"POT-Creation-Date: 2022-05-09 20:28+1000\n"
+"PO-Revision-Date: 2022-03-22 00:19+0100\n"
 "Last-Translator: Roland Illig <roland.illig@gmx.de>\n"
 "Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Poedit 2.3.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: src/fuser.c:152
 #, c-format
@@ -101,12 +101,12 @@ msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
 #: src/fuser.c:185 src/killall.c:865
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2022 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Copyright (C) 1993-2020 Werner Almesberger and Craig Small\n"
+"Copyright (C) 1993-2022 Werner Almesberger and Craig Small\n"
 "\n"
 
 #: src/fuser.c:187 src/killall.c:867 src/peekfd.c:195 src/prtstat.c:68
@@ -744,9 +744,9 @@ msgid "No such user name: %s\n"
 msgstr "Kein Benutzer mit dem Namen »%s«\n"
 
 #: src/pstree.c:1468
-#, fuzzy, c-format
+#, c-format
 msgid "Process %d not found.\n"
-msgstr "Keine Prozesse gefunden.\n"
+msgstr "Prozess %d wurde nicht gefunden.\n"
 
 #: src/pstree.c:1484
 #, c-format

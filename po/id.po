@@ -6,18 +6,19 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc 23.4rc1\n"
+"Project-Id-Version: psmisc 23.5rc1\n"
 "Report-Msgid-Bugs-To: csmall@dropbear.xyz\n"
-"POT-Creation-Date: 2022-03-21 21:00+1100\n"
-"PO-Revision-Date: 2021-08-29 13:55+0700\n"
+"POT-Creation-Date: 2022-05-09 20:28+1000\n"
+"PO-Revision-Date: 2022-03-21 21:04+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Poedit 2.4.3\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: src/fuser.c:152
 #, c-format
@@ -75,7 +76,7 @@ msgid ""
 "  -6,--ipv6             search IPv6 sockets only\n"
 msgstr ""
 "  -4,--ipv4             cari di socket IPv4 saja\n"
-"  -6,--ipv6             cari di socket IPpv6 saja\n"
+"  -6,--ipv6             cari di socket IPv6 saja\n"
 
 #: src/fuser.c:176
 #, c-format
@@ -96,12 +97,12 @@ msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
 #: src/fuser.c:185 src/killall.c:865
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2022 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Hak Cipta (C) 1993-2020 Werner Almesberger dan Craid Small\n"
+"Hak Cipta (C) 1993-2022 Werner Almesberger dan Craid Small\n"
 "\n"
 
 #: src/fuser.c:187 src/killall.c:867 src/peekfd.c:195 src/prtstat.c:68
@@ -114,9 +115,8 @@ msgid ""
 "For more information about these matters, see the files named COPYING.\n"
 msgstr ""
 "PSmisc datang dengan SECARA ABSOLUT TIDAK ADA GARANSI.\n"
-"Ini adalah aplikasi bebas, Anda diperbolehkan untuk meredistribusikannya di "
-"bawah\n"
-"ketentuan dari GNU General Public License.\n"
+"Ini adalah aplikasi bebas, Anda diperbolehkan untuk meredistribusikannya\n"
+"di bawah ketentuan dari GNU General Public License.\n"
 "Untuk informasi mengenai masalah ini, lihat berkas bernama COPYING.\n"
 
 #: src/fuser.c:209
@@ -132,7 +132,7 @@ msgstr "Tidak dapat mengalokasikan memori untuk proc yang sesuai: %s\n"
 #: src/fuser.c:501
 #, c-format
 msgid "Specified filename %s does not exist.\n"
-msgstr "Nama berkas yang dispesifikasikan %s tidak ada.\n"
+msgstr "Nama berkas %s yang dispesifikasikan tidak ada.\n"
 
 #: src/fuser.c:504
 #, c-format
@@ -157,7 +157,7 @@ msgstr "Tidak dapat membuka berkas protokol \"%s\": %s\n"
 #: src/fuser.c:1086
 #, c-format
 msgid "Specified filename %s is not a mountpoint.\n"
-msgstr "Nama berkas yang dispesifikasikan %s bukan titik kait.\n"
+msgstr "Nama berkas %s yang dispesifikasikan bukan titik kait.\n"
 
 #: src/fuser.c:1182
 #, c-format
@@ -187,7 +187,7 @@ msgstr "semua opsi tidak dapat digunakan dengan opsi silent."
 #: src/fuser.c:1387
 msgid "You cannot search for only IPv4 and only IPv6 sockets at the same time"
 msgstr ""
-"Anda tidak dapat mencari hanya untuk IPv4 dan hanya untuk IPv6 socket di "
+"Anda tidak dapat mencari soket hanya untuk IPv4 dan hanya untuk IPv6 di "
 "waktu yang sama"
 
 #: src/fuser.c:1483
@@ -733,9 +733,9 @@ msgid "No such user name: %s\n"
 msgstr "Tidak ada nama pengguna seperti itu: %s\n"
 
 #: src/pstree.c:1468
-#, fuzzy, c-format
+#, c-format
 msgid "Process %d not found.\n"
-msgstr "Tidak ada proses yang ditemukan.\n"
+msgstr "Proses %d tidak ditemukan.\n"
 
 #: src/pstree.c:1484
 #, c-format

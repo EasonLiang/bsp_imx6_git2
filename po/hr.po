@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the psmisc package.
 #
 # Tomislav Krznar <tomislav.krznar@gmail.com>, 2012.
-# Božidar Putanec <bozidarp@yahoo.com>, 2016, 2018, 2019, 2021.
+# Božidar Putanec <bozidarp@yahoo.com>, 2016, 2018, 2019, 2021, 2022.
 msgid ""
 msgstr ""
-"Project-Id-Version: psmisc 23.4rc1\n"
+"Project-Id-Version: psmisc 23.5rc1\n"
 "Report-Msgid-Bugs-To: csmall@dropbear.xyz\n"
-"POT-Creation-Date: 2022-03-21 21:00+1100\n"
-"PO-Revision-Date: 2021-03-12 10:07-0800\n"
+"POT-Creation-Date: 2022-05-09 20:28+1000\n"
+"PO-Revision-Date: 2022-03-21 10:34-0700\n"
 "Last-Translator: Božidar Putanec <bozidarp@yahoo.com>\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
 "Language: hr\n"
@@ -17,9 +17,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 2.4.2\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 21.12.3\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 # 1. https://en.wikipedia.org/wiki/Namespace
@@ -57,7 +57,7 @@ msgstr ""
 "sustave.\n"
 "\n"
 "  -a, --all              pokaže i nekorištene datoteke\n"
-"  -i, --interactive      pita prije ubijanja (ignorira se bez -k)\n"
+"  -i, --interactive      pita prije ubijanja (zanemareno bez -k)\n"
 "  -I, --inode            uvijek rabi inodes za usporedbu datoteka\n"
 "  -k, --kill             ubije procese koji pristupaju navedenoj datoteci\n"
 "  -l, --list-signals     ispiše imena dostupnih signala\n"
@@ -101,12 +101,12 @@ msgid "fuser (PSmisc) %s\n"
 msgstr "fuser (PSmisc) %s\n"
 
 #: src/fuser.c:185 src/killall.c:865
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Copyright (C) 1993-2022 Werner Almesberger and Craig Small\n"
 "\n"
 msgstr ""
-"Copyright (C) 1993-2020 Werner Almesberger and Craig Small\n"
+"Copyright (C) 1993-2022 Werner Almesberger and Craig Small\n"
 "\n"
 
 #: src/fuser.c:187 src/killall.c:867 src/peekfd.c:195 src/prtstat.c:68
@@ -303,7 +303,7 @@ msgstr ""
 "       killall -V, --version\n"
 "\n"
 "  -e, --exact          zahtjeva točno podudaranje za vrlo dugačka imena\n"
-"  -I, --ignore-case    ignorira veličinu slova prilikom pretrage procesa\n"
+"  -I, --ignore-case    zanemari veličinu slova prilikom pretrage procesa\n"
 "  -g, --process-group  ubije procesnu grupu umjesto procesa\n"
 "  -y, --younger-than   ubije procese mlađe od VREMENA\n"
 "  -o, --older-than     ubije procese starije od VREMENA\n"
@@ -393,7 +393,7 @@ msgid ""
 msgstr ""
 "Uporaba: peekfd [-8] [-n] [-c] [-d] [-V] [-h] <pid> [<fd> ..]\n"
 "    -8, --eight-bit-clean        producira čisti 8-bitni izlaz\n"
-"    -n, --no-headers             ne prikazuje čitanje i pisanje iz fd "
+"    -n, --no-headers             ne pokazuje čitanje i pisanje iz fd "
 "zaglavlja\n"
 "    -c, --follow                 također gleda svaki novi dijete-proces\n"
 "    -t, --tgid                   gleda sve dretve za koje je tgid jednak "
@@ -699,7 +699,7 @@ msgid ""
 msgstr ""
 "\n"
 "  PID       započne s ovim PID-om; zadano je 1 (init)\n"
-"  KORISNIK  pokaže samo stablo s korijenom u procesima ovoga KORISNIKA\n"
+"  KORISNIK  pokaže samo stablo s korijenom u procesima ovog KORISNIKA\n"
 "\n"
 
 #: src/pstree.c:1264
@@ -737,9 +737,9 @@ msgid "No such user name: %s\n"
 msgstr "Nema takvog korisnika: %s\n"
 
 #: src/pstree.c:1468
-#, fuzzy, c-format
+#, c-format
 msgid "Process %d not found.\n"
-msgstr "Nijedan proces nije pronađen.\n"
+msgstr "Proces %d nije pronađen.\n"
 
 #: src/pstree.c:1484
 #, c-format
