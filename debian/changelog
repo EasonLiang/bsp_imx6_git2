@@ -1,3 +1,31 @@
+init-system-helpers (1.63) unstable; urgency=medium
+
+  [ Debian Janitor ]
+  * Remove constraints unnecessary since buster
+    * init-system-helpers: Drop versioned constraint on perl-base in Depends.
+    * init: Drop versioned constraint on init-system-helpers in Depends.
+
+  [ Johannes Schauer Marin Rodrigues ]
+  * t/helpers.pm: use installed version of deb-systemd-helper if
+    TEST_INSTALLED is set
+  * add DPKG_ROOT support (Closes: #983421)
+
+  [ Niels Thykier ]
+  * Add additional error checking on write operations.
+    The `close()` call can fail on both read and write - while the read is
+    usually relatively benign, for the write counter part can include "fun"
+    errors. Most of these would most likely be persistent issues, but it makes
+    sense to detect errors as early possible.
+
+  [ Ville Skyttä ]
+  * service: use `grep -F` instead of `egrep`
+    `egrep` and `fgrep` have been deprecated in GNU grep since 2007, and in
+    current post 3.7 Git they have been made to emit obsolescence warnings.
+    The occurrence in `service` uses a non-regex argument, so switch to `grep
+    -F` instead of `-E`.
+
+ -- Michael Biebl <biebl@debian.org>  Mon, 23 May 2022 22:48:30 +0200
+
 init-system-helpers (1.62) unstable; urgency=medium
 
   * Team upload.
