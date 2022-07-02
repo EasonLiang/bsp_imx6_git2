@@ -17,7 +17,7 @@ test_setup();
 my $dpkg_root = $ENV{DPKG_ROOT} // '';
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-# ┃ Create two unit files with random names; one refers to the other (Also=). ┃
+# ┃ Create two unit files with random names; they refer to each other (Also=).┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
 my ($fh1, $random_unit1) = tempfile('unitXXXXX',
@@ -62,6 +62,7 @@ ExecStart=/bin/sleep 1
 [Install]
 WantedBy=multi-user.target
 Alias=alias2.service
+Also=$random_unit1
 EOT
 close($fh2);
 
@@ -96,6 +97,13 @@ my $alias_path = "$dpkg_root/etc/systemd/system/alias2.service";
 ok(-l $alias_path, 'alias created');
 is($dpkg_root . readlink($alias_path), $servicefile_path2,
     'alias points to the correct service file');
+
+is_deeply(
+    [ state_file_entries("$dpkg_root/var/lib/systemd/deb-systemd-helper-enabled/$random_unit1.dsh-also") ],
+    [ "$dpkg_root/etc/systemd/system/multi-user.target.wants/$random_unit1",
+      "$dpkg_root/etc/systemd/system/multi-user.target.wants/$random_unit2",
+      "$dpkg_root/etc/systemd/system/alias2.service" ],
+    'state file updated');
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃ Verify “is-enabled” now returns true.                                     ┃

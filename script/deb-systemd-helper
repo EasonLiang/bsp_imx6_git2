@@ -220,7 +220,7 @@ sub record_in_statefile {
 # when enabling this service file. Not straight-forward because service files
 # can refer to other service files using Also=.
 sub get_link_closure {
-    my ($scriptname, $service_path) = @_;
+    my ($scriptname, $service_path, @visited) = @_;
     assertnotdpkgroot($service_path, "get_link_closure");
 
     my @links;
@@ -249,8 +249,11 @@ sub get_link_closure {
         if ($line =~ /^\s*Also=(.+)$/i) {
             for my $value (split(/\s+/, $1)) {
                 $value =~ s/^(["'])(.*)\g1$/$2/;
-                if ($value ne $unit_name) {
-                    push @links, get_link_closure($value, find_unit($value));
+                if ($value ne $unit_name and not grep $_ eq $value, @visited) {
+                    # We can end up in an infinite recursion, so remember what units we
+                    # already processed to break it
+                    push @visited, $value;
+                    push @links, get_link_closure($value, find_unit($value), @visited);
                 }
             }
         }
