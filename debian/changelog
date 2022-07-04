@@ -1,3 +1,12 @@
+init-system-helpers (1.64) unstable; urgency=medium
+
+  * Team upload.
+  * d-s-h: break infinite recursion on symlinks. (Closes: #1014119)
+  * Bump Standards-Version to 4.6.1, no changes
+  * Update date ranges in d/copyright
+
+ -- Luca Boccassi <bluca@debian.org>  Mon, 04 Jul 2022 11:19:08 +0100
+
 init-system-helpers (1.63) unstable; urgency=medium
 
   [ Debian Janitor ]
