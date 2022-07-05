@@ -4,6 +4,7 @@
 use strict;
 use warnings;
 use Test::More;
+use Test::Deep qw(:preload cmp_bag);
 use File::Temp qw(tempfile tempdir); # in core since perl 5.6.1
 use File::Path qw(make_path); # in core since Perl 5.001
 use File::Basename; # in core since Perl 5
@@ -105,7 +106,7 @@ is_enabled($random_unit);
 # ┃ Verify the new symlink was recorded in the state file.                    ┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-is_deeply(
+cmp_bag(
     [ state_file_entries($statefile) ],
     [ $symlink_path, $new_symlink_path ],
     'state file updated');
@@ -133,7 +134,7 @@ is($retval >> 8, 0, "random unit file was-enabled");
 # ┃ Verify the new symlink is not yet in the state file.                      ┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-is_deeply(
+cmp_bag(
     [ state_file_entries($statefile) ],
     [ $symlink_path, $new_symlink_path ],
     'state file does not contain the new link yet');
@@ -151,7 +152,7 @@ ok(! -l $new_symlink_path2, 'new symlink still does not exist');
 
 isnt_enabled($random_unit);
 
-is_deeply(
+cmp_bag(
     [ state_file_entries($statefile) ],
     [ $symlink_path, $new_symlink_path, $new_symlink_path2 ],
     'state file updated');

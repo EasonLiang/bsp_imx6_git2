@@ -2,5 +2,6 @@ Tests: t
 Depends: @,
   build-essential,
   fakeroot,
-  fakechroot
+  fakechroot,
+  libtest-deep-perl
 Restrictions: allow-stderr

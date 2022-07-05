@@ -9,6 +9,7 @@ Uploaders: Michael Biebl <biebl@debian.org>,
 Build-Depends: debhelper-compat (= 13),
                fakeroot <!nocheck>,
                fakechroot <!nocheck>,
+               libtest-deep-perl <!nocheck>,
                perl:any,
                python3-docutils
 Standards-Version: 4.6.1

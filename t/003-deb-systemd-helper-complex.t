@@ -4,6 +4,7 @@
 use strict;
 use warnings;
 use Test::More;
+use Test::Deep qw(:preload cmp_bag);
 use File::Temp qw(tempfile tempdir); # in core since perl 5.6.1
 use File::Path qw(make_path); # in core since Perl 5.001
 use File::Basename; # in core since Perl 5
@@ -98,7 +99,7 @@ ok(-l $alias_path, 'alias created');
 is($dpkg_root . readlink($alias_path), $servicefile_path2,
     'alias points to the correct service file');
 
-is_deeply(
+cmp_bag(
     [ state_file_entries("$dpkg_root/var/lib/systemd/deb-systemd-helper-enabled/$random_unit1.dsh-also") ],
     [ "$dpkg_root/etc/systemd/system/multi-user.target.wants/$random_unit1",
       "$dpkg_root/etc/systemd/system/multi-user.target.wants/$random_unit2",
