@@ -4,7 +4,8 @@ Priority: optional
 Maintainer: Debian systemd Maintainers <pkg-systemd-maintainers@lists.alioth.debian.org>
 Uploaders: Michael Biebl <biebl@debian.org>,
            Martin Pitt <mpitt@debian.org>,
-           Felipe Sateler <fsateler@debian.org>
+           Felipe Sateler <fsateler@debian.org>,
+           Luca Boccassi <bluca@debian.org>,
 Build-Depends: debhelper-compat (= 13),
                fakeroot <!nocheck>,
                fakechroot <!nocheck>,
