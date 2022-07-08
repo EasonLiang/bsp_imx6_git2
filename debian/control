@@ -22,7 +22,6 @@ Essential: yes
 Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${perl:Depends},
-Conflicts: file-rc (<< 0.8.17~),
 Description: helper tools for all init systems
  This package contains helper tools that are necessary for switching between
  the various init systems that Debian contains (e. g. sysvinit or
