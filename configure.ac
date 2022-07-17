@@ -204,7 +204,7 @@ AC_SYS_LARGEFILE
 
 if test x"$DEJAGNU" = x
 then
-  DEJAGNU="\$(top_srcdir)/testsuite/global-conf.exp"
+  DEJAGNU="/dev/null"
 fi
 AC_SUBST(DEJAGNU)
 	
