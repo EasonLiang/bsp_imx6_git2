@@ -326,7 +326,12 @@ my_send_signal(
 {
 #ifdef __NR_pidfd_send_signal
     if (pid > 0) /* Not PGID */
-        return syscall(__NR_pidfd_send_signal, pidfd, sig, NULL, 0);
+    {
+	int ret = syscall(__NR_pidfd_send_signal, pidfd, sig, NULL, 0);
+	if (ret >= 0 || errno != ENOSYS)
+	    return ret;
+	// fall through if no such syscall
+    }
 #endif
     return kill(pid, sig);
 }
