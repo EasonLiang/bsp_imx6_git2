@@ -1,3 +1,7 @@
+Changes in NEXT
+===============
+        * buildsys: Fix DEJAGNU work-around Debian #1015089
+
 Changes in 23.5
 ===============
 	* killall: Check truncated names !28
