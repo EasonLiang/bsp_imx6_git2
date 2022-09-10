@@ -1,3 +1,28 @@
+init-system-helpers (1.65~exp1) experimental; urgency=medium
+
+  [ Luca Boccassi ]
+  * Drop outdated conflict with file-rc
+  * Add myself to Uploaders
+  * d/rules: use execute_after instead of override
+  * Add a dependency on usrmerge | usr-is-merged to complete the
+    transition. As per ctte decision and discussion at:
+    https://lists.debian.org/debian-ctte/2022/07/msg00019.html
+    https://lists.debian.org/debian-ctte/2022/07/msg00061.html
+    https://lists.debian.org/debian-ctte/2022/08/msg00006.html
+
+  [ Victor Westerhuis ]
+  * Make deb-systemd-helper work on template units with DefaultInstance.
+    DefaultInstance only influences the meaning of WantedBy/RequiredBy.
+    Alias and Also are not impacted. This patch does not enable changing
+    template instantiations, so `deb-systemd-helper enable
+    getty@tty2.service` will still fail.
+  * Fix tests depending on ordering of lines in state file. The previous
+    commit changes the order in which lines are written to the state file.
+    Because correctness does not depend on the order in which the state
+    file is written, ignore the order in the test.
+
+ -- Luca Boccassi <bluca@debian.org>  Sat, 10 Sep 2022 13:27:16 +0100
+
 init-system-helpers (1.64) unstable; urgency=medium
 
   * Team upload.
