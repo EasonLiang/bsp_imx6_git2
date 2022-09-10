@@ -24,6 +24,7 @@ Essential: yes
 Multi-Arch: foreign
 Depends: ${misc:Depends},
          ${perl:Depends},
+         usrmerge | usr-is-merged,
 Description: helper tools for all init systems
  This package contains helper tools that are necessary for switching between
  the various init systems that Debian contains (e. g. sysvinit or
