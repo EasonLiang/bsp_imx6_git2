@@ -1,3 +1,9 @@
+init-system-helpers (1.65~exp2) experimental; urgency=medium
+
+  * fakechroot tests: skip on architectures where it is not available
+
+ -- Luca Boccassi <bluca@debian.org>  Thu, 15 Sep 2022 21:14:08 +0100
+
 init-system-helpers (1.65~exp1) experimental; urgency=medium
 
   [ Luca Boccassi ]
