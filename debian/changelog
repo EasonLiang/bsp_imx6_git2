@@ -1,3 +1,9 @@
+init-system-helpers (1.65) unstable; urgency=low
+
+  * Upload to unstable.
+
+ -- Luca Boccassi <bluca@debian.org>  Sat, 17 Sep 2022 21:11:07 +0100
+
 init-system-helpers (1.65~exp2) experimental; urgency=medium
 
   * fakechroot tests: skip on architectures where it is not available
