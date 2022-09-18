@@ -1,3 +1,9 @@
+init-system-helpers (1.65.1) unstable; urgency=low
+
+  * Undo hostile NMU.
+
+ -- Luca Boccassi <bluca@debian.org>  Sun, 18 Sep 2022 01:53:32 +0100
+
 init-system-helpers (1.65) unstable; urgency=low
 
   * Upload to unstable.
