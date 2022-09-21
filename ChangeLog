@@ -2,6 +2,7 @@ Changes in NEXT
 ===============
         * buildsys: Fix DEJAGNU work-around Debian #1015089
 	* killall: Use kill if pidfd_send_signal fails Debian #1015228
+	* fuser: Do not mention nonexistent - reset option #42
 
 Changes in 23.5
 ===============

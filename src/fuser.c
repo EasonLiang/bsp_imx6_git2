@@ -173,8 +173,7 @@ static void usage(
     fprintf(stderr, _("  -4,--ipv4             search IPv4 sockets only\n"
                       "  -6,--ipv6             search IPv6 sockets only\n"));
 #endif
-    fprintf(stderr, _("  -                     reset options\n\n"
-                      "  udp/tcp names: [local_port][,[rmt_host][,[rmt_port]]]\n\n"));
+    fprintf(stderr, _("  udp/tcp names: [local_port][,[rmt_host][,[rmt_port]]]\n\n"));
     exit(1);
 }
 
